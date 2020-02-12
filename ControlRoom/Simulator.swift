@@ -9,7 +9,7 @@
 import Foundation
 
 /// Stores one simulator and its identifier.
-struct Simulator: Decodable, Identifiable, Comparable {
+struct Simulator: Decodable, Identifiable, Comparable, Hashable {
     /// The user-facing name for this simulator, e.g. iPhone 11 Pro Max.
     var name: String
 
