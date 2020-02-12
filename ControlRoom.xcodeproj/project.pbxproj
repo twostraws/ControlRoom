@@ -27,6 +27,8 @@
 		51760B2D23F46073004532A9 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51760B2C23F46073004532A9 /* Defaults.swift */; };
 		551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEC23F489A50006D1BD /* SidebarView.swift */; };
 		551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */; };
+		551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF023F498C30006D1BD /* SimulatorsController.swift */; };
+		551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF423F4AF7B0006D1BD /* FilterField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		51760B2C23F46073004532A9 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		551F8CEC23F489A50006D1BD /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLayoutView.swift; sourceTree = "<group>"; };
+		551F8CF023F498C30006D1BD /* SimulatorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorsController.swift; sourceTree = "<group>"; };
+		551F8CF423F4AF7B0006D1BD /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
 				511BA59323F4079500E3E660 /* Command.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
+				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
 			);
 			path = ControlRoom;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				511BA5A923F4316700E3E660 /* TextView.swift */,
+				551F8CF423F4AF7B0006D1BD /* FilterField.swift */,
 			);
 			path = NSViewWrappers;
 			sourceTree = "<group>";
@@ -242,11 +248,13 @@
 				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
+				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
 				511BA59423F4079500E3E660 /* Command.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
 				51760B2D23F46073004532A9 /* Defaults.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
+				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
