@@ -14,7 +14,7 @@ Control Room is a macOS app that lets you control the simulators for iOS, tvOS, 
 
 ## Installation
 
-To try Control Room yourself, download the code and build it through Xcode. It’s built using Swift, so you’ll need macOS Catalina in order to run it. You will also need Xcode installed, because it relies on the **simctl** command being present.
+To try Control Room yourself, download the code and build it through Xcode. It’s built using SwiftUI, so you’ll need macOS Catalina in order to run it. You will also need Xcode installed, because it relies on the **simctl** command being present.
 
 **Warning:** SwiftUI on macOS is a little flaky at times, so I highly recommend you update to the very latest macOS version if you want to avoid any surprises.
 
