@@ -52,8 +52,8 @@ struct SystemView: View {
             Group {
                 Section(header: Text("Copy Pasteboard")) {
                     HStack {
-                        Button("Simulator -> Mac", action: copyPasteboardToMac)
-                        Button("Mac -> Simulator", action: copyPasteboardToSim)
+                        Button("Simulator → Mac", action: copyPasteboardToMac)
+                        Button("Mac → Simulator", action: copyPasteboardToSim)
                     }
                 }
 

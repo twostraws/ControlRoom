@@ -25,6 +25,8 @@
 		511BA5A823F42EE400E3E660 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A723F42EE400E3E660 /* AppView.swift */; };
 		511BA5AA23F4316700E3E660 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A923F4316700E3E660 /* TextView.swift */; };
 		51760B2D23F46073004532A9 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51760B2C23F46073004532A9 /* Defaults.swift */; };
+		551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEC23F489A50006D1BD /* SidebarView.swift */; };
+		551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		511BA5A723F42EE400E3E660 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		511BA5A923F4316700E3E660 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		51760B2C23F46073004532A9 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		551F8CEC23F489A50006D1BD /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLayoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 				511BA5D023F455E100E3E660 /* SystemBits */,
 				511BA57E23F3FFEA00E3E660 /* MainView.swift */,
 				511BA59123F4031F00E3E660 /* ControlView.swift */,
+				551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */,
+				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
 				511BA59323F4079500E3E660 /* Command.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
 			);
@@ -225,6 +231,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
+				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
+				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */,
 				511BA5AA23F4316700E3E660 /* TextView.swift in Sources */,

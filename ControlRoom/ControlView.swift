@@ -10,35 +10,23 @@ import SwiftUI
 
 /// The main tab view to control simulator settings.
 struct ControlView: View {
-    var simulators: [Simulator]
-
-    /// Whichever simulator the user is actively working with.
-    @State private var selectedSimulator = 0
-
-    /// Returns the current simulator from the simulators array.
-    private var currentSimulator: Simulator {
-        self.simulators[self.selectedSimulator]
-    }
+    let simulator: Simulator
 
     var body: some View {
         VStack {
             HStack {
-                Picker("Simulator:", selection: $selectedSimulator) {
-                    ForEach(0..<simulators.count) { index in
-                        Text(self.simulators[index].name)
-                    }
-                }
-
+                Text(simulator.name)
+                Spacer()
                 Button("Boot", action: bootDevice)
                 Button("Shutdown", action: shutdownDevice)
             }
             .padding(.bottom, 10)
 
             TabView {
-                SystemView(simulator: currentSimulator)
-                AppView(simulator: currentSimulator)
-                BatteryView(simulator: currentSimulator)
-                DataView(simulator: currentSimulator)
+                SystemView(simulator: simulator)
+                AppView(simulator: simulator)
+                BatteryView(simulator: simulator)
+                DataView(simulator: simulator)
             }
         }
         .padding()
@@ -46,17 +34,17 @@ struct ControlView: View {
 
     /// Launches the current device.
     func bootDevice() {
-        Command.simctl("boot", currentSimulator.udid)
+        Command.simctl("boot", simulator.udid)
     }
 
     /// Terminates the current device.
     func shutdownDevice() {
-        Command.simctl("shutdown", currentSimulator.udid)
+        Command.simctl("shutdown", simulator.udid)
     }
 }
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(simulators: [.example])
+        ControlView(simulator: .example)
     }
 }

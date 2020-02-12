@@ -38,7 +38,7 @@ struct MainView: View {
             if loadingStatus == .loading {
                 LoadingView()
             } else if loadingStatus == .success {
-                ControlView(simulators: simulators)
+                SplitLayoutView(simulators: simulators, selected: simulators.first)
             } else {
                 LoadingFailedView()
             }
