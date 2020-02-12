@@ -104,7 +104,7 @@ struct AppView: View {
 
     /// Reveals the app's container directory in Finder,
     func showContainer() {
-        Command.simctl("get_app_container \(self.simulator.udid) \(self.bundleID)") { result in
+        Command.simctl("get_app_container", self.simulator.udid, self.bundleID) { result in
             if let data = try? result.get() {
                 // We can't just "open" the app bundle URL, because
                 // macOS will attempt to execute the binary.
@@ -129,7 +129,7 @@ struct AppView: View {
 
         do {
             try self.pushPayload.write(to: fileURL, atomically: true, encoding: .utf8)
-            Command.simctl("push \(self.simulator.udid) \(self.bundleID) \(fileURL.path)")
+            Command.simctl("push", self.simulator.udid, self.bundleID, fileURL.path)
         } catch {
             print("Write error for URL: \(fileURL)")
         }
@@ -137,7 +137,7 @@ struct AppView: View {
 
     /// Removes the identified app from the device.
     func uninstallApp() {
-        Command.simctl("uninstall \(self.simulator.udid) \(self.bundleID)")
+        Command.simctl("uninstall", self.simulator.udid, self.bundleID)
     }
 
     /// Wrtes the user's URL to UserDefaults.
@@ -148,22 +148,22 @@ struct AppView: View {
     /// Opens a URL in the appropriate device app.
     func openURL() {
         saveAppURL()
-        Command.simctl("openurl \(self.simulator.udid) \(self.url)")
+        Command.simctl("openurl", self.simulator.udid, self.url)
     }
 
     /// Grants some type of permission to the app.
     func grantPrivacy() {
-        Command.simctl("privacy \(self.simulator.udid) grant \(self.resetPermission.lowercased()) \(self.bundleID)")
+        Command.simctl("privacy", self.simulator.udid, "grant", self.resetPermission.lowercased(), self.bundleID)
     }
 
     /// Revokes some type of permission from the app.
     func revokePrivacy() {
-        Command.simctl("privacy \(self.simulator.udid) revoke \(self.resetPermission.lowercased()) \(self.bundleID)")
+        Command.simctl("privacy", self.simulator.udid, "revoke", self.resetPermission.lowercased(), self.bundleID)
     }
 
     /// Resets some type of permission to the app, so it will be asked for again.
     func resetPrivacy() {
-        Command.simctl("privacy \(self.simulator.udid) reset \(self.resetPermission.lowercased()) \(self.bundleID)")
+        Command.simctl("privacy", self.simulator.udid, "reset", self.resetPermission.lowercased(), self.bundleID)
     }
 }
 

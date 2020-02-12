@@ -82,37 +82,37 @@ struct SystemView: View {
 
     /// Changes the system clock to a new value.
     func setTime() {
-        Command.simctl("status_bar \(self.simulator.udid) override --time \(self.timeString)")
+        Command.simctl("status_bar", simulator.udid, "override", "--time", timeString)
     }
 
     /// Moves between light and dark mode.
     func updateAppearance() {
-        Command.simctl("ui \(simulator.udid) appearance \(appearance.lowercased())")
+        Command.simctl("ui", simulator.udid, "appearance", appearance.lowercased())
     }
 
     /// Starts an immediate iCloud sync.
     func triggerSync() {
-        Command.simctl("icloud_sync \(self.simulator.udid)")
+        Command.simctl("icloud_sync", simulator.udid)
     }
 
     /// Copies the simulator's pasteboard to the Mac.
     func copyPasteboardToMac() {
-        Command.simctl("pbsync \(self.simulator.udid) host")
+        Command.simctl("pbsync", simulator.udid, "host")
     }
 
     /// Copies the Mac's pasteboard to the simulator.
     func copyPasteboardToSim() {
-        Command.simctl("pbsync host \(self.simulator.udid)")
+        Command.simctl("pbsync", "host", simulator.udid)
     }
 
     /// Takes a screenshot of the device's current screen and saves it to the desktop.
     func takeScreenshot() {
-        Command.simctl("io \(self.simulator.udid) screenshot \(makeScreenshotFilename())")
+        Command.simctl("io", simulator.udid, "screenshot", makeScreenshotFilename())
     }
 
     /// Erases the current device.
     func eraseDevice() {
-        Command.simctl("erase \(self.simulator.udid)")
+        Command.simctl("erase", simulator.udid)
     }
 
     /// Creates a filename for a screenshot that ought to be unique

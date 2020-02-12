@@ -116,14 +116,13 @@ struct DataView: View {
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually.
     func updateData() {
-        var command = "status_bar \(self.simulator.udid) override "
-        command.append("--dataNetwork \(dataNetwork.lowercased()) ")
-        command.append("--wifiMode \(wiFiMode.lowercased()) ")
-        command.append("--wifiBars \(wiFiBar) ")
-        command.append("--cellularMode \(cleanedCellularMode) ")
-        command.append("--cellularBars \(cellularBar) ")
-        command.append("--operatorName \(self.operatorName)")
-        Command.simctl(command)
+        Command.simctl("status_bar", self.simulator.udid, "override",
+                       "--dataNetwork", dataNetwork.lowercased(),
+                       "--wifiMode", wiFiMode.lowercased(),
+                       "--wifiBars", wiFiBar,
+                       "--cellularMode", cleanedCellularMode,
+                       "--cellularBars", cellularBar,
+                       "--operatorName", operatorName)
     }
 }
 
