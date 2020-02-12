@@ -8,18 +8,24 @@
 
 import SwiftUI
 
+/// A wrapper around NSSearchField so we get a macOS-native search box
 struct FilterField: NSViewRepresentable {
-    
-    let prompt: String
+    /// The text entered by the user.
     @Binding var text: String
-    
-    typealias NSViewType = NSTextField
-    
-    func makeCoordinator() -> FilterField.Coordinator {
+
+    /// Placeholder text for the text field.
+    let prompt: String
+
+    init(_ prompt: String, text: Binding<String>) {
+        self.prompt = prompt
+        _text = text
+    }
+
+    func makeCoordinator() -> Coordinator {
         return Coordinator(binding: $text)
     }
-    
-    func makeNSView(context: NSViewRepresentableContext<FilterField>) -> NSTextField {
+
+    func makeNSView(context: Context) -> NSTextField {
         let tf = NSSearchField(string: text)
         tf.placeholderString = prompt
         tf.delegate = context.coordinator
@@ -27,24 +33,22 @@ struct FilterField: NSViewRepresentable {
         tf.focusRingType = .none
         return tf
     }
-    
-    func updateNSView(_ nsView: NSTextField, context: NSViewRepresentableContext<FilterField>) {
+
+    func updateNSView(_ nsView: NSTextField, context: Context) {
         nsView.stringValue = text
     }
-    
+
     class Coordinator: NSObject, NSSearchFieldDelegate {
-        
         let binding: Binding<String>
+
         init(binding: Binding<String>) {
             self.binding = binding
             super.init()
         }
-        
+
         func controlTextDidChange(_ obj: Notification) {
             guard let field = obj.object as? NSTextField else { return }
             binding.wrappedValue = field.stringValue
         }
-        
     }
-    
 }

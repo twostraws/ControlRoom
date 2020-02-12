@@ -10,7 +10,6 @@ import SwiftUI
 
 /// Hosts a LoadingView followed by the main ControlView, or a LoadingFailedView if simctl failed.
 struct MainView: View {
-    
     @ObservedObject var controller: SimulatorsController
 
     var body: some View {

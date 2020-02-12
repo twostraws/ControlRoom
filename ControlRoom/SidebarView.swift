@@ -21,10 +21,11 @@ struct SidebarView: View {
                     }
                 }
                 .listStyle(SidebarListStyle())
-                
+
                 Divider()
-                FilterField(prompt: "Filter", text: self.$controller.filterText)
-                .padding(2)
+
+                FilterField("Filter", text: self.$controller.filterText)
+                    .padding(2)
             }
         }
     }

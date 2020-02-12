@@ -12,6 +12,8 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
+
+    /// One shared `SimulatorsController` to fetch and filter simulator data only once.
     let controller = SimulatorsController()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
