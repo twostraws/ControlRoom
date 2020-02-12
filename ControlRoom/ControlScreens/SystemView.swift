@@ -20,8 +20,7 @@ struct SystemView: View {
 
     /// Formats the user's date in the way simctl expects to read it.
     var timeString: String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
+        let formatter = ISO8601DateFormatter()
         return formatter.string(from: time)
     }
 
@@ -29,7 +28,7 @@ struct SystemView: View {
         Form {
             Group {
                 HStack {
-                    DatePicker("Time:", selection: $time, displayedComponents: .hourAndMinute)
+                    DatePicker("Time:", selection: $time)
                     Button("Set", action: setTime)
                 }
 
