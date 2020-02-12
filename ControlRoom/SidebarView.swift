@@ -16,8 +16,11 @@ struct SidebarView: View {
             VStack(spacing: 0) {
                 List(selection: self.$controller.selectedSimulator) {
                     ForEach(self.controller.simulators) { simulator in
-                        Text(simulator.name)
-                            .tag(simulator)
+                        HStack {
+                            Text(simulator.name)
+                            Spacer()
+                        }
+                        .tag(simulator)
                     }
                 }
                 .listStyle(SidebarListStyle())
