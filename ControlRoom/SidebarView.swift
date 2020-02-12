@@ -9,19 +9,23 @@
 import SwiftUI
 
 struct SidebarView: View {
-    var simulators: [Simulator]
-
-    let selectedSimulator: Binding<Simulator?>
+    @ObservedObject var controller: SimulatorsController
 
     var body: some View {
         GeometryReader { _ in
-            List(selection: self.selectedSimulator) {
-                ForEach(self.simulators) { simulator in
-                    Text(simulator.name)
-                        .tag(simulator)
+            VStack(spacing: 0) {
+                List(selection: self.$controller.selectedSimulator) {
+                    ForEach(self.controller.simulators) { simulator in
+                        Text(simulator.name)
+                            .tag(simulator)
+                    }
                 }
+                .listStyle(SidebarListStyle())
+                
+                Divider()
+                FilterField(prompt: "Filter", text: self.$controller.filterText)
+                .padding(2)
             }
-            .listStyle(SidebarListStyle())
         }
     }
 }
@@ -30,6 +34,6 @@ struct SidebarView_Previews: PreviewProvider {
     @State static var selected: Simulator?
 
     static var previews: some View {
-        SidebarView(simulators: [.example], selectedSimulator: $selected)
+        SidebarView(controller: SimulatorsController())
     }
 }
