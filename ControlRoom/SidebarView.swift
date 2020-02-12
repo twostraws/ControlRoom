@@ -10,9 +10,9 @@ import SwiftUI
 
 struct SidebarView: View {
     var simulators: [Simulator]
-    
+
     let selectedSimulator: Binding<Simulator?>
-    
+
     var body: some View {
         GeometryReader { _ in
             List(selection: self.selectedSimulator) {
@@ -20,14 +20,15 @@ struct SidebarView: View {
                     Text(simulator.name)
                         .tag(simulator)
                 }
-            }.listStyle(SidebarListStyle())
+            }
+            .listStyle(SidebarListStyle())
         }
     }
 }
 
 struct SidebarView_Previews: PreviewProvider {
     @State static var selected: Simulator?
-    
+
     static var previews: some View {
         SidebarView(simulators: [.example], selectedSimulator: $selected)
     }

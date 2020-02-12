@@ -9,15 +9,14 @@
 import SwiftUI
 
 struct SplitLayoutView: View {
-    
     var simulators: [Simulator]
     @State var selected: Simulator?
-    
+
     var body: some View {
         HSplitView {
             SidebarView(simulators: simulators, selectedSimulator: $selected)
                 .frame(minWidth: 200)
-            
+
             // use a GeometryReader here to take up as much space as possible
             // otherwise the view would collapse down to (potentially)
             // the size of the Text
