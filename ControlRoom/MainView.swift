@@ -49,7 +49,7 @@ struct MainView: View {
 
     /// Calls simctl and reads the list of simulators the user has installed.
     private func fetchSimulators() {
-        Command.simctl("list devices available -j") { result in
+        Command.simctl("list", "devices", "available", "-j") { result in
             switch result {
             case .success(let data):
                 if let deviceOutput = try? JSONDecoder().decode(DeviceList.self, from: data) {

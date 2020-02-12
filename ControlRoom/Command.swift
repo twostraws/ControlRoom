@@ -42,8 +42,8 @@ enum Command {
     }
 
     /// Runs one simctl command and sends the result or error back on the main thread.
-    static func simctl(_ command: String, completion: ((Result<Data, CommandError>) -> Void)? = nil) {
-        let arguments = ["simctl"] + command.components(separatedBy: " ")
+    static func simctl(_ arguments: String..., completion: ((Result<Data, CommandError>) -> Void)? = nil) {
+        let arguments = ["simctl"] + arguments
         Command.run(command: "/usr/bin/xcrun", arguments: arguments, completion: completion)
     }
 }

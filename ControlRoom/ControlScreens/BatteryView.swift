@@ -42,10 +42,9 @@ struct BatteryView: View {
 
     /// Sends battery updates all at once; simctl gets unhappy if we send them individually.
     func updateBattery() {
-        var command = "status_bar \(self.simulator.udid) override "
-        command.append("--batteryLevel \(Int(self.batteryLevel)) ")
-        command.append("--batteryState \(batteryState.lowercased())")
-        Command.simctl(command)
+        Command.simctl("status_bar", self.simulator.udid, "override",
+                       "--batteryLevel", "\(Int(self.batteryLevel))",
+                       "--batteryState", batteryState.lowercased())
     }
 
     func levelChanged(_ editing: Bool) {

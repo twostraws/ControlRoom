@@ -46,12 +46,12 @@ struct ControlView: View {
 
     /// Launches the current device.
     func bootDevice() {
-        Command.simctl("boot \(self.currentSimulator.udid)")
+        Command.simctl("boot", currentSimulator.udid)
     }
 
     /// Terminates the current device.
     func shutdownDevice() {
-        Command.simctl("shutdown \(self.currentSimulator.udid)")
+        Command.simctl("shutdown", currentSimulator.udid)
     }
 }
 
