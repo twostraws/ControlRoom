@@ -17,8 +17,11 @@ struct SidebarView: View {
         GeometryReader { _ in
             List(selection: self.selectedSimulator) {
                 ForEach(self.simulators) { simulator in
-                    Text(simulator.name)
-                        .tag(simulator)
+                    HStack {
+                        Text(simulator.name)
+                        Spacer()
+                    }
+                    .tag(simulator)
                 }
             }
             .listStyle(SidebarListStyle())
