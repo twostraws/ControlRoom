@@ -13,7 +13,10 @@ struct TypeIdentifier: Hashable {
     static let anyDevice = TypeIdentifier("public.device")
     static let phone = TypeIdentifier("com.apple.iphone")
     static let pad = TypeIdentifier("com.apple.ipad")
-    static let watch = TypeIdentifier("com.apple.watch")
+    // this uses com.apple.watch-42mm-1 instead of com.apple.watch
+    // com.apple.watch is declared in two places, and the default one doesn't declare an icon
+    // instead we'll use the OG 42mm watch, so can be sure to get an icon
+    static let watch = TypeIdentifier("com.apple.watch-42mm-1")
     static let tv = TypeIdentifier("com.apple.apple-tv")
 
     /// A default type identifier to be used for unknown simulators
