@@ -12,11 +12,11 @@ import AppKit
 struct MapView: NSViewRepresentable {
 
     @Binding var location: CLLocation?
-    
+
     func makeCoordinator() -> MapView.Coordinator {
         Coordinator(binding: $location)
     }
-    
+
     func makeNSView(context: Context) -> MKMapView {
 
         let mapView = MKMapView()
@@ -25,18 +25,18 @@ struct MapView: NSViewRepresentable {
         mapView.addGestureRecognizer(gesture)
         return mapView
     }
-    
+
     func updateNSView(_ uiView: MKMapView, context: Context) {}
-    
+
     class Coordinator: NSObject {
         let binding: Binding<CLLocation?>
         weak var mapView: MKMapView?
-        
+
         init(binding: Binding<CLLocation?>) {
             self.binding = binding
             super.init()
         }
-        
+
         @objc func handleLongPress(_ gesture: NSPressGestureRecognizer) {
             guard let mapView = mapView else { return }
              let touchPoint = gesture.location(in: mapView)

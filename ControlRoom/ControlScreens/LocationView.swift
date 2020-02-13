@@ -32,19 +32,21 @@ struct LocationView: View {
                 Text("Coordinates:")
                 Text("\(locationText)")
                 Spacer()
-                Button("Update user Location", action: changeLocation)
+                Button("Update simulator", action: changeLocation)
                 }
             }
 
         }
         .tabItem {
-            Text("Map")
+            Text("Location")
         }
         .padding()
     }
 
+    private let locationNotificationName = "com.apple.iphonesimulator.simulateLocation"
     /// Change current simulator's location
     /// Credits: https://github.com/lyft/set-simulator-location
+
     func changeLocation() {
         guard let location = self.currentLocation else { return }
         let coordinate = location.coordinate
@@ -53,10 +55,13 @@ struct LocationView: View {
             "simulateLocationLongitude": coordinate.longitude
         ]
 
-        let notification = Notification(name: Notification.Name(rawValue: "com.apple.iphonesimulator.simulateLocation"), object: nil,
+        let notification = Notification(name: Notification.Name(rawValue: locationNotificationName),
+                                        object: nil,
                                         userInfo: userInfo)
 
-        DistributedNotificationCenter.default().post(notification)
+        DistributedNotificationCenter
+            .default()
+            .post(notification)
     }
 }
 
