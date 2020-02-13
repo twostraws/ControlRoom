@@ -29,6 +29,8 @@
 		551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */; };
 		551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF023F498C30006D1BD /* SimulatorsController.swift */; };
 		551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF423F4AF7B0006D1BD /* FilterField.swift */; };
+		551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */; };
+		551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLayoutView.swift; sourceTree = "<group>"; };
 		551F8CF023F498C30006D1BD /* SimulatorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorsController.swift; sourceTree = "<group>"; };
 		551F8CF423F4AF7B0006D1BD /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
+		551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeIdentifier.swift; sourceTree = "<group>"; };
+		551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorSidebarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 				511BA59123F4031F00E3E660 /* ControlView.swift */,
 				551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */,
 				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
+				551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */,
 				511BA59323F4079500E3E660 /* Command.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
 				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
@@ -152,6 +157,7 @@
 				511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */,
 				511BA5A523F420AB00E3E660 /* FormSpacer.swift */,
 				51760B2C23F46073004532A9 /* Defaults.swift */,
+				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -172,6 +178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 511BA58C23F3FFEB00E3E660 /* Build configuration list for PBXNativeTarget "ControlRoom" */;
 			buildPhases = (
+				551F8CFA23F4CB770006D1BD /* SwiftLint */,
 				511BA57523F3FFEA00E3E660 /* Sources */,
 				511BA57623F3FFEA00E3E660 /* Frameworks */,
 				511BA57723F3FFEA00E3E660 /* Resources */,
@@ -231,6 +238,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		551F8CFA23F4CB770006D1BD /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		511BA57523F3FFEA00E3E660 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -244,10 +272,12 @@
 				511BA5AA23F4316700E3E660 /* TextView.swift in Sources */,
 				511BA5A023F4197200E3E660 /* DataView.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
+				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
+				551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */,
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
 				511BA59423F4079500E3E660 /* Command.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,

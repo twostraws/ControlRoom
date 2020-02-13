@@ -9,16 +9,16 @@
 import SwiftUI
 
 struct FilterField: NSViewRepresentable {
-    
+
     let prompt: String
     @Binding var text: String
-    
+
     typealias NSViewType = NSTextField
-    
+
     func makeCoordinator() -> FilterField.Coordinator {
         return Coordinator(binding: $text)
     }
-    
+
     func makeNSView(context: NSViewRepresentableContext<FilterField>) -> NSTextField {
         let tf = NSSearchField(string: text)
         tf.placeholderString = prompt
@@ -27,24 +27,24 @@ struct FilterField: NSViewRepresentable {
         tf.focusRingType = .none
         return tf
     }
-    
+
     func updateNSView(_ nsView: NSTextField, context: NSViewRepresentableContext<FilterField>) {
         nsView.stringValue = text
     }
-    
+
     class Coordinator: NSObject, NSSearchFieldDelegate {
-        
+
         let binding: Binding<String>
         init(binding: Binding<String>) {
             self.binding = binding
             super.init()
         }
-        
+
         func controlTextDidChange(_ obj: Notification) {
             guard let field = obj.object as? NSTextField else { return }
             binding.wrappedValue = field.stringValue
         }
-        
+
     }
-    
+
 }

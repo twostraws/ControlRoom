@@ -15,7 +15,12 @@ struct ControlView: View {
     var body: some View {
         VStack {
             HStack {
+                Image(nsImage: simulator.image)
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(maxWidth: 64)
                 Text(simulator.name)
+                    .font(.title)
                 Spacer()
                 Button("Boot", action: bootDevice)
                 Button("Shutdown", action: shutdownDevice)

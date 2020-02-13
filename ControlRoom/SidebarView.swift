@@ -16,12 +16,12 @@ struct SidebarView: View {
             VStack(spacing: 0) {
                 List(selection: self.$controller.selectedSimulator) {
                     ForEach(self.controller.simulators) { simulator in
-                        Text(simulator.name)
+                        SimulatorSidebarView(simulator: simulator)
                             .tag(simulator)
                     }
                 }
                 .listStyle(SidebarListStyle())
-                
+
                 Divider()
                 FilterField(prompt: "Filter", text: self.$controller.filterText)
                 .padding(2)
