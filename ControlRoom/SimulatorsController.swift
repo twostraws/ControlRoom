@@ -12,6 +12,9 @@ import SwiftUI
 
 private enum SimCtl {
 
+    private static let runtimePattern = "com\\.apple\\.CoreSimulator\\.SimRuntime\\.([a-zA-Z]+)-([0-9-]+)$"
+    static let osVersionRegex = try? NSRegularExpression(pattern: runtimePattern, options: .caseInsensitive)
+
     /// Handles decoding the device list from simctl
     struct DeviceList: Decodable {
         var devices: [String: [DecodedSimulator]]
@@ -40,6 +43,18 @@ private enum SimCtl {
         let runtimeIdentifier: String
         let deviceTypeIdentifier: String?
         let dataPath: String?
+        let osVersion: String?
+
+        private static func getOSVersion(from runtime: String) -> String? {
+            guard let match = SimCtl.osVersionRegex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
+            var groups = [String]()
+            for index in  0 ..< match.numberOfRanges {
+                let group = String(runtime[Range(match.range(at: index), in: runtime)!])
+                groups.append(group)
+            }
+            guard groups.count == 3 else { return nil }
+            return groups[2].replacingOccurrences(of: "-", with: ".")
+        }
 
         init(decoded: DecodedSimulator, runtimeIdentifier: String) {
             self.status = decoded.status
@@ -49,6 +64,7 @@ private enum SimCtl {
             self.runtimeIdentifier = runtimeIdentifier
             self.dataPath = decoded.dataPath
             self.deviceTypeIdentifier = decoded.deviceTypeIdentifier
+            self.osVersion = Simulator.getOSVersion(from: runtimeIdentifier)
         }
 
         func inferModelTypeIdentifier(using deviceTypes: [String: DeviceType]) -> TypeIdentifier {
@@ -162,8 +178,15 @@ class SimulatorsController: ObservableObject {
         let typesByIdentifier = Dictionary(grouping: rawTypes, by: { $0.identifier }).compactMapValues({ $0.first })
 
         let merged = parsedSimulators?.map { sim -> Simulator in
+
+            let simulatorName: String
+            if let osVersion = sim.osVersion {
+                simulatorName = "\(sim.name) - (\(osVersion))"
+            } else {
+                simulatorName = sim.name
+            }
             let modelType = sim.inferModelTypeIdentifier(using: typesByIdentifier)
-            return Simulator(name: sim.name, udid: sim.udid, typeIdentifier: modelType)
+            return Simulator(name: simulatorName, udid: sim.udid, typeIdentifier: modelType)
         }
 
         handleParsedSimulators(merged)
