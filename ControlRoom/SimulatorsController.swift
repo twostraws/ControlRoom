@@ -18,10 +18,12 @@ private enum SimCtl {
     }
 
     struct Simulator: Decodable {
+        let status: String?
+        let isAvailable: Bool
         let name: String
         let udid: String
-        let deviceTypeIdentifier: String
-        let dataPath: String
+        let deviceTypeIdentifier: String?
+        let dataPath: String?
     }
 
     struct DeviceTypeList: Decodable {
@@ -91,9 +93,13 @@ class SimulatorsController: ObservableObject {
         Command.simctl("list", "devices", "available", "-j") { result in
             switch result {
             case .success(let data):
-                let list = try? JSONDecoder().decode(SimCtl.DeviceList.self, from: data)
-                let parsed = list?.devices.values.flatMap { $0 }
-                self.loadDeviceTypes(parsedSimulators: parsed)
+                do {
+                    let list = try JSONDecoder().decode(SimCtl.DeviceList.self, from: data)
+                    let parsed = list.devices.values.flatMap { $0 }
+                    self.loadDeviceTypes(parsedSimulators: parsed)
+                } catch {
+                    print(error)
+                }
             case .failure:
                 self.loadDeviceTypes(parsedSimulators: nil)
             }
@@ -119,7 +125,7 @@ class SimulatorsController: ObservableObject {
         let typesByIdentifier = Dictionary(grouping: rawTypes, by: { $0.identifier }).compactMapValues({ $0.first })
 
         let merged = parsedSimulators?.map { sim -> Simulator in
-            let deviceType = typesByIdentifier[sim.deviceTypeIdentifier]
+            let deviceType = typesByIdentifier[sim.deviceTypeIdentifier ?? ""]
             return Simulator(name: sim.name, udid: sim.udid, typeIdentifier: deviceType?.modelTypeIdentifier ?? .anyDevice)
         }
 
