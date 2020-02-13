@@ -14,16 +14,53 @@ private enum SimCtl {
 
     /// Handles decoding the device list from simctl
     struct DeviceList: Decodable {
-        var devices: [String: [Simulator]]
+        var devices: [String: [DecodedSimulator]]
+
+        var simulators: [Simulator] {
+            devices.flatMap { (key, sims) -> [Simulator] in
+                return sims.map { Simulator(decoded: $0, runtimeIdentifier: key) }
+            }
+        }
     }
 
-    struct Simulator: Decodable {
+    struct DecodedSimulator: Decodable {
         let status: String?
         let isAvailable: Bool
         let name: String
         let udid: String
         let deviceTypeIdentifier: String?
         let dataPath: String?
+    }
+
+    struct Simulator {
+        let status: String?
+        let isAvailable: Bool
+        let name: String
+        let udid: String
+        let runtimeIdentifier: String
+        let deviceTypeIdentifier: String?
+        let dataPath: String?
+
+        init(decoded: DecodedSimulator, runtimeIdentifier: String) {
+            self.status = decoded.status
+            self.isAvailable = decoded.isAvailable
+            self.name = decoded.name
+            self.udid = decoded.udid
+            self.runtimeIdentifier = runtimeIdentifier
+            self.dataPath = decoded.dataPath
+            self.deviceTypeIdentifier = decoded.deviceTypeIdentifier
+        }
+
+        func inferModelTypeIdentifier(using deviceTypes: [String: DeviceType]) -> TypeIdentifier {
+            if let typeID = deviceTypeIdentifier, let device = deviceTypes[typeID], let model = device.modelTypeIdentifier {
+                return model
+            }
+            // fall back to inferring the model type from the name
+            if name.contains("iPad") { return .pad }
+            if name.contains("Watch") { return .watch }
+            if name.contains("TV") { return .tv }
+            return .defaultiPhone
+        }
     }
 
     struct DeviceTypeList: Decodable {
@@ -95,7 +132,7 @@ class SimulatorsController: ObservableObject {
             case .success(let data):
                 do {
                     let list = try JSONDecoder().decode(SimCtl.DeviceList.self, from: data)
-                    let parsed = list.devices.values.flatMap { $0 }
+                    let parsed = list.simulators
                     self.loadDeviceTypes(parsedSimulators: parsed)
                 } catch {
                     print(error)
@@ -125,8 +162,8 @@ class SimulatorsController: ObservableObject {
         let typesByIdentifier = Dictionary(grouping: rawTypes, by: { $0.identifier }).compactMapValues({ $0.first })
 
         let merged = parsedSimulators?.map { sim -> Simulator in
-            let deviceType = typesByIdentifier[sim.deviceTypeIdentifier ?? ""]
-            return Simulator(name: sim.name, udid: sim.udid, typeIdentifier: deviceType?.modelTypeIdentifier ?? .anyDevice)
+            let modelType = sim.inferModelTypeIdentifier(using: typesByIdentifier)
+            return Simulator(name: sim.name, udid: sim.udid, typeIdentifier: modelType)
         }
 
         handleParsedSimulators(merged)
