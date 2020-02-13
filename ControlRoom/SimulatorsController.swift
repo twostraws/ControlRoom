@@ -14,7 +14,7 @@ private enum SimCtl {
 
     private static let runtimePattern = "com\\.apple\\.CoreSimulator\\.SimRuntime\\.([a-zA-Z]+)-([0-9-]+)$"
     static let osVersionRegex = try? NSRegularExpression(pattern: runtimePattern, options: .caseInsensitive)
-    
+
     /// Handles decoding the device list from simctl
     struct DeviceList: Decodable {
         var devices: [String: [Simulator]]
