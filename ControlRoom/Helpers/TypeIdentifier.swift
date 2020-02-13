@@ -66,7 +66,12 @@ struct TypeIdentifier: Hashable {
     }
 
     /// Constructs an icon for this type identifier, as defined by its declaration
-    var icon: NSImage? { iconURL.map(NSImage.init(byReferencing:)) }
+    var icon: NSImage {
+        if let iconURL = iconURL {
+            return NSImage(byReferencing: iconURL)
+        }
+        return NSWorkspace.shared.icon(forFileType: "'ques'")
+    }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(rawValue)
