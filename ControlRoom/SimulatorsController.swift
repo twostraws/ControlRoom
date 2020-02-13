@@ -139,17 +139,6 @@ class SimulatorsController: ObservableObject {
         loadSimulators()
     }
 
-    private func getOSVersion(from runtime: String) -> String? {
-        guard let match = SimCtl.osVersionRegex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
-        var groups = [String]()
-        for index in  0 ..< match.numberOfRanges {
-            let group = String(runtime[Range(match.range(at: index), in: runtime)!])
-            groups.append(group)
-        }
-        guard groups.count == 3 else { return nil }
-        return groups[2].replacingOccurrences(of: "-", with: ".")
-    }
-
     /// Fetches all simulators from simctl.
     private func loadSimulators() {
         loadingStatus = .loading
