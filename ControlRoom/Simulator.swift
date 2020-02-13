@@ -30,7 +30,7 @@ struct Simulator: Identifiable, Comparable, Hashable {
         self.name = name
         self.udid = udid
         self.typeIdentifier = typeIdentifier
-        self.image = typeIdentifier.icon ?? TypeIdentifier.defaultiPhone.icon!
+        self.image = typeIdentifier.icon
     }
 
     /// Sort simulators alphabetically.

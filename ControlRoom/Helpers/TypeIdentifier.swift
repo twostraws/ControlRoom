@@ -37,7 +37,7 @@ struct TypeIdentifier: Hashable {
     }
 
     /// Iterates through this type identifier and all identifiers to which it conforms, looking for one that defines an icon
-    private var iconURL: URL? {
+    private var iconURL: URL {
         var typesToCheck = [self]
         var checked = Set<TypeIdentifier>()
 
@@ -62,11 +62,11 @@ struct TypeIdentifier: Hashable {
             typesToCheck.append(contentsOf: first.conformsTo)
         }
 
-        return nil
+        return URL(fileURLWithPath: "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericQuestionMarkIcon.icns")
     }
 
     /// Constructs an icon for this type identifier, as defined by its declaration
-    var icon: NSImage? { iconURL.map(NSImage.init(byReferencing:)) }
+    var icon: NSImage { NSImage.init(byReferencing: iconURL) }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(rawValue)
