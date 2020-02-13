@@ -18,10 +18,11 @@ struct SplitLayoutView: View {
 
             // use a GeometryReader here to take up as much space as possible
             // otherwise the view would collapse down to (potentially)
-            // the size of the Text
+            // the size of the Text.
             GeometryReader { _ in
                 if self.controller.selectedSimulator == nil {
-                    Text("Select a simulator from the list")
+                    Text("Select a simulator from the list.")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     ControlView(simulator: self.controller.selectedSimulator!)
                         .padding()
