@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import CoreLocation
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
     var simulator: Simulator

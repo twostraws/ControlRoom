@@ -32,6 +32,7 @@ struct ControlView: View {
                 AppView(simulator: simulator)
                 BatteryView(simulator: simulator)
                 DataView(simulator: simulator)
+                LocationView(simulator: simulator)
             }
         }
         .padding()
