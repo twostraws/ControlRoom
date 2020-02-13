@@ -22,7 +22,7 @@ struct FilterField: NSViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(binding: $text)
+        Coordinator(binding: $text)
     }
 
     func makeNSView(context: Context) -> NSTextField {

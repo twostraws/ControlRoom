@@ -20,7 +20,7 @@ struct TypeIdentifier: Hashable {
     static let defaultiPhone = TypeIdentifier("com.apple.iphone-11-pro-1")
 
     static func == (lhs: TypeIdentifier, rhs: TypeIdentifier) -> Bool {
-        return lhs.rawValue == rhs.rawValue
+        lhs.rawValue == rhs.rawValue
     }
 
     /// The string representation of the Uniform Type Identifier

@@ -30,11 +30,12 @@ struct TextView: NSViewRepresentable {
         guard context.coordinator.selectedRanges.count > 0 else {
             return
         }
+
         view.selectedRanges = context.coordinator.selectedRanges
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
+        Coordinator(self)
     }
 
     class Coordinator: NSObject, NSTextViewDelegate {
