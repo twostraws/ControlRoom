@@ -29,6 +29,7 @@ struct MapView: NSViewRepresentable {
     func updateNSView(_ uiView: MKMapView, context: Context) {}
 
     class Coordinator: NSObject {
+
         let binding: Binding<CLLocation?>
         weak var mapView: MKMapView?
 
@@ -39,14 +40,14 @@ struct MapView: NSViewRepresentable {
 
         @objc func handleLongPress(_ gesture: NSPressGestureRecognizer) {
             guard let mapView = mapView else { return }
-             let touchPoint = gesture.location(in: mapView)
-             let coordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-             let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            let touchPoint = gesture.location(in: mapView)
+            let coordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
             binding.wrappedValue = location
-             let annotation = MKPointAnnotation()
-             annotation.coordinate = coordinates
-             mapView.removeAnnotations(mapView.annotations)
-             mapView.addAnnotation(annotation)
-         }
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinates
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.addAnnotation(annotation)
+        }
     }
 }
