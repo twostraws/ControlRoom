@@ -56,9 +56,9 @@ private enum SimCtl {
                 return model
             }
             // fall back to inferring the model type from the name
-            if name.contains("iPad") { return .pad }
-            if name.contains("Watch") { return .watch }
-            if name.contains("TV") { return .tv }
+            if name.contains("iPad") { return .defaultiPad }
+            if name.contains("Watch") { return .defaultWatch }
+            if name.contains("TV") { return .defaultTV }
             return .defaultiPhone
         }
     }

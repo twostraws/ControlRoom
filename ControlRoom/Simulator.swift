@@ -11,6 +11,21 @@ import CoreServices
 
 /// Stores one simulator and its identifier.
 struct Simulator: Identifiable, Comparable, Hashable {
+    enum Platform: CaseIterable {
+        case iPhone
+        case iPad
+        case watch
+        case tv
+
+        var displayName: String {
+            switch self {
+            case .iPhone: return "iPhone"
+            case .iPad: return "iPad"
+            case .watch: return "Apple Watch"
+            case .tv: return "Apple TV"
+            }
+        }
+    }
     /// The user-facing name for this simulator, e.g. iPhone 11 Pro Max.
     let name: String
 
@@ -26,11 +41,24 @@ struct Simulator: Identifiable, Comparable, Hashable {
     /// The icon representing the simulator's device
     let image: NSImage
 
+    /// The platform of the simulator
+    let platform: Platform
+
     init(name: String, udid: String, typeIdentifier: TypeIdentifier) {
         self.name = name
         self.udid = udid
         self.typeIdentifier = typeIdentifier
         self.image = typeIdentifier.icon
+
+        if typeIdentifier.conformsTo(.pad) {
+            self.platform = .iPad
+        } else if typeIdentifier.conformsTo(.watch) {
+            self.platform = .watch
+        } else if typeIdentifier.conformsTo(.tv) {
+            self.platform = .tv
+        } else {
+            self.platform = .iPhone
+        }
     }
 
     /// Sort simulators alphabetically.
