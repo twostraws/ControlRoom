@@ -44,11 +44,15 @@ struct Simulator: Identifiable, Comparable, Hashable {
     /// The platform of the simulator
     let platform: Platform
 
-    init(name: String, udid: String, typeIdentifier: TypeIdentifier) {
+    /// The information about the simulator OS
+    let runtime: SimCtl.Runtime?
+
+    init(name: String, udid: String, typeIdentifier: TypeIdentifier, runtime: SimCtl.Runtime?) {
         self.name = name
         self.udid = udid
         self.typeIdentifier = typeIdentifier
         self.image = typeIdentifier.icon
+        self.runtime = runtime
 
         if typeIdentifier.conformsTo(.pad) {
             self.platform = .iPad
@@ -67,9 +71,9 @@ struct Simulator: Identifiable, Comparable, Hashable {
     }
 
     /// An example simulator for Xcode preview purposes
-    static let example = Simulator(name: "iPhone 11 Pro max", udid: UUID().uuidString, typeIdentifier: .defaultiPhone)
+    static let example = Simulator(name: "iPhone 11 Pro max", udid: UUID().uuidString, typeIdentifier: .defaultiPhone, runtime: .unknown)
 
     /// Users whichever simulator simctl feels like; if there's only one active it will be used,
     /// but if there's more than one simctl just picks one.
-    static let `default` = Simulator(name: "Default", udid: "booted", typeIdentifier: .defaultiPhone)
+    static let `default` = Simulator(name: "Default", udid: "booted", typeIdentifier: .defaultiPhone, runtime: nil)
 }

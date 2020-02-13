@@ -10,96 +10,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-private enum SimCtl {
-
-    private static let runtimePattern = "com\\.apple\\.CoreSimulator\\.SimRuntime\\.([a-zA-Z]+)-([0-9-]+)$"
-    static let osVersionRegex = try? NSRegularExpression(pattern: runtimePattern, options: .caseInsensitive)
-
-    /// Handles decoding the device list from simctl
-    struct DeviceList: Decodable {
-        var devices: [String: [DecodedSimulator]]
-
-        var simulators: [Simulator] {
-            devices.flatMap { (key, sims) -> [Simulator] in
-                return sims.map { Simulator(decoded: $0, runtimeIdentifier: key) }
-            }
-        }
-    }
-
-    struct DecodedSimulator: Decodable {
-        let status: String?
-        let isAvailable: Bool
-        let name: String
-        let udid: String
-        let deviceTypeIdentifier: String?
-        let dataPath: String?
-    }
-
-    struct Simulator {
-        let status: String?
-        let isAvailable: Bool
-        let name: String
-        let udid: String
-        let runtimeIdentifier: String
-        let deviceTypeIdentifier: String?
-        let dataPath: String?
-        let osVersion: String?
-
-        private static func getOSVersion(from runtime: String) -> String? {
-            guard let match = SimCtl.osVersionRegex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
-            var groups = [String]()
-            for index in  0 ..< match.numberOfRanges {
-                let group = String(runtime[Range(match.range(at: index), in: runtime)!])
-                groups.append(group)
-            }
-            guard groups.count == 3 else { return nil }
-            return groups[2].replacingOccurrences(of: "-", with: ".")
-        }
-
-        init(decoded: DecodedSimulator, runtimeIdentifier: String) {
-            self.status = decoded.status
-            self.isAvailable = decoded.isAvailable
-            self.name = decoded.name
-            self.udid = decoded.udid
-            self.runtimeIdentifier = runtimeIdentifier
-            self.dataPath = decoded.dataPath
-            self.deviceTypeIdentifier = decoded.deviceTypeIdentifier
-            self.osVersion = Simulator.getOSVersion(from: runtimeIdentifier)
-        }
-
-        func inferModelTypeIdentifier(using deviceTypes: [String: DeviceType]) -> TypeIdentifier {
-            if let typeID = deviceTypeIdentifier, let device = deviceTypes[typeID], let model = device.modelTypeIdentifier {
-                return model
-            }
-            // fall back to inferring the model type from the name
-            if name.contains("iPad") { return .defaultiPad }
-            if name.contains("Watch") { return .defaultWatch }
-            if name.contains("TV") { return .defaultTV }
-            return .defaultiPhone
-        }
-    }
-
-    struct DeviceTypeList: Decodable {
-        let devicetypes: [DeviceType]
-    }
-
-    struct DeviceType: Decodable {
-        let bundlePath: String
-        let name: String
-        let identifier: String
-
-        var modelTypeIdentifier: TypeIdentifier? {
-            guard let bundle = Bundle(path: bundlePath) else { return nil }
-            guard let plist = bundle.url(forResource: "profile", withExtension: "plist") else { return nil }
-            guard let contents = NSDictionary(contentsOf: plist) else { return nil }
-            guard let modelIdentifier = contents.object(forKey: "modelIdentifier") as? String else { return nil }
-
-            return TypeIdentifier(modelIdentifier: modelIdentifier)
-        }
-    }
-
-}
-
 /// A centralized class that loads simulator data and handles filtering.
 class SimulatorsController: ObservableObject {
 
@@ -135,6 +45,8 @@ class SimulatorsController: ObservableObject {
         willSet { objectWillChange.send() }
     }
 
+    private var cancellables = Set<AnyCancellable>()
+
     init() {
         loadSimulators()
     }
@@ -143,64 +55,62 @@ class SimulatorsController: ObservableObject {
     private func loadSimulators() {
         loadingStatus = .loading
 
-        Command.simctl("list", "devices", "available", "-j") { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let list = try JSONDecoder().decode(SimCtl.DeviceList.self, from: data)
-                    let parsed = list.simulators
-                    self.loadDeviceTypes(parsedSimulators: parsed)
-                } catch {
-                    print(error)
-                }
-            case .failure:
-                self.loadDeviceTypes(parsedSimulators: nil)
-            }
-        }
+        let devices = SimCtl.listDevices()
+        let deviceTypes = SimCtl.listDeviceTypes()
+        let runtimes = SimCtl.listRuntimes()
+
+        devices.combineLatest(deviceTypes, runtimes)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: self.finishedLoadingSimulators,
+                  receiveValue: self.handleLoadedInformation)
+            .store(in: &cancellables)
     }
 
-    /// Fetches the kinds of simulators supports by simctl
-    private func loadDeviceTypes(parsedSimulators: [SimCtl.Simulator]?) {
-        Command.simctl("list", "devicetypes", "-j") { result in
-            switch result {
-            case .success(let data):
-                let list = try? JSONDecoder().decode(SimCtl.DeviceTypeList.self, from: data)
-                self.merge(parsedSimulators: parsedSimulators, deviceTypes: list?.devicetypes)
-            case .failure:
-                self.merge(parsedSimulators: parsedSimulators, deviceTypes: nil)
-            }
-        }
-    }
+    private func handleLoadedInformation(_ deviceList: SimCtl.DeviceList, _ deviceTypes: SimCtl.DeviceTypeList, _ runtimes: SimCtl.RuntimeList) {
+        var final = [Simulator]()
 
-    /// Merges the known simulators with the simulator definitions
-    private func merge(parsedSimulators: [SimCtl.Simulator]?, deviceTypes: [SimCtl.DeviceType]?) {
-        let rawTypes = deviceTypes ?? []
-        let typesByIdentifier = Dictionary(grouping: rawTypes, by: { $0.identifier }).compactMapValues({ $0.first })
-
-        let merged = parsedSimulators?.map { sim -> Simulator in
-
-            let simulatorName: String
-            if let osVersion = sim.osVersion {
-                simulatorName = "\(sim.name) - (\(osVersion))"
+        let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: { $0.identifier }).compactMapValues({ $0.first })
+        let lookupRuntime = Dictionary(grouping: runtimes.runtimes, by: { $0.identifier }).compactMapValues({ $0.first })
+        for (runtimeIdentifier, devices) in deviceList.devices {
+            let runtime: SimCtl.Runtime?
+            if let known = lookupRuntime[runtimeIdentifier] {
+                runtime = known
+            } else if let parsed = SimCtl.Runtime(runtimeIdentifier: runtimeIdentifier) {
+                runtime = parsed
             } else {
-                simulatorName = sim.name
+                runtime = nil
             }
-            let modelType = sim.inferModelTypeIdentifier(using: typesByIdentifier)
-            return Simulator(name: simulatorName, udid: sim.udid, typeIdentifier: modelType)
+
+            for device in devices {
+                let model: TypeIdentifier
+                if let deviceType = lookupDeviceType[device.deviceTypeIdentifier ?? ""], let modelType = deviceType.modelTypeIdentifier {
+                    model = modelType
+                } else if device.name.contains("iPad") {
+                    model = .defaultiPad
+                } else if device.name.contains("Watch") {
+                    model = .defaultWatch
+                } else if device.name.contains("TV") {
+                    model = .defaultTV
+                } else {
+                    model = .defaultiPhone
+                }
+
+                let sim = Simulator(name: device.name, udid: device.udid, typeIdentifier: model, runtime: runtime)
+                final.append(sim)
+            }
         }
 
-        handleParsedSimulators(merged)
+        objectWillChange.send()
+        allSimulators = [.default] + final.sorted()
+        filterSimulators()
     }
 
-    /// Filters the loaded simulators and updates our UI.
-    private func handleParsedSimulators(_ newSimulators: [Simulator]?) {
+    private func finishedLoadingSimulators(_ completion: Subscribers.Completion<Command.CommandError>) {
         objectWillChange.send()
-
-        if let new = newSimulators {
-            allSimulators = [.default] + new.sorted()
-            filterSimulators()
+        switch completion {
+        case .finished:
             loadingStatus = .success
-        } else {
+        case .failure:
             loadingStatus = .failed
         }
     }
