@@ -26,9 +26,9 @@ struct BatteryView: View {
                     Text(state)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(RadioGroupPickerStyle())
 
-            Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {
+            LevelIndicator(value: $batteryLevel, in: 0...100, onValueChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {
                 Text("Level:")
             }
 
@@ -47,10 +47,8 @@ struct BatteryView: View {
                        "--batteryState", batteryState.lowercased())
     }
 
-    func levelChanged(_ editing: Bool) {
-        if editing == false {
-            self.updateBattery()
-        }
+    func levelChanged(_ level: Double) {
+        self.updateBattery()
     }
 }
 

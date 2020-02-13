@@ -67,7 +67,7 @@ struct DataView: View {
                         Text(network)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(PopUpButtonPickerStyle())
             }
 
             FormSpacer()
@@ -78,11 +78,13 @@ struct DataView: View {
                         Text(mode)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(PopUpButtonPickerStyle())
 
                 Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
-                    ForEach(wiFiBars, id: \.self) { bar in
-                        Text(bar)
+                    ForEach(0..<wiFiBars.count) { idx in
+                        Image("wifi\(idx)")
+                            .resizable()
+                            .tag(self.wiFiBars[idx])
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -96,11 +98,13 @@ struct DataView: View {
                         Text(mode)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(PopUpButtonPickerStyle())
 
                 Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
-                    ForEach(cellularBars, id: \.self) { bar in
-                        Text(bar)
+                    ForEach(0 ..< cellularBars.count) { idx in
+                    Image("cell\(idx)")
+                        .resizable()
+                        .tag(self.cellularBars[idx])
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())

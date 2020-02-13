@@ -131,7 +131,7 @@ class SimulatorsController: ObservableObject {
         objectWillChange.send()
 
         if let new = newSimulators {
-            allSimulators = [.default] + new
+            allSimulators = [.default] + new.sorted()
             filterSimulators()
             loadingStatus = .success
         } else {
