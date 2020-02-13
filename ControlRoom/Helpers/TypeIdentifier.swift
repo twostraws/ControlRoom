@@ -13,14 +13,14 @@ struct TypeIdentifier: Hashable {
     static let anyDevice = TypeIdentifier("public.device")
     static let phone = TypeIdentifier("com.apple.iphone")
     static let pad = TypeIdentifier("com.apple.ipad")
-    // this uses com.apple.watch-42mm-1 instead of com.apple.watch
-    // com.apple.watch is declared in two places, and the default one doesn't declare an icon
-    // instead we'll use the OG 42mm watch, so can be sure to get an icon
-    static let watch = TypeIdentifier("com.apple.watch-42mm-1")
+    static let watch = TypeIdentifier("com.apple.watch")
     static let tv = TypeIdentifier("com.apple.apple-tv")
 
-    /// A default type identifier to be used for unknown simulators
+    /// Default type identifiers to be used for unknown simulators
     static let defaultiPhone = TypeIdentifier("com.apple.iphone-11-pro-1")
+    static let defaultiPad = TypeIdentifier("com.apple.ipad-pro-12point9-2")
+    static let defaultWatch = TypeIdentifier("com.apple.watch-series5-1")
+    static let defaultTV = TypeIdentifier("com.apple.apple-tv-4k")
 
     static func == (lhs: TypeIdentifier, rhs: TypeIdentifier) -> Bool {
         lhs.rawValue == rhs.rawValue
@@ -78,6 +78,10 @@ struct TypeIdentifier: Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(rawValue)
+    }
+
+    func conformsTo(_ other: TypeIdentifier) -> Bool {
+        return UTTypeConformsTo(rawValue as CFString, other.rawValue as CFString)
     }
 
     /// Constructs a type identifier from a device model code, such as "iPad8,4"
