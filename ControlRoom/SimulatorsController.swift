@@ -10,29 +10,17 @@ import Combine
 import Foundation
 import SwiftUI
 
-private enum SimCtl {
-
-    /// Handles decoding the device list from simctl
-    struct DeviceList: Decodable {
-        var devices: [String: [DecodedSimulator]]
-
-        var simulators: [Simulator] {
-            devices.flatMap { (key, sims) -> [Simulator] in
-                return sims.map { Simulator(decoded: $0, runtimeIdentifier: key) }
-            }
+extension SimCtl.DeviceList {
+    fileprivate var simulators: [SimCtl.Simulator] {
+        devices.flatMap { element -> [SimCtl.Simulator] in
+            let (key, sims) = element
+            return sims.map { SimCtl.Simulator(decoded: $0, runtimeIdentifier: key) }
         }
     }
+}
 
-    struct DecodedSimulator: Decodable {
-        let status: String?
-        let isAvailable: Bool
-        let name: String
-        let udid: String
-        let deviceTypeIdentifier: String?
-        let dataPath: String?
-    }
-
-    struct Simulator {
+extension SimCtl {
+    fileprivate struct Simulator {
         let status: String?
         let isAvailable: Bool
         let name: String
@@ -41,7 +29,7 @@ private enum SimCtl {
         let deviceTypeIdentifier: String?
         let dataPath: String?
 
-        init(decoded: DecodedSimulator, runtimeIdentifier: String) {
+        init(decoded: Device, runtimeIdentifier: String) {
             self.status = decoded.status
             self.isAvailable = decoded.isAvailable
             self.name = decoded.name
@@ -62,26 +50,6 @@ private enum SimCtl {
             return .defaultiPhone
         }
     }
-
-    struct DeviceTypeList: Decodable {
-        let devicetypes: [DeviceType]
-    }
-
-    struct DeviceType: Decodable {
-        let bundlePath: String
-        let name: String
-        let identifier: String
-
-        var modelTypeIdentifier: TypeIdentifier? {
-            guard let bundle = Bundle(path: bundlePath) else { return nil }
-            guard let plist = bundle.url(forResource: "profile", withExtension: "plist") else { return nil }
-            guard let contents = NSDictionary(contentsOf: plist) else { return nil }
-            guard let modelIdentifier = contents.object(forKey: "modelIdentifier") as? String else { return nil }
-
-            return TypeIdentifier(modelIdentifier: modelIdentifier)
-        }
-    }
-
 }
 
 /// A centralized class that loads simulator data and handles filtering.
@@ -119,6 +87,8 @@ class SimulatorsController: ObservableObject {
         willSet { objectWillChange.send() }
     }
 
+    private var cancellables = Set<AnyCancellable>()
+
     init() {
         loadSimulators()
     }
@@ -126,6 +96,15 @@ class SimulatorsController: ObservableObject {
     /// Fetches all simulators from simctl.
     private func loadSimulators() {
         loadingStatus = .loading
+
+        let devices = SimCtl.listDevices()
+        let deviceTypes = SimCtl.listDeviceTypes()
+        let runtimes = SimCtl.listRuntimes()
+
+        let combined = devices.combineLatest(deviceTypes, runtimes)
+        combined.sink(receiveCompletion: self.finishedLoadingSimulators,
+                      receiveValue: self.handleLoadedInformation)
+            .store(in: &cancellables)
 
         Command.simctl("list", "devices", "available", "-j") { result in
             switch result {
@@ -141,6 +120,35 @@ class SimulatorsController: ObservableObject {
                 self.loadDeviceTypes(parsedSimulators: nil)
             }
         }
+    }
+
+    private func handleLoadedInformation(_ deviceList: SimCtl.DeviceList, _ deviceTypes: SimCtl.DeviceTypeList, _ runtimes: SimCtl.RuntimeList) {
+        var final = [Simulator]()
+
+        let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: { $0.identifier }).compactMapValues({ $0.first })
+        let lookupRuntime = Dictionary(grouping: runtimes.runtimes, by: { $0.identifier }).compactMapValues({ $0.first })
+        for (deviceType, devices) in deviceList.devices {
+            for device in devices {
+                let model: TypeIdentifier
+                if let deviceType = lookupDeviceType[device.deviceTypeIdentifier ?? ""], let modelType = deviceType.modelTypeIdentifier {
+                    model = modelType
+                } else if device.name.contains("iPad") {
+                    model = .pad
+                } else if device.name.contains("Watch") {
+                    model = .watch
+                } else if device.name.contains("TV") {
+                    model = .tv
+                } else {
+                    model = .defaultiPhone
+                }
+            }
+        }
+
+        self.simulators = final
+    }
+
+    private func finishedLoadingSimulators(_ completion: Subscribers.Completion<Command.CommandError>) {
+
     }
 
     /// Fetches the kinds of simulators supports by simctl

@@ -31,6 +31,8 @@
 		551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF423F4AF7B0006D1BD /* FilterField.swift */; };
 		551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */; };
 		551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */; };
+		551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */; };
+		551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */; };
 		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
 		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +65,8 @@
 		551F8CF423F4AF7B0006D1BD /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
 		551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeIdentifier.swift; sourceTree = "<group>"; };
 		551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorSidebarView.swift; sourceTree = "<group>"; };
+		551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimCtl.swift; sourceTree = "<group>"; };
+		551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+Types.swift"; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +111,8 @@
 				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
 				551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */,
 				511BA59323F4079500E3E660 /* Command.swift */,
+				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
+				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
 				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
 			);
@@ -273,9 +279,11 @@
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
+				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */,
 				511BA5AA23F4316700E3E660 /* TextView.swift in Sources */,
+				551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */,
 				511BA5A023F4197200E3E660 /* DataView.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,

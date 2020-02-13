@@ -12,7 +12,9 @@ import Foundation
 enum Command {
     /// Errors we might get from running simctl
     enum CommandError: Error {
-        case missingCommand, missingOutput
+        case missingCommand
+        case missingOutput
+        case unknown(Error)
     }
 
     /// Runs one command using Process, and sends the result or error back on the main thread.
