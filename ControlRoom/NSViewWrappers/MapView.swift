@@ -9,40 +9,44 @@ import SwiftUI
 import MapKit
 import AppKit
 
-class CustomMapView: MKMapView {
-
-    var longPressClosure: (CLLocation?) -> Void = { _ in}
-
-    @objc func handleLongPress(_ gesture: NSPressGestureRecognizer) {
-        let mapView = self
-        let touchPoint = gesture.location(in: mapView)
-        let coordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
-        longPressClosure(location)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinates
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotation(annotation)
-    }
-}
-
 struct MapView: NSViewRepresentable {
 
     @Binding var location: CLLocation?
-
+    
+    func makeCoordinator() -> MapView.Coordinator {
+        Coordinator(binding: $location)
+    }
+    
     func makeNSView(context: Context) -> MKMapView {
 
-        let mapView = CustomMapView()
-        mapView.longPressClosure = { self.location = $0 }
-        let gesture = NSPressGestureRecognizer(target: mapView, action: #selector(mapView.handleLongPress(_:)))
+        let mapView = MKMapView()
+        context.coordinator.mapView = mapView
+        let gesture = NSPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(_:)))
         mapView.addGestureRecognizer(gesture)
-
         return mapView
     }
-    func updateNSView(_ uiView: MKMapView, context: Context) {
-    }
-    private func updateAnnotations(from mapView: MKMapView) {
-        mapView.removeAnnotations(mapView.annotations)
-        //      mapView.addAnnotations(newAnnotations)
+    
+    func updateNSView(_ uiView: MKMapView, context: Context) {}
+    
+    class Coordinator: NSObject {
+        let binding: Binding<CLLocation?>
+        weak var mapView: MKMapView?
+        
+        init(binding: Binding<CLLocation?>) {
+            self.binding = binding
+            super.init()
+        }
+        
+        @objc func handleLongPress(_ gesture: NSPressGestureRecognizer) {
+            guard let mapView = mapView else { return }
+             let touchPoint = gesture.location(in: mapView)
+             let coordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+             let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            binding.wrappedValue = location
+             let annotation = MKPointAnnotation()
+             annotation.coordinate = coordinates
+             mapView.removeAnnotations(mapView.annotations)
+             mapView.addAnnotation(annotation)
+         }
     }
 }
