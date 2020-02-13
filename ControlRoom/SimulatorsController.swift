@@ -17,6 +17,19 @@ private enum SimCtl {
         var devices: [String: [Simulator]]
     }
 
+    struct OSInfo: Decodable {
+        let type: String
+        let version: String
+
+        init?(runtime: String) {
+            guard let match = Constants.regex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
+            let groups = match.groups(testedString: runtime)
+            guard groups.count == 3 else { return nil }
+            self.type = groups[1]
+            self.version = groups[2].replacingOccurrences(of: "-", with: ".")
+        }
+    }
+
     struct Simulator: Decodable {
         let status: String?
         let isAvailable: Bool
@@ -24,6 +37,7 @@ private enum SimCtl {
         let udid: String
         let deviceTypeIdentifier: String?
         let dataPath: String?
+        var os: OSInfo?
     }
 
     struct DeviceTypeList: Decodable {
@@ -95,7 +109,15 @@ class SimulatorsController: ObservableObject {
             case .success(let data):
                 do {
                     let list = try JSONDecoder().decode(SimCtl.DeviceList.self, from: data)
-                    let parsed = list.devices.values.flatMap { $0 }
+                    var parsed = [SimCtl.Simulator]()
+                    for runtime in list.devices.keys {
+                        if let simulators = list.devices[runtime], simulators.count > 0 {
+                            for var simulator in simulators {
+                                simulator.os = SimCtl.OSInfo(runtime: runtime)
+                                parsed.append(simulator)
+                            }
+                        }
+                    }
                     self.loadDeviceTypes(parsedSimulators: parsed)
                 } catch {
                     print(error)
@@ -126,7 +148,13 @@ class SimulatorsController: ObservableObject {
 
         let merged = parsedSimulators?.map { sim -> Simulator in
             let deviceType = typesByIdentifier[sim.deviceTypeIdentifier ?? ""]
-            return Simulator(name: sim.name, udid: sim.udid, typeIdentifier: deviceType?.modelTypeIdentifier ?? .anyDevice)
+            let simulatorName: String
+            if let osVersion = sim.os?.version {
+                simulatorName = "\(sim.name) - (\(osVersion))"
+            } else {
+                simulatorName = sim.name
+            }
+            return Simulator(name: simulatorName, udid: sim.udid, typeIdentifier: deviceType?.modelTypeIdentifier ?? .anyDevice)
         }
 
         handleParsedSimulators(merged)
