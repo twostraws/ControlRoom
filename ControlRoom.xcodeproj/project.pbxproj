@@ -31,6 +31,8 @@
 		551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF423F4AF7B0006D1BD /* FilterField.swift */; };
 		551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */; };
 		551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */; };
+		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
+		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		551F8CF423F4AF7B0006D1BD /* FilterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterField.swift; sourceTree = "<group>"; };
 		551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeIdentifier.swift; sourceTree = "<group>"; };
 		551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorSidebarView.swift; sourceTree = "<group>"; };
+		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,7 @@
 				511BA5A723F42EE400E3E660 /* AppView.swift */,
 				511BA59923F415C800E3E660 /* BatteryView.swift */,
 				511BA59F23F4197200E3E660 /* DataView.swift */,
+				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
 			path = ControlScreens;
@@ -134,6 +139,7 @@
 			children = (
 				511BA5A923F4316700E3E660 /* TextView.swift */,
 				551F8CF423F4AF7B0006D1BD /* FilterField.swift */,
+				70BE435B23F54C8600FD6282 /* MapView.swift */,
 			);
 			path = NSViewWrappers;
 			sourceTree = "<group>";
@@ -273,6 +279,7 @@
 				511BA5A023F4197200E3E660 /* DataView.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
+				70BE435C23F54C8600FD6282 /* MapView.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,
@@ -281,6 +288,7 @@
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
 				511BA59423F4079500E3E660 /* Command.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
+				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				51760B2D23F46073004532A9 /* Defaults.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
