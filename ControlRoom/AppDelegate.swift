@@ -16,6 +16,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// One shared `SimulatorsController` to fetch and filter simulator data only once.
     let controller = SimulatorsController()
 
+    var defaultsObservation: NSKeyValueObservation?
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
         let contentView = MainView(controller: controller)
@@ -31,9 +33,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.makeKeyAndOrderFront(nil)
         window.title = "Control Room"
         window.isMovableByWindowBackground = true
+
+        UserDefaults.standard.register(defaults: [Defaults.wantsFloatingWindow: false])
+
+        defaultsObservation = UserDefaults.standard.observe(\.CRWantsFloatingWindow, options: [.initial, .new]) { [weak self] (defaults, _) in
+            guard let self = self else { return }
+            self.window.level = defaults.CRWantsFloatingWindow ? .floating : .normal
+        }
+    }
+
+    deinit {
+        defaultsObservation?.invalidate()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+
 }
