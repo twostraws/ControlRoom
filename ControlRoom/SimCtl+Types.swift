@@ -46,8 +46,9 @@ extension SimCtl {
         let runtimes: [Runtime]
     }
 
-    struct Runtime: Decodable {
-        let buildVersion: String
+    struct Runtime: Decodable, Hashable {
+        static let unknown = Runtime(buildversion: "0A000", identifier: "Unknown", version: "0.0.0", isAvailable: false, name: "Unknown OS")
+        let buildversion: String
         let identifier: String
         let version: String
         let isAvailable: Bool
