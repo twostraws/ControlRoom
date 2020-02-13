@@ -19,8 +19,13 @@ struct ControlView: View {
                     .resizable()
                     .aspectRatio(1.0, contentMode: .fit)
                     .frame(maxWidth: 64)
-                Text(simulator.name)
-                    .font(.title)
+                VStack(alignment: .leading) {
+                    Text(simulator.name)
+                        .font(.title)
+                    if simulator.runtime != nil {
+                        Text(simulator.runtime!.description)
+                    }
+                }
                 Spacer()
                 Button("Boot", action: bootDevice)
                 Button("Shutdown", action: shutdownDevice)

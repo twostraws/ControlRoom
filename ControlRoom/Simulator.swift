@@ -45,9 +45,9 @@ struct Simulator: Identifiable, Comparable, Hashable {
     let platform: Platform
 
     /// The information about the simulator OS
-    let runtime: SimCtl.Runtime
+    let runtime: SimCtl.Runtime?
 
-    init(name: String, udid: String, typeIdentifier: TypeIdentifier, runtime: SimCtl.Runtime) {
+    init(name: String, udid: String, typeIdentifier: TypeIdentifier, runtime: SimCtl.Runtime?) {
         self.name = name
         self.udid = udid
         self.typeIdentifier = typeIdentifier
@@ -75,5 +75,5 @@ struct Simulator: Identifiable, Comparable, Hashable {
 
     /// Users whichever simulator simctl feels like; if there's only one active it will be used,
     /// but if there's more than one simctl just picks one.
-    static let `default` = Simulator(name: "Default", udid: "booted", typeIdentifier: .defaultiPhone, runtime: .unknown)
+    static let `default` = Simulator(name: "Default", udid: "booted", typeIdentifier: .defaultiPhone, runtime: nil)
 }

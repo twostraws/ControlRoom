@@ -10,22 +10,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-extension SimCtl {
-    private static let runtimePattern = "com\\.apple\\.CoreSimulator\\.SimRuntime\\.([a-zA-Z]+)-([0-9-]+)$"
-    static let osVersionRegex = try? NSRegularExpression(pattern: runtimePattern, options: .caseInsensitive)
-
-    private static func getOSVersion(from runtime: String) -> String? {
-        guard let match = SimCtl.osVersionRegex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
-        var groups = [String]()
-        for index in  0 ..< match.numberOfRanges {
-            let group = String(runtime[Range(match.range(at: index), in: runtime)!])
-            groups.append(group)
-        }
-        guard groups.count == 3 else { return nil }
-        return groups[2].replacingOccurrences(of: "-", with: ".")
-    }
-}
-
 /// A centralized class that loads simulator data and handles filtering.
 class SimulatorsController: ObservableObject {
 
@@ -88,11 +72,13 @@ class SimulatorsController: ObservableObject {
         let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: { $0.identifier }).compactMapValues({ $0.first })
         let lookupRuntime = Dictionary(grouping: runtimes.runtimes, by: { $0.identifier }).compactMapValues({ $0.first })
         for (runtimeIdentifier, devices) in deviceList.devices {
-            let runtime: SimCtl.Runtime
+            let runtime: SimCtl.Runtime?
             if let known = lookupRuntime[runtimeIdentifier] {
                 runtime = known
+            } else if let parsed = SimCtl.Runtime(runtimeIdentifier: runtimeIdentifier) {
+                runtime = parsed
             } else {
-                runtime = .unknown
+                runtime = nil
             }
 
             for device in devices {
