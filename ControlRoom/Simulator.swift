@@ -20,8 +20,10 @@ struct Simulator: Identifiable, Comparable, Hashable {
     /// Sends back the UDID for Identifiable.
     var id: String { udid }
 
+    /// The uniform type identifier of the simulator device
     let typeIdentifier: TypeIdentifier
 
+    /// The icon representing the simulator's device
     let image: NSImage
 
     init(name: String, udid: String, typeIdentifier: TypeIdentifier) {

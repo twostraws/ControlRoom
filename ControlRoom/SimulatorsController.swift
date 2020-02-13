@@ -100,7 +100,7 @@ class SimulatorsController: ObservableObject {
         }
     }
 
-    /// Filters the loaded simulators and updates our UI.
+    /// Fetches the kinds of simulators supports by simctl
     private func loadDeviceTypes(parsedSimulators: [SimCtl.Simulator]?) {
         Command.simctl("list", "devicetypes", "-j") { result in
             switch result {
@@ -113,6 +113,7 @@ class SimulatorsController: ObservableObject {
         }
     }
 
+    /// Merges the known simulators with the simulator definitions
     private func merge(parsedSimulators: [SimCtl.Simulator]?, deviceTypes: [SimCtl.DeviceType]?) {
         let rawTypes = deviceTypes ?? []
         let typesByIdentifier = Dictionary(grouping: rawTypes, by: { $0.identifier }).compactMapValues({ $0.first })
@@ -125,6 +126,7 @@ class SimulatorsController: ObservableObject {
         handleParsedSimulators(merged)
     }
 
+    /// Filters the loaded simulators and updates our UI.
     private func handleParsedSimulators(_ newSimulators: [Simulator]?) {
         objectWillChange.send()
 
