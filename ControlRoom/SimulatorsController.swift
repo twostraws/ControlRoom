@@ -12,22 +12,12 @@ import SwiftUI
 
 private enum SimCtl {
 
+    private static let runtimePattern = "com\\.apple\\.CoreSimulator\\.SimRuntime\\.([a-zA-Z]+)-([0-9-]+)$"
+    static let osVersionRegex = try? NSRegularExpression(pattern: runtimePattern, options: .caseInsensitive)
+    
     /// Handles decoding the device list from simctl
     struct DeviceList: Decodable {
         var devices: [String: [Simulator]]
-    }
-
-    struct OSInfo: Decodable {
-        let type: String
-        let version: String
-
-        init?(runtime: String) {
-            guard let match = Constants.regex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
-            let groups = match.groups(testedString: runtime)
-            guard groups.count == 3 else { return nil }
-            self.type = groups[1]
-            self.version = groups[2].replacingOccurrences(of: "-", with: ".")
-        }
     }
 
     struct Simulator: Decodable {
@@ -37,7 +27,7 @@ private enum SimCtl {
         let udid: String
         let deviceTypeIdentifier: String?
         let dataPath: String?
-        var os: OSInfo?
+        var osVersion: String?
     }
 
     struct DeviceTypeList: Decodable {
@@ -100,6 +90,17 @@ class SimulatorsController: ObservableObject {
         loadSimulators()
     }
 
+    private func getOSVersion(from runtime: String) -> String? {
+        guard let match = SimCtl.osVersionRegex?.firstMatch(in: runtime, range: NSRange(location: 0, length: runtime.count)) else { return nil }
+        var groups = [String]()
+        for index in  0 ..< match.numberOfRanges {
+            let group = String(runtime[Range(match.range(at: index), in: runtime)!])
+            groups.append(group)
+        }
+        guard groups.count == 3 else { return nil }
+        return groups[2].replacingOccurrences(of: "-", with: ".")
+    }
+
     /// Fetches all simulators from simctl.
     private func loadSimulators() {
         loadingStatus = .loading
@@ -113,7 +114,7 @@ class SimulatorsController: ObservableObject {
                     for runtime in list.devices.keys {
                         if let simulators = list.devices[runtime], simulators.count > 0 {
                             for var simulator in simulators {
-                                simulator.os = SimCtl.OSInfo(runtime: runtime)
+                                simulator.osVersion = self.getOSVersion(from: runtime)
                                 parsed.append(simulator)
                             }
                         }
@@ -149,7 +150,7 @@ class SimulatorsController: ObservableObject {
         let merged = parsedSimulators?.map { sim -> Simulator in
             let deviceType = typesByIdentifier[sim.deviceTypeIdentifier ?? ""]
             let simulatorName: String
-            if let osVersion = sim.os?.version {
+            if let osVersion = sim.osVersion {
                 simulatorName = "\(sim.name) - (\(osVersion))"
             } else {
                 simulatorName = sim.name
