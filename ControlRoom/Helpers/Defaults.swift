@@ -21,4 +21,16 @@ enum Defaults {
 
     /// The cellular operator name the user last entered.
     static let operatorName = "CROperatorName"
+
+    /// Whether the app window is floating or not
+    static let wantsFloatingWindow = "CRWantsFloatingWindow"
+}
+
+/// Dynamic accessors for KVO
+extension UserDefaults {
+    // Important: For some reason the property name should match the keyname in order to receive KVO observations
+    @objc dynamic var CRWantsFloatingWindow: Bool {
+        get { bool(forKey: Defaults.wantsFloatingWindow) }
+        set { set(newValue, forKey: Defaults.wantsFloatingWindow) }
+    }
 }
