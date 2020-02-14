@@ -16,12 +16,12 @@ struct SidebarView: View {
 
         return GeometryReader { _ in
             VStack(spacing: 0) {
-                List(selection: self.$controller.selectedSimulator) {
+                List(selection: self.$controller.selectedSimulatorID) {
                     ForEach(Simulator.Platform.allCases, id: \.self) { platform in
                         Section(header: Text(platform.displayName.uppercased())) {
                             ForEach(groups[platform] ?? []) { simulator in
                                 SimulatorSidebarView(simulator: simulator)
-                                    .tag(simulator)
+                                    .tag(simulator.udid)
                             }
                         }
                     }

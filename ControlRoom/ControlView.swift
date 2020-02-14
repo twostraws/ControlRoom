@@ -27,8 +27,14 @@ struct ControlView: View {
                     }
                 }
                 Spacer()
-                Button("Boot", action: bootDevice)
-                Button("Shutdown", action: shutdownDevice)
+                VStack {
+                    if simulator.state != .booted {
+                        Button("Boot", action: bootDevice)
+                    }
+                    if simulator.state != .shutdown {
+                        Button("Shutdown", action: shutdownDevice)
+                    }
+                }
             }
             .padding(.bottom, 10)
 
@@ -38,7 +44,7 @@ struct ControlView: View {
                 BatteryView(simulator: simulator)
                 DataView(simulator: simulator)
                 LocationView(simulator: simulator)
-            }
+            }.disabled(simulator.state != .booted)
         }
         .padding()
     }

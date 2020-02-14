@@ -14,7 +14,7 @@ extension SimCtl {
         let devicetypes: [DeviceType]
     }
 
-    struct DeviceType: Decodable {
+    struct DeviceType: Decodable, Hashable {
         let bundlePath: String
         let name: String
         let identifier: String
@@ -29,12 +29,12 @@ extension SimCtl {
         }
     }
 
-    struct DeviceList: Decodable {
+    struct DeviceList: Decodable, Equatable {
         let devices: [String: [Device]]
     }
 
-    struct Device: Decodable {
-        let status: String?
+    struct Device: Decodable, Equatable {
+        let state: String?
         let isAvailable: Bool
         let name: String
         let udid: String

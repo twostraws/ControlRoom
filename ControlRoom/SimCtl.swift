@@ -10,13 +10,11 @@ import Foundation
 import Combine
 
 enum SimCtl {
-    private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, Command.CommandError> {
-        let publisher = PassthroughSubject<Data, Command.CommandError>()
+    private static func execute(_ arguments: [String], completion: @escaping (Result<Data, Command.CommandError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let task = Process()
             task.launchPath = "/usr/bin/xcrun"
             task.arguments = ["simctl"] + arguments
-            print(arguments)
 
             let pipe = Pipe()
             task.standardOutput = pipe
@@ -24,12 +22,24 @@ enum SimCtl {
             do {
                 try task.run()
                 let data = pipe.fileHandleForReading.readDataToEndOfFile()
-                publisher.send(data)
-                publisher.send(completion: .finished)
+                completion(.success(data))
             } catch {
-                publisher.send(completion: .failure(.missingCommand))
+                completion(.failure(.missingCommand))
             }
         }
+    }
+
+    private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, Command.CommandError> {
+        let publisher = PassthroughSubject<Data, Command.CommandError>()
+        execute(arguments, completion: { result in
+            switch result {
+            case .success(let data):
+                publisher.send(data)
+                publisher.send(completion: .finished)
+            case .failure(let error):
+                publisher.send(completion: .failure(error))
+            }
+        })
         return publisher
     }
 
@@ -43,6 +53,15 @@ enum SimCtl {
                 return .unknown(error)
             }
         }).eraseToAnyPublisher()
+    }
+
+    static func pollDeviceList(interval: TimeInterval = 5) -> AnyPublisher<DeviceList, Command.CommandError> {
+        return Timer.publish(every: interval, on: .main, in: .common)
+            .autoconnect()
+            .setFailureType(to: Command.CommandError.self)
+            .flatMap({ _ in return SimCtl.listDevices() })
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }
 
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, Command.CommandError> {
