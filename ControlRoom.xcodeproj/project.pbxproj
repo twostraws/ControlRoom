@@ -113,22 +113,14 @@
 		511BA57B23F3FFEA00E3E660 /* ControlRoom */ = {
 			isa = PBXGroup;
 			children = (
-				511BA5AB23F434B500E3E660 /* ControlScreens */,
+				555A145F23F758DE00313BC5 /* Main Window */,
+				511BA5D223F456B900E3E660 /* Loading */,
+				555A146223F7628100313BC5 /* Simulator UI */,
+				555A146323F762AD00313BC5 /* Controllers */,
 				511BA5D123F4567C00E3E660 /* Helpers */,
 				511BA5CF23F455D500E3E660 /* NSViewWrappers */,
-				511BA5D023F455E100E3E660 /* SystemBits */,
-				511BA57E23F3FFEA00E3E660 /* MainView.swift */,
-				511BA59123F4031F00E3E660 /* ControlView.swift */,
-				551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */,
-				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
-				551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */,
-				511BA59323F4079500E3E660 /* Command.swift */,
-				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
-				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
-				511BA59723F4096800E3E660 /* Simulator.swift */,
-				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
-				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
 				555A145323F707D900313BC5 /* Objective-C */,
+				511BA5D023F455E100E3E660 /* SystemBits */,
 			);
 			path = ControlRoom;
 			sourceTree = "<group>";
@@ -144,7 +136,6 @@
 		511BA5AB23F434B500E3E660 /* ControlScreens */ = {
 			isa = PBXGroup;
 			children = (
-				511BA5D223F456B900E3E660 /* Loading */,
 				511BA5A723F42EE400E3E660 /* AppView.swift */,
 				511BA59923F415C800E3E660 /* BatteryView.swift */,
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
@@ -214,6 +205,39 @@
 				555A145923F70A5100313BC5 /* CoreSimulator.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		555A145F23F758DE00313BC5 /* Main Window */ = {
+			isa = PBXGroup;
+			children = (
+				511BA57E23F3FFEA00E3E660 /* MainView.swift */,
+				551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */,
+				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
+				551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */,
+			);
+			path = "Main Window";
+			sourceTree = "<group>";
+		};
+		555A146223F7628100313BC5 /* Simulator UI */ = {
+			isa = PBXGroup;
+			children = (
+				511BA59123F4031F00E3E660 /* ControlView.swift */,
+				511BA5AB23F434B500E3E660 /* ControlScreens */,
+			);
+			path = "Simulator UI";
+			sourceTree = "<group>";
+		};
+		555A146323F762AD00313BC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				511BA59323F4079500E3E660 /* Command.swift */,
+				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
+				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
+				511BA59723F4096800E3E660 /* Simulator.swift */,
+				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
+				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

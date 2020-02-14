@@ -22,7 +22,7 @@ struct SplitLayoutView: View {
             // the size of the Text.
             GeometryReader { _ in
                 if self.controller.selectedSimulatorIDs.count == 1 {
-                    ControlView(simulator: self.controller.selectedSimulator!)
+                    ControlView(simulator: self.controller.selectedSimulators[0])
                         .padding()
                 } else {
                     Text("Select a simulator from the list.")

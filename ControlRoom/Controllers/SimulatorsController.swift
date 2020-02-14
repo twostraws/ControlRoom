@@ -52,8 +52,8 @@ class SimulatorsController: ObservableObject {
         willSet { objectWillChange.send() }
     }
 
-    var selectedSimulator: Simulator? {
-        allSimulators.first(where: { $0.udid == selectedSimulatorIDs.first })
+    var selectedSimulators: [Simulator] {
+        allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) })
     }
 
     private var cancellables = Set<AnyCancellable>()
@@ -136,16 +136,11 @@ class SimulatorsController: ObservableObject {
         }
 
         simulators = filtered
-        if let current = selectedSimulator {
-            if simulators.firstIndex(of: current) == nil {
-                // the current simulator is not in the list of filtered simulators
-                // deselect it
-                selectedSimulatorIDs = []
-            }
-        }
 
-        if selectedSimulator == nil, let firstID = simulators.first?.udid {
-            selectedSimulatorIDs = [firstID]
-        }
+        let oldSelection = selectedSimulatorIDs
+        let selectableIDs = Set(filtered.map { $0.udid })
+        let newSelection = oldSelection.intersection(selectableIDs)
+
+        selectedSimulatorIDs = newSelection
     }
 }
