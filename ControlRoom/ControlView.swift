@@ -42,8 +42,8 @@ struct ControlView: View {
                 SystemView(simulator: simulator)
                 AppView(simulator: simulator)
                 BatteryView(simulator: simulator)
-                DataView(simulator: simulator)
                 LocationView(simulator: simulator)
+                NetworkView(simulator: simulator)
             }
             .disabled(simulator.state != .booted)
         }

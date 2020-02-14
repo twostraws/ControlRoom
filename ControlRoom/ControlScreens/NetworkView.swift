@@ -1,5 +1,5 @@
 //
-//  DataView.swift
+//  NetworkView.swift
 //  ControlRoom
 //
 //  Created by Paul Hudson on 12/02/2020.
@@ -9,7 +9,7 @@
 import SwiftUI
 
 /// Controls WiFi and cellular data state for the whole device.
-struct DataView: View {
+struct NetworkView: View {
     var simulator: Simulator
 
     /// The active data network; can be one of "WiFi", "3G", "4G", "LTE", "LTE-A", or "LTE+".
@@ -113,7 +113,7 @@ struct DataView: View {
             Spacer()
         }
         .tabItem {
-            Text("Data")
+            Text("Network")
         }
         .padding()
     }
@@ -132,6 +132,6 @@ struct DataView: View {
 
 struct DataView_Previews: PreviewProvider {
     static var previews: some View {
-        DataView(simulator: .example)
+        NetworkView(simulator: .example)
     }
 }
