@@ -11,8 +11,20 @@ import SwiftUI
 struct SimulatorSidebarView: View {
     let simulator: Simulator
 
+    private var statusImage: NSImage {
+        let name: NSImage.Name
+        switch simulator.state {
+        case .booting: name = NSImage.statusPartiallyAvailableName
+        case .shuttingDown: name = NSImage.statusPartiallyAvailableName
+        case .booted: name = NSImage.statusAvailableName
+        default: name = NSImage.statusNoneName
+        }
+        return NSImage(named: name)!
+    }
+
     var body: some View {
-        HStack {
+        HStack(spacing: 2) {
+            Image(nsImage: statusImage)
             Image(nsImage: simulator.image)
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)

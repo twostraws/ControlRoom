@@ -41,8 +41,12 @@ class SimulatorsController: ObservableObject {
     }
 
     /// The simulator the user is actively working with.
-    var selectedSimulator: Simulator? {
+    var selectedSimulatorID: String? {
         willSet { objectWillChange.send() }
+    }
+
+    var selectedSimulator: Simulator? {
+        allSimulators.first(where: { $0.udid == selectedSimulatorID })
     }
 
     private var cancellables = Set<AnyCancellable>()
@@ -55,7 +59,7 @@ class SimulatorsController: ObservableObject {
     private func loadSimulators() {
         loadingStatus = .loading
 
-        let devices = SimCtl.listDevices()
+        let devices = SimCtl.pollDeviceList()
         let deviceTypes = SimCtl.listDeviceTypes()
         let runtimes = SimCtl.listRuntimes()
 
@@ -66,7 +70,9 @@ class SimulatorsController: ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func handleLoadedInformation(_ deviceList: SimCtl.DeviceList, _ deviceTypes: SimCtl.DeviceTypeList, _ runtimes: SimCtl.RuntimeList) {
+    private func handleLoadedInformation(_ deviceList: SimCtl.DeviceList,
+                                         _ deviceTypes: SimCtl.DeviceTypeList,
+                                         _ runtimes: SimCtl.RuntimeList) {
         var final = [Simulator]()
 
         let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: { $0.identifier }).compactMapValues({ $0.first })
@@ -82,25 +88,16 @@ class SimulatorsController: ObservableObject {
             }
 
             for device in devices {
-                let model: TypeIdentifier
-                if let deviceType = lookupDeviceType[device.deviceTypeIdentifier ?? ""], let modelType = deviceType.modelTypeIdentifier {
-                    model = modelType
-                } else if device.name.contains("iPad") {
-                    model = .defaultiPad
-                } else if device.name.contains("Watch") {
-                    model = .defaultWatch
-                } else if device.name.contains("TV") {
-                    model = .defaultTV
-                } else {
-                    model = .defaultiPhone
-                }
+                let type = lookupDeviceType[device.deviceTypeIdentifier ?? ""]
+                let state = Simulator.State(deviceState: device.state)
 
-                let sim = Simulator(name: device.name, udid: device.udid, typeIdentifier: model, runtime: runtime)
+                let sim = Simulator(name: device.name, udid: device.udid, state: state, runtime: runtime, deviceType: type)
                 final.append(sim)
             }
         }
 
         objectWillChange.send()
+        loadingStatus = .success
         allSimulators = [.default] + final.sorted()
         filterSimulators()
     }
@@ -108,10 +105,10 @@ class SimulatorsController: ObservableObject {
     private func finishedLoadingSimulators(_ completion: Subscribers.Completion<Command.CommandError>) {
         objectWillChange.send()
         switch completion {
-        case .finished:
-            loadingStatus = .success
         case .failure:
             loadingStatus = .failed
+        default:
+            loadingStatus = .success
         }
     }
 
@@ -129,12 +126,12 @@ class SimulatorsController: ObservableObject {
             if simulators.firstIndex(of: current) == nil {
                 // the current simulator is not in the list of filtered simulators
                 // deselect it
-                selectedSimulator = nil
+                selectedSimulatorID = nil
             }
         }
 
         if selectedSimulator == nil {
-            selectedSimulator = simulators.first
+            selectedSimulatorID = simulators.first?.udid
         }
     }
 
