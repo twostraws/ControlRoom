@@ -63,6 +63,7 @@ enum SimCtl {
             .autoconnect()
             .setFailureType(to: Command.CommandError.self)
             .flatMap({ _ in return SimCtl.listDevices() })
+            .prepend(SimCtl.listDevices())
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
