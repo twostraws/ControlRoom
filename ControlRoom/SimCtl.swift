@@ -6,9 +6,10 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
-import Foundation
 import Combine
+import Foundation
 
+/// A container for all the functionality for talking to simctl.
 enum SimCtl {
     private static func execute(_ arguments: [String], completion: @escaping (Result<Data, Command.CommandError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -31,6 +32,7 @@ enum SimCtl {
 
     private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, Command.CommandError> {
         let publisher = PassthroughSubject<Data, Command.CommandError>()
+
         execute(arguments, completion: { result in
             switch result {
             case .success(let data):
@@ -40,11 +42,12 @@ enum SimCtl {
                 publisher.send(completion: .failure(error))
             }
         })
+
         return publisher
     }
 
     private static func executeJSON<T: Decodable>(_ arguments: [String]) -> AnyPublisher<T, Command.CommandError> {
-        return execute(arguments).decode(type: T.self, decoder: JSONDecoder()).mapError({ error -> Command.CommandError in
+        execute(arguments).decode(type: T.self, decoder: JSONDecoder()).mapError({ error -> Command.CommandError in
             if error is DecodingError {
                 return .missingOutput
             } else if let command = error as? Command.CommandError {
@@ -56,7 +59,7 @@ enum SimCtl {
     }
 
     static func pollDeviceList(interval: TimeInterval = 5) -> AnyPublisher<DeviceList, Command.CommandError> {
-        return Timer.publish(every: interval, on: .main, in: .common)
+        Timer.publish(every: interval, on: .main, in: .common)
             .autoconnect()
             .setFailureType(to: Command.CommandError.self)
             .flatMap({ _ in return SimCtl.listDevices() })
@@ -65,14 +68,14 @@ enum SimCtl {
     }
 
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, Command.CommandError> {
-        return executeJSON(["list", "devicetypes", "-j"])
+        executeJSON(["list", "devicetypes", "-j"])
     }
 
     static func listDevices() -> AnyPublisher<DeviceList, Command.CommandError> {
-        return executeJSON(["list", "devices", "available", "-j"])
+        executeJSON(["list", "devices", "available", "-j"])
     }
 
     static func listRuntimes() -> AnyPublisher<RuntimeList, Command.CommandError> {
-        return executeJSON(["list", "runtimes", "-j"])
+        executeJSON(["list", "runtimes", "-j"])
     }
 }

@@ -77,8 +77,10 @@ class SimulatorsController: ObservableObject {
 
         let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: { $0.identifier }).compactMapValues({ $0.first })
         let lookupRuntime = Dictionary(grouping: runtimes.runtimes, by: { $0.identifier }).compactMapValues({ $0.first })
+
         for (runtimeIdentifier, devices) in deviceList.devices {
             let runtime: SimCtl.Runtime?
+
             if let known = lookupRuntime[runtimeIdentifier] {
                 runtime = known
             } else if let parsed = SimCtl.Runtime(runtimeIdentifier: runtimeIdentifier) {
@@ -104,6 +106,7 @@ class SimulatorsController: ObservableObject {
 
     private func finishedLoadingSimulators(_ completion: Subscribers.Completion<Command.CommandError>) {
         objectWillChange.send()
+
         switch completion {
         case .failure:
             loadingStatus = .failed
@@ -134,5 +137,4 @@ class SimulatorsController: ObservableObject {
             selectedSimulatorID = simulators.first?.udid
         }
     }
-
 }

@@ -8,17 +8,20 @@
 
 import SwiftUI
 
+/// Shows one simulator in the sidebar.
 struct SimulatorSidebarView: View {
     let simulator: Simulator
 
     private var statusImage: NSImage {
         let name: NSImage.Name
+
         switch simulator.state {
         case .booting: name = NSImage.statusPartiallyAvailableName
         case .shuttingDown: name = NSImage.statusPartiallyAvailableName
         case .booted: name = NSImage.statusAvailableName
         default: name = NSImage.statusNoneName
         }
+
         return NSImage(named: name)!
     }
 

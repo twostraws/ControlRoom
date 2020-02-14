@@ -25,7 +25,7 @@ struct FilterField: NSViewRepresentable {
         Coordinator(binding: $text)
     }
 
-    func makeNSView(context: Context) -> NSTextField {
+    func makeNSView(context: Context) -> NSSearchField {
         let tf = NSSearchField(string: text)
         tf.placeholderString = prompt
         tf.delegate = context.coordinator
@@ -34,7 +34,7 @@ struct FilterField: NSViewRepresentable {
         return tf
     }
 
-    func updateNSView(_ nsView: NSTextField, context: Context) {
+    func updateNSView(_ nsView: NSSearchField, context: Context) {
         nsView.stringValue = text
     }
 

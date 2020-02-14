@@ -56,7 +56,6 @@ struct TypeIdentifier: Hashable {
                     thisBundle.url(forResource: iconName, withExtension: "icns") {
                     return url
                 }
-
             } else if let iconPath = first.iconPath {
                 let fullPath = (thisBundle.bundlePath as NSString).appendingPathComponent(iconPath)
                 return URL(fileURLWithPath: fullPath)
@@ -73,6 +72,7 @@ struct TypeIdentifier: Hashable {
         if let iconURL = iconURL {
             return NSImage(byReferencing: iconURL)
         }
+
         return NSWorkspace.shared.icon(forFileType: "'ques'")
     }
 
@@ -81,7 +81,7 @@ struct TypeIdentifier: Hashable {
     }
 
     func conformsTo(_ other: TypeIdentifier) -> Bool {
-        return UTTypeConformsTo(rawValue as CFString, other.rawValue as CFString)
+        UTTypeConformsTo(rawValue as CFString, other.rawValue as CFString)
     }
 
     /// Constructs a type identifier from a device model code, such as "iPad8,4"

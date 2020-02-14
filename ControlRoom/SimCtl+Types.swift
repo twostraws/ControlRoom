@@ -9,7 +9,6 @@
 import Foundation
 
 extension SimCtl {
-
     struct DeviceTypeList: Decodable {
         let devicetypes: [DeviceType]
     }
@@ -56,7 +55,7 @@ extension SimCtl {
         let isAvailable: Bool
         let name: String
 
-        /// The user-visible description of the runtime
+        /// The user-visible description of the runtime.
         var description: String {
             if buildversion.isEmpty == false {
                 return "\(name) (\(buildversion))"
@@ -65,6 +64,7 @@ extension SimCtl {
             }
         }
 
+        /// Creates a Runtime when we know all its data.
         init(buildversion: String, identifier: String, version: String, isAvailable: Bool, name: String) {
             self.buildversion = buildversion
             self.identifier = identifier
@@ -73,10 +73,12 @@ extension SimCtl {
             self.name = name
         }
 
+        /// Creates a Runtime when we know only its identifier; we try to extrapolate properties from that string.
         init?(runtimeIdentifier: String) {
             guard let match = Runtime.runtimeRegex?.firstMatch(in: runtimeIdentifier, options: [.anchored], range: NSRange(location: 0, length: runtimeIdentifier.utf16.count)) else {
                 return nil
             }
+
             let nsIdentifier = runtimeIdentifier as NSString
             let os = nsIdentifier.substring(with: match.range(at: 1))
             let version = nsIdentifier.substring(with: match.range(at: 2)).replacingOccurrences(of: "_", with: ".")

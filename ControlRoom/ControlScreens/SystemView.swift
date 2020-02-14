@@ -6,8 +6,9 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
-import SwiftUI
 import CoreLocation
+import SwiftUI
+
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
     var simulator: Simulator

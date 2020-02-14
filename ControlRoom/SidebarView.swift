@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Shows the list of available simulators.
 struct SidebarView: View {
     @ObservedObject var controller: SimulatorsController
 

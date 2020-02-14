@@ -44,7 +44,8 @@ struct ControlView: View {
                 BatteryView(simulator: simulator)
                 DataView(simulator: simulator)
                 LocationView(simulator: simulator)
-            }.disabled(simulator.state != .booted)
+            }
+            .disabled(simulator.state != .booted)
         }
         .padding()
     }

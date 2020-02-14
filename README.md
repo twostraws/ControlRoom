@@ -11,6 +11,8 @@
 
 Control Room is a macOS app that lets you control the simulators for iOS, tvOS, and watchOS – their UI appearance, status bar configuration, and more. It wraps Apple’s own **simctl** command-line tool, so you’ll need Xcode installed.
 
+Some features, such as sending example push notifications or move between light and dark mode, require Xcode 11.4 or later.
+
 
 ## Installation
 
@@ -23,16 +25,20 @@ Control Room was written as a personal project to solve an immediate problem, bu
 
 ## Contribution guide
 
-Any help you can offer with this project is most welcome, and trust me: there are opportunities big and small, so that someone with only a small amount of Swift experience can help.
+Any help you can offer with this project is most welcome – there are opportunities big and small so that someone with only a small amount of Swift experience can help.
 
 Some suggestions you might want to explore:
 
 - Handle errors in a meaningful way.
-- Make the UI less “random bit of things I wanted,” and more “carefully considered toolset everyone can use.”
 - Handle blocking operations, such as recording video or launching an app.
+- Add documentation in the code or here in the README.
 - Did I mention handling errors in a meaningful way?
 
-Please ensure that SwiftLint returns no errors or warnings before you send in changes.
+You’re also welcome to try adding some tests, although given our underlying use of simctl that might be tricky.
+
+If you spot any errors please open an issue and let us know which macOS and Xcode versions you’re using.
+
+**Please ensure that SwiftLint returns no errors or warnings before you send in changes.**
 
 
 ## Credits

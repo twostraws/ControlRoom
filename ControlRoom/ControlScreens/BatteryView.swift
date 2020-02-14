@@ -47,6 +47,7 @@ struct BatteryView: View {
                        "--batteryState", batteryState.lowercased())
     }
 
+    /// Triggered when the user adjusts the battery level.
     func levelChanged(_ isEditing: Bool) {
         if isEditing == false {
             self.updateBattery()

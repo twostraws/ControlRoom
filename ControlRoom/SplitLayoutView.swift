@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// A horizontal split view that shows a left-hand sidebar of simulators and right-hand details.
 struct SplitLayoutView: View {
     @ObservedObject var controller: SimulatorsController
 
@@ -16,7 +17,7 @@ struct SplitLayoutView: View {
             SidebarView(controller: controller)
                 .frame(minWidth: 200)
 
-            // use a GeometryReader here to take up as much space as possible
+            // Use a GeometryReader here to take up as much space as possible
             // otherwise the view would collapse down to (potentially)
             // the size of the Text.
             GeometryReader { _ in

@@ -6,36 +6,34 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
-import SwiftUI
 import CoreLocation
+import SwiftUI
+
 /// Map view to change simulated user's position
 struct LocationView: View {
     var simulator: Simulator
+
+    /// The location that is being simulated
     @State var currentLocation: CLLocation?
 
+    /// User-facing text describing `currentLocation`
     var locationText: String {
         guard let currentLocation = currentLocation else { return "not set"}
-        return "\(currentLocation.coordinate.latitude) - \(currentLocation.coordinate.longitude)"
+        return String(format: "%.5f, %.5f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
     }
 
     var body: some View {
         Form {
-            Group {
+            Text("Long press to set desired user position, then activate it in the simulator with the bottom button")
 
-                Text("Long press to set desired user's position and set it in simulator with bottom button")
-            }
-            Group {
-                MapView(location: $currentLocation)
-            }
-            Group {
-                HStack {
-                Text("Coordinates:")
-                Text("\(locationText)")
+            MapView(location: $currentLocation)
+                .padding(.bottom, 10)
+
+            HStack {
+                Text("Coordinates: \(locationText)")
                 Spacer()
-                Button("Update simulator", action: changeLocation)
-                }
+                Button("Activate", action: changeLocation)
             }
-
         }
         .tabItem {
             Text("Location")
@@ -43,17 +41,19 @@ struct LocationView: View {
         .padding()
     }
 
-    private let locationNotificationName = "com.apple.iphonesimulator.simulateLocation"
-    /// Change current simulator's location
-    /// Credits: https://github.com/lyft/set-simulator-location
-
+    /// Updates the simulated location to the value of `currentLocation`.
     func changeLocation() {
         guard let location = self.currentLocation else { return }
+
         let coordinate = location.coordinate
+
         let userInfo: [AnyHashable: Any] = [
             "simulateLocationLatitude": coordinate.latitude,
             "simulateLocationLongitude": coordinate.longitude
         ]
+
+        // An undocumented notification name to change the current simulator's location. From here: https://github.com/lyft/set-simulator-location
+        let locationNotificationName = "com.apple.iphonesimulator.simulateLocation"
 
         let notification = Notification(name: Notification.Name(rawValue: locationNotificationName),
                                         object: nil,
