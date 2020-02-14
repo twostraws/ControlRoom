@@ -15,12 +15,19 @@ struct SidebarView: View {
     var body: some View {
         GeometryReader { _ in
             VStack(spacing: 0) {
-                List(selection: self.$controller.selectedSimulatorID) {
+                List(selection: self.$controller.selectedSimulatorIDs) {
                     if self.controller.simulators.isEmpty {
                         Text("No simulators")
                     } else {
                         ForEach(Simulator.Platform.allCases, id: \.self) { platform in
                             self.section(for: platform)
+                        }
+                    }
+                }
+                .contextMenu {
+                    if self.controller.selectedSimulatorIDs.count > 0 {
+                        Button("Delete") {
+                            self.deleteSelectedSimulators()
                         }
                     }
                 }
@@ -60,6 +67,12 @@ struct SidebarView: View {
                 }
             }
         }
+    }
+
+    /// Deletes all simulators that are currently selected.
+    func deleteSelectedSimulators() {
+        guard controller.selectedSimulatorIDs.count > 0 else { return }
+        Command.simctl(["delete"] + controller.selectedSimulatorIDs)
     }
 }
 

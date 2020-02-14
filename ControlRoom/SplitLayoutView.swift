@@ -21,12 +21,12 @@ struct SplitLayoutView: View {
             // otherwise the view would collapse down to (potentially)
             // the size of the Text.
             GeometryReader { _ in
-                if self.controller.selectedSimulator == nil {
-                    Text("Select a simulator from the list.")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
+                if self.controller.selectedSimulatorIDs.count == 1 {
                     ControlView(simulator: self.controller.selectedSimulator!)
                         .padding()
+                } else {
+                    Text("Select a simulator from the list.")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
         }

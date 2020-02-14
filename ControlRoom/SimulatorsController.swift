@@ -45,13 +45,15 @@ class SimulatorsController: ObservableObject {
         didSet { filterSimulators() }
     }
 
-    /// The simulator the user is actively working with.
-    var selectedSimulatorID: String? {
+    /// The simulators the user has selected to work with. If this has one item then
+    /// they are working with a simulator; if more than one they are probably about
+    /// to delete several at a time.
+    var selectedSimulatorIDs = Set<String>() {
         willSet { objectWillChange.send() }
     }
 
     var selectedSimulator: Simulator? {
-        allSimulators.first(where: { $0.udid == selectedSimulatorID })
+        allSimulators.first(where: { $0.udid == selectedSimulatorIDs.first })
     }
 
     private var cancellables = Set<AnyCancellable>()
@@ -138,12 +140,12 @@ class SimulatorsController: ObservableObject {
             if simulators.firstIndex(of: current) == nil {
                 // the current simulator is not in the list of filtered simulators
                 // deselect it
-                selectedSimulatorID = nil
+                selectedSimulatorIDs = []
             }
         }
 
-        if selectedSimulator == nil {
-            selectedSimulatorID = simulators.first?.udid
+        if selectedSimulator == nil, let firstID = simulators.first?.udid {
+            selectedSimulatorIDs = [firstID]
         }
     }
 }
