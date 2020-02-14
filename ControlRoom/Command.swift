@@ -36,4 +36,10 @@ enum Command {
         let arguments = ["simctl"] + arguments
         Command.run(command: "/usr/bin/xcrun", arguments: arguments, completion: completion)
     }
+
+    /// Swift doesn't have array splatting yet, so this needs to exist to complement the variadic option above.
+    static func simctl(_ arguments: [String], completion: ((Result<Data, CommandError>) -> Void)? = nil) {
+        let arguments = ["simctl"] + arguments
+        Command.run(command: "/usr/bin/xcrun", arguments: arguments, completion: completion)
+    }
 }
