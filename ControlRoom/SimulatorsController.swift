@@ -40,6 +40,11 @@ class SimulatorsController: ObservableObject {
         didSet { filterSimulators() }
     }
 
+    var filterBootedSimulators = false {
+        willSet { objectWillChange.send() }
+        didSet { filterSimulators() }
+    }
+
     /// The simulator the user is actively working with.
     var selectedSimulatorID: String? {
         willSet { objectWillChange.send() }
@@ -119,12 +124,16 @@ class SimulatorsController: ObservableObject {
     private func filterSimulators() {
         let trimmed = filterText.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        var filtered = allSimulators
         if trimmed.isEmpty == false {
-            simulators = allSimulators.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
-        } else {
-            simulators = allSimulators
+            filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }
 
+        if filterBootedSimulators == true {
+            filtered = filtered.filter { $0.state != .shutdown }
+        }
+
+        simulators = filtered
         if let current = selectedSimulator {
             if simulators.firstIndex(of: current) == nil {
                 // the current simulator is not in the list of filtered simulators

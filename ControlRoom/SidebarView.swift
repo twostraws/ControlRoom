@@ -13,17 +13,14 @@ struct SidebarView: View {
     @ObservedObject var controller: SimulatorsController
 
     var body: some View {
-        let groups = Dictionary(grouping: controller.simulators, by: { $0.platform })
-
-        return GeometryReader { _ in
+        GeometryReader { _ in
             VStack(spacing: 0) {
                 List(selection: self.$controller.selectedSimulatorID) {
-                    ForEach(Simulator.Platform.allCases, id: \.self) { platform in
-                        Section(header: Text(platform.displayName.uppercased())) {
-                            ForEach(groups[platform] ?? []) { simulator in
-                                SimulatorSidebarView(simulator: simulator)
-                                    .tag(simulator.udid)
-                            }
+                    if self.controller.simulators.isEmpty {
+                        Text("No simulators")
+                    } else {
+                        ForEach(Simulator.Platform.allCases, id: \.self) { platform in
+                            self.section(for: platform)
                         }
                     }
                 }
@@ -31,8 +28,36 @@ struct SidebarView: View {
 
                 Divider()
 
-                FilterField("Filter", text: self.$controller.filterText)
-                    .padding(2)
+                HStack(spacing: 4) {
+                    Button(action: { self.controller.filterBootedSimulators.toggle() }, label: {
+                        Image(self.controller.filterBootedSimulators ? "power_on" : "power_off")
+                        .resizable()
+                        .aspectRatio(CGSize(width: 133, height: 137), contentMode: .fit)
+                        .frame(width: 12)
+                    })
+                    .foregroundColor(self.controller.filterBootedSimulators ? Color.accentColor : Color.primary)
+                    .buttonStyle(BorderlessButtonStyle())
+                    .padding(.leading, 2)
+                    FilterField("Filter", text: self.$controller.filterText)
+                }
+                .padding(2)
+            }
+        }
+    }
+
+    private func section(for platform: Simulator.Platform) -> some View {
+        let simulators = controller.simulators.filter({ $0.platform == platform })
+
+        return Group {
+            if simulators.isEmpty {
+                EmptyView()
+            } else {
+                Section(header: Text(platform.displayName.uppercased())) {
+                    ForEach(simulators) { simulator in
+                        SimulatorSidebarView(simulator: simulator)
+                            .tag(simulator.udid)
+                    }
+                }
             }
         }
     }
