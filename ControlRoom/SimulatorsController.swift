@@ -59,7 +59,7 @@ class SimulatorsController: ObservableObject {
     private func loadSimulators() {
         loadingStatus = .loading
 
-        let devices = SimCtl.pollDeviceList()
+        let devices = SimCtl.watchDeviceList()
         let deviceTypes = SimCtl.listDeviceTypes()
         let runtimes = SimCtl.listRuntimes()
 

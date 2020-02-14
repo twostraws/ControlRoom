@@ -20,23 +20,11 @@ enum Command {
     /// Runs one command using Process, and sends the result or error back on the main thread.
     static func run(command: String, arguments: [String], completion: ((Result<Data, CommandError>) -> Void)? = nil) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let task = Process()
-            task.launchPath = command
-            task.arguments = arguments
-            print(arguments)
-
-            let pipe = Pipe()
-            task.standardOutput = pipe
-
-            do {
-                try task.run()
-                let data = pipe.fileHandleForReading.readDataToEndOfFile()
-
-                DispatchQueue.main.async {
+            let result = Process.execute(command, arguments: arguments)
+            DispatchQueue.main.async {
+                if let data = result {
                     completion?(.success(data))
-                }
-            } catch {
-                DispatchQueue.main.async {
+                } else {
                     completion?(.failure(.missingCommand))
                 }
             }

@@ -13,18 +13,9 @@ import Foundation
 enum SimCtl {
     private static func execute(_ arguments: [String], completion: @escaping (Result<Data, Command.CommandError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let task = Process()
-            task.launchPath = "/usr/bin/xcrun"
-            task.arguments = ["simctl"] + arguments
-
-            let pipe = Pipe()
-            task.standardOutput = pipe
-
-            do {
-                try task.run()
-                let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            if let data = Process.execute("/usr/bin/xcrun", arguments: ["simctl"] + arguments) {
                 completion(.success(data))
-            } catch {
+            } else {
                 completion(.failure(.missingCommand))
             }
         }
@@ -58,14 +49,23 @@ enum SimCtl {
         }).eraseToAnyPublisher()
     }
 
-    static func pollDeviceList(interval: TimeInterval = 5) -> AnyPublisher<DeviceList, Command.CommandError> {
-        Timer.publish(every: interval, on: .main, in: .common)
-            .autoconnect()
-            .setFailureType(to: Command.CommandError.self)
-            .flatMap({ _ in return SimCtl.listDevices() })
-            .prepend(SimCtl.listDevices())
-            .removeDuplicates()
-            .eraseToAnyPublisher()
+    static func watchDeviceList() -> AnyPublisher<DeviceList, Command.CommandError> {
+        if CoreSimulator.canRegisterForSimulatorNotifications {
+            return CoreSimulatorPublisher()
+                .mapError({ _ in return Command.CommandError.missingCommand })
+                .flatMap({ _ in return SimCtl.listDevices() })
+                .prepend(SimCtl.listDevices())
+                .removeDuplicates()
+                .eraseToAnyPublisher()
+        } else {
+            return Timer.publish(every: 5, on: .main, in: .common)
+                .autoconnect()
+                .setFailureType(to: Command.CommandError.self)
+                .flatMap({ _ in return SimCtl.listDevices() })
+                .prepend(SimCtl.listDevices())
+                .removeDuplicates()
+                .eraseToAnyPublisher()
+        }
     }
 
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, Command.CommandError> {
