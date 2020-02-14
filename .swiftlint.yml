@@ -1,3 +1,5 @@
+type_name:
+  allowed_symbols: "_"
 identifier_name:
   min_length: 2
 line_length:
