@@ -35,6 +35,7 @@
 		551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */; };
 		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
 		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
+		ACB65D7223F7079900E24F17 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB65D7123F7079900E24F17 /* Application.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+Types.swift"; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		ACB65D7123F7079900E24F17 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				511BA59323F4079500E3E660 /* Command.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
+				ACB65D7123F7079900E24F17 /* Application.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
 				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
 			);
@@ -300,6 +303,7 @@
 				51760B2D23F46073004532A9 /* Defaults.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
+				ACB65D7223F7079900E24F17 /* Application.swift in Sources */,
 				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

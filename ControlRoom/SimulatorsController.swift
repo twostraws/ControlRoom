@@ -93,7 +93,12 @@ class SimulatorsController: ObservableObject {
                 let type = lookupDeviceType[device.deviceTypeIdentifier ?? ""]
                 let state = Simulator.State(deviceState: device.state)
 
-                let sim = Simulator(name: device.name, udid: device.udid, state: state, runtime: runtime, deviceType: type)
+                let sim = Simulator(name: device.name,
+                                    udid: device.udid,
+                                    state: state,
+                                    runtime: runtime,
+                                    deviceType: type,
+                                    applications: listAvailableApplications(simulatorUDID: device.udid))
                 final.append(sim)
             }
         }
@@ -136,5 +141,42 @@ class SimulatorsController: ObservableObject {
         if selectedSimulator == nil {
             selectedSimulatorID = simulators.first?.udid
         }
+    }
+    
+    /// Load the applications installed on a provided `simulator`.
+    func listAvailableApplications(simulatorUDID: String) -> [Application] {
+        guard
+            let selectedSimulatorApplicationsURL = applicationsPath(simulatorUDID: simulatorUDID).flatMap(URL.init)
+            else {
+                return []
+            }
+        // list all the installed applications
+        let applications = try? FileManager.default
+            .contentsOfDirectory(at: selectedSimulatorApplicationsURL,
+                                 includingPropertiesForKeys: [.isDirectoryKey],
+                                 options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            .compactMap { applicationURL -> Application? in
+                guard
+                    // list all the app bundles
+                    let appURL = try? FileManager.default
+                        .contentsOfDirectory(at: applicationURL,
+                                             includingPropertiesForKeys: nil,
+                                             options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+                        .first(where: { $0.absoluteString.contains(".app/") })
+                    else {
+                        return nil
+                    }
+                return Application(url: appURL)
+            }
+        return applications ?? []
+    }
+    
+    private func applicationsPath(simulatorUDID: String) -> String? {
+        guard
+            let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first
+            else {
+                return nil
+            }
+        return "\(libraryPath)/Developer/CoreSimulator/Devices/\(simulatorUDID)/data/Containers/Bundle/Application"
     }
 }
