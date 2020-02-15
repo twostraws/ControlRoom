@@ -158,7 +158,7 @@ class SimulatorsController: ObservableObject {
             else { return }
         SimCtl.listApplications(deviceUDID: selectedDeviceUDID)
             .catch { _ in Empty<SimCtl.ApplicationsList, Never>() }
-            .flatMap { Just($0.values.compactMap(Application.init)) }
+            .map { $0.values.compactMap(Application.init) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.applications, on: self)
             .store(in: &cancellables)
