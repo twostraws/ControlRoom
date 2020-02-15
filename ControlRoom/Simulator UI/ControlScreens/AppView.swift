@@ -37,8 +37,8 @@ struct AppView: View {
     }
     """
 
-    /// If true shows the unistall confirmation alert.
-    @State private var shouldShowUnistallConfirmationAlert: Bool = false
+    /// If true shows the uninstall confirmation alert.
+    @State private var shouldShowUninstallConfirmationAlert: Bool = false
 
     private var isApplicationSelected: Bool {
         !selectedApplication.bundleIdentifier.isEmpty
@@ -77,7 +77,7 @@ struct AppView: View {
                         HStack {
                             Toggle("Show system apps", isOn: $shouldDisplaySystemApps.onChange(storeShouldShouldShowSystemApps))
                             Button("Show Container", action: showContainer)
-                            Button("Uninstall App") { self.shouldShowUnistallConfirmationAlert = true }
+                            Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
                         }
                         .disabled(!isApplicationSelected)
                     }
@@ -126,7 +126,7 @@ struct AppView: View {
             Text("App")
         }
         .padding()
-        .alert(isPresented: $shouldShowUnistallConfirmationAlert) {
+        .alert(isPresented: $shouldShowUninstallConfirmationAlert) {
             Alert(title: Text("Are you sure you want to permanently delete \(selectedApplication.displayName)"),
                   message: Text("You can’t undo this action."),
                   primaryButton: .destructive(Text("Delete the app"), action: uninstallApp),
