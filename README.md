@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://www.hackingwithswift.com/img/controlroom/logo.png" alt="Control Room logo" width="400” maxHeight="91" />
+    <img src=".github/assets/header@2x.png" alt="Control Room Header"/>
 </p>
 
 <p align="center">
