@@ -12,6 +12,12 @@ import SwiftUI
 struct SimulatorSidebarView: View {
     let simulator: Simulator
 
+    private var simulatorSummary: String {
+        [simulator.name, simulator.runtime?.name]
+            .compactMap { $0 }
+            .joined(separator: " - ")
+    }
+
     private var statusImage: NSImage {
         let name: NSImage.Name
 
