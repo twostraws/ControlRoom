@@ -37,6 +37,13 @@ struct AppView: View {
     }
     """
 
+    /// If true shows the uninstall confirmation alert.
+    @State private var shouldShowUninstallConfirmationAlert: Bool = false
+
+    private var isApplicationSelected: Bool {
+        !selectedApplication.bundleIdentifier.isEmpty
+    }
+
     /// All permission options supported by the simulator.
     let resetPermissions = [
         "All",
@@ -70,8 +77,9 @@ struct AppView: View {
                         HStack {
                             Toggle("Show system apps", isOn: $shouldDisplaySystemApps.onChange(storeShouldShouldShowSystemApps))
                             Button("Show Container", action: showContainer)
-                            Button("Uninstall App", action: uninstallApp)
+                            Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
                         }
+                        .disabled(!isApplicationSelected)
                     }
                     AppSummaryView(application: selectedApplication)
                 }
@@ -107,6 +115,7 @@ struct AppView: View {
                 HStack {
                     Spacer()
                     Button("Send Push Notification", action: sendPushNotification)
+                        .disabled(!isApplicationSelected)
                 }
             }
 
@@ -117,6 +126,12 @@ struct AppView: View {
             Text("App")
         }
         .padding()
+        .alert(isPresented: $shouldShowUninstallConfirmationAlert) {
+            Alert(title: Text("Are you sure you want to permanently delete \(selectedApplication.displayName)"),
+                  message: Text("You can’t undo this action."),
+                  primaryButton: .destructive(Text("Delete the app"), action: uninstallApp),
+                  secondaryButton: .default(Text("Cancel")))
+        }
     }
 
     /// Reveals the app's container directory in Finder,
