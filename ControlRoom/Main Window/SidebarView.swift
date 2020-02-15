@@ -44,7 +44,7 @@ struct SidebarView: View {
                 }
                 .contextMenu {
                     if self.controller.selectedSimulatorIDs.count > 0 {
-                        Button("Delete") {
+                        Button("Delete...") {
                             self.shouldShowDeleteAlert = true
                         }
                     }
@@ -66,11 +66,13 @@ struct SidebarView: View {
                     FilterField("Filter", text: self.$controller.filterText)
                 }
                 .padding(2)
-                .alert(isPresented: self.$shouldShowDeleteAlert) {
-                    Alert(title: Text("Are you sure you want to permanently delete \(self.selectedSimulatorsSummary)?"),
-                          message: Text("You can’t undo this action."),
-                          primaryButton: .destructive(Text("Delete"), action: self.deleteSelectedSimulators),
-                          secondaryButton: .default(Text("Cancel")))
+                .sheet(isPresented: self.$shouldShowDeleteAlert) {
+                    SimulatorActionSheet(icon: self.controller.selectedSimulators[0].image,
+                                         message: "Delete Simulators?",
+                                         informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
+                                         confirmationTitle: "Delete",
+                                         confirm: self.deleteSelectedSimulators,
+                                         content: { EmptyView() })
                 }
             }
         }
