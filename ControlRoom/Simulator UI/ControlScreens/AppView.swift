@@ -115,6 +115,7 @@ struct AppView: View {
                 HStack {
                     Spacer()
                     Button("Send Push Notification", action: sendPushNotification)
+                        .disabled(!isApplicationSelected)
                 }
             }
 
