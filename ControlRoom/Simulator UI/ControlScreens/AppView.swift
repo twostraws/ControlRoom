@@ -40,6 +40,10 @@ struct AppView: View {
     /// If true shows the unistall confirmation alert.
     @State private var shouldShowUnistallConfirmationAlert: Bool = false
 
+    private var isApplicationSelected: Bool {
+        !selectedApplication.bundleIdentifier.isEmpty
+    }
+
     /// All permission options supported by the simulator.
     let resetPermissions = [
         "All",
@@ -75,6 +79,7 @@ struct AppView: View {
                             Button("Show Container", action: showContainer)
                             Button("Uninstall App") { self.shouldShowUnistallConfirmationAlert = true }
                         }
+                        .disabled(!isApplicationSelected)
                     }
                     AppSummaryView(application: selectedApplication)
                 }
