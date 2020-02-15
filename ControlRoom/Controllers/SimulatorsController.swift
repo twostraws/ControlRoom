@@ -111,7 +111,7 @@ class SimulatorsController: ObservableObject {
         filterSimulators()
     }
 
-    private func finishedLoadingSimulators(_ completion: Subscribers.Completion<Command.CommandError>) {
+    private func finishedLoadingSimulators(_ completion: Subscribers.Completion<SimCtl.Error>) {
         objectWillChange.send()
 
         switch completion {

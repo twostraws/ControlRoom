@@ -104,16 +104,13 @@ struct AppView: View {
 
     /// Reveals the app's container directory in Finder,
     func showContainer() {
-        Command.simctl("get_app_container", self.simulator.udid, self.bundleID) { result in
-            if let data = try? result.get() {
-                // We can't just "open" the app bundle URL, because
-                // macOS will attempt to execute the binary.
-                // So, instead we ask macOS to show the Info.plist file,
-                // which will be just inside the app bundle.
-                if let path = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    let url = URL(fileURLWithPath: path).appendingPathComponent("Info.plist")
-                    NSWorkspace.shared.activateFileViewerSelecting([url])
-                }
+        SimCtl.getAppContainer(simulator.udid, appID: bundleID) { url in
+            // We can't just "open" the app bundle URL, because
+            // macOS will attempt to execute the binary.
+            // So, instead we ask macOS to show the Info.plist file,
+            // which will be just inside the app bundle.
+            if let infoPlist = url?.appendingPathComponent("Info.plist") {
+                NSWorkspace.shared.activateFileViewerSelecting([infoPlist])
             }
         }
     }
@@ -122,22 +119,12 @@ struct AppView: View {
     func sendPushNotification() {
         // save their message for next time
         UserDefaults.standard.set(self.pushPayload, forKey: Defaults.pushPayload)
-
-        // write the current JSON to a temporary file
-        let tempDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
-        let fileURL = tempDirectory.appendingPathComponent("cr_push.json")
-
-        do {
-            try self.pushPayload.write(to: fileURL, atomically: true, encoding: .utf8)
-            Command.simctl("push", self.simulator.udid, self.bundleID, fileURL.path)
-        } catch {
-            print("Write error for URL: \(fileURL)")
-        }
+        SimCtl.sendPushNotification(simulator.udid, appID: bundleID, jsonPayload: pushPayload)
     }
 
     /// Removes the identified app from the device.
     func uninstallApp() {
-        Command.simctl("uninstall", self.simulator.udid, self.bundleID)
+        SimCtl.uninstall(simulator.udid, appID: bundleID)
     }
 
     /// Wrtes the user's URL to UserDefaults.
@@ -148,22 +135,22 @@ struct AppView: View {
     /// Opens a URL in the appropriate device app.
     func openURL() {
         saveAppURL()
-        Command.simctl("openurl", self.simulator.udid, self.url)
+        SimCtl.openURL(simulator.udid, URL: url)
     }
 
     /// Grants some type of permission to the app.
     func grantPrivacy() {
-        Command.simctl("privacy", self.simulator.udid, "grant", self.resetPermission.lowercased(), self.bundleID)
+        SimCtl.grantPermission(simulator.udid, appID: bundleID, permission: resetPermission)
     }
 
     /// Revokes some type of permission from the app.
     func revokePrivacy() {
-        Command.simctl("privacy", self.simulator.udid, "revoke", self.resetPermission.lowercased(), self.bundleID)
+        SimCtl.revokePermission(simulator.udid, appID: bundleID, permission: resetPermission)
     }
 
     /// Resets some type of permission to the app, so it will be asked for again.
     func resetPrivacy() {
-        Command.simctl("privacy", self.simulator.udid, "reset", self.resetPermission.lowercased(), self.bundleID)
+        SimCtl.resetPermission(simulator.udid, appID: bundleID, permission: resetPermission)
     }
 }
 

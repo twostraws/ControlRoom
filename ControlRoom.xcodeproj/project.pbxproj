@@ -14,7 +14,6 @@
 		511BA58723F3FFEB00E3E660 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 511BA58523F3FFEB00E3E660 /* Main.storyboard */; };
 		511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA58F23F4030D00E3E660 /* LoadingView.swift */; };
 		511BA59223F4031F00E3E660 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59123F4031F00E3E660 /* ControlView.swift */; };
-		511BA59423F4079500E3E660 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59323F4079500E3E660 /* Command.swift */; };
 		511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59523F408F800E3E660 /* LoadingFailedView.swift */; };
 		511BA59823F4096800E3E660 /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59723F4096800E3E660 /* Simulator.swift */; };
 		511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59923F415C800E3E660 /* BatteryView.swift */; };
@@ -52,7 +51,6 @@
 		511BA58923F3FFEB00E3E660 /* ControlRoom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ControlRoom.entitlements; sourceTree = "<group>"; };
 		511BA58F23F4030D00E3E660 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		511BA59123F4031F00E3E660 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
-		511BA59323F4079500E3E660 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		511BA59523F408F800E3E660 /* LoadingFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFailedView.swift; sourceTree = "<group>"; };
 		511BA59723F4096800E3E660 /* Simulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
 		511BA59923F415C800E3E660 /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 		555A146323F762AD00313BC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				511BA59323F4079500E3E660 /* Command.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
@@ -352,7 +349,6 @@
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
 				551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */,
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
-				511BA59423F4079500E3E660 /* Command.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,

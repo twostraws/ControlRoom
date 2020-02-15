@@ -72,7 +72,7 @@ struct SidebarView: View {
     /// Deletes all simulators that are currently selected.
     func deleteSelectedSimulators() {
         guard controller.selectedSimulatorIDs.count > 0 else { return }
-        Command.simctl(["delete"] + controller.selectedSimulatorIDs)
+        SimCtl.delete(controller.selectedSimulatorIDs)
     }
 }
 

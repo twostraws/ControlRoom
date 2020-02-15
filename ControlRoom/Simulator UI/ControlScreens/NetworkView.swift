@@ -19,13 +19,13 @@ struct NetworkView: View {
     @State private var wiFiMode = "Active"
 
     /// How many WiFi bars the device is showing, as a range from 0 through 3.
-    @State private var wiFiBar = "3"
+    @State private var wiFiBar = 3
 
     /// Whether cellular data is currently active; can be "Active", "Searching", "Failed", or "Not Supported".
     @State private var cellularMode = "Active"
 
     /// How many cellular bars the device is showing, as a range from 0 through 4.
-    @State private var cellularBar = "4"
+    @State private var cellularBar = 4
 
     /// The cell carrier name to display.
     @State private var operatorName = UserDefaults.standard.string(forKey: Defaults.operatorName) ?? "Carrier"
@@ -37,13 +37,13 @@ struct NetworkView: View {
     private let wiFiModes = ["Active", "Searching", "Failed"]
 
     /// The full range of WiFi bars we can control.
-    private let wiFiBars = (0...3).map(String.init)
+    private let wiFiBars = [0, 1, 2, 3]
 
     /// All possible cellular modes.
     private let cellularModes = ["Active", "Searching", "Failed", "Not Supported"]
 
     /// The full range of cellular bars we can show.
-    private let cellularBars = (0...4).map(String.init)
+    private let cellularBars = [0, 1, 2, 3, 4]
 
     /// Converts the user-facing cellular mode to one that can be read by simctl.
     var cleanedCellularMode: String {
@@ -81,10 +81,10 @@ struct NetworkView: View {
                 .pickerStyle(PopUpButtonPickerStyle())
 
                 Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
-                    ForEach(0..<wiFiBars.count) { idx in
-                        Image("wifi\(idx)")
+                    ForEach(wiFiBars, id: \.self) { bars in
+                        Image("wifi\(bars)")
                             .resizable()
-                            .tag(self.wiFiBars[idx])
+                            .tag(bars)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -120,13 +120,10 @@ struct NetworkView: View {
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually.
     func updateData() {
-        Command.simctl("status_bar", self.simulator.udid, "override",
-                       "--dataNetwork", dataNetwork.lowercased(),
-                       "--wifiMode", wiFiMode.lowercased(),
-                       "--wifiBars", wiFiBar,
-                       "--cellularMode", cleanedCellularMode,
-                       "--cellularBars", cellularBar,
-                       "--operatorName", operatorName)
+        SimCtl.overrideStatusBarNetwork(simulator.udid, network: dataNetwork,
+                                        wifiMode: wiFiMode, wifiBars: wiFiBar,
+                                        cellMode: cleanedCellularMode, cellBars: cellularBar,
+                                        carrier: operatorName)
     }
 }
 

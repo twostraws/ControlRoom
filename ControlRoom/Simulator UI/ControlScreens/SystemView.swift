@@ -19,12 +19,6 @@ struct SystemView: View {
     /// The system-wide appearance; "Light" or "Dark".
     @State private var appearance = "Light"
 
-    /// Formats the user's date in the way simctl expects to read it.
-    var timeString: String {
-        let formatter = ISO8601DateFormatter()
-        return formatter.string(from: time)
-    }
-
     var body: some View {
         Form {
             Group {
@@ -82,37 +76,37 @@ struct SystemView: View {
 
     /// Changes the system clock to a new value.
     func setTime() {
-        Command.simctl("status_bar", simulator.udid, "override", "--time", timeString)
+        SimCtl.overrideStatusBarTime(simulator.udid, time: time)
     }
 
     /// Moves between light and dark mode.
     func updateAppearance() {
-        Command.simctl("ui", simulator.udid, "appearance", appearance.lowercased())
+        SimCtl.setAppearance(simulator.udid, appearance: appearance)
     }
 
     /// Starts an immediate iCloud sync.
     func triggerSync() {
-        Command.simctl("icloud_sync", simulator.udid)
+        SimCtl.triggeriCloudSync(simulator.udid)
     }
 
     /// Copies the simulator's pasteboard to the Mac.
     func copyPasteboardToMac() {
-        Command.simctl("pbsync", simulator.udid, "host")
+        SimCtl.copyPasteboardToMac(simulator.udid)
     }
 
     /// Copies the Mac's pasteboard to the simulator.
     func copyPasteboardToSim() {
-        Command.simctl("pbsync", "host", simulator.udid)
+        SimCtl.copyPasteboardToSimulator(simulator.udid)
     }
 
     /// Takes a screenshot of the device's current screen and saves it to the desktop.
     func takeScreenshot() {
-        Command.simctl("io", simulator.udid, "screenshot", makeScreenshotFilename())
+        SimCtl.saveScreenshot(simulator.udid, to: makeScreenshotFilename())
     }
 
     /// Erases the current device.
     func eraseDevice() {
-        Command.simctl("erase", simulator.udid)
+        SimCtl.erase(simulator.udid)
     }
 
     /// Creates a filename for a screenshot that ought to be unique
