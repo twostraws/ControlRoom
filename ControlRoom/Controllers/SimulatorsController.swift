@@ -40,13 +40,20 @@ class SimulatorsController: ObservableObject {
         didSet { filterSimulators() }
     }
 
-    /// The simulator the user is actively working with.
-    var selectedSimulatorID: String? {
+    var filterBootedSimulators = false {
+        willSet { objectWillChange.send() }
+        didSet { filterSimulators() }
+    }
+
+    /// The simulators the user has selected to work with. If this has one item then
+    /// they are working with a simulator; if more than one they are probably about
+    /// to delete several at a time.
+    var selectedSimulatorIDs = Set<String>() {
         willSet { objectWillChange.send() }
     }
 
-    var selectedSimulator: Simulator? {
-        allSimulators.first(where: { $0.udid == selectedSimulatorID })
+    var selectedSimulators: [Simulator] {
+        allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) })
     }
 
     private var cancellables = Set<AnyCancellable>()
@@ -59,7 +66,7 @@ class SimulatorsController: ObservableObject {
     private func loadSimulators() {
         loadingStatus = .loading
 
-        let devices = SimCtl.pollDeviceList()
+        let devices = SimCtl.watchDeviceList()
         let deviceTypes = SimCtl.listDeviceTypes()
         let runtimes = SimCtl.listRuntimes()
 
@@ -124,23 +131,22 @@ class SimulatorsController: ObservableObject {
     private func filterSimulators() {
         let trimmed = filterText.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        var filtered = allSimulators
         if trimmed.isEmpty == false {
-            simulators = allSimulators.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
-        } else {
-            simulators = allSimulators
+            filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }
 
-        if let current = selectedSimulator {
-            if simulators.firstIndex(of: current) == nil {
-                // the current simulator is not in the list of filtered simulators
-                // deselect it
-                selectedSimulatorID = nil
-            }
+        if filterBootedSimulators == true {
+            filtered = filtered.filter { $0.state != .shutdown }
         }
 
-        if selectedSimulator == nil {
-            selectedSimulatorID = simulators.first?.udid
-        }
+        simulators = filtered
+
+        let oldSelection = selectedSimulatorIDs
+        let selectableIDs = Set(filtered.map { $0.udid })
+        let newSelection = oldSelection.intersection(selectableIDs)
+
+        selectedSimulatorIDs = newSelection
     }
     
     /// Load the applications installed on a provided `simulator`.

@@ -49,7 +49,8 @@ struct LocationView: View {
 
         let userInfo: [AnyHashable: Any] = [
             "simulateLocationLatitude": coordinate.latitude,
-            "simulateLocationLongitude": coordinate.longitude
+            "simulateLocationLongitude": coordinate.longitude,
+            "simulateLocationDevices": [self.simulator.id]
         ]
 
         // An undocumented notification name to change the current simulator's location. From here: https://github.com/lyft/set-simulator-location

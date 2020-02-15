@@ -20,23 +20,11 @@ enum Command {
     /// Runs one command using Process, and sends the result or error back on the main thread.
     static func run(command: String, arguments: [String], completion: ((Result<Data, CommandError>) -> Void)? = nil) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let task = Process()
-            task.launchPath = command
-            task.arguments = arguments
-            print(arguments)
-
-            let pipe = Pipe()
-            task.standardOutput = pipe
-
-            do {
-                try task.run()
-                let data = pipe.fileHandleForReading.readDataToEndOfFile()
-
-                DispatchQueue.main.async {
+            let result = Process.execute(command, arguments: arguments)
+            DispatchQueue.main.async {
+                if let data = result {
                     completion?(.success(data))
-                }
-            } catch {
-                DispatchQueue.main.async {
+                } else {
                     completion?(.failure(.missingCommand))
                 }
             }
@@ -45,6 +33,12 @@ enum Command {
 
     /// Runs one simctl command and sends the result or error back on the main thread.
     static func simctl(_ arguments: String..., completion: ((Result<Data, CommandError>) -> Void)? = nil) {
+        let arguments = ["simctl"] + arguments
+        Command.run(command: "/usr/bin/xcrun", arguments: arguments, completion: completion)
+    }
+
+    /// Swift doesn't have array splatting yet, so this needs to exist to complement the variadic option above.
+    static func simctl(_ arguments: [String], completion: ((Result<Data, CommandError>) -> Void)? = nil) {
         let arguments = ["simctl"] + arguments
         Command.run(command: "/usr/bin/xcrun", arguments: arguments, completion: completion)
     }
