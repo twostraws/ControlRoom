@@ -11,6 +11,7 @@ import SwiftUI
 /// The main tab view to control simulator settings.
 struct ControlView: View {
     let simulator: Simulator
+    let applications: [Application]
 
     var body: some View {
         VStack {
@@ -40,7 +41,7 @@ struct ControlView: View {
 
             TabView {
                 SystemView(simulator: simulator)
-                AppView(simulator: simulator)
+                AppView(simulator: simulator, applications: applications)
                 BatteryView(simulator: simulator)
                 LocationView(simulator: simulator)
                 NetworkView(simulator: simulator)
@@ -63,6 +64,6 @@ struct ControlView: View {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(simulator: .example)
+        ControlView(simulator: .example, applications: [])
     }
 }

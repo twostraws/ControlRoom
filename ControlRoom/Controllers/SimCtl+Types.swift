@@ -90,4 +90,23 @@ extension SimCtl {
             self.isAvailable = false
         }
     }
+
+    typealias ApplicationsList = [String: SimCtl.Application]
+
+    struct Application: Decodable, Equatable {
+        let type: ApplicationType
+        let bundleIdentifier: String
+        let displayName: String
+        let bundlePath: String
+    }
+}
+
+extension SimCtl.Application {
+
+    private enum CodingKeys: String, CodingKey {
+        case type = "ApplicationType"
+        case bundleIdentifier = "CFBundleIdentifier"
+        case displayName = "CFBundleDisplayName"
+        case bundlePath = "Bundle"
+    }
 }

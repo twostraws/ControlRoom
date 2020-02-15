@@ -32,7 +32,7 @@ enum SimCtl {
     private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, SimCtl.Error> {
         let publisher = PassthroughSubject<Data, SimCtl.Error>()
 
-        execute(arguments, completion: { result in
+        execute(arguments) { result in
             switch result {
             case .success(let data):
                 publisher.send(data)
@@ -40,21 +40,33 @@ enum SimCtl {
             case .failure(let error):
                 publisher.send(completion: .failure(error))
             }
-        })
+        }
 
         return publisher
     }
 
     private static func executeJSON<T: Decodable>(_ arguments: [String]) -> AnyPublisher<T, SimCtl.Error> {
-        execute(arguments).decode(type: T.self, decoder: JSONDecoder()).mapError({ error -> SimCtl.Error in
-            if error is DecodingError {
-                return .missingOutput
-            } else if let command = error as? SimCtl.Error {
-                return command
-            } else {
-                return .unknown(error)
-            }
-        }).eraseToAnyPublisher()
+        executeAndDecode(arguments, decoder: JSONDecoder())
+    }
+
+    private static func executePropertyList<T: Decodable>(_ arguments: [String]) -> AnyPublisher<T, SimCtl.Error> {
+        executeAndDecode(arguments, decoder: PropertyListDecoder())
+    }
+
+    private static func executeAndDecode<Item: Decodable, Decoder: TopLevelDecoder>(_ arguments: [String],
+                                                                                    decoder: Decoder) -> AnyPublisher<Item, SimCtl.Error> where Decoder.Input == Data {
+        execute(arguments)
+            .decode(type: Item.self, decoder: decoder)
+            .mapError({ error -> SimCtl.Error in
+                if error is DecodingError {
+                    return .missingOutput
+                } else if let command = error as? SimCtl.Error {
+                    return command
+                } else {
+                    return .unknown(error)
+                }
+            })
+            .eraseToAnyPublisher()
     }
 
     static func watchDeviceList() -> AnyPublisher<DeviceList, SimCtl.Error> {
@@ -86,6 +98,10 @@ enum SimCtl {
 
     static func listRuntimes() -> AnyPublisher<RuntimeList, SimCtl.Error> {
         executeJSON(["list", "runtimes", "-j"])
+    }
+
+    static func listApplications(_ simulator: String) -> AnyPublisher<ApplicationsList, SimCtl.Error> {
+        executePropertyList(["listapps", simulator, "-j"])
     }
 
     static func boot(_ simulator: String) {
