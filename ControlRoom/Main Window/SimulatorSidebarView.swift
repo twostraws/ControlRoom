@@ -12,8 +12,6 @@ import SwiftUI
 struct SimulatorSidebarView: View {
     let simulator: Simulator
 
-    @State private var shouldShowDeleteAlert = false
-
     private var simulatorSummary: String {
         [simulator.name, simulator.runtime?.name]
             .compactMap { $0 }
@@ -43,22 +41,6 @@ struct SimulatorSidebarView: View {
             Text(simulator.name)
             Spacer()
         }
-        .contextMenu {
-            Button("Delete") {
-                self.shouldShowDeleteAlert = true
-            }
-        }
-        .alert(isPresented: $shouldShowDeleteAlert) {
-            Alert(title: Text("Are you sure you want to permanently delete \(simulatorSummary)?"),
-                  message: Text("You can’t undo this action."),
-                  primaryButton: .destructive(Text("Delete the simulator"), action: deleteSelectedSimulator),
-                  secondaryButton: .default(Text("Cancel")))
-        }
-    }
-
-    /// Deletes all simulators that are currently selected.
-    private func deleteSelectedSimulator() {
-        SimCtl.delete([simulator.udid])
     }
 }
 

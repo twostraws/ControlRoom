@@ -12,8 +12,22 @@ import SwiftUI
 struct SidebarView: View {
     @ObservedObject var controller: SimulatorsController
 
-    private var selectedSimulator: Simulator? {
-        controller.selectedSimulators.first
+    @State private var shouldShowDeleteAlert = false
+
+    private var selectedSimulatorsSummary: String {
+        guard
+            controller.selectedSimulators.count > 0
+            else {
+                return ""
+            }
+        switch controller.selectedSimulators.count {
+        case 1:
+            return controller.selectedSimulators[0].summary
+        default:
+            let simulatorsSummaries = controller.selectedSimulators.map { "• \($0.summary)" }.joined(separator: "\n")
+            return "the following simulators? \n\n\(simulatorsSummaries)"
+        }
+
     }
 
     var body: some View {
@@ -25,6 +39,13 @@ struct SidebarView: View {
                     } else {
                         ForEach(Simulator.Platform.allCases, id: \.self) { platform in
                             self.section(for: platform)
+                        }
+                    }
+                }
+                .contextMenu {
+                    if self.controller.selectedSimulatorIDs.count > 0 {
+                        Button("Delete") {
+                            self.shouldShowDeleteAlert = true
                         }
                     }
                 }
@@ -45,6 +66,12 @@ struct SidebarView: View {
                     FilterField("Filter", text: self.$controller.filterText)
                 }
                 .padding(2)
+                .alert(isPresented: self.$shouldShowDeleteAlert) {
+                    Alert(title: Text("Are you sure you want to permanently delete \(self.selectedSimulatorsSummary)?"),
+                          message: Text("You can’t undo this action."),
+                          primaryButton: .destructive(Text("Delete"), action: self.deleteSelectedSimulators),
+                          secondaryButton: .default(Text("Cancel")))
+                }
             }
         }
     }
@@ -64,6 +91,18 @@ struct SidebarView: View {
                 }
             }
         }
+    }
+
+    /// Deletes all simulators that are currently selected.
+    func deleteSelectedSimulators() {
+        guard controller.selectedSimulatorIDs.count > 0 else { return }
+        SimCtl.delete(controller.selectedSimulatorIDs)
+    }
+}
+
+private extension Simulator {
+    var summary: String {
+        [name, runtime?.name].compactMap { $0 }.joined(separator: " - ")
     }
 }
 
