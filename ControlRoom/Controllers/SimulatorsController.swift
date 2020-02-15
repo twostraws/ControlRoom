@@ -31,6 +31,9 @@ class SimulatorsController: ObservableObject {
     /// An array of all simulators that match the user's current filter.
     @Published var simulators = [Simulator]()
 
+    /// An array of all the applications installed on the selected simulator.
+    @Published var applications = [Application]()
+
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
@@ -50,6 +53,7 @@ class SimulatorsController: ObservableObject {
     /// to delete several at a time.
     var selectedSimulatorIDs = Set<String>() {
         willSet { objectWillChange.send() }
+        didSet { loadApplications() }
     }
 
     var selectedSimulators: [Simulator] {
@@ -100,7 +104,11 @@ class SimulatorsController: ObservableObject {
                 let type = lookupDeviceType[device.deviceTypeIdentifier ?? ""]
                 let state = Simulator.State(deviceState: device.state)
 
-                let sim = Simulator(name: device.name, udid: device.udid, state: state, runtime: runtime, deviceType: type)
+                let sim = Simulator(name: device.name,
+                                    udid: device.udid,
+                                    state: state,
+                                    runtime: runtime,
+                                    deviceType: type)
                 final.append(sim)
             }
         }
@@ -142,5 +150,17 @@ class SimulatorsController: ObservableObject {
         let newSelection = oldSelection.intersection(selectableIDs)
 
         selectedSimulatorIDs = newSelection
+    }
+
+    private func loadApplications() {
+        guard
+            let selectedDeviceUDID = selectedSimulatorIDs.first
+            else { return }
+        SimCtl.listApplications(deviceUDID: selectedDeviceUDID)
+            .catch { _ in Empty<SimCtl.ApplicationsList, Never>() }
+            .map { $0.values.compactMap(Application.init) }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.applications, on: self)
+            .store(in: &cancellables)
     }
 }
