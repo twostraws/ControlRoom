@@ -54,6 +54,7 @@ struct SidebarView: View {
 
     private func section(for platform: Simulator.Platform) -> some View {
         let simulators = controller.simulators.filter({ $0.platform == platform })
+        let canShowContext = controller.selectedSimulatorIDs.count < 2
 
         return Group {
             if simulators.isEmpty {
@@ -61,7 +62,7 @@ struct SidebarView: View {
             } else {
                 Section(header: Text(platform.displayName.uppercased())) {
                     ForEach(simulators) { simulator in
-                        SimulatorSidebarView(simulator: simulator)
+                        SimulatorSidebarView(simulator: simulator, canShowContextualMenu: canShowContext)
                             .tag(simulator.udid)
                     }
                 }
