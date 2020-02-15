@@ -9,31 +9,39 @@
 import Foundation
 
 struct Application: Hashable {
-    
+
     let url: URL?
+    let type: ApplicationType?
     let displayName: String
     let bundleIdentifier: String
     let versionNumber: String
     let buildNumber: String
     let imageURLs: [URL]?
-    
+
     static let `default` = Application()
-    
+
     private init() {
         url = nil
+        type = nil
         displayName = ""
         bundleIdentifier = ""
         versionNumber = ""
         buildNumber = ""
         imageURLs = nil
     }
-    
-    init(url: URL) {
+
+    init?(application: SimCtl.Application) {
+        guard
+            let url = URL(string: application.bundlePath)
+            else {
+                return nil
+            }
         self.url = url
+        type = application.type
+        displayName = application.displayName
         let plistURL = url.appendingPathComponent("Info.plist")
         let plistDictionary = NSDictionary(contentsOf: plistURL)
-        displayName = Self.fetchAppName(plistDictionary: plistDictionary)
-        bundleIdentifier = plistDictionary?["CFBundleIdentifier"] as? String ?? ""
+        bundleIdentifier = application.bundleIdentifier
         versionNumber = plistDictionary?["CFBundleShortVersionString"] as? String ?? ""
         buildNumber = plistDictionary?["CFBundleVersion"] as? String ?? ""
         imageURLs = [Self.fetchIconNames(plistDitionary: plistDictionary),
@@ -41,11 +49,7 @@ struct Application: Hashable {
             .flatMap { $0 }
             .compactMap { Bundle(url: url)?.urlForImageResource($0) }
     }
-    
-    private static func fetchAppName(plistDictionary: NSDictionary?) -> String {
-        plistDictionary?["CFBundleDisplayName"] as? String ?? plistDictionary?["CFBundleName"] as? String ?? ""
-    }
-    
+
     private static func fetchIconNames(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
         let scaleSuffixes: [String] = ["@2x", "@3x"]
         guard

@@ -31,6 +31,9 @@ class SimulatorsController: ObservableObject {
     /// An array of all simulators that match the user's current filter.
     @Published var simulators = [Simulator]()
 
+    /// An array of all the applications installed on the selected simulator.
+    @Published var applications = [Application]()
+
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
@@ -50,6 +53,7 @@ class SimulatorsController: ObservableObject {
     /// to delete several at a time.
     var selectedSimulatorIDs = Set<String>() {
         willSet { objectWillChange.send() }
+        didSet { loadApplications() }
     }
 
     var selectedSimulators: [Simulator] {
@@ -104,8 +108,7 @@ class SimulatorsController: ObservableObject {
                                     udid: device.udid,
                                     state: state,
                                     runtime: runtime,
-                                    deviceType: type,
-                                    applications: listAvailableApplications(simulatorUDID: device.udid))
+                                    deviceType: type)
                 final.append(sim)
             }
         }
@@ -148,41 +151,16 @@ class SimulatorsController: ObservableObject {
 
         selectedSimulatorIDs = newSelection
     }
-    
-    /// Load the applications installed on a provided `simulator`.
-    func listAvailableApplications(simulatorUDID: String) -> [Application] {
+
+    private func loadApplications() {
         guard
-            let selectedSimulatorApplicationsURL = applicationsPath(simulatorUDID: simulatorUDID).flatMap(URL.init)
-            else {
-                return []
-            }
-        // list all the installed applications
-        let applications = try? FileManager.default
-            .contentsOfDirectory(at: selectedSimulatorApplicationsURL,
-                                 includingPropertiesForKeys: [.isDirectoryKey],
-                                 options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-            .compactMap { applicationURL -> Application? in
-                guard
-                    // list all the app bundles
-                    let appURL = try? FileManager.default
-                        .contentsOfDirectory(at: applicationURL,
-                                             includingPropertiesForKeys: nil,
-                                             options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-                        .first(where: { $0.absoluteString.contains(".app/") })
-                    else {
-                        return nil
-                    }
-                return Application(url: appURL)
-            }
-        return applications ?? []
-    }
-    
-    private func applicationsPath(simulatorUDID: String) -> String? {
-        guard
-            let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first
-            else {
-                return nil
-            }
-        return "\(libraryPath)/Developer/CoreSimulator/Devices/\(simulatorUDID)/data/Containers/Bundle/Application"
+            let selectedDeviceUDID = selectedSimulatorIDs.first
+            else { return }
+        SimCtl.listApplications(deviceUDID: selectedDeviceUDID)
+            .catch { _ in Empty<SimCtl.ApplicationsList, Never>() }
+            .flatMap { Just($0.values.compactMap(Application.init)) }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.applications, on: self)
+            .store(in: &cancellables)
     }
 }

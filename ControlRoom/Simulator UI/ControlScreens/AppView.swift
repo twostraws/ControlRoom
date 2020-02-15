@@ -11,9 +11,13 @@ import SwiftUI
 /// Controls features relating to one specific app.
 struct AppView: View {
     var simulator: Simulator
-    
+    var applications: [Application]
+
     /// The selected application we want to manipulate.
     @State private var selectedApplication: Application = .default
+
+    /// If true shows also system apps
+    @State private var shouldDisplaySystemApps = UserDefaults.standard.bool(forKey: Defaults.shouldDisplaySystemApps)
 
     /// The current permission option the user has selected to grant, reset, or revoke.
     @State private var resetPermission = "All"
@@ -45,19 +49,26 @@ struct AppView: View {
         "Reminders",
         "Siri"
     ]
-    
+
+    init(simulator: Simulator, applications: [Application]) {
+        self.simulator = simulator
+        self.applications = applications
+        loadStoredSettings()
+    }
+
     var body: some View {
         Form {
             Section {
                 HStack {
                     VStack(alignment: .trailing) {
                         Picker("Application:", selection: $selectedApplication.onChange(storeBundleIdentifier)) {
-                            ForEach(simulator.applications, id: \.self) { application in
+                            ForEach(applications.filter({ $0.type == .user || shouldDisplaySystemApps }), id: \.self) { application in
                                 Text(application.bundleIdentifier)
                             }
                         }
                         .pickerStyle(PopUpButtonPickerStyle())
                         HStack {
+                            Toggle("Show system apps", isOn: $shouldDisplaySystemApps.onChange(storeShouldShouldShowSystemApps))
                             Button("Show Container", action: showContainer)
                             Button("Uninstall App", action: uninstallApp)
                         }
@@ -100,15 +111,12 @@ struct AppView: View {
             }
 
             Spacer()
-            
+
         }
         .tabItem {
             Text("App")
         }
         .padding()
-        .onAppear {
-            self.restoreSelectApplicationIfNeeded()
-        }
     }
 
     /// Reveals the app's container directory in Finder,
@@ -174,24 +182,25 @@ struct AppView: View {
     func resetPrivacy() {
         Command.simctl("privacy", self.simulator.udid, "reset", self.resetPermission.lowercased(), self.selectedApplication.bundleIdentifier)
     }
-    
+
+    private func storeShouldShouldShowSystemApps() {
+        UserDefaults.standard.set(shouldDisplaySystemApps, forKey: Defaults.shouldDisplaySystemApps)
+    }
+
     private func storeBundleIdentifier() {
         UserDefaults.standard.set(selectedApplication.bundleIdentifier, forKey: Defaults.bundleID)
     }
-    
-    private func restoreSelectApplicationIfNeeded() {
-        guard
-            let storedBundlerIdentifier = UserDefaults.standard.string(forKey: Defaults.bundleID),
-            let selectedApplication = simulator.applications.first(where: { $0.bundleIdentifier == storedBundlerIdentifier })
-            else { return }
-        self.selectedApplication = selectedApplication
+
+    private func loadStoredSettings() {
+        selectedApplication = applications.first(where: { $0.bundleIdentifier == UserDefaults.standard.string(forKey: Defaults.bundleID) }) ?? .default
+        shouldDisplaySystemApps = UserDefaults.standard.bool(forKey: Defaults.shouldDisplaySystemApps)
     }
 }
 
 private struct AppSummaryView: View {
-    
+
     let application: Application
-    
+
     var body: some View {
         HStack {
             application.imageURLs?.last
@@ -214,6 +223,6 @@ private struct AppSummaryView: View {
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView(simulator: .example)
+        AppView(simulator: .example, applications: [])
     }
 }

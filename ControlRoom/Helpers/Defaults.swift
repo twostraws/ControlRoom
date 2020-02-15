@@ -16,6 +16,9 @@ enum Defaults {
     /// The app URL to open the user last entered.
     static let appURL = "CRAppURL"
 
+    /// The flag that drives the apps filtering mode the user last entered.
+    static let shouldDisplaySystemApps = "CRShouldDisplaySystemApps"
+
     /// The push JSON text the user last entered.
     static let pushPayload = "CRPushPayload"
 
