@@ -17,6 +17,9 @@ class Preferences: ObservableObject {
     let userDefaults: UserDefaults
 
     @UserDefault("CRWantsFloatingWindow") var wantsFloatingWindow = false
+
+    @UserDefault("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
+    @UserDefault("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false
     @UserDefault("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
     @UserDefault("CRSidebar_FilterText") var filterText = ""
 
