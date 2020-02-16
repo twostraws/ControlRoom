@@ -9,12 +9,9 @@
 import Combine
 
 class UIState: ObservableObject {
-
     static let shared = UIState()
 
     private init() { }
 
-    @Published var showCreateSimulator = false
     @Published var showPreferences = false
-
 }
