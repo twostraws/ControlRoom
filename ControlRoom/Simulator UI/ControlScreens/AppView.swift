@@ -183,6 +183,17 @@ struct AppView_Previews: PreviewProvider {
 
 extension SimCtl.Privacy.Permission {
     var displayName: String {
-        self.rawValue.capitalized
+        switch self {
+        case .contactsLimited:
+            return "Contacts Limited"
+        case .locationAlways:
+            return "Location Always"
+        case .mediaLibrary:
+            return "Media Library"
+        case .photosAdd:
+            return "Photos Add"
+        default:
+            return self.rawValue.capitalized
+        }
     }
 }
