@@ -64,7 +64,7 @@ struct AppView: View {
                 HStack {
                     Picker("Permissions:", selection: $resetPermission) {
                         ForEach(SimCtl.Privacy.Permission.allCases, id: \.self) {
-                            Text($0.rawValue.capitalized)
+                            Text($0.displayName)
                         }
                     }
 
@@ -178,5 +178,11 @@ private struct AppSummaryView: View {
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(simulator: .example, applications: [])
+    }
+}
+
+extension SimCtl.Privacy.Permission {
+    var displayName: String {
+        self.rawValue.capitalized
     }
 }
