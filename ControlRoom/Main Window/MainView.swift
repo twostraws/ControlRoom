@@ -23,12 +23,12 @@ struct MainView: View {
             }
         }
         .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
-        .environmentObject(Preferences())
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(controller: SimulatorsController(preferences: Preferences()))
+        let prefs = Preferences()
+        return MainView(controller: SimulatorsController(preferences: prefs))
     }
 }

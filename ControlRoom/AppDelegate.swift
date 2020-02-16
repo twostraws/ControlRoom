@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Combine
 import SwiftUI
 
 @NSApplicationMain
@@ -20,9 +21,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var defaultsObservation: NSKeyValueObservation?
 
+    var cancellables = Set<AnyCancellable>()
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
         let contentView = MainView(controller: controller)
+            .environmentObject(preferences)
 
         // Create the window and set the content view. 
         window = NSWindow(
@@ -35,13 +39,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.makeKeyAndOrderFront(nil)
         window.title = "Control Room"
         window.isMovableByWindowBackground = true
+        adjustWindowLevel()
 
-        UserDefaults.standard.register(defaults: [Defaults.wantsFloatingWindow: false])
+        // note this is a DID change publisher, not a WILL change publisher
+        preferences.objectDidChange.sink(receiveValue: { [weak self] in
+            self?.adjustWindowLevel()
+        }).store(in: &cancellables)
+    }
 
-        defaultsObservation = UserDefaults.standard.observe(\.CRWantsFloatingWindow, options: [.initial, .new]) { [weak self] (defaults, _) in
-            guard let self = self else { return }
-            self.window.level = defaults.CRWantsFloatingWindow ? .floating : .normal
-        }
+    private func adjustWindowLevel() {
+        window.level = preferences.wantsFloatingWindow ? .floating : .normal
     }
 
     deinit {

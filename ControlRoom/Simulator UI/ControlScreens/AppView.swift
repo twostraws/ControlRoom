@@ -10,32 +10,16 @@ import SwiftUI
 
 /// Controls features relating to one specific app.
 struct AppView: View {
+    @EnvironmentObject var preferences: Preferences
+
     var simulator: Simulator
     var applications: [Application]
 
     /// The selected application we want to manipulate.
     @State private var selectedApplication: Application = .default
 
-    /// If true shows also system apps
-    @State private var shouldDisplaySystemApps = UserDefaults.standard.bool(forKey: Defaults.shouldDisplaySystemApps)
-
     /// The current permission option the user has selected to grant, reset, or revoke.
     @State private var resetPermission = "All"
-
-    /// The URL to open inside the device.
-    @State private var url: String = UserDefaults.standard.string(forKey: Defaults.appURL) ?? ""
-
-    /// Push message JSON to be sent to the app.
-    @State private var pushPayload = UserDefaults.standard.string(forKey: Defaults.pushPayload) ?? """
-    {
-        "aps": {
-            "alert": {
-                "body": "Hello, World!",
-                "title": "From Control Room"
-            }
-        }
-    }
-    """
 
     /// If true shows the uninstall confirmation alert.
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
@@ -60,22 +44,24 @@ struct AppView: View {
     init(simulator: Simulator, applications: [Application]) {
         self.simulator = simulator
         self.applications = applications
-        loadStoredSettings()
     }
 
     var body: some View {
-        Form {
+        let apps = applications.filter({ $0.type == .user || preferences.shouldShowSystemApps })
+
+        return Form {
             Section {
                 HStack {
                     VStack(alignment: .trailing) {
-                        Picker("Application:", selection: $selectedApplication.onChange(storeBundleIdentifier)) {
-                            ForEach(applications.filter({ $0.type == .user || shouldDisplaySystemApps }), id: \.self) { application in
+                        Picker("Application:", selection: $preferences.lastBundleID) {
+                            ForEach(apps, id: \.bundleIdentifier) { application in
                                 Text(application.bundleIdentifier)
+                                    .tag(application.bundleIdentifier)
                             }
                         }
                         .pickerStyle(PopUpButtonPickerStyle())
                         HStack {
-                            Toggle("Show system apps", isOn: $shouldDisplaySystemApps.onChange(storeShouldShouldShowSystemApps))
+                            Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
                             Button("Show Container", action: showContainer)
                             Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
                         }
@@ -101,7 +87,7 @@ struct AppView: View {
                 }
 
                 HStack {
-                    TextField("URL to open", text: $url, onCommit: saveAppURL)
+                    TextField("URL to open", text: $preferences.lastOpenURL)
                     Button("Open URL", action: openURL)
                 }
             }
@@ -109,7 +95,7 @@ struct AppView: View {
             FormSpacer()
 
             VStack {
-                TextView(text: $pushPayload)
+                TextView(text: $preferences.pushPayload)
                     .frame(minHeight: 150, maxHeight: .infinity)
 
                 HStack {
@@ -149,9 +135,7 @@ struct AppView: View {
 
     /// Sends a JSON string to the device as push notification,
     func sendPushNotification() {
-        // save their message for next time
-        UserDefaults.standard.set(self.pushPayload, forKey: Defaults.pushPayload)
-        SimCtl.sendPushNotification(simulator.udid, appID: selectedApplication.bundleIdentifier, jsonPayload: pushPayload)
+        SimCtl.sendPushNotification(simulator.udid, appID: preferences.lastBundleID, jsonPayload: preferences.pushPayload)
     }
 
     /// Removes the identified app from the device.
@@ -159,15 +143,9 @@ struct AppView: View {
         SimCtl.uninstall(simulator.udid, appID: selectedApplication.bundleIdentifier)
     }
 
-    /// Wrtes the user's URL to UserDefaults.
-    func saveAppURL() {
-        UserDefaults.standard.set(self.url, forKey: Defaults.appURL)
-    }
-
     /// Opens a URL in the appropriate device app.
     func openURL() {
-        saveAppURL()
-        SimCtl.openURL(simulator.udid, URL: url)
+        SimCtl.openURL(simulator.udid, URL: preferences.lastOpenURL)
     }
 
     /// Grants some type of permission to the app.
@@ -183,19 +161,6 @@ struct AppView: View {
     /// Resets some type of permission to the app, so it will be asked for again.
     func resetPrivacy() {
         SimCtl.resetPermission(simulator.udid, appID: selectedApplication.bundleIdentifier, permission: resetPermission)
-    }
-
-    private func storeShouldShouldShowSystemApps() {
-        UserDefaults.standard.set(shouldDisplaySystemApps, forKey: Defaults.shouldDisplaySystemApps)
-    }
-
-    private func storeBundleIdentifier() {
-        UserDefaults.standard.set(selectedApplication.bundleIdentifier, forKey: Defaults.bundleID)
-    }
-
-    private func loadStoredSettings() {
-        selectedApplication = applications.first(where: { $0.bundleIdentifier == UserDefaults.standard.string(forKey: Defaults.bundleID) }) ?? .default
-        shouldDisplaySystemApps = UserDefaults.standard.bool(forKey: Defaults.shouldDisplaySystemApps)
     }
 }
 
