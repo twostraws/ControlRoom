@@ -10,6 +10,7 @@ import SwiftUI
 
 /// Controls WiFi and cellular data state for the whole device.
 struct NetworkView: View {
+    @EnvironmentObject var preferences: Preferences
     var simulator: Simulator
 
     /// The active data network; can be one of "WiFi", "3G", "4G", "LTE", "LTE-A", or "LTE+".
@@ -26,9 +27,6 @@ struct NetworkView: View {
 
     /// How many cellular bars the device is showing, as a range from 0 through 4.
     @State private var cellularBar = 4
-
-    /// The cell carrier name to display.
-    @State private var operatorName = UserDefaults.standard.string(forKey: Defaults.operatorName) ?? "Carrier"
 
     /// All possible data network options.
     private let dataNetworks = ["WiFi", "3G", "4G", "LTE", "LTE-A", "LTE+"]
@@ -57,8 +55,7 @@ struct NetworkView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Operator", text: $operatorName) {
-                    UserDefaults.standard.set(self.operatorName, forKey: Defaults.operatorName)
+                TextField("Operator", text: $preferences.carrierName) {
                     self.updateData()
                 }
 
@@ -123,7 +120,7 @@ struct NetworkView: View {
         SimCtl.overrideStatusBarNetwork(simulator.udid, network: dataNetwork,
                                         wifiMode: wiFiMode, wifiBars: wiFiBar,
                                         cellMode: cleanedCellularMode, cellBars: cellularBar,
-                                        carrier: operatorName)
+                                        carrier: preferences.carrierName)
     }
 }
 

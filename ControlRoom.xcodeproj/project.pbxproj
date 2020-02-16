@@ -23,7 +23,6 @@
 		511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A523F420AB00E3E660 /* FormSpacer.swift */; };
 		511BA5A823F42EE400E3E660 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A723F42EE400E3E660 /* AppView.swift */; };
 		511BA5AA23F4316700E3E660 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A923F4316700E3E660 /* TextView.swift */; };
-		51760B2D23F46073004532A9 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51760B2C23F46073004532A9 /* Defaults.swift */; };
 		551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEC23F489A50006D1BD /* SidebarView.swift */; };
 		551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */; };
 		551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF023F498C30006D1BD /* SimulatorsController.swift */; };
@@ -32,6 +31,7 @@
 		551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */; };
 		551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */; };
 		551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */; };
+		5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5523A7E023F99D7200F25EEC /* Preferences.swift */; };
 		555A145723F707E700313BC5 /* CoreSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A145623F707E700313BC5 /* CoreSimulator.m */; };
 		555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A145923F70A5100313BC5 /* CoreSimulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
@@ -64,7 +64,6 @@
 		511BA5A523F420AB00E3E660 /* FormSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSpacer.swift; sourceTree = "<group>"; };
 		511BA5A723F42EE400E3E660 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		511BA5A923F4316700E3E660 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
-		51760B2C23F46073004532A9 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		551F8CEC23F489A50006D1BD /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLayoutView.swift; sourceTree = "<group>"; };
 		551F8CF023F498C30006D1BD /* SimulatorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorsController.swift; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorSidebarView.swift; sourceTree = "<group>"; };
 		551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimCtl.swift; sourceTree = "<group>"; };
 		551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+Types.swift"; sourceTree = "<group>"; };
+		5523A7E023F99D7200F25EEC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		555A145423F707E700313BC5 /* ControlRoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ControlRoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		555A145523F707E700313BC5 /* CoreSimulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreSimulator.h; sourceTree = "<group>"; };
 		555A145623F707E700313BC5 /* CoreSimulator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreSimulator.m; sourceTree = "<group>"; };
@@ -179,7 +179,6 @@
 			children = (
 				511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */,
 				511BA5A523F420AB00E3E660 /* FormSpacer.swift */,
-				51760B2C23F46073004532A9 /* Defaults.swift */,
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
 				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
@@ -238,6 +237,7 @@
 		555A146323F762AD00313BC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
 				ACDF076723F7E91A00597B3B /* ApplicationType.swift */,
@@ -345,6 +345,7 @@
 			files = (
 				ACDF076623F7D1C300597B3B /* Application.swift in Sources */,
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
+				5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */,
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
@@ -367,7 +368,6 @@
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,
 				55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */,
-				51760B2D23F46073004532A9 /* Defaults.swift in Sources */,
 				555A145C23F70CCF00313BC5 /* Process.swift in Sources */,
 				55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,

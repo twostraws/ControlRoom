@@ -10,6 +10,7 @@ import SwiftUI
 
 /// Shows the list of available simulators.
 struct SidebarView: View {
+    @EnvironmentObject var preferences: Preferences
     @ObservedObject var controller: SimulatorsController
 
     @State private var shouldShowDeleteAlert = false
@@ -54,16 +55,16 @@ struct SidebarView: View {
                 Divider()
 
                 HStack(spacing: 4) {
-                    Button(action: { self.controller.filterBootedSimulators.toggle() }, label: {
-                        Image(self.controller.filterBootedSimulators ? "power_on" : "power_off")
+                    Button(action: { self.preferences.shouldShowOnlyActiveDevices.toggle() }, label: {
+                        Image(self.preferences.shouldShowOnlyActiveDevices ? "power_on" : "power_off")
                         .resizable()
                         .aspectRatio(CGSize(width: 133, height: 137), contentMode: .fit)
                         .frame(width: 12)
                     })
-                    .foregroundColor(self.controller.filterBootedSimulators ? Color.accentColor : Color.primary)
+                    .foregroundColor(self.preferences.shouldShowOnlyActiveDevices ? Color.accentColor : Color.primary)
                     .buttonStyle(BorderlessButtonStyle())
                     .padding(.leading, 2)
-                    FilterField("Filter", text: self.$controller.filterText)
+                    FilterField("Filter", text: self.$preferences.filterText)
                 }
                 .padding(2)
                 .sheet(isPresented: self.$shouldShowDeleteAlert) {
@@ -113,6 +114,6 @@ struct SidebarView_Previews: PreviewProvider {
     @State static var selected: Simulator?
 
     static var previews: some View {
-        SidebarView(controller: SimulatorsController())
+        SidebarView(controller: SimulatorsController(preferences: Preferences()))
     }
 }

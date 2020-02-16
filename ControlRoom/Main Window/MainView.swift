@@ -28,6 +28,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(controller: SimulatorsController())
+        let prefs = Preferences()
+        return MainView(controller: SimulatorsController(preferences: prefs))
     }
 }
