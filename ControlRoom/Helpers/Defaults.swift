@@ -33,6 +33,7 @@ enum Defaults {
 extension UserDefaults {
     // Important: For some reason the property name should match the keyname in order to receive KVO observations
     @objc dynamic var CRWantsFloatingWindow: Bool {
+        //swiftlint:disable implicit_getter
         get { bool(forKey: Defaults.wantsFloatingWindow) }
         set { set(newValue, forKey: Defaults.wantsFloatingWindow) }
     }
