@@ -28,12 +28,6 @@ struct NetworkView: View {
     /// How many cellular bars the device is showing, as a range from 0 through 4.
     @State private var cellularBar: SimCtl.StatusBar.CellularBars = .four
 
-    /// The full range of WiFi bars we can control.
-    private let wiFiBars = [0, 1, 2, 3]
-
-    /// The full range of cellular bars we can show.
-    private let cellularBars = [0, 1, 2, 3, 4]
-
     var body: some View {
         Form {
             Section {
