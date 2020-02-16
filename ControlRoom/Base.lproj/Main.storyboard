@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -341,7 +341,7 @@
                                         </menuItem>
                                         <menuItem title="Stay In Front" keyEquivalent="F" id="Tzd-5z-P3W">
                                             <connections>
-                                                <binding destination="tyD-2p-WN7" name="value" keyPath="values.CRWantsFloatingWindow" id="eBP-sa-lBp"/>
+                                                <action selector="toggleFloatingWindow:" target="Ady-hI-5gd" id="QEy-F8-tpj"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -367,9 +367,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="ControlRoom" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-                <userDefaultsController id="1hY-G4-Ls0"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController representsSharedInstance="YES" id="tyD-2p-WN7"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>

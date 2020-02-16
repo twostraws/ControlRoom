@@ -19,8 +19,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var controller: SimulatorsController = SimulatorsController(preferences: preferences)
 
-    var defaultsObservation: NSKeyValueObservation?
-
     var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -51,12 +49,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.level = preferences.wantsFloatingWindow ? .floating : .normal
     }
 
-    deinit {
-        defaultsObservation?.invalidate()
+    @IBAction func toggleFloatingWindow(_ sender: Any) {
+        preferences.wantsFloatingWindow.toggle()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+
+}
+
+extension AppDelegate: NSMenuItemValidation {
+
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(toggleFloatingWindow(_:)) {
+            menuItem.state = preferences.wantsFloatingWindow ? .on : .off
+            return true
+        }
+
+        return false
     }
 
 }
