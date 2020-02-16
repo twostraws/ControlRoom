@@ -17,7 +17,7 @@ struct SystemView: View {
     @State private var time = Date()
 
     /// The system-wide appearance; "Light" or "Dark".
-    @State private var appearance = "Light"
+    @State private var appearance: SimCtl.UI.Appearance = .light
 
     var body: some View {
         Form {
@@ -28,8 +28,8 @@ struct SystemView: View {
                 }
 
                 Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
-                    ForEach(["Light", "Dark"], id: \.self) {
-                        Text($0)
+                    ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
+                        Text($0.displayName)
                     }
                 }
 
@@ -121,5 +121,11 @@ struct SystemView: View {
 struct SystemView_Previews: PreviewProvider {
     static var previews: some View {
         SystemView(simulator: .example)
+    }
+}
+
+extension SimCtl.UI.Appearance {
+    var displayName: String {
+        return self.rawValue.capitalized
     }
 }

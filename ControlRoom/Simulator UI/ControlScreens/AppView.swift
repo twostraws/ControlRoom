@@ -19,7 +19,7 @@ struct AppView: View {
     @State private var selectedApplication: Application = .default
 
     /// The current permission option the user has selected to grant, reset, or revoke.
-    @State private var resetPermission = "All"
+    @State private var resetPermission: SimCtl.Privacy.Permission = .all
 
     /// If true shows the uninstall confirmation alert.
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
@@ -27,19 +27,6 @@ struct AppView: View {
     private var isApplicationSelected: Bool {
         !selectedApplication.bundleIdentifier.isEmpty
     }
-
-    /// All permission options supported by the simulator.
-    let resetPermissions = [
-        "All",
-        "Calendar",
-        "Contacts",
-        "Location",
-        "Microphone",
-        "Motion",
-        "Photos",
-        "Reminders",
-        "Siri"
-    ]
 
     init(simulator: Simulator, applications: [Application]) {
         self.simulator = simulator
@@ -76,8 +63,8 @@ struct AppView: View {
             Section {
                 HStack {
                     Picker("Permissions:", selection: $resetPermission) {
-                        ForEach(resetPermissions, id: \.self) {
-                            Text($0)
+                        ForEach(SimCtl.Privacy.Permission.allCases, id: \.self) {
+                            Text($0.rawValue.capitalized)
                         }
                     }
 

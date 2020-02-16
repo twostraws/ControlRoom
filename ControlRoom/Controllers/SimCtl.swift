@@ -20,6 +20,7 @@ enum SimCtl {
     }
 
     private static func execute(_ arguments: [String], completion: @escaping (Result<Data, SimCtl.Error>) -> Void) {
+        print("SIMCTL-CMD:", arguments.joined(separator: " "))
         DispatchQueue.global(qos: .userInitiated).async {
             if let data = Process.execute("/usr/bin/xcrun", arguments: ["simctl"] + arguments) {
                 completion(.success(data))
@@ -30,6 +31,7 @@ enum SimCtl {
     }
 
     private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, SimCtl.Error> {
+        print("SIMCTL-CMD:", arguments.joined(separator: " "))
         let publisher = PassthroughSubject<Data, SimCtl.Error>()
 
         execute(arguments) { result in
@@ -45,12 +47,16 @@ enum SimCtl {
         return publisher
     }
 
-    private static func executeJSON<T: Decodable>(_ arguments: [String]) -> AnyPublisher<T, SimCtl.Error> {
-        executeAndDecode(arguments, decoder: JSONDecoder())
+    private static func execute(_ subcommand: SubCommand, completion: ((Result<Data, SimCtl.Error>) -> Void)? = nil) {
+        execute(subcommand.arguments, completion: completion ?? { _ in })
     }
 
-    private static func executePropertyList<T: Decodable>(_ arguments: [String]) -> AnyPublisher<T, SimCtl.Error> {
-        executeAndDecode(arguments, decoder: PropertyListDecoder())
+    private static func executeJSON<T: Decodable>(_ subcommand: SubCommand) -> AnyPublisher<T, SimCtl.Error> {
+        executeAndDecode(subcommand.arguments, decoder: JSONDecoder())
+    }
+
+    private static func executePropertyList<T: Decodable>(_ subcommand: SubCommand) -> AnyPublisher<T, SimCtl.Error> {
+        executeAndDecode(subcommand.arguments, decoder: PropertyListDecoder())
     }
 
     private static func executeAndDecode<Item: Decodable, Decoder: TopLevelDecoder>(_ arguments: [String],
@@ -88,88 +94,98 @@ enum SimCtl {
         }
     }
 
+    static func createDevice(name: String, type: DeviceType, runtime: Runtime? = nil) {
+        execute(.create(name: name, deviceTypeId: type.identifier, runtimeId: runtime?.identifier))
+    }
+
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, SimCtl.Error> {
-        executeJSON(["list", "devicetypes", "-j"])
+        executeJSON(.list(filter: .devicetypes, flags: [.json]))
     }
 
     static func listDevices() -> AnyPublisher<DeviceList, SimCtl.Error> {
-        executeJSON(["list", "devices", "available", "-j"])
+        executeJSON(.list(filter: .devices, search: .available, flags: [.json]))
     }
 
     static func listRuntimes() -> AnyPublisher<RuntimeList, SimCtl.Error> {
-        executeJSON(["list", "runtimes", "-j"])
+        executeJSON(.list(filter: .runtimes, flags: [.json]))
     }
 
     static func listApplications(_ simulator: String) -> AnyPublisher<ApplicationsList, SimCtl.Error> {
-        executePropertyList(["listapps", simulator, "-j"])
+        executePropertyList(.listApps(deviceId: simulator, flags: [.json]))
     }
 
     static func boot(_ simulator: String) {
-        execute(["boot", simulator]) { _ in }
+        execute(.boot(deviceId: simulator))
     }
 
     static func shutdown(_ simulator: String) {
-        execute(["shutdown", simulator]) { _ in }
+        execute(.shutdown(.devices([simulator])))
     }
 
     static func erase(_ simulator: String) {
-        execute(["erase", simulator]) { _ in }
+        execute(.erase(.devices([simulator])))
+    }
+
+    static func overrideStatusBarBattery(_ simulator: String, level: Int, state: StatusBar.BatteryState) {
+        execute(.statusBar(deviceId: simulator, operation: .override([.batteryLevel(level), .batteryState(state)])))
     }
 
     static func clone(_ simulator: String, name: String) {
-        execute(["clone", simulator, name]) { _ in }
+        execute(.clone(deviceId: simulator, name: name))
     }
 
     static func rename(_ simulator: String, name: String) {
-        execute(["rename", simulator, name]) { _ in }
+        execute(.rename(deviceId: simulator, name: name))
     }
 
-    static func overrideStatusBarBattery(_ simulator: String, level: Int, state: String) {
-        execute(["status_bar", simulator, "override", "--batteryLevel", "\(level)", "--batteryState", state]) { _ in }
-    }
-
-    static func overrideStatusBarNetwork(_ simulator: String, network: String, wifiMode: String, wifiBars: Int, cellMode: String, cellBars: Int, carrier: String) {
-        execute(["status_bar", simulator, "override",
-                 "--dataNetwork", network.lowercased(),
-                 "--wifiMode", wifiMode.lowercased(),
-                 "--wifiBars", "\(wifiBars)",
-                 "--cellularMode", cellMode.lowercased(),
-                 "--cellularBars", "\(cellBars)",
-                 "--operatorName", carrier
-        ]) { _ in }
+    static func overrideStatusBarNetwork(_ simulator: String,
+                                         network: StatusBar.DataNetwork,
+                                         wifiMode: StatusBar.WifiMode,
+                                         wifiBars: StatusBar.WifiBars,
+                                         cellMode: StatusBar.CellularMode,
+                                         cellBars: StatusBar.CellularBars,
+                                         carrier: String) {
+        execute(.statusBar(deviceId: simulator, operation: .override([
+            .dataNetwork(network),
+            .wifiMode(wifiMode),
+            .wifiBars(wifiBars),
+            .cellularMode(cellMode),
+            .cellularBars(cellBars),
+            .operatorName(carrier)
+        ])))
     }
 
     static func overrideStatusBarTime(_ simulator: String, time: Date) {
         let timeString = ISO8601DateFormatter().string(from: time)
-        execute(["status_bar", simulator, "override", "--time", timeString]) { _ in }
+        execute(.statusBar(deviceId: simulator, operation: .override([.time(timeString)])))
     }
 
-    static func setAppearance(_ simulator: String, appearance: String) {
-        execute(["ui", simulator, "appearance", appearance.lowercased()]) { _ in }
+    static func setAppearance(_ simulator: String, appearance: UI.Appearance) {
+        execute(.ui(deviceId: simulator, option: .appearance(appearance)))
     }
 
     static func triggeriCloudSync(_ simulator: String) {
-        execute(["icloud_sync", simulator]) { _ in }
+        execute(.icloudSync(deviceId: simulator))
     }
 
     static func copyPasteboardToMac(_ simulator: String) {
-        execute(["pbsync", simulator, "host"]) { _ in }
+        execute(.pbsync(source: .deviceId(simulator), destination: .host))
     }
 
     static func copyPasteboardToSimulator(_ simulator: String) {
-        execute(["pbsync", "host", simulator]) { _ in }
+        execute(.pbsync(source: .host, destination: .deviceId(simulator)))
     }
 
     static func saveScreenshot(_ simulator: String, to file: String) {
-        execute(["io", simulator, "screenshot", file]) { _ in }
+        execute(.io(deviceId: simulator, operation: .screenshot(url: file)))
     }
 
     static func delete(_ simulators: Set<String>) {
-        execute(["delete"] + Array(simulators)) { _ in }
+        execute(.delete(.devices(Array(simulators))))
     }
 
     static func uninstall(_ simulator: String, appID: String) {
-        execute(["uninstall", simulator, appID]) { _ in }
+        execute(.uninstall(deviceId: simulator, appBundleId: appID))
     }
 
     static func sendPushNotification(_ simulator: String, appID: String, jsonPayload: String) {
@@ -178,7 +194,7 @@ enum SimCtl {
         let tempFile = tempDirectory.appendingPathComponent(fileName)
         do {
             try jsonPayload.write(to: tempFile, atomically: true, encoding: .utf8)
-            execute(["push", simulator, appID, tempFile.path]) { _ in
+            execute(.push(deviceId: simulator, appBundleId: appID, json: .path(tempFile.path))) { _ in
                 try? FileManager.default.removeItem(at: tempFile)
             }
         } catch {
@@ -187,23 +203,23 @@ enum SimCtl {
     }
 
     static func openURL(_ simulator: String, URL: String) {
-        execute(["openurl", simulator, URL]) { _ in }
+        execute(.openurl(deviceId: simulator, url: URL))
     }
 
-    static func grantPermission(_ simulator: String, appID: String, permission: String) {
-        execute(["privacy", simulator, "grant", permission.lowercased(), appID]) { _ in }
+    static func grantPermission(_ simulator: String, appID: String, permission: Privacy.Permission) {
+        execute(.privacy(deviceId: simulator, action: .grant, service: permission, appBundleId: appID))
     }
 
-    static func revokePermission(_ simulator: String, appID: String, permission: String) {
-        execute(["privacy", simulator, "revoke", permission.lowercased(), appID]) { _ in }
+    static func revokePermission(_ simulator: String, appID: String, permission: Privacy.Permission) {
+        execute(.privacy(deviceId: simulator, action: .revoke, service: permission, appBundleId: appID))
     }
 
-    static func resetPermission(_ simulator: String, appID: String, permission: String) {
-        execute(["privacy", simulator, "reset", permission.lowercased(), appID]) { _ in }
+    static func resetPermission(_ simulator: String, appID: String, permission: Privacy.Permission) {
+        execute(.privacy(deviceId: simulator, action: .reset, service: permission, appBundleId: appID))
     }
 
     static func getAppContainer(_ simulator: String, appID: String, completion: @escaping (URL?) -> Void) {
-        execute(["get_app_container", simulator, appID]) { result in
+        execute(.getAppContainer(deviceId: simulator, appBundleID: appID)) { result in
             let url: URL?
             switch result {
             case .success(let data):
