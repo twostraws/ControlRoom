@@ -125,16 +125,16 @@ extension SimCtl {
             case .terminate(deviceId: let deviceId, appBundleId: let appBundleId):
                 return ["terminate", deviceId, appBundleId]
             case .spawn(deviceId: let deviceId, pathToExecutable: let pathToExecutable, options: let options):
-                return ["spawn", deviceId, pathToExecutable] + options.flatMap { $0.arguments }
+                return ["spawn"] + options.flatMap { $0.arguments } + [deviceId, pathToExecutable]
             case .list(filter: let filter, search: let search, flags: let flags):
-                var arguments: [String] = ["list"] + flags.flatMap { $0.arguments }
+                var arguments: [String] = ["list"]
                 if let filter = filter {
                     arguments.append(contentsOf: filter.arguments)
                 }
                 if let search = search {
                     arguments.append(contentsOf: search.arguments)
                 }
-                return arguments
+                return arguments + flags.flatMap { $0.arguments }
             case .listApps(deviceId: let devicedId, flags: let flags):
                 return ["listapps", devicedId] + flags.flatMap { $0.arguments }
             case .icloudSync(deviceId: let deviceId):
