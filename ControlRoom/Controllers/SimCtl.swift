@@ -116,6 +116,14 @@ enum SimCtl {
         execute(["erase", simulator]) { _ in }
     }
 
+    static func clone(_ simulator: String, name: String) {
+        execute(["clone", simulator, name]) { _ in }
+    }
+
+    static func rename(_ simulator: String, name: String) {
+        execute(["rename", simulator, name]) { _ in }
+    }
+
     static func overrideStatusBarBattery(_ simulator: String, level: Int, state: String) {
         execute(["status_bar", simulator, "override", "--batteryLevel", "\(level)", "--batteryState", state]) { _ in }
     }
