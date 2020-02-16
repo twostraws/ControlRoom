@@ -126,16 +126,16 @@ enum SimCtl {
         execute(.erase(.devices([simulator])))
     }
 
-    static func overrideStatusBarBattery(_ simulator: String, level: Int, state: StatusBar.BatteryState) {
-        execute(.statusBar(deviceId: simulator, operation: .override([.batteryLevel(level), .batteryState(state)])))
-    }
-
     static func clone(_ simulator: String, name: String) {
         execute(.clone(deviceId: simulator, name: name))
     }
 
     static func rename(_ simulator: String, name: String) {
         execute(.rename(deviceId: simulator, name: name))
+    }
+
+    static func overrideStatusBarBattery(_ simulator: String, level: Int, state: StatusBar.BatteryState) {
+        execute(.statusBar(deviceId: simulator, operation: .override([.batteryLevel(level), .batteryState(state)])))
     }
 
     static func overrideStatusBarNetwork(_ simulator: String,
