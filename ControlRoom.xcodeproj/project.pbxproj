@@ -32,6 +32,7 @@
 		551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */; };
 		551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */; };
 		551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */; };
+		5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5523A7E023F99D7200F25EEC /* Preferences.swift */; };
 		555A145723F707E700313BC5 /* CoreSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A145623F707E700313BC5 /* CoreSimulator.m */; };
 		555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A145923F70A5100313BC5 /* CoreSimulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
@@ -71,6 +72,7 @@
 		551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorSidebarView.swift; sourceTree = "<group>"; };
 		551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimCtl.swift; sourceTree = "<group>"; };
 		551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+Types.swift"; sourceTree = "<group>"; };
+		5523A7E023F99D7200F25EEC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		555A145423F707E700313BC5 /* ControlRoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ControlRoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		555A145523F707E700313BC5 /* CoreSimulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreSimulator.h; sourceTree = "<group>"; };
 		555A145623F707E700313BC5 /* CoreSimulator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreSimulator.m; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		555A146323F762AD00313BC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
 				ACDF076723F7E91A00597B3B /* ApplicationType.swift */,
@@ -339,6 +342,7 @@
 			files = (
 				ACDF076623F7D1C300597B3B /* Application.swift in Sources */,
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
+				5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */,
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,

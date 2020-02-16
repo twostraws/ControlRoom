@@ -37,17 +37,6 @@ class SimulatorsController: ObservableObject {
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
-    /// A string that filters the list of available simulators.
-    var filterText = "" {
-        willSet { objectWillChange.send() }
-        didSet { filterSimulators() }
-    }
-
-    var filterBootedSimulators = false {
-        willSet { objectWillChange.send() }
-        didSet { filterSimulators() }
-    }
-
     /// The simulators the user has selected to work with. If this has one item then
     /// they are working with a simulator; if more than one they are probably about
     /// to delete several at a time.
@@ -60,10 +49,16 @@ class SimulatorsController: ObservableObject {
         allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) })
     }
 
+    @ObservedObject var preferences: Preferences
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    init(preferences: Preferences) {
+        self.preferences = preferences
         loadSimulators()
+
+        preferences.objectWillChange.sink(receiveValue: { [weak self] in
+            self?.filterSimulators()
+        }).store(in: &cancellables)
     }
 
     /// Fetches all simulators from simctl.
@@ -132,14 +127,16 @@ class SimulatorsController: ObservableObject {
 
     /// Filters the list of simulators using `filterText`, and assigns the result to `simulators`.
     private func filterSimulators() {
-        let trimmed = filterText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard loadingStatus == .success else { return }
+
+        let trimmed = preferences.filterText.trimmingCharacters(in: .whitespacesAndNewlines)
 
         var filtered = allSimulators
         if trimmed.isEmpty == false {
             filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }
 
-        if filterBootedSimulators == true {
+        if preferences.shouldShowOnlyActiveDevices == true {
             filtered = filtered.filter { $0.state != .shutdown }
         }
 

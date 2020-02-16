@@ -14,7 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     /// One shared `SimulatorsController` to fetch and filter simulator data only once.
-    let controller = SimulatorsController()
+    let preferences = Preferences()
+
+    lazy var controller: SimulatorsController = SimulatorsController(preferences: preferences)
 
     var defaultsObservation: NSKeyValueObservation?
 
