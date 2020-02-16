@@ -36,6 +36,8 @@
 		555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A145923F70A5100313BC5 /* CoreSimulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
 		555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */; };
+		55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */; };
+		55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B823F86C0700E717D3 /* ContextMenu.swift */; };
 		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
 		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
 		ACDF076623F7D1C300597B3B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076523F7D1C300597B3B /* Application.swift */; };
@@ -77,6 +79,8 @@
 		555A145923F70A5100313BC5 /* CoreSimulator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSimulator.framework; path = /Library/Developer/PrivateFrameworks/CoreSimulator.framework; sourceTree = "<absolute>"; };
 		555A145B23F70CCF00313BC5 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreSimulatorPublisher.swift; sourceTree = "<group>"; };
+		55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorActionSheet.swift; sourceTree = "<group>"; };
+		55DF68B823F86C0700E717D3 /* ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		ACDF076523F7D1C300597B3B /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 				511BA5A523F420AB00E3E660 /* FormSpacer.swift */,
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
+				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */,
 				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
 				551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */,
+				55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */,
 			);
 			path = "Main Window";
 			sourceTree = "<group>";
@@ -361,7 +367,9 @@
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,
+				55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */,
 				555A145C23F70CCF00313BC5 /* Process.swift in Sources */,
+				55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,

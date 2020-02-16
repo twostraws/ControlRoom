@@ -45,7 +45,7 @@ struct SidebarView: View {
                 }
                 .contextMenu {
                     if self.controller.selectedSimulatorIDs.count > 0 {
-                        Button("Delete") {
+                        Button("Delete...") {
                             self.shouldShowDeleteAlert = true
                         }
                     }
@@ -67,11 +67,13 @@ struct SidebarView: View {
                     FilterField("Filter", text: self.$preferences.filterText)
                 }
                 .padding(2)
-                .alert(isPresented: self.$shouldShowDeleteAlert) {
-                    Alert(title: Text("Are you sure you want to permanently delete \(self.selectedSimulatorsSummary)?"),
-                          message: Text("You can’t undo this action."),
-                          primaryButton: .destructive(Text("Delete"), action: self.deleteSelectedSimulators),
-                          secondaryButton: .default(Text("Cancel")))
+                .sheet(isPresented: self.$shouldShowDeleteAlert) {
+                    SimulatorActionSheet(icon: self.controller.selectedSimulators[0].image,
+                                         message: "Delete Simulators?",
+                                         informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
+                                         confirmationTitle: "Delete",
+                                         confirm: self.deleteSelectedSimulators,
+                                         content: { EmptyView() })
                 }
             }
         }
@@ -79,6 +81,7 @@ struct SidebarView: View {
 
     private func section(for platform: Simulator.Platform) -> some View {
         let simulators = controller.simulators.filter({ $0.platform == platform })
+        let canShowContext = controller.selectedSimulatorIDs.count < 2
 
         return Group {
             if simulators.isEmpty {
@@ -86,7 +89,7 @@ struct SidebarView: View {
             } else {
                 Section(header: Text(platform.displayName.uppercased())) {
                     ForEach(simulators) { simulator in
-                        SimulatorSidebarView(simulator: simulator)
+                        SimulatorSidebarView(simulator: simulator, canShowContextualMenu: canShowContext)
                             .tag(simulator.udid)
                     }
                 }
