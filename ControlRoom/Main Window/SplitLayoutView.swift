@@ -30,7 +30,9 @@ struct SplitLayoutView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-        }
+        }.sheet(isPresented: $controller.showCreateSimulatorPanel, content: {
+            CreateSimulatorActionSheet(controller: self.controller)
+        })
     }
 }
 

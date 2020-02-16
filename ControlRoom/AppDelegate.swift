@@ -10,7 +10,7 @@ import Cocoa
 import SwiftUI
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     var window: NSWindow!
 
     /// One shared `SimulatorsController` to fetch and filter simulator data only once.
@@ -42,12 +42,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    @IBAction func newSimulator(_ sender: Any) {
+        controller.showCreateSimulatorPanel = true
+    }
+
     deinit {
         defaultsObservation?.invalidate()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+
+    @objc func validateMenuItem(_ item: NSMenuItem) -> Bool {
+        if item.action == #selector(newSimulator(_:)) {
+            return controller.loadingStatus == .success
+        }
+
+        return false
     }
 
 }

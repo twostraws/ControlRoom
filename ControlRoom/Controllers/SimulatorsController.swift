@@ -37,6 +37,9 @@ class SimulatorsController: ObservableObject {
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
+    private(set) var deviceTypes = [DeviceType]()
+    private(set) var runtimes = [Runtime]()
+
     /// A string that filters the list of available simulators.
     var filterText = "" {
         willSet { objectWillChange.send() }
@@ -61,6 +64,10 @@ class SimulatorsController: ObservableObject {
     }
 
     private var cancellables = Set<AnyCancellable>()
+
+    var showCreateSimulatorPanel = false {
+        willSet { objectWillChange.send() }
+    }
 
     init() {
         loadSimulators()
@@ -113,10 +120,12 @@ class SimulatorsController: ObservableObject {
             }
         }
 
-        objectWillChange.send()
-        loadingStatus = .success
-        allSimulators = [.default] + final.sorted()
-        filterSimulators()
+        self.objectWillChange.send()
+        self.loadingStatus = .success
+        self.deviceTypes = deviceTypes.devicetypes
+        self.runtimes = runtimes.runtimes
+        self.allSimulators = [.default] + final.sorted()
+        self.filterSimulators()
     }
 
     private func finishedLoadingSimulators(_ completion: Subscribers.Completion<SimCtl.Error>) {

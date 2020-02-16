@@ -120,6 +120,10 @@ enum SimCtl {
         execute(["clone", simulator, name]) { _ in }
     }
 
+    static func create(name: String, deviceType: DeviceType, runtime: Runtime) {
+        execute(["create", name, deviceType.identifier, runtime.identifier]) { _ in }
+    }
+
     static func rename(_ simulator: String, name: String) {
         execute(["rename", simulator, name]) { _ in }
     }
