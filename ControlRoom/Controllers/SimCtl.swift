@@ -94,10 +94,6 @@ enum SimCtl {
         }
     }
 
-    static func createDevice(name: String, type: DeviceType, runtime: Runtime? = nil) {
-        execute(.create(name: name, deviceTypeId: type.identifier, runtimeId: runtime?.identifier))
-    }
-
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, SimCtl.Error> {
         executeJSON(.list(filter: .devicetypes, flags: [.json]))
     }
