@@ -82,6 +82,11 @@ struct Simulator: Identifiable, Comparable, Hashable {
     /// The current state of the simulator
     let state: State
 
+    /// Wheter this simulator is the `Default` one or not
+    var isDefault: Bool {
+        id == "booted"
+    }
+
     init(name: String, udid: String, state: State, runtime: Runtime?, deviceType: DeviceType?) {
         self.name = name
         self.udid = udid

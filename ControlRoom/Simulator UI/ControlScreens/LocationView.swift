@@ -11,6 +11,8 @@ import SwiftUI
 
 /// Map view to change simulated user's position
 struct LocationView: View {
+
+    let controller: SimulatorsController
     var simulator: Simulator
 
     /// The location that is being simulated
@@ -47,10 +49,19 @@ struct LocationView: View {
 
         let coordinate = location.coordinate
 
+        let simulatorIds: [String]
+        if simulator.isDefault {
+            simulatorIds = controller.simulators
+                .filter { $0.state == .booted && !$0.isDefault }
+                .map { $0.udid }
+        } else {
+            simulatorIds = [self.simulator.id]
+        }
+
         let userInfo: [AnyHashable: Any] = [
             "simulateLocationLatitude": coordinate.latitude,
             "simulateLocationLongitude": coordinate.longitude,
-            "simulateLocationDevices": [self.simulator.id]
+            "simulateLocationDevices": simulatorIds
         ]
 
         // An undocumented notification name to change the current simulator's location. From here: https://github.com/lyft/set-simulator-location
