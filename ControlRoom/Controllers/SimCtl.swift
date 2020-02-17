@@ -47,16 +47,16 @@ enum SimCtl {
         return publisher
     }
 
-    private static func execute(_ subcommand: SubCommand, completion: ((Result<Data, SimCtl.Error>) -> Void)? = nil) {
-        execute(subcommand.arguments, completion: completion ?? { _ in })
+    private static func execute(_ command: Command, completion: ((Result<Data, SimCtl.Error>) -> Void)? = nil) {
+        execute(command.arguments, completion: completion ?? { _ in })
     }
 
-    private static func executeJSON<T: Decodable>(_ subcommand: SubCommand) -> AnyPublisher<T, SimCtl.Error> {
-        executeAndDecode(subcommand.arguments, decoder: JSONDecoder())
+    private static func executeJSON<T: Decodable>(_ command: Command) -> AnyPublisher<T, SimCtl.Error> {
+        executeAndDecode(command.arguments, decoder: JSONDecoder())
     }
 
-    private static func executePropertyList<T: Decodable>(_ subcommand: SubCommand) -> AnyPublisher<T, SimCtl.Error> {
-        executeAndDecode(subcommand.arguments, decoder: PropertyListDecoder())
+    private static func executePropertyList<T: Decodable>(_ command: Command) -> AnyPublisher<T, SimCtl.Error> {
+        executeAndDecode(command.arguments, decoder: PropertyListDecoder())
     }
 
     private static func executeAndDecode<Item: Decodable, Decoder: TopLevelDecoder>(_ arguments: [String],

@@ -10,171 +10,222 @@ import Foundation
 
 // swiftlint:disable file_length
 extension SimCtl {
-    enum SubCommand {
-        /// Create a new device.
-        case create(name: String, deviceTypeId: String, runtimeId: String? = nil)
-        /// Clone an existing device.
-        case clone(deviceId: String, name: String)
-        /// Upgrade a device to a newer runtime.
-        case upgrade(deviceId: String, runtimeId: String)
-        /// Delete spcified devices, unavailable devices, or all devices.
-        case delete(Delete)
-        /// Create a new watch and phone pair.
-        case pair(watch: String, phone: String)
-        /// Unpair a watch and phone pair.
-        case unpair(pairId: String)
-        /// Set a given pair as active.
-        case pairActivate(pairId: String)
-        /// Erase a device's contents and settings.
-        case erase(Erase)
-        /// Boot a device.
-        case boot(deviceId: String)
-        /// Shutdown a device.
-        case shutdown(ShutDown)
-        /// Rename a device.
-        case rename(deviceId: String, name: String)
-        /// Print an environment variable from a running device.
-        case getenv(deviceId: String, variable: String)
-        /// Open a URL in a device.
-        case openurl(deviceId: String, url: String)
-        /// Add photos, live photos, videos, or contacts to the library of a device.
-        case addmedia(deviceId: String, mediaPaths: [String])
-        /// Install an app on a device.
-        case install(deviceId: String, path: String)
-        /// Uninstall an app from a device.
-        case uninstall(deviceId: String, appBundleId: String)
-        /// Print the path of the installed app's container
-        case getAppContainer(deviceId: String, appBundleID: String, container: Container? = nil)
-        /// Launch an application by identifier on a device.
-        case launch(deviceId: String, appBundleId: String, waitForDebugger: Bool = false, output: Launch.Output? = nil)
-        /// Terminate an application by identifier on a device.
-        case terminate(deviceId: String, appBundleId: String)
-        /// Spawn a process by executing a given executable on a device.
-        case spawn(deviceId: String, pathToExecutable: String, options: [Spawn.Option] = [])
-        /// List available devices, device types, runtimes, or device pairs.
-        case list(filter: List.Filter? = nil, search: List.Search? = nil, flags: [List.Flag] = [])
-        /// Show the installed applications.
-        case listApps(deviceId: String, flags: [List.Flag] = [])
-        /// Trigger iCloud sync on a device.
-        case icloudSync(deviceId: String)
-        /// Sync the pasteboard content from one pasteboard to another.
-        case pbsync(source: Pasteboard.Device, destination: Pasteboard.Device, flags: [Pasteboard.Flag] = [])
-        /// Copy standard input onto the device pasteboard.
-        case pbcopy(device: Pasteboard.Device, flags: [Pasteboard.Flag] = [])
-        /// Print the contents of the device's pasteboard to standard output.
-        case pbpaste(device: Pasteboard.Device, flags: [Pasteboard.Flag] = [])
-        /// Set up a device IO operation.
-        case io(deviceId: String, operation: IO.Operation)
-        /// Collect diagnostic information and logs.
-        case diagnose(flags: [Diagnose.Flag])
-        /// enable or disable verbose logging for a device
-        case logverbose(deviceId: String?, isEnabled: Bool = false)
-        /// Set or clear status bar overrides
-        case statusBar(deviceId: String, operation: StatusBar.Operation)
-        /// Get or Set UI options
-        case ui(deviceId: String, option: UI.Option)
-        /// Send a simulated push notification
-        case push(deviceId: String, appBundleId: String? = nil, json: Push.JSON)
-        /// Grant, revoke, or reset privacy and permissi Manipulate a device's keychain
-        case privacy(deviceId: String, action: Privacy.Action, service: Privacy.Permission, appBundleId: String? = nil)
-        /// Manipulate a device's keychain
-        case keychain(deviceId: String, action: Keychain.Action)
+    struct Command {
+        let arguments: [String]
 
-        var arguments: [String] {
-            switch self {
-            case .create(name: let name, deviceTypeId: let deviceTypeId, runtimeId: let runtimeId):
-                var arguments = ["create", name, deviceTypeId]
-                if let runtimeId = runtimeId {
-                    arguments.append(runtimeId)
-                }
-                return arguments
-            case .clone(deviceId: let deviceId, name: let name):
-                return ["clone", deviceId, name]
-            case .upgrade(deviceId: let deviceId, runtimeId: let runtimeId):
-                return ["upgrade", deviceId, runtimeId]
-            case .delete(let delete):
-                return ["delete"] + delete.arguments
-            case .pair(watch: let watch, phone: let phone):
-                return ["pair", watch, phone]
-            case .unpair(pairId: let pairId):
-                return ["unpair", pairId]
-            case .pairActivate(pairId: let pairId):
-                return ["pair_activate", pairId]
-            case .erase(let erase):
-                return ["erase"] + erase.arguments
-            case .boot(deviceId: let deviceId):
-                return ["boot", deviceId]
-            case .shutdown(let shutdown):
-                return ["shutdown"] + shutdown.arguments
-            case .rename(deviceId: let deviceId, name: let name):
-                return ["rename", deviceId, name]
-            case .getenv(deviceId: let deviceId, variable: let variable):
-                return ["getenv", deviceId, variable]
-            case .openurl(deviceId: let deviceId, url: let url):
-                return ["openurl", deviceId, url]
-            case .addmedia(deviceId: let deviceId, mediaPaths: let mediaPaths):
-                return ["addmedia", deviceId] + mediaPaths
-            case .install(deviceId: let deviceId, path: let path):
-                return ["install", deviceId, path]
-            case .uninstall(deviceId: let deviceId, appBundleId: let appBundleId):
-                return ["uninstall", deviceId, appBundleId]
-            case .getAppContainer(deviceId: let deviceId, appBundleID: let appBundleID, container: let container):
-                return ["get_app_container", deviceId, appBundleID] + (container?.arguments ?? [])
-            case .launch(deviceId: let deviceId, appBundleId: let appBundleId, waitForDebugger: let waitForDebugger, output: let output):
-                return ["launch", deviceId, appBundleId] + (waitForDebugger ? ["-w"] : []) + (output?.arguments ?? [])
-            case .terminate(deviceId: let deviceId, appBundleId: let appBundleId):
-                return ["terminate", deviceId, appBundleId]
-            case .spawn(deviceId: let deviceId, pathToExecutable: let pathToExecutable, options: let options):
-                return ["spawn"] + options.flatMap { $0.arguments } + [deviceId, pathToExecutable]
-            case .list(filter: let filter, search: let search, flags: let flags):
-                var arguments: [String] = ["list"]
-                if let filter = filter {
-                    arguments.append(contentsOf: filter.arguments)
-                }
-                if let search = search {
-                    arguments.append(contentsOf: search.arguments)
-                }
-                return arguments + flags.flatMap { $0.arguments }
-            case .listApps(deviceId: let devicedId, flags: let flags):
-                return ["listapps", devicedId] + flags.flatMap { $0.arguments }
-            case .icloudSync(deviceId: let deviceId):
-                return ["icloud_sync", deviceId]
-            case .pbsync(source: let source, destination: let destination, flags: let flags):
-                return ["pbsync"] + source.arguments + destination.arguments + flags.flatMap { $0.arguments }
-            case .pbcopy(device: let device, flags: let flags):
-                return ["pbcopy"] + device.arguments + flags.flatMap { $0.arguments }
-            case .pbpaste(device: let device, flags: let flags):
-                return ["pbpaste"] + device.arguments + flags.flatMap { $0.arguments }
-            case .io(deviceId: let deviceId, operation: let operation):
-                return ["io", deviceId] + operation.arguments
-            case .diagnose(flags: let flags):
-                return ["diagnose"] + flags.flatMap { $0.arguments }
-            case .logverbose(deviceId: let deviceId, isEnabled: let isEnabled):
-                var arguments: [String] = ["logverbose"]
-                if let deviceId = deviceId {
-                    arguments.append(deviceId)
-                }
-                return arguments + [(isEnabled ? "enabled" : "disabled")]
-            case .statusBar(deviceId: let deviceId, operation: let operation):
-                return ["status_bar", deviceId] + operation.arguments
-            case .ui(deviceId: let deviceId, option: let option):
-                return ["ui", deviceId] + option.arguments
-            case .push(deviceId: let deviceId, appBundleId: let appBundleId, json: let json):
-                var arguments: [String] = ["push", deviceId]
-                if let appBundleId = appBundleId {
-                    arguments.append(appBundleId)
-                }
-                return arguments + json.arguments
-            case .privacy(deviceId: let deviceId, action: let action, service: let service, appBundleId: let appBundleId):
-                var arguments: [String] = ["privacy", deviceId] + action.arguments + service.arguments
-                if let appBundleId = appBundleId {
-                    arguments.append(appBundleId)
-                }
-                return arguments
-            case .keychain(deviceId: let deviceId, action: let action):
-                return ["keychain", deviceId] + action.arguments
-            }
+        init(_ subcommand: SubCommand, arguments: [String]) {
+            self.arguments = [subcommand.rawValue] + arguments
         }
+
+        /// Create a new device.
+        static func create(name: String, deviceTypeId: String, runtimeId: String? = nil) -> Command {
+            Command(.create, arguments: [name, deviceTypeId])
+        }
+
+        /// Clone an existing device.
+        static func clone(deviceId: String, name: String) -> Command {
+            Command(.clone, arguments: [deviceId, name])
+        }
+
+        /// Upgrade a device to a newer runtime.
+        static func upgrade(deviceId: String, runtimeId: String) -> Command {
+            Command(.upgrade, arguments: [deviceId, runtimeId])
+        }
+
+        /// Delete spcified devices, unavailable devices, or all devices.
+        static func delete(_ delete: Delete) -> Command {
+            Command(.delete, arguments: delete.arguments)
+        }
+
+        /// Create a new watch and phone pair.
+        static func pair(watch: String, phone: String) -> Command {
+            Command(.pair, arguments: [watch, phone])
+        }
+
+        /// Unpair a watch and phone pair.
+        static func unpair(pairId: String) -> Command {
+            Command(.unpair, arguments: [pairId])
+        }
+
+        /// Set a given pair as active.
+        static func pairActivate(pairId: String) -> Command {
+            Command(.pairActivate, arguments: [pairId])
+        }
+
+        /// Erase a device's contents and settings.
+        static func erase(_ erase: Erase) -> Command {
+            Command(.erase, arguments: erase.arguments)
+        }
+
+        /// Boot a device.
+        static func boot(deviceId: String) -> Command {
+            Command(.boot, arguments: [deviceId])
+        }
+
+        /// Shutdown a device.
+        static func shutdown(_ shutdown: ShutDown) -> Command {
+            Command(.shutdown, arguments: shutdown.arguments)
+        }
+
+        /// Rename a device.
+        static func rename(deviceId: String, name: String) -> Command {
+            Command(.rename, arguments: [deviceId, name])
+        }
+
+        /// Print an environment variable from a running device.
+        static func getenv(deviceId: String, variable: String) -> Command {
+            Command(.getenv, arguments: [deviceId, variable])
+        }
+
+        /// Open a URL in a device.
+        static func openurl(deviceId: String, url: String) -> Command {
+            Command(.openurl, arguments: [deviceId, url])
+        }
+
+        /// Add photos, live photos, videos, or contacts to the library of a device.
+        static func addmedia(deviceId: String, mediaPaths: [String]) -> Command {
+            Command(.addmedia, arguments: [deviceId] + mediaPaths)
+        }
+
+        /// Install an app on a device.
+        static func install(deviceId: String, path: String) -> Command {
+            Command(.install, arguments: [deviceId, path])
+        }
+
+        /// Uninstall an app from a device.
+        static func uninstall(deviceId: String, appBundleId: String) -> Command {
+            Command(.uninstall, arguments: [deviceId, appBundleId])
+        }
+
+        /// Print the path of the installed app's container
+        static func getAppContainer(deviceId: String, appBundleID: String, container: Container? = nil) -> Command {
+            Command(.getAppContainer, arguments: [deviceId, appBundleID] + (container?.arguments ?? []))
+        }
+
+        /// Launch an application by identifier on a device.
+        static func launch(deviceId: String, appBundleId: String, waitForDebugger: Bool = false, output: Launch.Output? = nil) -> Command {
+            Command(.launch, arguments: [deviceId, appBundleId] + (waitForDebugger ? ["-w"] : []) + (output?.arguments ?? []))
+        }
+        /// Terminate an application by identifier on a device.
+        static func terminate(deviceId: String, appBundleId: String) -> Command {
+            Command(.terminate, arguments: [deviceId, appBundleId])
+        }
+        /// Spawn a process by executing a given executable on a device.
+        static func spawn(deviceId: String, pathToExecutable: String, options: [Spawn.Option] = []) -> Command {
+            Command(.spawn, arguments: options.flatMap { $0.arguments } + [deviceId, pathToExecutable])
+        }
+        /// List available devices, device types, runtimes, or device pairs.
+        static func list(filter: List.Filter? = nil, search: List.Search? = nil, flags: [List.Flag] = []) -> Command {
+            var arguments: [String] = []
+            if let filter = filter {
+                arguments.append(contentsOf: filter.arguments)
+            }
+            if let search = search {
+                arguments.append(contentsOf: search.arguments)
+            }
+            return Command(.list, arguments: arguments + flags.flatMap { $0.arguments })
+        }
+        /// Show the installed applications.
+        static func listApps(deviceId: String, flags: [List.Flag] = []) -> Command {
+            Command(.listApps, arguments: [deviceId] + flags.flatMap { $0.arguments })
+        }
+        /// Trigger iCloud sync on a device.
+        static func icloudSync(deviceId: String) -> Command {
+            Command(.icloudSync, arguments: [deviceId])
+        }
+        /// Sync the pasteboard content from one pasteboard to another.
+        static func pbsync(source: Pasteboard.Device, destination: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
+            Command(.pbsync, arguments: source.arguments + destination.arguments + flags.flatMap { $0.arguments })
+        }
+        /// Copy standard input onto the device pasteboard.
+        static func pbcopy(device: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
+            Command(.pbcopy, arguments: device.arguments + flags.flatMap { $0.arguments })
+        }
+        /// Print the contents of the device's pasteboard to standard output.
+        static func pbpaste(device: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
+            Command(.pbpaste, arguments: device.arguments + flags.flatMap { $0.arguments })
+        }
+        /// Set up a device IO operation.
+        static func io(deviceId: String, operation: IO.Operation) -> Command {
+            Command(.io, arguments: operation.arguments)
+        }
+        /// Collect diagnostic information and logs.
+        static func diagnose(flags: [Diagnose.Flag]) -> Command {
+            Command(.diagnose, arguments: flags.flatMap { $0.arguments })
+        }
+        /// enable or disable verbose logging for a device
+        static func logverbose(deviceId: String?, isEnabled: Bool = false) -> Command {
+            var arguments: [String] = []
+            if let deviceId = deviceId {
+                arguments.append(deviceId)
+            }
+            return Command(.logverbose, arguments: arguments + [(isEnabled ? "enabled" : "disabled")])
+        }
+        /// Set or clear status bar overrides
+        static func statusBar(deviceId: String, operation: StatusBar.Operation) -> Command {
+            Command(.statusBar, arguments: [deviceId] + operation.arguments)
+        }
+        /// Get or Set UI options
+        static func ui(deviceId: String, option: UI.Option) -> Command {
+            Command(.ui, arguments: [deviceId] + option.arguments)
+        }
+        /// Send a simulated push notification
+        static func push(deviceId: String, appBundleId: String? = nil, json: Push.JSON) -> Command {
+            var arguments: [String] = [deviceId]
+            if let appBundleId = appBundleId {
+                arguments.append(appBundleId)
+            }
+            return Command(.push, arguments: arguments + json.arguments)
+        }
+        /// Grant, revoke, or reset privacy and permissi Manipulate a device's keychain
+        static func privacy(deviceId: String, action: Privacy.Action, service: Privacy.Permission, appBundleId: String? = nil) -> Command {
+            var arguments: [String] = [deviceId] + action.arguments + service.arguments
+            if let appBundleId = appBundleId {
+                arguments.append(appBundleId)
+            }
+            return Command(.privacy, arguments: arguments)
+        }
+        /// Manipulate a device's keychain
+        static func keychain(deviceId: String, action: Keychain.Action) -> Command {
+            Command(.keychain, arguments: [deviceId] + action.arguments)
+        }
+    }
+
+    enum SubCommand: String {
+        case create
+        case clone
+        case upgrade
+        case delete
+        case pair
+        case unpair
+        case pairActivate = "pair_activate"
+        case erase
+        case boot
+        case shutdown
+        case rename
+        case getenv
+        case openurl
+        case addmedia
+        case install
+        case uninstall
+        case getAppContainer = "get_app_container"
+        case launch
+        case terminate
+        case spawn
+        case list
+        case listApps
+        case icloudSync = "icloud_sync"
+        case pbsync
+        case pbcopy
+        case pbpaste
+        case io
+        case diagnose
+        case logverbose
+        case statusBar = "status_bar"
+        case ui
+        case push
+        case privacy
+        case keychain
     }
 
     // swiftlint:disable nesting
