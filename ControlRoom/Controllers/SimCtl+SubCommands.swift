@@ -13,7 +13,7 @@ extension SimCtl {
     struct Command {
         let arguments: [String]
 
-        init(_ subcommand: SubCommand, arguments: [String]) {
+        private init(_ subcommand: SubCommand, arguments: [String]) {
             self.arguments = [subcommand.rawValue] + arguments
         }
 
