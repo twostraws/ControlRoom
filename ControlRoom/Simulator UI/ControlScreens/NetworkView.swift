@@ -77,10 +77,9 @@ struct NetworkView: View {
                 }
                 .pickerStyle(PopUpButtonPickerStyle())
 
-                Picker("Wifi bars:", selection: $wiFiBar.onChange(updateData)) {
+                Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
                     ForEach(wiFiBars, id: \.self) { bars in
-                        Image(nsImage: self.nsimage(named: "wifi.\(bars)",
-                            size: NSSize(width: 19, height: 13.8)))
+                        Image(nsImage: self.nsimage(named: "wifi.\(bars)", size: NSSize(width: 19, height: 13.8)))
                             .tag(bars)
                     }
                 }
@@ -99,9 +98,8 @@ struct NetworkView: View {
 
                 Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
                     ForEach(0 ..< cellularBars.count) { idx in
-                        Image(nsImage: self.nsimage(named: "cell.\(idx)",
-                            size: NSSize(width: 21, height: 11.4)))
-                        .tag(idx)
+                        Image(nsImage: self.nsimage(named: "cell.\(idx)", size: NSSize(width: 21, height: 11.4)))
+                            .tag(idx)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
