@@ -56,9 +56,11 @@ class SimulatorsController: ObservableObject {
         self.preferences = preferences
         loadSimulators()
 
-        preferences.objectWillChange.sink(receiveValue: { [weak self] in
-            self?.filterSimulators()
-        }).store(in: &cancellables)
+        preferences.objectDidChange
+            .sink(receiveValue: { [weak self] in
+                self?.filterSimulators()
+            })
+            .store(in: &cancellables)
     }
 
     /// Fetches all simulators from simctl.
