@@ -12,7 +12,7 @@ import SwiftUI
 /// Map view to change simulated user's position
 struct LocationView: View {
 
-    let controller: SimulatorsController
+    @EnvironmentObject var controller: SimulatorsController
     var simulator: Simulator
 
     /// The location that is being simulated

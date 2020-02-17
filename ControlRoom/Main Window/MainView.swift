@@ -10,14 +10,14 @@ import SwiftUI
 
 /// Hosts a LoadingView followed by the main ControlView, or a LoadingFailedView if simctl failed.
 struct MainView: View {
-    @ObservedObject var controller: SimulatorsController
+    @EnvironmentObject var controller: SimulatorsController
 
     var body: some View {
         Group {
             if controller.loadingStatus == .loading {
                 LoadingView()
             } else if controller.loadingStatus == .success {
-                SplitLayoutView(controller: controller)
+                SplitLayoutView()
             } else {
                 LoadingFailedView()
             }
@@ -29,6 +29,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         let prefs = Preferences()
-        return MainView(controller: SimulatorsController(preferences: prefs))
+        return MainView().environmentObject(SimulatorsController(preferences: prefs))
     }
 }
