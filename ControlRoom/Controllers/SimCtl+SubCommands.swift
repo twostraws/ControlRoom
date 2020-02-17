@@ -13,106 +13,106 @@ extension SimCtl {
     struct Command {
         let arguments: [String]
 
-        private init(_ subcommand: SubCommand, arguments: [String]) {
-            self.arguments = [subcommand.rawValue] + arguments
+        private init(_ subcommand: String, arguments: [String]) {
+            self.arguments = [subcommand] + arguments
         }
 
         /// Create a new device.
         static func create(name: String, deviceTypeId: String, runtimeId: String? = nil) -> Command {
-            Command(.create, arguments: [name, deviceTypeId])
+            Command("create", arguments: [name, deviceTypeId])
         }
 
         /// Clone an existing device.
         static func clone(deviceId: String, name: String) -> Command {
-            Command(.clone, arguments: [deviceId, name])
+            Command("clone", arguments: [deviceId, name])
         }
 
         /// Upgrade a device to a newer runtime.
         static func upgrade(deviceId: String, runtimeId: String) -> Command {
-            Command(.upgrade, arguments: [deviceId, runtimeId])
+            Command("upgrade", arguments: [deviceId, runtimeId])
         }
 
         /// Delete spcified devices, unavailable devices, or all devices.
         static func delete(_ delete: Delete) -> Command {
-            Command(.delete, arguments: delete.arguments)
+            Command("delete", arguments: delete.arguments)
         }
 
         /// Create a new watch and phone pair.
         static func pair(watch: String, phone: String) -> Command {
-            Command(.pair, arguments: [watch, phone])
+            Command("pair", arguments: [watch, phone])
         }
 
         /// Unpair a watch and phone pair.
         static func unpair(pairId: String) -> Command {
-            Command(.unpair, arguments: [pairId])
+            Command("unpair", arguments: [pairId])
         }
 
         /// Set a given pair as active.
         static func pairActivate(pairId: String) -> Command {
-            Command(.pairActivate, arguments: [pairId])
+            Command("pair_activate", arguments: [pairId])
         }
 
         /// Erase a device's contents and settings.
         static func erase(_ erase: Erase) -> Command {
-            Command(.erase, arguments: erase.arguments)
+            Command("erase", arguments: erase.arguments)
         }
 
         /// Boot a device.
         static func boot(deviceId: String) -> Command {
-            Command(.boot, arguments: [deviceId])
+            Command("boot", arguments: [deviceId])
         }
 
         /// Shutdown a device.
         static func shutdown(_ shutdown: ShutDown) -> Command {
-            Command(.shutdown, arguments: shutdown.arguments)
+            Command("shutdown", arguments: shutdown.arguments)
         }
 
         /// Rename a device.
         static func rename(deviceId: String, name: String) -> Command {
-            Command(.rename, arguments: [deviceId, name])
+            Command("rename", arguments: [deviceId, name])
         }
 
         /// Print an environment variable from a running device.
-        static func getenv(deviceId: String, variable: String) -> Command {
-            Command(.getenv, arguments: [deviceId, variable])
+        static func getEnvironmentVariable(deviceId: String, variable: String) -> Command {
+            Command("getenv", arguments: [deviceId, variable])
         }
 
         /// Open a URL in a device.
-        static func openurl(deviceId: String, url: String) -> Command {
-            Command(.openurl, arguments: [deviceId, url])
+        static func openURL(deviceId: String, url: String) -> Command {
+            Command("openurl", arguments: [deviceId, url])
         }
 
         /// Add photos, live photos, videos, or contacts to the library of a device.
-        static func addmedia(deviceId: String, mediaPaths: [String]) -> Command {
-            Command(.addmedia, arguments: [deviceId] + mediaPaths)
+        static func addMedia(deviceId: String, mediaPaths: [String]) -> Command {
+            Command("addmedia", arguments: [deviceId] + mediaPaths)
         }
 
         /// Install an app on a device.
         static func install(deviceId: String, path: String) -> Command {
-            Command(.install, arguments: [deviceId, path])
+            Command("install", arguments: [deviceId, path])
         }
 
         /// Uninstall an app from a device.
         static func uninstall(deviceId: String, appBundleId: String) -> Command {
-            Command(.uninstall, arguments: [deviceId, appBundleId])
+            Command("uninstall", arguments: [deviceId, appBundleId])
         }
 
         /// Print the path of the installed app's container
         static func getAppContainer(deviceId: String, appBundleID: String, container: Container? = nil) -> Command {
-            Command(.getAppContainer, arguments: [deviceId, appBundleID] + (container?.arguments ?? []))
+            Command("get_app_container", arguments: [deviceId, appBundleID] + (container?.arguments ?? []))
         }
 
         /// Launch an application by identifier on a device.
         static func launch(deviceId: String, appBundleId: String, waitForDebugger: Bool = false, output: Launch.Output? = nil) -> Command {
-            Command(.launch, arguments: [deviceId, appBundleId] + (waitForDebugger ? ["-w"] : []) + (output?.arguments ?? []))
+            Command("launch", arguments: [deviceId, appBundleId] + (waitForDebugger ? ["-w"] : []) + (output?.arguments ?? []))
         }
         /// Terminate an application by identifier on a device.
         static func terminate(deviceId: String, appBundleId: String) -> Command {
-            Command(.terminate, arguments: [deviceId, appBundleId])
+            Command("terminate", arguments: [deviceId, appBundleId])
         }
         /// Spawn a process by executing a given executable on a device.
         static func spawn(deviceId: String, pathToExecutable: String, options: [Spawn.Option] = []) -> Command {
-            Command(.spawn, arguments: options.flatMap { $0.arguments } + [deviceId, pathToExecutable])
+            Command("spawn", arguments: options.flatMap { $0.arguments } + [deviceId, pathToExecutable])
         }
         /// List available devices, device types, runtimes, or device pairs.
         static func list(filter: List.Filter? = nil, search: List.Search? = nil, flags: [List.Flag] = []) -> Command {
@@ -123,35 +123,35 @@ extension SimCtl {
             if let search = search {
                 arguments.append(contentsOf: search.arguments)
             }
-            return Command(.list, arguments: arguments + flags.flatMap { $0.arguments })
+            return Command("list", arguments: arguments + flags.flatMap { $0.arguments })
         }
         /// Show the installed applications.
         static func listApps(deviceId: String, flags: [List.Flag] = []) -> Command {
-            Command(.listApps, arguments: [deviceId] + flags.flatMap { $0.arguments })
+            Command("listApps", arguments: [deviceId] + flags.flatMap { $0.arguments })
         }
         /// Trigger iCloud sync on a device.
         static func icloudSync(deviceId: String) -> Command {
-            Command(.icloudSync, arguments: [deviceId])
+            Command("icloud_sync", arguments: [deviceId])
         }
         /// Sync the pasteboard content from one pasteboard to another.
         static func pbsync(source: Pasteboard.Device, destination: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
-            Command(.pbsync, arguments: source.arguments + destination.arguments + flags.flatMap { $0.arguments })
+            Command("pbsync", arguments: source.arguments + destination.arguments + flags.flatMap { $0.arguments })
         }
         /// Copy standard input onto the device pasteboard.
         static func pbcopy(device: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
-            Command(.pbcopy, arguments: device.arguments + flags.flatMap { $0.arguments })
+            Command("pbcopy", arguments: device.arguments + flags.flatMap { $0.arguments })
         }
         /// Print the contents of the device's pasteboard to standard output.
         static func pbpaste(device: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
-            Command(.pbpaste, arguments: device.arguments + flags.flatMap { $0.arguments })
+            Command("pbpaste", arguments: device.arguments + flags.flatMap { $0.arguments })
         }
         /// Set up a device IO operation.
         static func io(deviceId: String, operation: IO.Operation) -> Command {
-            Command(.io, arguments: operation.arguments)
+            Command("io", arguments: operation.arguments)
         }
         /// Collect diagnostic information and logs.
         static func diagnose(flags: [Diagnose.Flag]) -> Command {
-            Command(.diagnose, arguments: flags.flatMap { $0.arguments })
+            Command("diagnose", arguments: flags.flatMap { $0.arguments })
         }
         /// enable or disable verbose logging for a device
         static func logverbose(deviceId: String?, isEnabled: Bool = false) -> Command {
@@ -159,15 +159,15 @@ extension SimCtl {
             if let deviceId = deviceId {
                 arguments.append(deviceId)
             }
-            return Command(.logverbose, arguments: arguments + [(isEnabled ? "enabled" : "disabled")])
+            return Command("logverbose", arguments: arguments + [(isEnabled ? "enabled" : "disabled")])
         }
         /// Set or clear status bar overrides
         static func statusBar(deviceId: String, operation: StatusBar.Operation) -> Command {
-            Command(.statusBar, arguments: [deviceId] + operation.arguments)
+            Command("status_bar", arguments: [deviceId] + operation.arguments)
         }
         /// Get or Set UI options
         static func ui(deviceId: String, option: UI.Option) -> Command {
-            Command(.ui, arguments: [deviceId] + option.arguments)
+            Command("ui", arguments: [deviceId] + option.arguments)
         }
         /// Send a simulated push notification
         static func push(deviceId: String, appBundleId: String? = nil, json: Push.JSON) -> Command {
@@ -175,7 +175,7 @@ extension SimCtl {
             if let appBundleId = appBundleId {
                 arguments.append(appBundleId)
             }
-            return Command(.push, arguments: arguments + json.arguments)
+            return Command("push", arguments: arguments + json.arguments)
         }
         /// Grant, revoke, or reset privacy and permissi Manipulate a device's keychain
         static func privacy(deviceId: String, action: Privacy.Action, service: Privacy.Permission, appBundleId: String? = nil) -> Command {
@@ -183,49 +183,12 @@ extension SimCtl {
             if let appBundleId = appBundleId {
                 arguments.append(appBundleId)
             }
-            return Command(.privacy, arguments: arguments)
+            return Command("privacy", arguments: arguments)
         }
         /// Manipulate a device's keychain
         static func keychain(deviceId: String, action: Keychain.Action) -> Command {
-            Command(.keychain, arguments: [deviceId] + action.arguments)
+            Command("keychain", arguments: [deviceId] + action.arguments)
         }
-    }
-
-    enum SubCommand: String {
-        case create
-        case clone
-        case upgrade
-        case delete
-        case pair
-        case unpair
-        case pairActivate = "pair_activate"
-        case erase
-        case boot
-        case shutdown
-        case rename
-        case getenv
-        case openurl
-        case addmedia
-        case install
-        case uninstall
-        case getAppContainer = "get_app_container"
-        case launch
-        case terminate
-        case spawn
-        case list
-        case listApps
-        case icloudSync = "icloud_sync"
-        case pbsync
-        case pbcopy
-        case pbpaste
-        case io
-        case diagnose
-        case logverbose
-        case statusBar = "status_bar"
-        case ui
-        case push
-        case privacy
-        case keychain
     }
 
     // swiftlint:disable nesting

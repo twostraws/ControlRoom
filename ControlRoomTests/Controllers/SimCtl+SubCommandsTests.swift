@@ -42,13 +42,13 @@ class SimCtlSubCommandsTests: XCTestCase {
     }
 
     func testOpenUrl() throws {
-        let command: SimCtl.Command = .openurl(deviceId: "device1", url: "https://www.hackingwithswift.com")
+        let command: SimCtl.Command = .openURL(deviceId: "device1", url: "https://www.hackingwithswift.com")
         let expectation = ["openurl", "device1", "https://www.hackingwithswift.com"]
         XCTAssertEqual(command.arguments, expectation)
     }
 
     func testAddMedia() throws {
-        let command: SimCtl.Command = .addmedia(deviceId: "device1", mediaPaths: ["~/sample-1.jpg"])
+        let command: SimCtl.Command = .addMedia(deviceId: "device1", mediaPaths: ["~/sample-1.jpg"])
         let expectation = ["addmedia", "device1", "~/sample-1.jpg"]
         XCTAssertEqual(command.arguments, expectation)
     }

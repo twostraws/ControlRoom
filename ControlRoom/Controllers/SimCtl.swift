@@ -20,7 +20,6 @@ enum SimCtl {
     }
 
     private static func execute(_ arguments: [String], completion: @escaping (Result<Data, SimCtl.Error>) -> Void) {
-        print("SIMCTL-CMD:", arguments.joined(separator: " "))
         DispatchQueue.global(qos: .userInitiated).async {
             if let data = Process.execute("/usr/bin/xcrun", arguments: ["simctl"] + arguments) {
                 completion(.success(data))
@@ -31,7 +30,6 @@ enum SimCtl {
     }
 
     private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, SimCtl.Error> {
-        print("SIMCTL-CMD:", arguments.joined(separator: " "))
         let publisher = PassthroughSubject<Data, SimCtl.Error>()
 
         execute(arguments) { result in
@@ -199,7 +197,7 @@ enum SimCtl {
     }
 
     static func openURL(_ simulator: String, URL: String) {
-        execute(.openurl(deviceId: simulator, url: URL))
+        execute(.openURL(deviceId: simulator, url: URL))
     }
 
     static func grantPermission(_ simulator: String, appID: String, permission: Privacy.Permission) {
