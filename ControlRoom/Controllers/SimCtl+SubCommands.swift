@@ -127,7 +127,7 @@ extension SimCtl {
         }
         /// Show the installed applications.
         static func listApps(deviceId: String, flags: [List.Flag] = []) -> Command {
-            Command("listApps", arguments: [deviceId] + flags.flatMap { $0.arguments })
+            Command("listapps", arguments: [deviceId] + flags.flatMap { $0.arguments })
         }
         /// Trigger iCloud sync on a device.
         static func icloudSync(deviceId: String) -> Command {
