@@ -16,7 +16,10 @@ struct AppView: View {
     var applications: [Application]
 
     /// The selected application we want to manipulate.
-    @State private var selectedApplication: Application = .default
+    private var selectedApplication: Application  {
+        return applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
+            ?? .default
+    }
 
     /// The current permission option the user has selected to grant, reset, or revoke.
     @State private var resetPermission: SimCtl.Privacy.Permission = .all
