@@ -46,7 +46,12 @@ class SimulatorsController: ObservableObject {
     }
 
     var selectedSimulators: [Simulator] {
-        allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) })
+        var selected = [Simulator]()
+        if selectedSimulatorIDs.contains(Simulator.default.udid) {
+            selected.append(Simulator.default)
+        }
+        selected.append(contentsOf: allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) }))
+        return selected
     }
 
     @ObservedObject var preferences: Preferences
