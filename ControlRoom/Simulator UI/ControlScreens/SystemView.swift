@@ -41,12 +41,20 @@ struct SystemView: View {
                     Button("Set", action: setTime)
                 }
 
+                FormSpacer()
+            }
+
+            Group {
                 Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
                     ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
                         Text($0.displayName)
                     }
                 }
 
+                FormSpacer()
+            }
+
+            Group {
                 Picker("Language:", selection: $language) {
                     ForEach(languages, id: \.self) {
                         Text(NSLocale.current.localizedString(forLanguageCode: $0) ?? "")
@@ -58,7 +66,10 @@ struct SystemView: View {
                         Text(NSLocale.current.localizedString(forIdentifier: $0) ?? "")
                     }
                 }
-                Button("Set Language/Locale", action: updateLanguage)
+                HStack {
+                    Button("Set Language/Locale", action: updateLanguage)
+                    Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
+                }
 
                 FormSpacer()
             }
@@ -86,9 +97,9 @@ struct SystemView: View {
                 Section(header: Text("Screen")) {
                     Button("Take Screenshot", action: takeScreenshot)
                 }
-
-                Spacer()
             }
+
+            Spacer()
 
             HStack {
                 Spacer()
