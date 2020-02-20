@@ -45,7 +45,19 @@
 		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
 		ACDF076623F7D1C300597B3B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076523F7D1C300597B3B /* Application.swift */; };
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
+		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
+		B07F585123F9F83800256D5D /* SimCtl+SubCommandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B07F585323F9F83800256D5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 511BA57123F3FFEA00E3E660 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 511BA57823F3FFEA00E3E660;
+			remoteInfo = ControlRoom;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		511BA57923F3FFEA00E3E660 /* ControlRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +103,10 @@
 		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		ACDF076523F7D1C300597B3B /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		ACDF076723F7E91A00597B3B /* ApplicationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationType.swift; sourceTree = "<group>"; };
+		B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommands.swift"; sourceTree = "<group>"; };
+		B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ControlRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommandsTests.swift"; sourceTree = "<group>"; };
+		B07F585223F9F83800256D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +118,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B07F584B23F9F83800256D5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -109,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				511BA57B23F3FFEA00E3E660 /* ControlRoom */,
+				B07F584F23F9F83800256D5D /* ControlRoomTests */,
 				511BA57A23F3FFEA00E3E660 /* Products */,
 				555A145823F70A5100313BC5 /* Frameworks */,
 			);
@@ -118,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				511BA57923F3FFEA00E3E660 /* ControlRoom.app */,
+				B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,11 +274,29 @@
 				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
+				B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */,
 				ACDF076723F7E91A00597B3B /* ApplicationType.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
 				ACDF076523F7D1C300597B3B /* Application.swift */,
 				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
 				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B07F584F23F9F83800256D5D /* ControlRoomTests */ = {
+			isa = PBXGroup;
+			children = (
+				B07F585823F9F99F00256D5D /* Controllers */,
+				B07F585223F9F83800256D5D /* Info.plist */,
+			);
+			path = ControlRoomTests;
+			sourceTree = "<group>";
+		};
+		B07F585823F9F99F00256D5D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -287,19 +330,41 @@
 			productReference = 511BA57923F3FFEA00E3E660 /* ControlRoom.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B07F584D23F9F83800256D5D /* ControlRoomTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B07F585723F9F83800256D5D /* Build configuration list for PBXNativeTarget "ControlRoomTests" */;
+			buildPhases = (
+				B07F584A23F9F83800256D5D /* Sources */,
+				B07F584B23F9F83800256D5D /* Frameworks */,
+				B07F584C23F9F83800256D5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B07F585423F9F83800256D5D /* PBXTargetDependency */,
+			);
+			name = ControlRoomTests;
+			productName = ControlRoomTests;
+			productReference = B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		511BA57123F3FFEA00E3E660 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Paul Hudson";
 				TargetAttributes = {
 					511BA57823F3FFEA00E3E660 = {
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1130;
+					};
+					B07F584D23F9F83800256D5D = {
+						CreatedOnToolsVersion = 11.4;
+						TestTargetID = 511BA57823F3FFEA00E3E660;
 					};
 				};
 			};
@@ -317,6 +382,7 @@
 			projectRoot = "";
 			targets = (
 				511BA57823F3FFEA00E3E660 /* ControlRoom */,
+				B07F584D23F9F83800256D5D /* ControlRoomTests */,
 			);
 		};
 /* End PBXProject section */
@@ -329,6 +395,13 @@
 				511BA58723F3FFEB00E3E660 /* Main.storyboard in Resources */,
 				511BA58423F3FFEB00E3E660 /* Preview Assets.xcassets in Resources */,
 				511BA58123F3FFEB00E3E660 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B07F584C23F9F83800256D5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,11 +466,28 @@
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
 				55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */,
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,
+				B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */,
 				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B07F584A23F9F83800256D5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B07F585123F9F83800256D5D /* SimCtl+SubCommandsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B07F585423F9F83800256D5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 511BA57823F3FFEA00E3E660 /* ControlRoom */;
+			targetProxy = B07F585323F9F83800256D5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		511BA58523F3FFEB00E3E660 /* Main.storyboard */ = {
@@ -585,6 +675,48 @@
 			};
 			name = Release;
 		};
+		B07F585523F9F83800256D5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = B5C26XE59E;
+				INFOPLIST_FILE = ControlRoomTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ControlRoom.app/Contents/MacOS/ControlRoom";
+			};
+			name = Debug;
+		};
+		B07F585623F9F83800256D5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = B5C26XE59E;
+				INFOPLIST_FILE = ControlRoomTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ControlRoom.app/Contents/MacOS/ControlRoom";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -602,6 +734,15 @@
 			buildConfigurations = (
 				511BA58D23F3FFEB00E3E660 /* Debug */,
 				511BA58E23F3FFEB00E3E660 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B07F585723F9F83800256D5D /* Build configuration list for PBXNativeTarget "ControlRoomTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B07F585523F9F83800256D5D /* Debug */,
+				B07F585623F9F83800256D5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

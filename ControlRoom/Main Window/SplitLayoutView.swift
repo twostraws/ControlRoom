@@ -16,6 +16,7 @@ struct SplitLayoutView: View {
         HSplitView {
             SidebarView(controller: controller)
                 .frame(minWidth: 200)
+                .layoutPriority(1)
 
             // Use a GeometryReader here to take up as much space as possible
             // otherwise the view would collapse down to (potentially)
@@ -30,6 +31,7 @@ struct SplitLayoutView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+            .layoutPriority(2)
         }
     }
 }

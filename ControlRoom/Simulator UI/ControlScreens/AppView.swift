@@ -16,13 +16,13 @@ struct AppView: View {
     var applications: [Application]
 
     /// The selected application we want to manipulate.
-    private var selectedApplication: Application  {
+    private var selectedApplication: Application {
         return applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
             ?? .default
     }
 
     /// The current permission option the user has selected to grant, reset, or revoke.
-    @State private var resetPermission = "All"
+    @State private var resetPermission: SimCtl.Privacy.Permission = .all
 
     /// If true shows the uninstall confirmation alert.
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
@@ -30,19 +30,6 @@ struct AppView: View {
     private var isApplicationSelected: Bool {
         !selectedApplication.bundleIdentifier.isEmpty
     }
-
-    /// All permission options supported by the simulator.
-    let resetPermissions = [
-        "All",
-        "Calendar",
-        "Contacts",
-        "Location",
-        "Microphone",
-        "Motion",
-        "Photos",
-        "Reminders",
-        "Siri"
-    ]
 
     init(simulator: Simulator, applications: [Application]) {
         self.simulator = simulator
@@ -79,8 +66,8 @@ struct AppView: View {
             Section {
                 HStack {
                     Picker("Permissions:", selection: $resetPermission) {
-                        ForEach(resetPermissions, id: \.self) {
-                            Text($0)
+                        ForEach(SimCtl.Privacy.Permission.allCases, id: \.self) {
+                            Text($0.displayName)
                         }
                     }
 
@@ -194,5 +181,22 @@ private struct AppSummaryView: View {
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(simulator: .example, applications: [])
+    }
+}
+
+extension SimCtl.Privacy.Permission {
+    var displayName: String {
+        switch self {
+        case .contactsLimited:
+            return "Contacts Limited"
+        case .locationAlways:
+            return "Location Always"
+        case .mediaLibrary:
+            return "Media Library"
+        case .photosAdd:
+            return "Photos Add"
+        default:
+            return self.rawValue.capitalized
+        }
     }
 }
