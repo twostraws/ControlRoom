@@ -284,6 +284,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		55AF68B323F9CFC600C5D87A /* Preferences UI */ = {
+			isa = PBXGroup;
+			children = (
+				55AF68B423F9CFD600C5D87A /* PreferencesView.swift */,
+			);
+			path = "Preferences UI";
+			sourceTree = "<group>";
+		};
 		B07F584F23F9F83800256D5D /* ControlRoomTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,14 +307,6 @@
 				B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		55AF68B323F9CFC600C5D87A /* Preferences UI */ = {
-			isa = PBXGroup;
-			children = (
-				55AF68B423F9CFD600C5D87A /* PreferencesView.swift */,
-			);
-			path = "Preferences UI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

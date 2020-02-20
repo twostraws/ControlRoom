@@ -112,8 +112,8 @@ enum SimCtl {
         execute(.boot(deviceId: simulator))
     }
 
-    static func shutdown(_ simulator: String) {
-        execute(.shutdown(.devices([simulator])))
+    static func shutdown(_ simulator: String, completion: ((Result<Data, SimCtl.Error>) -> Void)? = nil) {
+        execute(.shutdown(.devices([simulator])), completion: completion)
     }
 
     static func erase(_ simulator: String) {
