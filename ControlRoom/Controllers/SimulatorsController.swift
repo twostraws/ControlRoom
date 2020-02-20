@@ -56,7 +56,7 @@ class SimulatorsController: ObservableObject {
         self.preferences = preferences
         loadSimulators()
 
-        preferences.objectWillChange.sink(receiveValue: { [weak self] in
+        preferences.objectDidChange.sink(receiveValue: { [weak self] in
             self?.filterSimulators()
         }).store(in: &cancellables)
     }
@@ -110,7 +110,7 @@ class SimulatorsController: ObservableObject {
 
         objectWillChange.send()
         loadingStatus = .success
-        allSimulators = [.default] + final.sorted()
+        allSimulators = final
         filterSimulators()
     }
 
@@ -130,8 +130,19 @@ class SimulatorsController: ObservableObject {
         guard loadingStatus == .success else { return }
 
         let trimmed = preferences.filterText.trimmingCharacters(in: .whitespacesAndNewlines)
-
         var filtered = allSimulators
+
+        if preferences.showBootedDevicesFirst {
+            let on = filtered.filter { $0.state != .shutdown }
+            let off = filtered.filter { $0.state == .shutdown }
+            filtered = on.sorted() + off.sorted()
+        } else {
+            filtered = filtered.sorted()
+        }
+        if preferences.showDefaultSimulator {
+            filtered = [.default] + filtered
+        }
+
         if trimmed.isEmpty == false {
             filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }

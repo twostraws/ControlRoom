@@ -36,6 +36,9 @@
 		555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A145923F70A5100313BC5 /* CoreSimulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
 		555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */; };
+		55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B423F9CFD600C5D87A /* PreferencesView.swift */; };
+		55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B623F9D2E200C5D87A /* UIState.swift */; };
+		55AF68B923F9D32100C5D87A /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B823F9D32100C5D87A /* MainWindowController.swift */; };
 		55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */; };
 		55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B823F86C0700E717D3 /* ContextMenu.swift */; };
 		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
@@ -91,6 +94,9 @@
 		555A145923F70A5100313BC5 /* CoreSimulator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSimulator.framework; path = /Library/Developer/PrivateFrameworks/CoreSimulator.framework; sourceTree = "<absolute>"; };
 		555A145B23F70CCF00313BC5 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreSimulatorPublisher.swift; sourceTree = "<group>"; };
+		55AF68B423F9CFD600C5D87A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		55AF68B623F9D2E200C5D87A /* UIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIState.swift; sourceTree = "<group>"; };
+		55AF68B823F9D32100C5D87A /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorActionSheet.swift; sourceTree = "<group>"; };
 		55DF68B823F86C0700E717D3 /* ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
@@ -145,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				555A145F23F758DE00313BC5 /* Main Window */,
+				55AF68B323F9CFC600C5D87A /* Preferences UI */,
 				511BA5D223F456B900E3E660 /* Loading */,
 				555A146223F7628100313BC5 /* Simulator UI */,
 				555A146323F762AD00313BC5 /* Controllers */,
@@ -241,6 +248,7 @@
 		555A145F23F758DE00313BC5 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
+				55AF68B823F9D32100C5D87A /* MainWindowController.swift */,
 				511BA57E23F3FFEA00E3E660 /* MainView.swift */,
 				551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */,
 				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
@@ -262,6 +270,7 @@
 		555A146323F762AD00313BC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				55AF68B623F9D2E200C5D87A /* UIState.swift */,
 				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
@@ -290,6 +299,14 @@
 				B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		55AF68B323F9CFC600C5D87A /* Preferences UI */ = {
+			isa = PBXGroup;
+			children = (
+				55AF68B423F9CFD600C5D87A /* PreferencesView.swift */,
+			);
+			path = "Preferences UI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,6 +439,7 @@
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
+				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */,
 				511BA5AA23F4316700E3E660 /* TextView.swift in Sources */,
@@ -441,10 +459,12 @@
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,
 				55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */,
+				55AF68B923F9D32100C5D87A /* MainWindowController.swift in Sources */,
 				555A145C23F70CCF00313BC5 /* Process.swift in Sources */,
 				55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
+				55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */,
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,
 				B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */,
 				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,

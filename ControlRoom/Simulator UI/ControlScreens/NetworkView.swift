@@ -55,9 +55,8 @@ struct NetworkView: View {
 
                 Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
-                        Image("wifi\(bars.rawValue)")
-                            .resizable()
-                            .tag(bars)
+                        Image(nsImage: self.nsimage(named: "wifi.\(bars.rawValue)", size: NSSize(width: 19, height: 13.8)))
+                            .tag(bars.rawValue)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -75,9 +74,8 @@ struct NetworkView: View {
 
                 Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
-                        Image("cell\(bars.rawValue)")
-                        .resizable()
-                        .tag(bars)
+                        Image(nsImage: self.nsimage(named: "cell.\(bars.rawValue)", size: NSSize(width: 21, height: 11.4)))
+                            .tag(bars.rawValue)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -97,6 +95,15 @@ struct NetworkView: View {
                                         wifiMode: wiFiMode, wifiBars: wiFiBar,
                                         cellMode: cellularMode, cellBars: cellularBar,
                                         carrier: preferences.carrierName)
+    }
+
+    /// Workaround for getting configurable image sizes in Segmented Control; It seems to be broken in SwiftUI right now.
+    private func nsimage(named name: String, size: NSSize) -> NSImage {
+        guard let image = NSImage(named: name) else {
+            return NSImage()
+        }
+        image.size = size
+        return image
     }
 }
 
