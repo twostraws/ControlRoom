@@ -319,6 +319,7 @@
 				551F8CFA23F4CB770006D1BD /* SwiftLint */,
 				511BA57523F3FFEA00E3E660 /* Sources */,
 				511BA57623F3FFEA00E3E660 /* Frameworks */,
+				5534157B23FE0373005C0A41 /* Get Contributors */,
 				511BA57723F3FFEA00E3E660 /* Resources */,
 			);
 			buildRules = (
@@ -425,6 +426,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		5534157B23FE0373005C0A41 /* Get Contributors */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Get Contributors";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RESOURCES_DIR=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nexport CONTRIBUTORS_FILE=\"${RESOURCES_DIR}/contributors.json\"\nif [ ! -f \"${CONTRIBUTORS_FILE}\" ]; then\n    curl \"https://api.github.com/repos/twostraws/ControlRoom/stats/contributors\" -H \"Accept: application/vnd.github.v3+json\" > \"${CONTRIBUTORS_FILE}\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
