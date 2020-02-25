@@ -63,7 +63,11 @@ class MainWindowController: NSWindowController {
     }
 
     @IBAction func showPreferences(_ sender: Any) {
-        UIState.shared.showPreferences = true
+        UIState.shared.currentSheet = .preferences
+    }
+
+    @IBAction func newSimulator(_ sender: Any) {
+        UIState.shared.currentSheet = .createSimulator
     }
 
 }
@@ -74,6 +78,10 @@ extension MainWindowController: NSMenuItemValidation {
         if menuItem.action == #selector(toggleFloatingWindow(_:)) {
             menuItem.state = preferences.wantsFloatingWindow ? .on : .off
             return true
+        }
+
+        if menuItem.action == #selector(newSimulator(_:)) {
+            return controller.loadingStatus == .success
         }
 
         return responds(to: menuItem.action)

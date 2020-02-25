@@ -73,9 +73,3 @@ struct CreateSimulatorActionSheet: View {
         SimCtl.create(name: name, deviceType: deviceType, runtime: runtime)
     }
 }
-
-struct CreateSimulatorActionSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateSimulatorActionSheet(controller: SimulatorsController())
-    }
-}

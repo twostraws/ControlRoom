@@ -32,9 +32,7 @@ struct SplitLayoutView: View {
                 }
             }
             .layoutPriority(2)
-        }.sheet(isPresented: $controller.showCreateSimulatorPanel, content: {
-            CreateSimulatorActionSheet(controller: self.controller)
-        })
+        }
     }
 }
 

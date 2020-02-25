@@ -117,6 +117,8 @@ class SimulatorsController: ObservableObject {
         }
 
         objectWillChange.send()
+        self.deviceTypes = deviceTypes.devicetypes
+        self.runtimes = runtimes.runtimes
         loadingStatus = .success
         allSimulators = final
         filterSimulators()

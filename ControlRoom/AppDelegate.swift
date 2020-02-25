@@ -10,7 +10,7 @@ import Cocoa
 import SwiftUI
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
+class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var mainWindow: MainWindowController = MainWindowController()
 
@@ -18,20 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         mainWindow.showWindow(self)
     }
 
-    @IBAction func newSimulator(_ sender: Any) {
-        controller.showCreateSimulatorPanel = true
-    }
-
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-    }
-
-    @objc func validateMenuItem(_ item: NSMenuItem) -> Bool {
-        if item.action == #selector(newSimulator(_:)) {
-            return controller.loadingStatus == .success
-        }
-
-        return false
     }
     
     @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {

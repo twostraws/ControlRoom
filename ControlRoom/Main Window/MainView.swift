@@ -25,10 +25,14 @@ struct MainView: View {
             }
         }
         .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
-        .sheet(isPresented: $uiState.showPreferences) {
-            PreferencesView()
-                .environmentObject(self.preferences)
-        }
+        .sheet(item: $uiState.currentSheet, content: { sheet in
+            if sheet == .preferences {
+                PreferencesView()
+                    .environmentObject(self.preferences)
+            } else if sheet == .createSimulator {
+                CreateSimulatorActionSheet(controller: self.controller)
+            }
+        })
     }
 }
 
