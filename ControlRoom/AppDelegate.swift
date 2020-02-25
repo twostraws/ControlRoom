@@ -23,7 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
-        if let authors = Bundle.main.authors {
+        let authors = Bundle.main.authors
+        if authors.isEmpty == false {
             let content = NSViewController()
             content.title = "Control Room"
             let view = NSHostingView(rootView: AboutView(authors: authors))
