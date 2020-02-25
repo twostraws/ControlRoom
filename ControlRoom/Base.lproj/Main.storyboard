@@ -17,11 +17,15 @@
                                         <menuItem title="About ControlRoom" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                                <action selector="orderFrontStandardAboutPanel:" target="Voe-Tx-rLC" id="614-fE-n0Y"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <action selector="showPreferences:" target="Ady-hI-5gd" id="hSx-FU-ZMk"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -346,7 +350,7 @@
                                         </menuItem>
                                         <menuItem title="Stay In Front" keyEquivalent="F" id="Tzd-5z-P3W">
                                             <connections>
-                                                <binding destination="tyD-2p-WN7" name="value" keyPath="values.CRWantsFloatingWindow" id="eBP-sa-lBp"/>
+                                                <action selector="toggleFloatingWindow:" target="Ady-hI-5gd" id="QEy-F8-tpj"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -372,9 +376,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="ControlRoom" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-                <userDefaultsController id="1hY-G4-Ls0"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController representsSharedInstance="YES" id="tyD-2p-WN7"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>

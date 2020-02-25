@@ -15,15 +15,15 @@ struct BatteryView: View {
 
     /// The current battery state of the device; must be "Charging", "Charged", or "Discharging"
     /// Note: "Charged" looks the same as "Discharging", so it's not included in this screen.
-    @State private var batteryState = "Charging"
+    @State private var batteryState: SimCtl.StatusBar.BatteryState = .charging
 
     var simulator: Simulator
 
     var body: some View {
         Form {
             Picker("State:", selection: $batteryState.onChange(updateBattery)) {
-                ForEach(["Charging", "Discharging"], id: \.self) { state in
-                    Text(state)
+                ForEach(SimCtl.StatusBar.BatteryState.allCases, id: \.self) { state in
+                    Text(state.displayName)
                 }
             }
             .pickerStyle(RadioGroupPickerStyle())
@@ -42,7 +42,7 @@ struct BatteryView: View {
 
     /// Sends battery updates all at once; simctl gets unhappy if we send them individually.
     func updateBattery() {
-        SimCtl.overrideStatusBarBattery(simulator.udid, level: Int(batteryLevel), state: batteryState.lowercased())
+        SimCtl.overrideStatusBarBattery(simulator.udid, level: Int(batteryLevel), state: batteryState)
     }
 
     /// Triggered when the user adjusts the battery level.
@@ -56,5 +56,11 @@ struct BatteryView: View {
 struct BatteryView_Previews: PreviewProvider {
     static var previews: some View {
         BatteryView(simulator: .example)
+    }
+}
+
+extension SimCtl.StatusBar.BatteryState {
+    var displayName: String {
+        self.rawValue.capitalized
     }
 }

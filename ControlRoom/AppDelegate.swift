@@ -11,43 +11,15 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
-    var window: NSWindow!
 
-    /// One shared `SimulatorsController` to fetch and filter simulator data only once.
-    let controller = SimulatorsController()
-
-    var defaultsObservation: NSKeyValueObservation?
+    lazy var mainWindow: MainWindowController = MainWindowController()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = MainView(controller: controller)
-
-        // Create the window and set the content view. 
-        window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false)
-        window.center()
-        window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
-        window.makeKeyAndOrderFront(nil)
-        window.title = "Control Room"
-        window.isMovableByWindowBackground = true
-
-        UserDefaults.standard.register(defaults: [Defaults.wantsFloatingWindow: false])
-
-        defaultsObservation = UserDefaults.standard.observe(\.CRWantsFloatingWindow, options: [.initial, .new]) { [weak self] (defaults, _) in
-            guard let self = self else { return }
-            self.window.level = defaults.CRWantsFloatingWindow ? .floating : .normal
-        }
+        mainWindow.showWindow(self)
     }
 
     @IBAction func newSimulator(_ sender: Any) {
         controller.showCreateSimulatorPanel = true
-    }
-
-    deinit {
-        defaultsObservation?.invalidate()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -60,6 +32,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         }
 
         return false
+    }
+    
+    @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
+        let authors = Bundle.main.authors
+        if authors.isEmpty == false {
+            let content = NSViewController()
+            content.title = "Control Room"
+            let view = NSHostingView(rootView: AboutView(authors: authors))
+            view.frame.size = view.fittingSize
+            content.view = view
+            let panel = NSPanel(contentViewController: content)
+            panel.styleMask = [.closable, .titled]
+            panel.orderFront(sender)
+            panel.makeKey()
+        } else {
+            NSApp.orderFrontStandardAboutPanel(sender)
+        }
     }
 
 }

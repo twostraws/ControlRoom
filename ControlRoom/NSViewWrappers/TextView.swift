@@ -12,26 +12,33 @@ import SwiftUI
 struct TextView: NSViewRepresentable {
     @Binding var text: String
 
-    func makeNSView(context: Context) -> NSTextView {
-        let view = NSTextView()
-        view.backgroundColor = .textBackgroundColor
-        view.delegate = context.coordinator
-        view.isRichText = false
-        view.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
-        view.autoresizingMask = [.width, .height]
-        view.translatesAutoresizingMaskIntoConstraints = false
+    func makeNSView(context: Context) -> NSScrollView {
+        let text = NSTextView()
+        text.backgroundColor = .textBackgroundColor
+        text.delegate = context.coordinator
+        text.isRichText = false
+        text.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
+        text.autoresizingMask = [.width]
+        text.translatesAutoresizingMaskIntoConstraints = true
+        text.isVerticallyResizable = true
+        text.isHorizontallyResizable = false
 
-        return view
+        let scroll = NSScrollView()
+        scroll.hasVerticalScroller = true
+        scroll.documentView = text
+
+        return scroll
     }
 
-    func updateNSView(_ view: NSTextView, context: Context) {
-        view.string = text
+    func updateNSView(_ view: NSScrollView, context: Context) {
+        let text = view.documentView as? NSTextView
+        text?.string = self.text
 
         guard context.coordinator.selectedRanges.count > 0 else {
             return
         }
 
-        view.selectedRanges = context.coordinator.selectedRanges
+        text?.selectedRanges = context.coordinator.selectedRanges
     }
 
     func makeCoordinator() -> Coordinator {

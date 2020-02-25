@@ -39,18 +39,7 @@ class SimulatorsController: ObservableObject {
 
     private(set) var deviceTypes = [DeviceType]()
     private(set) var runtimes = [Runtime]()
-
-    /// A string that filters the list of available simulators.
-    var filterText = "" {
-        willSet { objectWillChange.send() }
-        didSet { filterSimulators() }
-    }
-
-    var filterBootedSimulators = false {
-        willSet { objectWillChange.send() }
-        didSet { filterSimulators() }
-    }
-
+    
     /// The simulators the user has selected to work with. If this has one item then
     /// they are working with a simulator; if more than one they are probably about
     /// to delete several at a time.
@@ -60,17 +49,24 @@ class SimulatorsController: ObservableObject {
     }
 
     var selectedSimulators: [Simulator] {
-        allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) })
+        var selected = [Simulator]()
+        if selectedSimulatorIDs.contains(Simulator.default.udid) {
+            selected.append(Simulator.default)
+        }
+        selected.append(contentsOf: allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) }))
+        return selected
     }
 
+    @ObservedObject var preferences: Preferences
     private var cancellables = Set<AnyCancellable>()
 
-    var showCreateSimulatorPanel = false {
-        willSet { objectWillChange.send() }
-    }
-
-    init() {
+    init(preferences: Preferences) {
+        self.preferences = preferences
         loadSimulators()
+
+        preferences.objectDidChange.sink(receiveValue: { [weak self] in
+            self?.filterSimulators()
+        }).store(in: &cancellables)
     }
 
     /// Fetches all simulators from simctl.
@@ -120,12 +116,10 @@ class SimulatorsController: ObservableObject {
             }
         }
 
-        self.objectWillChange.send()
-        self.loadingStatus = .success
-        self.deviceTypes = deviceTypes.devicetypes
-        self.runtimes = runtimes.runtimes
-        self.allSimulators = [.default] + final.sorted()
-        self.filterSimulators()
+        objectWillChange.send()
+        loadingStatus = .success
+        allSimulators = final
+        filterSimulators()
     }
 
     private func finishedLoadingSimulators(_ completion: Subscribers.Completion<SimCtl.Error>) {
@@ -141,14 +135,27 @@ class SimulatorsController: ObservableObject {
 
     /// Filters the list of simulators using `filterText`, and assigns the result to `simulators`.
     private func filterSimulators() {
-        let trimmed = filterText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard loadingStatus == .success else { return }
 
+        let trimmed = preferences.filterText.trimmingCharacters(in: .whitespacesAndNewlines)
         var filtered = allSimulators
+
+        if preferences.showBootedDevicesFirst {
+            let on = filtered.filter { $0.state != .shutdown }
+            let off = filtered.filter { $0.state == .shutdown }
+            filtered = on.sorted() + off.sorted()
+        } else {
+            filtered = filtered.sorted()
+        }
+        if preferences.showDefaultSimulator {
+            filtered = [.default] + filtered
+        }
+
         if trimmed.isEmpty == false {
             filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }
 
-        if filterBootedSimulators == true {
+        if preferences.shouldShowOnlyActiveDevices == true {
             filtered = filtered.filter { $0.state != .shutdown }
         }
 
