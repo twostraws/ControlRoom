@@ -50,7 +50,7 @@ struct Application: Hashable {
                      Self.fetchIconNames(plistDitionary: plistDictionary, platformIdentifier: "~ipad")]
             .flatMap { $0 }
             .compactMap { Bundle(url: url)?.urlForImageResource($0) }
-        dataFolderURL = URL(strings: application.dataFolderPath ?? "")
+        dataFolderURL = URL(string: application.dataFolderPath ?? "")
     }
 
     private static func fetchIconNames(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
