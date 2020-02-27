@@ -52,7 +52,8 @@ struct AppView: View {
                         .pickerStyle(PopUpButtonPickerStyle())
                         HStack {
                             Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
-                            Button("Show Container", action: showContainer)
+                            Button("Show container", action: showContainer)
+                            Button("Open app bundle", action: showAppBundle)
                             Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
                         }
                         .disabled(!isApplicationSelected)
@@ -110,8 +111,16 @@ struct AppView: View {
         }
     }
 
-    /// Reveals the app's container directory in Finder,
+    /// Reveals the app's container directory in Finder.
     func showContainer() {
+        guard
+            let dataFolderURL = selectedApplication.dataFolderURL
+            else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([dataFolderURL])
+    }
+
+    /// Reveals the app's bundle directory in Finder.
+    func showAppBundle() {
         SimCtl.getAppContainer(simulator.udid, appID: selectedApplication.bundleIdentifier) { url in
             // We can't just "open" the app bundle URL, because
             // macOS will attempt to execute the binary.

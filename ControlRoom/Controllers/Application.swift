@@ -17,6 +17,7 @@ struct Application: Hashable {
     let versionNumber: String
     let buildNumber: String
     let imageURLs: [URL]?
+    let dataFolderURL: URL?
 
     static let `default` = Application()
 
@@ -28,6 +29,7 @@ struct Application: Hashable {
         versionNumber = ""
         buildNumber = ""
         imageURLs = nil
+        dataFolderURL = nil
     }
 
     init?(application: SimCtl.Application) {
@@ -48,6 +50,7 @@ struct Application: Hashable {
                      Self.fetchIconNames(plistDitionary: plistDictionary, platformIdentifier: "~ipad")]
             .flatMap { $0 }
             .compactMap { Bundle(url: url)?.urlForImageResource($0) }
+        dataFolderURL = URL(strings: application.dataFolderPath ?? "")
     }
 
     private static func fetchIconNames(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
