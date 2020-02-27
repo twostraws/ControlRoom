@@ -121,15 +121,10 @@ struct AppView: View {
 
     /// Reveals the app's bundle directory in Finder.
     func openAppBundle() {
-        SimCtl.getAppContainer(simulator.udid, appID: selectedApplication.bundleIdentifier) { url in
-            // We can't just "open" the app bundle URL, because
-            // macOS will attempt to execute the binary.
-            // So, instead we ask macOS to show the Info.plist file,
-            // which will be just inside the app bundle.
-            if let infoPlist = url?.appendingPathComponent("Info.plist") {
-                NSWorkspace.shared.activateFileViewerSelecting([infoPlist])
-            }
-        }
+        guard
+            let infoPropertyListURL = selectedApplication.bundleURL?.appendingPathComponent("Info.plist")
+            else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([infoPropertyListURL])
     }
 
     /// Sends a JSON string to the device as push notification,
