@@ -136,6 +136,7 @@ enum SimCtl {
         execute(.statusBar(deviceId: simulator, operation: .override([.batteryLevel(level), .batteryState(state)])))
     }
 
+    // swiftlint:disable:next function_parameter_count
     static func overrideStatusBarNetwork(_ simulator: String,
                                          network: StatusBar.DataNetwork,
                                          wifiMode: StatusBar.WifiMode,

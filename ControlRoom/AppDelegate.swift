@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-    
+
     @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
         let authors = Bundle.main.authors
         if authors.isEmpty == false {
