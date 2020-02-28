@@ -39,7 +39,7 @@ class SimulatorsController: ObservableObject {
 
     private(set) var deviceTypes = [DeviceType]()
     private(set) var runtimes = [Runtime]()
-    
+
     /// The simulators the user has selected to work with. If this has one item then
     /// they are working with a simulator; if more than one they are probably about
     /// to delete several at a time.
