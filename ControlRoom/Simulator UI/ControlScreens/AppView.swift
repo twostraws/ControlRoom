@@ -88,8 +88,10 @@ struct AppView: View {
                 TextView(text: $preferences.pushPayload)
                     .frame(minHeight: 150, maxHeight: .infinity)
 
-                HStack {
+                HStack(spacing: 10) {
                     Spacer()
+                    Button("Open Notification Editor", action: openNotificationEditor)
+                        .disabled(!isApplicationSelected)
                     Button("Send Push Notification", action: sendPushNotification)
                         .disabled(!isApplicationSelected)
                 }
@@ -121,6 +123,11 @@ struct AppView: View {
                 NSWorkspace.shared.activateFileViewerSelecting([infoPlist])
             }
         }
+    }
+
+    /// Open the notification editor
+    func openNotificationEditor() {
+        UIState.shared.currentSheet = .notificationEditor
     }
 
     /// Sends a JSON string to the device as push notification,

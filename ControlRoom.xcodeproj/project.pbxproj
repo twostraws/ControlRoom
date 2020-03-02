@@ -49,6 +49,10 @@
 		55DF68BD23F8C76800E717D3 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68BC23F8C76800E717D3 /* Collection.swift */; };
 		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
 		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
+		AC472CCF240D46D7007FF521 /* KeyedEncodingContainer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC472CCE240D46D7007FF521 /* KeyedEncodingContainer+.swift */; };
+		AC472CFB240D5F22007FF521 /* NotificationEditorView.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */; };
+		ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */; };
+		ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD798D240AE82C0004ECE5 /* PushNotification.swift */; };
 		ACDF076623F7D1C300597B3B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076523F7D1C300597B3B /* Application.swift */; };
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
@@ -113,6 +117,10 @@
 		55DF68BC23F8C76800E717D3 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		AC472CCE240D46D7007FF521 /* KeyedEncodingContainer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedEncodingContainer+.swift"; sourceTree = "<group>"; };
+		AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = NotificationEditorView.strings; sourceTree = "<group>"; };
+		ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEditorView.swift; sourceTree = "<group>"; };
+		ACCD798D240AE82C0004ECE5 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		ACDF076523F7D1C300597B3B /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		ACDF076723F7E91A00597B3B /* ApplicationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationType.swift; sourceTree = "<group>"; };
 		B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommands.swift"; sourceTree = "<group>"; };
@@ -169,6 +177,7 @@
 				5534157C23FE04EC005C0A41 /* About UI */,
 				555A146323F762AD00313BC5 /* Controllers */,
 				511BA5D123F4567C00E3E660 /* Helpers */,
+				AC472CCD240D46C2007FF521 /* Extensions */,
 				511BA5CF23F455D500E3E660 /* NSViewWrappers */,
 				555A145323F707D900313BC5 /* Objective-C */,
 				511BA5D023F455E100E3E660 /* SystemBits */,
@@ -191,6 +200,8 @@
 				511BA59923F415C800E3E660 /* BatteryView.swift */,
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59F23F4197200E3E660 /* NetworkView.swift */,
+				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
+				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
 			path = ControlScreens;
@@ -306,6 +317,7 @@
 				ACDF076523F7D1C300597B3B /* Application.swift */,
 				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
 				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
+				ACCD798D240AE82C0004ECE5 /* PushNotification.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +328,14 @@
 				55AF68B423F9CFD600C5D87A /* PreferencesView.swift */,
 			);
 			path = "Preferences UI";
+			sourceTree = "<group>";
+		};
+		AC472CCD240D46C2007FF521 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AC472CCE240D46D7007FF521 /* KeyedEncodingContainer+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B07F584F23F9F83800256D5D /* ControlRoomTests */ = {
@@ -420,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				511BA58723F3FFEB00E3E660 /* Main.storyboard in Resources */,
+				AC472CFB240D5F22007FF521 /* NotificationEditorView.strings in Resources */,
 				511BA58423F3FFEB00E3E660 /* Preview Assets.xcassets in Resources */,
 				511BA58123F3FFEB00E3E660 /* Assets.xcassets in Resources */,
 			);
@@ -485,6 +506,7 @@
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
+				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
 				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				5534158223FE0539005C0A41 /* Contributors.swift in Sources */,
@@ -506,6 +528,7 @@
 				551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */,
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
+				ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,
 				55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */,
@@ -519,6 +542,7 @@
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,
 				B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */,
 				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,
+				AC472CCF240D46D7007FF521 /* KeyedEncodingContainer+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

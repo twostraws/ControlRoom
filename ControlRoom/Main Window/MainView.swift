@@ -25,14 +25,21 @@ struct MainView: View {
             }
         }
         .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
-        .sheet(item: $uiState.currentSheet, content: { sheet in
+        .sheet(item: $uiState.currentSheet, content: sheetView)
+    }
+
+    private func sheetView(for sheet: UIState.Sheet) -> some View {
+        Group {
             if sheet == .preferences {
                 PreferencesView()
-                    .environmentObject(self.preferences)
+                    .environmentObject(preferences)
             } else if sheet == .createSimulator {
-                CreateSimulatorActionSheet(controller: self.controller)
+                CreateSimulatorActionSheet(controller: controller)
+            } else if sheet == .notificationEditor {
+                NotificationEditorView()
+                    .environmentObject(preferences)
             }
-        })
+        }
     }
 }
 

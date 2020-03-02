@@ -10,11 +10,23 @@ import SwiftUI
 
 /// A wrapper around NSTextView so we can get multiline text editing in SwiftUI.
 struct TextView: NSViewRepresentable {
-    @Binding var text: String
+    @Binding
+    private var text: String
+
+    private let isEditable: Bool
+
+    init(text: Binding<String>, isEditable: Bool = true) {
+        _text = text
+        self.isEditable = isEditable
+    }
+
+    init(text: String) {
+        self.init(text: Binding<String>.constant(text), isEditable: false)
+    }
 
     func makeNSView(context: Context) -> NSScrollView {
         let text = NSTextView()
-        text.backgroundColor = .textBackgroundColor
+        text.backgroundColor = isEditable ? .textBackgroundColor : .clear
         text.delegate = context.coordinator
         text.isRichText = false
         text.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
@@ -22,10 +34,12 @@ struct TextView: NSViewRepresentable {
         text.translatesAutoresizingMaskIntoConstraints = true
         text.isVerticallyResizable = true
         text.isHorizontallyResizable = false
+        text.isEditable = isEditable
 
         let scroll = NSScrollView()
         scroll.hasVerticalScroller = true
         scroll.documentView = text
+        scroll.drawsBackground = false
 
         return scroll
     }
