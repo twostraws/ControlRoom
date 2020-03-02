@@ -16,6 +16,7 @@ class UIState: ObservableObject {
     enum Sheet: Int, Identifiable {
         case preferences
         case createSimulator
+        case notificationEditor
 
         var id: Int { rawValue }
     }
