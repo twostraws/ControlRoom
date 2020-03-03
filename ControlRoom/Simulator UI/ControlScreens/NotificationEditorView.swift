@@ -274,6 +274,15 @@ private struct ToggleFieldView: View {
 }
 
 private struct SliderFieldView: View {
+    private static let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+
+        return  formatter
+    }()
 
     let title: String
 
@@ -287,10 +296,14 @@ private struct SliderFieldView: View {
     var body: some View {
         HStack {
             Slider(value: $value, label: { Text(title) })
-            Text(String(format: "%.2f", value))
+            Text(sliderDisplayValue)
         }
         .disabled(!isEnabled)
         .addingInfoButton(title: title, description: description)
+    }
+
+    var sliderDisplayValue: String {
+        Self.numberFormatter.string(for: value) ?? ""
     }
 }
 
