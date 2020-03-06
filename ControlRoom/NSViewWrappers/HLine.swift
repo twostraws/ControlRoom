@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct HLine: NSViewRepresentable {
-
     func makeNSView(context: Context) -> NSBox {
         let hline = NSBox()
         hline.boxType = .separator
@@ -17,5 +16,4 @@ struct HLine: NSViewRepresentable {
     }
 
     func updateNSView(_ nsView: NSBox, context: Context) { }
-
 }

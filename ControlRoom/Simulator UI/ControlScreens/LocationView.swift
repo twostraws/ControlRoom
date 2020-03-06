@@ -14,7 +14,7 @@ struct LocationView: View {
     var simulator: Simulator
 
     /// The location that is being simulated
-    @State var currentLocation: CLLocation?
+    @State private var currentLocation: CLLocation?
 
     /// User-facing text describing `currentLocation`
     var locationText: String {

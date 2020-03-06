@@ -10,9 +10,7 @@ import SwiftUI
 
 /// A wrapper around NSTextView so we can get multiline text editing in SwiftUI.
 struct TextView: NSViewRepresentable {
-    @Binding
-    private var text: String
-
+    @Binding private var text: String
     private let isEditable: Bool
 
     init(text: Binding<String>, isEditable: Bool = true) {

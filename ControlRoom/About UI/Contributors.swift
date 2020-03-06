@@ -21,7 +21,6 @@ private struct Contributor: Decodable {
 }
 
 extension Bundle {
-
     var authors: [Author] {
         guard let fileURL = url(forResource: "contributors", withExtension: "json") else { return [] }
         guard let rawJSON = try? Data(contentsOf: fileURL) else { return [] }
@@ -32,5 +31,4 @@ extension Bundle {
         guard let contributors = try? decoder.decode([Contributor].self, from: rawJSON) else { return [] }
         return contributors.sorted(by: { $0.total > $1.total }).map { $0.author }
     }
-
 }

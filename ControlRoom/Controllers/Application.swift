@@ -9,7 +9,6 @@
 import Foundation
 
 struct Application: Hashable {
-
     let url: URL?
     let type: ApplicationType?
     let displayName: String
@@ -40,18 +39,22 @@ struct Application: Hashable {
             else {
                 return nil
             }
+
         self.url = url
         type = application.type
         displayName = application.displayName
+
         let plistURL = url.appendingPathComponent("Info.plist")
         let plistDictionary = NSDictionary(contentsOf: plistURL)
         bundleIdentifier = application.bundleIdentifier
         versionNumber = plistDictionary?["CFBundleShortVersionString"] as? String ?? ""
         buildNumber = plistDictionary?["CFBundleVersion"] as? String ?? ""
+
         imageURLs = [Self.fetchIconNames(plistDitionary: plistDictionary),
                      Self.fetchIconNames(plistDitionary: plistDictionary, platformIdentifier: "~ipad")]
             .flatMap { $0 }
             .compactMap { Bundle(url: url)?.urlForImageResource($0) }
+
         dataFolderURL = URL(string: application.dataFolderPath ?? "")
         bundleURL = URL(string: application.bundlePath)
     }
@@ -66,14 +69,15 @@ struct Application: Hashable {
             else {
                 return []
             }
+
         var fullIconNames = [String]()
-        iconFilesNames
-            .forEach { iconFileName in
-                scaleSuffixes
-                    .forEach { scaleSuffix in
-                        fullIconNames.append(iconFileName+scaleSuffix+platformIdentifier)
-                    }
+
+        iconFilesNames.forEach { iconFileName in
+            scaleSuffixes.forEach { scaleSuffix in
+                fullIconNames.append(iconFileName+scaleSuffix+platformIdentifier)
             }
+        }
+
         return fullIconNames
     }
 }

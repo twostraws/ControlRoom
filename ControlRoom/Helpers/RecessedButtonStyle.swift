@@ -9,19 +9,16 @@
 import SwiftUI
 
 struct RecessedButtonStyle: ButtonStyle {
-    typealias Configuration = ButtonStyleConfiguration
-
     func makeBody(configuration: Configuration) -> some View {
         RecessedButton(isPressed: configuration.isPressed, label: configuration.label)
     }
 }
 
 struct RecessedButton<Label: View>: View {
-
     let isPressed: Bool
     let label: Label
 
-    @State var isHovering = false
+    @State private var isHovering = false
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     var bgColor: Color {
@@ -33,7 +30,6 @@ struct RecessedButton<Label: View>: View {
         case (_, false, false): return Color(white: 0.0, opacity: 0.0)
         case (_, true, false): return Color(white: 0.0, opacity: 0.25)
         case (_, _, true): return Color(white: 0.0, opacity: 0.6)
-
         }
     }
 
@@ -52,7 +48,6 @@ struct RecessedButton<Label: View>: View {
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 1, trailing: 6))
             .foregroundColor(fgColor)
             .background(RoundedRectangle(cornerRadius: 4).fill(bgColor).animation(.none))
-            .onHover(perform: { self.isHovering = $0 })
+            .onHover { self.isHovering = $0 }
     }
-
 }

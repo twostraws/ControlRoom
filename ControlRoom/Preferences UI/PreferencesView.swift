@@ -14,7 +14,6 @@ struct PreferencesView: View {
 
     var body: some View {
         Form {
-
             Section(header: Text("Main Window")) {
                 Toggle("Keep window on top", isOn: $preferences.wantsFloatingWindow)
                 Toggle("Show Default simulator", isOn: $preferences.showDefaultSimulator)

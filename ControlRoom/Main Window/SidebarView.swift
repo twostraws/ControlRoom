@@ -28,7 +28,6 @@ struct SidebarView: View {
             let simulatorsSummaries = controller.selectedSimulators.map { "• \($0.summary)" }.joined(separator: "\n")
             return "the following simulators? \n\n\(simulatorsSummaries)"
         }
-
     }
 
     var body: some View {

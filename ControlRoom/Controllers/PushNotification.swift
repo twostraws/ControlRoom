@@ -13,7 +13,6 @@ struct PushNotification: Codable {
 }
 
 struct PushNotificationAPS: Codable {
-
     private enum CodingKeys: String, CodingKey {
         case alert
         case badge
@@ -121,9 +120,7 @@ struct PushNotificationAPS: Codable {
 
 // swiftlint:disable nesting
 extension PushNotificationAPS {
-
     struct Alert: Codable {
-
         private enum CodingKeys: String, CodingKey {
             case title
             case subtitle
@@ -239,7 +236,6 @@ extension PushNotificationAPS {
 }
 
 extension PushNotificationAPS {
-
     struct Sound: Codable {
 
         private enum CodingKeys: String, CodingKey {
@@ -287,12 +283,10 @@ extension PushNotificationAPS {
 // swiftlint:enable nesting
 
 private extension String {
-
     func toComponents() -> [String] {
-        components(separatedBy: ",")
-            .compactMap { component in
-                let component = component.trimmingCharacters(in: .whitespaces)
-                return component.isEmpty ? nil : component
-            }
+        components(separatedBy: ",").compactMap { component in
+            let component = component.trimmingCharacters(in: .whitespaces)
+            return component.isEmpty ? nil : component
+        }
     }
 }

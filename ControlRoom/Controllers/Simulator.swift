@@ -14,7 +14,6 @@ typealias DeviceType = SimCtl.DeviceType
 
 /// Stores one simulator and its identifier.
 struct Simulator: Identifiable, Comparable, Hashable {
-
     enum State {
         case unknown
         case creating

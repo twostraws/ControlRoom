@@ -34,8 +34,10 @@ struct AboutView: View {
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 64, height: 64)
+
             Text("Control Room").fontWeight(.bold)
             Text("Version \(appVersion) (\(appBuild))").font(.caption)
+
             if authors.isEmpty == false {
                 Text("Built thanks to the contributions of:").font(.caption)
                 // contributors
@@ -45,6 +47,7 @@ struct AboutView: View {
                     }).buttonStyle(RecessedButtonStyle())
                 }
             }
+
             Text(copyright).font(.caption)
         }.padding(20)
     }
