@@ -67,6 +67,7 @@ struct Simulator: Identifiable, Comparable, Hashable {
     /// The current state of the simulator
     let state: State
 
+    /// The path to the simulator directory location
     let dataPath: String
 
     init(name: String, udid: String, state: State, runtime: Runtime?, deviceType: DeviceType?, dataPath: String) {

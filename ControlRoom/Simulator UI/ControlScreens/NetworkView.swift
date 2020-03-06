@@ -46,13 +46,14 @@ struct NetworkView: View {
             FormSpacer()
 
             Section {
-                Picker("WiFi:", selection: $wiFiMode.onChange(updateData)) {
+                Picker("WiFi mode:", selection: $wiFiMode.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
                         Text(mode.displayName)
                     }
                 }
                 .pickerStyle(PopUpButtonPickerStyle())
-                Picker("", selection: $wiFiBar.onChange(updateData)) {
+
+                Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
                         Image(nsImage: self.nsimage(named: "wifi.\(bars.rawValue)", size: NSSize(width: 19, height: 13.8)))
                             .tag(bars.rawValue)
@@ -64,14 +65,14 @@ struct NetworkView: View {
             FormSpacer()
 
             Section {
-                Picker("Cellular:", selection: $cellularMode.onChange(updateData)) {
+                Picker("Cellular mode:", selection: $cellularMode.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
                         Text(mode.displayName)
                     }
                 }
                 .pickerStyle(PopUpButtonPickerStyle())
 
-                Picker("", selection: $cellularBar.onChange(updateData)) {
+                Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
                         Image(nsImage: self.nsimage(named: "cell.\(bars.rawValue)", size: NSSize(width: 21, height: 11.4)))
                             .tag(bars.rawValue)
