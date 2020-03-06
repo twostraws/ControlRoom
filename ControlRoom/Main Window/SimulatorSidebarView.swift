@@ -95,14 +95,14 @@ struct SimulatorSidebarView: View {
                                      message: action.sheetTitle,
                                      informativeText: action.sheetMessage,
                                      confirmationTitle: action.saveActionTitle,
-                                     confirm: { self.performAction(action) },
-                                     content: { EmptyView() })
+                                     confirm: { self.performAction(action) })
             } else {
                 SimulatorActionSheet(icon: self.simulator.image,
                                      message: action.sheetTitle,
                                      informativeText: action.sheetMessage,
                                      confirmationTitle: action.saveActionTitle,
                                      confirm: { self.performAction(action) },
+                                     canConfirm: self.newName.isNotEmpty,
                                      content: {
                                         TextField("Name", text: self.$newName)
                 })

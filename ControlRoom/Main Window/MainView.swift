@@ -10,7 +10,9 @@ import SwiftUI
 
 /// Hosts a LoadingView followed by the main ControlView, or a LoadingFailedView if simctl failed.
 struct MainView: View {
-    @EnvironmentObject var controller: SimulatorsController
+    @ObservedObject var controller: SimulatorsController
+    @EnvironmentObject var preferences: Preferences
+    @EnvironmentObject var uiState: UIState
 
     var body: some View {
         Group {
@@ -23,6 +25,21 @@ struct MainView: View {
             }
         }
         .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
+        .sheet(item: $uiState.currentSheet, content: sheetView)
+    }
+
+    private func sheetView(for sheet: UIState.Sheet) -> some View {
+        Group {
+            if sheet == .preferences {
+                PreferencesView()
+                    .environmentObject(preferences)
+            } else if sheet == .createSimulator {
+                CreateSimulatorActionSheet(controller: controller)
+            } else if sheet == .notificationEditor {
+                NotificationEditorView()
+                    .environmentObject(preferences)
+            }
+        }
     }
 }
 

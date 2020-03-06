@@ -16,10 +16,13 @@ struct AppView: View {
     var applications: [Application]
 
     /// The selected application we want to manipulate.
-    @State private var selectedApplication: Application = .default
+    private var selectedApplication: Application {
+        return applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
+            ?? .default
+    }
 
     /// The current permission option the user has selected to grant, reset, or revoke.
-    @State private var resetPermission = "All"
+    @State private var resetPermission: SimCtl.Privacy.Permission = .all
 
     /// If true shows the uninstall confirmation alert.
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
@@ -27,19 +30,6 @@ struct AppView: View {
     private var isApplicationSelected: Bool {
         !selectedApplication.bundleIdentifier.isEmpty
     }
-
-    /// All permission options supported by the simulator.
-    let resetPermissions = [
-        "All",
-        "Calendar",
-        "Contacts",
-        "Location",
-        "Microphone",
-        "Motion",
-        "Photos",
-        "Reminders",
-        "Siri"
-    ]
 
     init(simulator: Simulator, applications: [Application]) {
         self.simulator = simulator
@@ -62,7 +52,8 @@ struct AppView: View {
                         .pickerStyle(PopUpButtonPickerStyle())
                         HStack {
                             Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
-                            Button("Show Container", action: showContainer)
+                            Button("Open data folder", action: openDataFolder)
+                            Button("Open app bundle", action: openAppBundle)
                             Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
                         }
                         .disabled(!isApplicationSelected)
@@ -76,8 +67,8 @@ struct AppView: View {
             Section {
                 HStack {
                     Picker("Permissions:", selection: $resetPermission) {
-                        ForEach(resetPermissions, id: \.self) {
-                            Text($0)
+                        ForEach(SimCtl.Privacy.Permission.allCases, id: \.self) {
+                            Text($0.displayName)
                         }
                     }
 
@@ -98,8 +89,10 @@ struct AppView: View {
                 TextView(text: $preferences.pushPayload)
                     .frame(minHeight: 150, maxHeight: .infinity)
 
-                HStack {
+                HStack(spacing: 10) {
                     Spacer()
+                    Button("Open Notification Editor", action: openNotificationEditor)
+                        .disabled(!isApplicationSelected)
                     Button("Send Push Notification", action: sendPushNotification)
                         .disabled(!isApplicationSelected)
                 }
@@ -120,17 +113,25 @@ struct AppView: View {
         }
     }
 
-    /// Reveals the app's container directory in Finder,
-    func showContainer() {
-        SimCtl.getAppContainer(simulator.udid, appID: selectedApplication.bundleIdentifier) { url in
-            // We can't just "open" the app bundle URL, because
-            // macOS will attempt to execute the binary.
-            // So, instead we ask macOS to show the Info.plist file,
-            // which will be just inside the app bundle.
-            if let infoPlist = url?.appendingPathComponent("Info.plist") {
-                NSWorkspace.shared.activateFileViewerSelecting([infoPlist])
-            }
-        }
+    /// Reveals the app's container directory in Finder.
+    func openDataFolder() {
+        guard
+            let dataFolderURL = selectedApplication.dataFolderURL
+            else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([dataFolderURL])
+    }
+
+    /// Reveals the app's bundle directory in Finder.
+    func openAppBundle() {
+        guard
+            let infoPropertyListURL = selectedApplication.bundleURL?.appendingPathComponent("Info.plist")
+            else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([infoPropertyListURL])
+    }
+
+    /// Open the notification editor
+    func openNotificationEditor() {
+        UIState.shared.currentSheet = .notificationEditor
     }
 
     /// Sends a JSON string to the device as push notification,
@@ -191,5 +192,22 @@ private struct AppSummaryView: View {
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(simulator: .example, applications: [])
+    }
+}
+
+extension SimCtl.Privacy.Permission {
+    var displayName: String {
+        switch self {
+        case .contactsLimited:
+            return "Contacts Limited"
+        case .locationAlways:
+            return "Location Always"
+        case .mediaLibrary:
+            return "Media Library"
+        case .photosAdd:
+            return "Photos Add"
+        default:
+            return self.rawValue.capitalized
+        }
     }
 }

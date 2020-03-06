@@ -37,6 +37,9 @@ class SimulatorsController: ObservableObject {
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
+    private(set) var deviceTypes = [DeviceType]()
+    private(set) var runtimes = [Runtime]()
+
     /// The simulators the user has selected to work with. If this has one item then
     /// they are working with a simulator; if more than one they are probably about
     /// to delete several at a time.
@@ -46,7 +49,12 @@ class SimulatorsController: ObservableObject {
     }
 
     var selectedSimulators: [Simulator] {
-        allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) })
+        var selected = [Simulator]()
+        if selectedSimulatorIDs.contains(Simulator.default.udid) {
+            selected.append(Simulator.default)
+        }
+        selected.append(contentsOf: allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) }))
+        return selected
     }
 
     @ObservedObject var preferences: Preferences
@@ -56,7 +64,7 @@ class SimulatorsController: ObservableObject {
         self.preferences = preferences
         loadSimulators()
 
-        preferences.objectWillChange.sink(receiveValue: { [weak self] in
+        preferences.objectDidChange.sink(receiveValue: { [weak self] in
             self?.filterSimulators()
         }).store(in: &cancellables)
     }
@@ -109,8 +117,10 @@ class SimulatorsController: ObservableObject {
         }
 
         objectWillChange.send()
+        self.deviceTypes = deviceTypes.devicetypes
+        self.runtimes = runtimes.runtimes
         loadingStatus = .success
-        allSimulators = [.default] + final.sorted()
+        allSimulators = final
         filterSimulators()
     }
 
@@ -130,8 +140,19 @@ class SimulatorsController: ObservableObject {
         guard loadingStatus == .success else { return }
 
         let trimmed = preferences.filterText.trimmingCharacters(in: .whitespacesAndNewlines)
-
         var filtered = allSimulators
+
+        if preferences.showBootedDevicesFirst {
+            let on = filtered.filter { $0.state != .shutdown }
+            let off = filtered.filter { $0.state == .shutdown }
+            filtered = on.sorted() + off.sorted()
+        } else {
+            filtered = filtered.sorted()
+        }
+        if preferences.showDefaultSimulator {
+            filtered = [.default] + filtered
+        }
+
         if trimmed.isEmpty == false {
             filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }

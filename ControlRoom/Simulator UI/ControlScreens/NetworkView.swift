@@ -14,43 +14,19 @@ struct NetworkView: View {
     var simulator: Simulator
 
     /// The active data network; can be one of "WiFi", "3G", "4G", "LTE", "LTE-A", or "LTE+".
-    @State private var dataNetwork = "WiFi"
+    @State private var dataNetwork: SimCtl.StatusBar.DataNetwork = .wifi
 
     /// Whether WiFi is currently active; can be "Active", "Searching", or "Failed".
-    @State private var wiFiMode = "Active"
+    @State private var wiFiMode: SimCtl.StatusBar.WifiMode = .active
 
     /// How many WiFi bars the device is showing, as a range from 0 through 3.
-    @State private var wiFiBar = 3
+    @State private var wiFiBar: SimCtl.StatusBar.WifiBars = .three
 
     /// Whether cellular data is currently active; can be "Active", "Searching", "Failed", or "Not Supported".
-    @State private var cellularMode = "Active"
+    @State private var cellularMode: SimCtl.StatusBar.CellularMode = .active
 
     /// How many cellular bars the device is showing, as a range from 0 through 4.
-    @State private var cellularBar = 4
-
-    /// All possible data network options.
-    private let dataNetworks = ["WiFi", "3G", "4G", "LTE", "LTE-A", "LTE+"]
-
-    /// All possible WiFi modes.
-    private let wiFiModes = ["Active", "Searching", "Failed"]
-
-    /// The full range of WiFi bars we can control.
-    private let wiFiBars = [0, 1, 2, 3]
-
-    /// All possible cellular modes.
-    private let cellularModes = ["Active", "Searching", "Failed", "Not Supported"]
-
-    /// The full range of cellular bars we can show.
-    private let cellularBars = [0, 1, 2, 3, 4]
-
-    /// Converts the user-facing cellular mode to one that can be read by simctl.
-    var cleanedCellularMode: String {
-        if cellularMode == "Not Supported" {
-            return "notSupported"
-        } else {
-            return cellularMode.lowercased()
-        }
-    }
+    @State private var cellularBar: SimCtl.StatusBar.CellularBars = .four
 
     var body: some View {
         Form {
@@ -60,8 +36,8 @@ struct NetworkView: View {
                 }
 
                 Picker("Network type:", selection: $dataNetwork.onChange(updateData)) {
-                    ForEach(dataNetworks, id: \.self) { network in
-                        Text(network)
+                    ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
+                        Text(network.displayName)
                     }
                 }
                 .pickerStyle(PopUpButtonPickerStyle())
@@ -71,17 +47,16 @@ struct NetworkView: View {
 
             Section {
                 Picker("WiFi mode:", selection: $wiFiMode.onChange(updateData)) {
-                    ForEach(wiFiModes, id: \.self) { mode in
-                        Text(mode)
+                    ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
+                        Text(mode.displayName)
                     }
                 }
                 .pickerStyle(PopUpButtonPickerStyle())
 
                 Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
-                    ForEach(wiFiBars, id: \.self) { bars in
-                        Image("wifi\(bars)")
-                            .resizable()
-                            .tag(bars)
+                    ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
+                        Image(nsImage: self.nsimage(named: "wifi.\(bars.rawValue)", size: NSSize(width: 19, height: 13.8)))
+                            .tag(bars.rawValue)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -91,17 +66,16 @@ struct NetworkView: View {
 
             Section {
                 Picker("Cellular mode:", selection: $cellularMode.onChange(updateData)) {
-                    ForEach(cellularModes, id: \.self) { mode in
-                        Text(mode)
+                    ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
+                        Text(mode.displayName)
                     }
                 }
                 .pickerStyle(PopUpButtonPickerStyle())
 
                 Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
-                    ForEach(0 ..< cellularBars.count) { idx in
-                    Image("cell\(idx)")
-                        .resizable()
-                        .tag(self.cellularBars[idx])
+                    ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
+                        Image(nsImage: self.nsimage(named: "cell.\(bars.rawValue)", size: NSSize(width: 21, height: 11.4)))
+                            .tag(bars.rawValue)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -119,13 +93,50 @@ struct NetworkView: View {
     func updateData() {
         SimCtl.overrideStatusBarNetwork(simulator.udid, network: dataNetwork,
                                         wifiMode: wiFiMode, wifiBars: wiFiBar,
-                                        cellMode: cleanedCellularMode, cellBars: cellularBar,
+                                        cellMode: cellularMode, cellBars: cellularBar,
                                         carrier: preferences.carrierName)
+    }
+
+    /// Workaround for getting configurable image sizes in Segmented Control; It seems to be broken in SwiftUI right now.
+    private func nsimage(named name: String, size: NSSize) -> NSImage {
+        guard let image = NSImage(named: name) else {
+            return NSImage()
+        }
+        image.size = size
+        return image
     }
 }
 
 struct DataView_Previews: PreviewProvider {
     static var previews: some View {
         NetworkView(simulator: .example)
+    }
+}
+
+extension SimCtl.StatusBar.DataNetwork {
+    var displayName: String {
+        switch self {
+        case .wifi:
+            return "WiFi"
+        default:
+            return self.rawValue.uppercased()
+        }
+    }
+}
+
+extension SimCtl.StatusBar.WifiMode {
+    var displayName: String {
+        self.rawValue.capitalized
+    }
+}
+
+extension SimCtl.StatusBar.CellularMode {
+    var displayName: String {
+        switch self {
+        case .notSupported:
+            return "Not Supported"
+        default:
+            return self.rawValue.capitalized
+        }
     }
 }
