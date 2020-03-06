@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -19,6 +20,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+
+    @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
+        let authors = Bundle.main.authors
+        if authors.isEmpty == false {
+            let content = NSViewController()
+            content.title = "Control Room"
+            let view = NSHostingView(rootView: AboutView(authors: authors))
+            view.frame.size = view.fittingSize
+            content.view = view
+            let panel = NSPanel(contentViewController: content)
+            panel.styleMask = [.closable, .titled]
+            panel.orderFront(sender)
+            panel.makeKey()
+        } else {
+            NSApp.orderFrontStandardAboutPanel(sender)
+        }
     }
 
 }

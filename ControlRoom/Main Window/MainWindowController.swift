@@ -37,7 +37,7 @@ class MainWindowController: NSWindowController {
     override func loadWindow() {
         // Create the window and set the content view.
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+            contentRect: NSRect(x: 0, y: 0, width: 800, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.setFrameAutosaveName("Main Window")
@@ -63,7 +63,11 @@ class MainWindowController: NSWindowController {
     }
 
     @IBAction func showPreferences(_ sender: Any) {
-        UIState.shared.showPreferences = true
+        UIState.shared.currentSheet = .preferences
+    }
+
+    @IBAction func newSimulator(_ sender: Any) {
+        UIState.shared.currentSheet = .createSimulator
     }
 
 }
@@ -74,6 +78,10 @@ extension MainWindowController: NSMenuItemValidation {
         if menuItem.action == #selector(toggleFloatingWindow(_:)) {
             menuItem.state = preferences.wantsFloatingWindow ? .on : .off
             return true
+        }
+
+        if menuItem.action == #selector(newSimulator(_:)) {
+            return controller.loadingStatus == .success
         }
 
         return responds(to: menuItem.action)

@@ -124,6 +124,10 @@ enum SimCtl {
         execute(.clone(deviceId: simulator, name: name))
     }
 
+    static func create(name: String, deviceType: DeviceType, runtime: Runtime) {
+        execute(["create", name, deviceType.identifier, runtime.identifier]) { _ in }
+    }
+
     static func rename(_ simulator: String, name: String) {
         execute(.rename(deviceId: simulator, name: name))
     }
@@ -132,6 +136,7 @@ enum SimCtl {
         execute(.statusBar(deviceId: simulator, operation: .override([.batteryLevel(level), .batteryState(state)])))
     }
 
+    // swiftlint:disable:next function_parameter_count
     static func overrideStatusBarNetwork(_ simulator: String,
                                          network: StatusBar.DataNetwork,
                                          wifiMode: StatusBar.WifiMode,

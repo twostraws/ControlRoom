@@ -38,7 +38,7 @@ struct SidebarView: View {
                     if self.controller.simulators.isEmpty {
                         Text("No simulators")
                     } else {
-                        ForEach(Simulator.Platform.allCases, id: \.self) { platform in
+                        ForEach(SimCtl.DeviceFamily.allCases, id: \.self) { platform in
                             self.section(for: platform)
                         }
                     }
@@ -59,8 +59,9 @@ struct SidebarView: View {
                         Image("power")
                         .resizable()
                         .foregroundColor(self.preferences.shouldShowOnlyActiveDevices ? .accentColor : .secondary)
-                        .aspectRatio(CGSize(width: 133, height: 137), contentMode: .fit)
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: 16)
+                        .padding(.horizontal, 2)
                     })
                     .buttonStyle(BorderlessButtonStyle())
                     .padding(.leading, 3)
@@ -79,15 +80,15 @@ struct SidebarView: View {
         }
     }
 
-    private func section(for platform: Simulator.Platform) -> some View {
-        let simulators = controller.simulators.filter({ $0.platform == platform })
+    private func section(for family: SimCtl.DeviceFamily) -> some View {
+        let simulators = controller.simulators.filter({ $0.deviceFamily == family })
         let canShowContext = controller.selectedSimulatorIDs.count < 2
 
         return Group {
             if simulators.isEmpty {
                 EmptyView()
             } else {
-                Section(header: Text(platform.displayName.uppercased())) {
+                Section(header: Text(family.displayName.uppercased())) {
                     ForEach(simulators) { simulator in
                         SimulatorSidebarView(simulator: simulator, canShowContextualMenu: canShowContext)
                             .tag(simulator.udid)

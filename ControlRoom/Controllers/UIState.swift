@@ -13,5 +13,13 @@ class UIState: ObservableObject {
 
     private init() { }
 
-    @Published var showPreferences = false
+    enum Sheet: Int, Identifiable {
+        case preferences
+        case createSimulator
+        case notificationEditor
+
+        var id: Int { rawValue }
+    }
+
+    @Published var currentSheet: Sheet?
 }

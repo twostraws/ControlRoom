@@ -32,6 +32,10 @@
 		551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */; };
 		551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */; };
 		5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5523A7E023F99D7200F25EEC /* Preferences.swift */; };
+		5534157E23FE04FA005C0A41 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534157D23FE04FA005C0A41 /* AboutView.swift */; };
+		5534158023FE0514005C0A41 /* RecessedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */; };
+		5534158223FE0539005C0A41 /* Contributors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534158123FE0539005C0A41 /* Contributors.swift */; };
+		5534158623FE1AC4005C0A41 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534158523FE1AC4005C0A41 /* Flow.swift */; };
 		555A145723F707E700313BC5 /* CoreSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A145623F707E700313BC5 /* CoreSimulator.m */; };
 		555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A145923F70A5100313BC5 /* CoreSimulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
@@ -41,8 +45,14 @@
 		55AF68B923F9D32100C5D87A /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B823F9D32100C5D87A /* MainWindowController.swift */; };
 		55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */; };
 		55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B823F86C0700E717D3 /* ContextMenu.swift */; };
+		55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68BA23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift */; };
+		55DF68BD23F8C76800E717D3 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68BC23F8C76800E717D3 /* Collection.swift */; };
 		70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435923F54B7200FD6282 /* LocationView.swift */; };
 		70BE435C23F54C8600FD6282 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BE435B23F54C8600FD6282 /* MapView.swift */; };
+		AC472CCF240D46D7007FF521 /* KeyedEncodingContainer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC472CCE240D46D7007FF521 /* KeyedEncodingContainer+.swift */; };
+		AC472CFB240D5F22007FF521 /* NotificationEditorView.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */; };
+		ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */; };
+		ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD798D240AE82C0004ECE5 /* PushNotification.swift */; };
 		ACDF076623F7D1C300597B3B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076523F7D1C300597B3B /* Application.swift */; };
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
@@ -89,6 +99,10 @@
 		551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimCtl.swift; sourceTree = "<group>"; };
 		551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+Types.swift"; sourceTree = "<group>"; };
 		5523A7E023F99D7200F25EEC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		5534157D23FE04FA005C0A41 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecessedButtonStyle.swift; sourceTree = "<group>"; };
+		5534158123FE0539005C0A41 /* Contributors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contributors.swift; sourceTree = "<group>"; };
+		5534158523FE1AC4005C0A41 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		555A145423F707E700313BC5 /* ControlRoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ControlRoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		555A145523F707E700313BC5 /* CoreSimulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreSimulator.h; sourceTree = "<group>"; };
 		555A145623F707E700313BC5 /* CoreSimulator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreSimulator.m; sourceTree = "<group>"; };
@@ -100,8 +114,14 @@
 		55AF68B823F9D32100C5D87A /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorActionSheet.swift; sourceTree = "<group>"; };
 		55DF68B823F86C0700E717D3 /* ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
+		55DF68BA23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSimulatorActionSheet.swift; sourceTree = "<group>"; };
+		55DF68BC23F8C76800E717D3 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		70BE435B23F54C8600FD6282 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		AC472CCE240D46D7007FF521 /* KeyedEncodingContainer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedEncodingContainer+.swift"; sourceTree = "<group>"; };
+		AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = NotificationEditorView.strings; sourceTree = "<group>"; };
+		ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEditorView.swift; sourceTree = "<group>"; };
+		ACCD798D240AE82C0004ECE5 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		ACDF076523F7D1C300597B3B /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		ACDF076723F7E91A00597B3B /* ApplicationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationType.swift; sourceTree = "<group>"; };
 		B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommands.swift"; sourceTree = "<group>"; };
@@ -156,8 +176,10 @@
 				55AF68B323F9CFC600C5D87A /* Preferences UI */,
 				511BA5D223F456B900E3E660 /* Loading */,
 				555A146223F7628100313BC5 /* Simulator UI */,
+				5534157C23FE04EC005C0A41 /* About UI */,
 				555A146323F762AD00313BC5 /* Controllers */,
 				511BA5D123F4567C00E3E660 /* Helpers */,
+				AC472CCD240D46C2007FF521 /* Extensions */,
 				511BA5CF23F455D500E3E660 /* NSViewWrappers */,
 				555A145323F707D900313BC5 /* Objective-C */,
 				511BA5D023F455E100E3E660 /* SystemBits */,
@@ -180,6 +202,8 @@
 				511BA59923F415C800E3E660 /* BatteryView.swift */,
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59F23F4197200E3E660 /* NetworkView.swift */,
+				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
+				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
 			path = ControlScreens;
@@ -217,6 +241,9 @@
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
 				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
+				55DF68BC23F8C76800E717D3 /* Collection.swift */,
+				5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */,
+				5534158523FE1AC4005C0A41 /* Flow.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -228,6 +255,15 @@
 				511BA58F23F4030D00E3E660 /* LoadingView.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		5534157C23FE04EC005C0A41 /* About UI */ = {
+			isa = PBXGroup;
+			children = (
+				5534157D23FE04FA005C0A41 /* AboutView.swift */,
+				5534158123FE0539005C0A41 /* Contributors.swift */,
+			);
+			path = "About UI";
 			sourceTree = "<group>";
 		};
 		555A145323F707D900313BC5 /* Objective-C */ = {
@@ -257,6 +293,7 @@
 				551F8CEC23F489A50006D1BD /* SidebarView.swift */,
 				551F8CF823F4C45A0006D1BD /* SimulatorSidebarView.swift */,
 				55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */,
+				55DF68BA23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift */,
 			);
 			path = "Main Window";
 			sourceTree = "<group>";
@@ -283,6 +320,7 @@
 				ACDF076523F7D1C300597B3B /* Application.swift */,
 				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
 				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
+				ACCD798D240AE82C0004ECE5 /* PushNotification.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -293,6 +331,14 @@
 				55AF68B423F9CFD600C5D87A /* PreferencesView.swift */,
 			);
 			path = "Preferences UI";
+			sourceTree = "<group>";
+		};
+		AC472CCD240D46C2007FF521 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AC472CCE240D46D7007FF521 /* KeyedEncodingContainer+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B07F584F23F9F83800256D5D /* ControlRoomTests */ = {
@@ -322,6 +368,7 @@
 				551F8CFA23F4CB770006D1BD /* SwiftLint */,
 				511BA57523F3FFEA00E3E660 /* Sources */,
 				511BA57623F3FFEA00E3E660 /* Frameworks */,
+				5534157B23FE0373005C0A41 /* Get Contributors */,
 				511BA57723F3FFEA00E3E660 /* Resources */,
 			);
 			buildRules = (
@@ -396,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				511BA58723F3FFEB00E3E660 /* Main.storyboard in Resources */,
+				AC472CFB240D5F22007FF521 /* NotificationEditorView.strings in Resources */,
 				511BA58423F3FFEB00E3E660 /* Preview Assets.xcassets in Resources */,
 				511BA58123F3FFEB00E3E660 /* Assets.xcassets in Resources */,
 			);
@@ -429,6 +477,24 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		5534157B23FE0373005C0A41 /* Get Contributors */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Get Contributors";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RESOURCES_DIR=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nexport CONTRIBUTORS_FILE=\"${RESOURCES_DIR}/contributors.json\"\nif [ ! -f \"${CONTRIBUTORS_FILE}\" ]; then\n    curl \"https://api.github.com/repos/twostraws/ControlRoom/stats/contributors\" -H \"Accept: application/vnd.github.v3+json\" > \"${CONTRIBUTORS_FILE}\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -437,13 +503,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACDF076623F7D1C300597B3B /* Application.swift in Sources */,
+				5534158623FE1AC4005C0A41 /* Flow.swift in Sources */,
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
 				5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */,
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
+				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
 				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
+				5534158223FE0539005C0A41 /* Contributors.swift in Sources */,
 				511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */,
 				511BA5AA23F4316700E3E660 /* TextView.swift in Sources */,
 				551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */,
@@ -451,27 +520,33 @@
 				ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
 				B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */,
+				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
+				5534158023FE0514005C0A41 /* RecessedButtonStyle.swift in Sources */,
 				70BE435C23F54C8600FD6282 /* MapView.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,
+				55DF68BD23F8C76800E717D3 /* Collection.swift in Sources */,
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
 				551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */,
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
+				ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,
 				55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */,
 				55AF68B923F9D32100C5D87A /* MainWindowController.swift in Sources */,
 				555A145C23F70CCF00313BC5 /* Process.swift in Sources */,
 				55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */,
+				5534157E23FE04FA005C0A41 /* AboutView.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
 				55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */,
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,
 				B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */,
 				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,
+				AC472CCF240D46D7007FF521 /* KeyedEncodingContainer+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

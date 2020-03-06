@@ -147,7 +147,7 @@ extension SimCtl {
         }
         /// Set up a device IO operation.
         static func io(deviceId: String, operation: IO.Operation) -> Command {
-            Command("io", arguments: operation.arguments)
+            Command("io", arguments: [deviceId] + operation.arguments)
         }
         /// Collect diagnostic information and logs.
         static func diagnose(flags: [Diagnose.Flag]) -> Command {

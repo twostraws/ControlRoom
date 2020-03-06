@@ -10,28 +10,49 @@ import SwiftUI
 
 /// A wrapper around NSTextView so we can get multiline text editing in SwiftUI.
 struct TextView: NSViewRepresentable {
-    @Binding var text: String
+    @Binding
+    private var text: String
 
-    func makeNSView(context: Context) -> NSTextView {
-        let view = NSTextView()
-        view.backgroundColor = .textBackgroundColor
-        view.delegate = context.coordinator
-        view.isRichText = false
-        view.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
-        view.autoresizingMask = [.width, .height]
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let isEditable: Bool
 
-        return view
+    init(text: Binding<String>, isEditable: Bool = true) {
+        _text = text
+        self.isEditable = isEditable
     }
 
-    func updateNSView(_ view: NSTextView, context: Context) {
-        view.string = text
+    init(text: String) {
+        self.init(text: Binding<String>.constant(text), isEditable: false)
+    }
+
+    func makeNSView(context: Context) -> NSScrollView {
+        let text = NSTextView()
+        text.backgroundColor = isEditable ? .textBackgroundColor : .clear
+        text.delegate = context.coordinator
+        text.isRichText = false
+        text.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
+        text.autoresizingMask = [.width]
+        text.translatesAutoresizingMaskIntoConstraints = true
+        text.isVerticallyResizable = true
+        text.isHorizontallyResizable = false
+        text.isEditable = isEditable
+
+        let scroll = NSScrollView()
+        scroll.hasVerticalScroller = true
+        scroll.documentView = text
+        scroll.drawsBackground = false
+
+        return scroll
+    }
+
+    func updateNSView(_ view: NSScrollView, context: Context) {
+        let text = view.documentView as? NSTextView
+        text?.string = self.text
 
         guard context.coordinator.selectedRanges.count > 0 else {
             return
         }
 
-        view.selectedRanges = context.coordinator.selectedRanges
+        text?.selectedRanges = context.coordinator.selectedRanges
     }
 
     func makeCoordinator() -> Coordinator {
