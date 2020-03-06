@@ -53,7 +53,7 @@ struct Application: Hashable {
             .flatMap { $0 }
             .compactMap { Bundle(url: url)?.urlForImageResource($0) }
         dataFolderURL = URL(string: application.dataFolderPath ?? "")
-        bundleURL = URL(string: application.bundlePath ?? "")
+        bundleURL = URL(string: application.bundlePath)
     }
 
     private static func fetchIconNames(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
