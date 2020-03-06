@@ -45,8 +45,8 @@ struct SimulatorSidebarView: View {
         }
     }
 
-    @State var action: Action?
-    @State var newName: String
+    @State private var action: Action?
+    @State private var newName: String
 
     init(simulator: Simulator, canShowContextualMenu: Bool) {
         self.simulator = simulator

@@ -19,7 +19,7 @@ struct MainView: View {
             if controller.loadingStatus == .loading {
                 LoadingView()
             } else if controller.loadingStatus == .success {
-                SplitLayoutView()
+                SplitLayoutView(controller: self.controller)
             } else {
                 LoadingFailedView()
             }
@@ -46,6 +46,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         let prefs = Preferences()
-        return MainView().environmentObject(SimulatorsController(preferences: prefs))
+        return MainView(controller: SimulatorsController(preferences: prefs))
     }
 }

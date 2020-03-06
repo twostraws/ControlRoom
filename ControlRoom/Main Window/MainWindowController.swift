@@ -73,7 +73,6 @@ class MainWindowController: NSWindowController {
 }
 
 extension MainWindowController: NSMenuItemValidation {
-
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if menuItem.action == #selector(toggleFloatingWindow(_:)) {
             menuItem.state = preferences.wantsFloatingWindow ? .on : .off

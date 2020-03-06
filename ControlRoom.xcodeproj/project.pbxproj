@@ -57,6 +57,7 @@
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
 		B07F585123F9F83800256D5D /* SimCtl+SubCommandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */; };
+		B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AD5F8323FE32A100A2DC81 /* HLine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ControlRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommandsTests.swift"; sourceTree = "<group>"; };
 		B07F585223F9F83800256D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0AD5F8323FE32A100A2DC81 /* HLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 				511BA5A923F4316700E3E660 /* TextView.swift */,
 				551F8CF423F4AF7B0006D1BD /* FilterField.swift */,
 				70BE435B23F54C8600FD6282 /* MapView.swift */,
+				B0AD5F8323FE32A100A2DC81 /* HLine.swift */,
 			);
 			path = NSViewWrappers;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				511BA5A023F4197200E3E660 /* NetworkView.swift in Sources */,
 				ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
+				B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */,
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				5534158023FE0514005C0A41 /* RecessedButtonStyle.swift in Sources */,

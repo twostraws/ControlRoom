@@ -11,9 +11,9 @@ import SwiftUI
 struct CreateSimulatorActionSheet: View {
     let controller: SimulatorsController
 
-    @State var deviceType: DeviceType
-    @State var runtime: Runtime
-    @State var name: String = ""
+    @State private var deviceType: DeviceType
+    @State private var runtime: Runtime
+    @State private var name: String = ""
 
     init(controller: SimulatorsController) {
         self.controller = controller

@@ -10,7 +10,7 @@ import SwiftUI
 
 /// A horizontal split view that shows a left-hand sidebar of simulators and right-hand details.
 struct SplitLayoutView: View {
-    @EnvironmentObject var controller: SimulatorsController
+    @ObservedObject var controller: SimulatorsController
 
     var body: some View {
         HSplitView {
@@ -23,7 +23,8 @@ struct SplitLayoutView: View {
             // the size of the Text.
             GeometryReader { _ in
                 if self.controller.selectedSimulatorIDs.count == 1 {
-                    ControlView(simulator: self.controller.selectedSimulators[0],
+                    ControlView(controller: self.controller,
+                                simulator: self.controller.selectedSimulators[0],
                                 applications: self.controller.applications)
                         .padding()
                 } else {
@@ -38,6 +39,6 @@ struct SplitLayoutView: View {
 
 struct SplitLayoutView_Previews: PreviewProvider {
     static var previews: some View {
-        SplitLayoutView().environmentObject(SimulatorsController(preferences: Preferences()))
+        SplitLayoutView(controller: SimulatorsController(preferences: Preferences()))
     }
 }

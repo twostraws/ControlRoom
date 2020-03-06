@@ -11,7 +11,7 @@ import SwiftUI
 /// The main tab view to control simulator settings.
 struct ControlView: View {
 
-    @EnvironmentObject var controller: SimulatorsController
+    @ObservedObject var controller: SimulatorsController
     let simulator: Simulator
     let applications: [Application]
 
@@ -45,7 +45,7 @@ struct ControlView: View {
                 SystemView(simulator: simulator)
                 AppView(simulator: simulator, applications: applications)
                 BatteryView(simulator: simulator)
-                LocationView(simulator: simulator)
+                LocationView(controller: controller, simulator: simulator)
                 NetworkView(simulator: simulator)
             }
             .disabled(simulator.state != .booted)
@@ -66,6 +66,8 @@ struct ControlView: View {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(simulator: .example, applications: []).environmentObject(SimulatorsController(preferences: .init()))
+        ControlView(controller: .init(preferences: .init()),
+                    simulator: .example,
+                    applications: [])
     }
 }

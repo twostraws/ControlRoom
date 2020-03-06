@@ -19,6 +19,20 @@ struct SystemView: View {
     /// The system-wide appearance; "Light" or "Dark".
     @State private var appearance: SimCtl.UI.Appearance = .light
 
+    @State private var language: String = NSLocale.current.languageCode ?? ""
+
+    @State private var locale: String = NSLocale.current.identifier
+
+    private let languages: [String] = {
+        return NSLocale.isoLanguageCodes
+            .filter { NSLocale.current.localizedString(forLanguageCode: $0) != nil }
+            .sorted { (lhs, rhs) -> Bool in
+                let lhsString = NSLocale.current.localizedString(forLanguageCode: lhs) ?? ""
+                let rhsString = NSLocale.current.localizedString(forLanguageCode: rhs) ?? ""
+                return lhsString.lowercased() < rhsString.lowercased()
+            }
+    }()
+
     var body: some View {
         Form {
             Group {
@@ -27,10 +41,34 @@ struct SystemView: View {
                     Button("Set", action: setTime)
                 }
 
+                FormSpacer()
+            }
+
+            Group {
                 Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
                     ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
                         Text($0.displayName)
                     }
+                }
+
+                FormSpacer()
+            }
+
+            Group {
+                Picker("Language:", selection: $language) {
+                    ForEach(languages, id: \.self) {
+                        Text(NSLocale.current.localizedString(forLanguageCode: $0) ?? "")
+                    }
+                }
+
+                Picker("Locale:", selection: $locale) {
+                    ForEach(locales(for: language), id: \.self) {
+                        Text(NSLocale.current.localizedString(forIdentifier: $0) ?? "")
+                    }
+                }
+                HStack {
+                    Button("Set Language/Locale", action: updateLanguage)
+                    Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
                 }
 
                 FormSpacer()
@@ -59,9 +97,9 @@ struct SystemView: View {
                 Section(header: Text("Screen")) {
                     Button("Take Screenshot", action: takeScreenshot)
                 }
-
-                Spacer()
             }
+
+            Spacer()
 
             HStack {
                 Spacer()
@@ -82,6 +120,13 @@ struct SystemView: View {
     /// Moves between light and dark mode.
     func updateAppearance() {
         SimCtl.setAppearance(simulator.udid, appearance: appearance)
+    }
+
+    func updateLanguage() {
+        let plistPath = simulator.dataPath + "/Library/Preferences/.GlobalPreferences.plist"
+        _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLanguages", "-json", "[\"\(language)\" ]", plistPath])
+        _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLocale", "-string", locale, plistPath])
+        SimCtl.reboot(simulator.id)
     }
 
     /// Starts an immediate iCloud sync.
@@ -115,6 +160,16 @@ struct SystemView: View {
         formatter.dateFormat = "y-MM-dd-HH-mm-ss"
         let dateString = formatter.string(from: Date())
         return "~/Desktop/ControlRoom-\(dateString).png"
+    }
+
+    private func locales(for language: String) -> [String] {
+        return NSLocale.availableLocaleIdentifiers
+            .filter { $0.hasPrefix(language) }
+            .sorted { (lhs, rhs) -> Bool in
+                let lhsString = NSLocale.current.localizedString(forIdentifier: lhs) ?? ""
+                let rhsString = NSLocale.current.localizedString(forIdentifier: rhs) ?? ""
+                return lhsString.lowercased() < rhsString.lowercased()
+            }
     }
 }
 

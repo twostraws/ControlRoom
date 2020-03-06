@@ -111,7 +111,8 @@ class SimulatorsController: ObservableObject {
                                     udid: device.udid,
                                     state: state,
                                     runtime: runtime,
-                                    deviceType: type)
+                                    deviceType: type,
+                                    dataPath: device.dataPath ?? "")
                 final.append(sim)
             }
         }

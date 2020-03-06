@@ -14,7 +14,6 @@ typealias DeviceType = SimCtl.DeviceType
 
 /// Stores one simulator and its identifier.
 struct Simulator: Identifiable, Comparable, Hashable {
-
     enum State {
         case unknown
         case creating
@@ -66,18 +65,22 @@ struct Simulator: Identifiable, Comparable, Hashable {
 
     /// The current state of the simulator
     let state: State
-
+    
     /// Wheter this simulator is the `Default` one or not
     var isDefault: Bool {
         id == "booted"
     }
 
-    init(name: String, udid: String, state: State, runtime: Runtime?, deviceType: DeviceType?) {
+    /// The path to the simulator directory location
+    let dataPath: String
+
+    init(name: String, udid: String, state: State, runtime: Runtime?, deviceType: DeviceType?, dataPath: String) {
         self.name = name
         self.udid = udid
         self.state = state
         self.runtime = runtime
         self.deviceType = deviceType
+        self.dataPath = dataPath
 
         let typeIdentifier: TypeIdentifier
         if let model = deviceType?.modelTypeIdentifier {
@@ -102,9 +105,9 @@ struct Simulator: Identifiable, Comparable, Hashable {
     }
 
     /// An example simulator for Xcode preview purposes
-    static let example = Simulator(name: "iPhone 11 Pro max", udid: UUID().uuidString, state: .booted, runtime: .unknown, deviceType: nil)
+    static let example = Simulator(name: "iPhone 11 Pro max", udid: UUID().uuidString, state: .booted, runtime: .unknown, deviceType: nil, dataPath: "")
 
     /// Users whichever simulator simctl feels like; if there's only one active it will be used,
     /// but if there's more than one simctl just picks one.
-    static let `default` = Simulator(name: "Default", udid: "booted", state: .booted, runtime: nil, deviceType: nil)
+    static let `default` = Simulator(name: "Default", udid: "booted", state: .booted, runtime: nil, deviceType: nil, dataPath: "")
 }

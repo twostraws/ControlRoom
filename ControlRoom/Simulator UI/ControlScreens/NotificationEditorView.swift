@@ -9,18 +9,10 @@
 import SwiftUI
 
 struct NotificationEditorView: View {
-
-    @EnvironmentObject
-    private var preferences: Preferences
-
-    @State
-    private var notificationAps = PushNotificationAPS()
-
-    @State
-    private var userInfo = ""
-
-    @State
-    private var shouldDismissConfirmationAlert: Bool = false
+    @EnvironmentObject var preferences: Preferences
+    @State private var notificationAps = PushNotificationAPS()
+    @State private var userInfo = ""
+    @State private var shouldDismissConfirmationAlert: Bool = false
 
     private var fullJson: String {
         guard
@@ -38,6 +30,7 @@ struct NotificationEditorView: View {
         VStack(alignment: .trailing) {
             HStack(spacing: 30) {
                 APSFormView(notificationAps: $notificationAps)
+
                 VStack(alignment: .leading) {
                     Text("Aps")
                         .font(.headline)
@@ -129,6 +122,7 @@ private struct APSFormView: View {
                             Text("Regular")
                         }
                         .tag(1)
+
                         VStack(spacing: 10) {
                             LocalizedFieldView(title: "Title",
                                                value: $notificationAps.alert.titleLocKey,
@@ -155,13 +149,16 @@ private struct APSFormView: View {
                 }
                 .frame(height: 210)
             }
+
             VStack(alignment: .leading, spacing: 20) {
                 Text("Sound")
                     .font(.headline)
+
                 VStack(alignment: .leading, spacing: 10) {
                     FieldView(title: "File name",
                               description: "NotificationView.Hints.Sound.Name",
                               value: $notificationAps.sound.name)
+
                     HStack {
                         ToggleFieldView(title: "Critical",
                                         description: "NotificationView.Hints.Sound.Critical",
@@ -173,9 +170,11 @@ private struct APSFormView: View {
                     }
                 }
             }
+
             VStack(alignment: .leading, spacing: 20) {
                 Text("Misc")
                     .font(.headline)
+
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(spacing: 10) {
                         FieldView(title: "Badge",
@@ -185,6 +184,7 @@ private struct APSFormView: View {
                                   description: "NotificationView.Hints.LaunchImage",
                                   value: $notificationAps.alert.launchImage)
                     }
+
                     HStack(spacing: 10) {
                         FieldView(title: "Thread identifier",
                                   description: "NotificationView.Hints.ThreadIdentifier",
@@ -193,6 +193,7 @@ private struct APSFormView: View {
                                   description: "NotificationView.Hints.Category",
                                   value: $notificationAps.category)
                     }
+
                     HStack(spacing: 30) {
                         ToggleFieldView(title: "Silent",
                                         description: "NotificationView.Hints.SilentNotification",
@@ -201,36 +202,35 @@ private struct APSFormView: View {
                                         description: "NotificationView.Hints.MutableContent",
                                         value: $notificationAps.isMutableContent)
                     }
+
                     FieldView(title: "Target content identifier",
                               description: "NotificationView.Hints.TargetContentIdentifier",
                               value: $notificationAps.targetContentID)
                 }
             }
+
             Spacer()
         }
     }
 }
 
 private struct LocalizedFieldView: View {
-
     let title: String
 
-    @Binding
-    var value: String
-
-    @Binding
-    var arguments: String
+    @Binding var value: String
+    @Binding var arguments: String
 
     let valueDescription: String
-
     let argumentsDescription: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
+
             HStack(spacing: 10) {
                 TextField("Localized key", text: $value)
                     .addingInfoButton(title: "Localized key", description: valueDescription)
+
                 TextField("Localized arguments", text: $arguments)
                     .addingInfoButton(title: "Localized key", description: argumentsDescription)
             }
@@ -239,17 +239,14 @@ private struct LocalizedFieldView: View {
 }
 
 private struct FieldView: View {
-
     let title: String
-
     let description: String
-
-    @Binding
-    var value: String
+    @Binding var value: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
+
             TextField(title, text: $value)
                 .addingInfoButton(title: title, description: description)
         }
@@ -257,13 +254,9 @@ private struct FieldView: View {
 }
 
 private struct ToggleFieldView: View {
-
     let title: String
-
     let description: String
-
-    @Binding
-    var value: Bool
+    @Binding var value: Bool
 
     var body: some View {
         HStack {
@@ -285,12 +278,8 @@ private struct SliderFieldView: View {
     }()
 
     let title: String
-
     let description: String
-
-    @Binding
-    var value: Double
-
+    @Binding var value: Double
     let isEnabled: Bool
 
     var body: some View {
@@ -308,7 +297,6 @@ private struct SliderFieldView: View {
 }
 
 private extension View {
-
     func addingInfoButton(title: String, description: String) -> some View {
         modifier(InfoButtonModifier(title: title,
                                     description: description.localizedHint))
@@ -319,15 +307,15 @@ private struct InfoButtonModifier: ViewModifier {
     let title: String
     let description: String
 
-    @State
-    private var shouldShowDescription = false
+    @State private var shouldShowDescription = false
 
     func body(content: Content) -> some View {
         HStack {
             content
-            Button(
-                action: { self.shouldShowDescription = true },
-                label: { Text("?") })
+
+            Button("?") {
+                self.shouldShowDescription = true
+            }
         }
         .alert(isPresented: $shouldShowDescription) {
             Alert(title: Text(title), message: Text(description))

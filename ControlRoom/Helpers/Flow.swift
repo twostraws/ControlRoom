@@ -26,8 +26,8 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
         self.verticalSpacing = verticalSpacing
     }
 
-    @State var itemSizes = [SizePreference]()
-    @State var width: CGFloat = 0
+    @State private var itemSizes = [SizePreference]()
+    @State private var width: CGFloat = 0
 
     struct Row: Identifiable {
         let id: Int
@@ -44,8 +44,8 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
 
         var currentRowIndex = 0
         var rowWidth: CGFloat = 0
-
         var rows = [Row]()
+
         for (item, size) in zip(items, itemSizes) {
             let thisWidth = size.size.width
             if (width - rowWidth - horizontalSpacing - thisWidth ) >= 0, !rows.isEmpty {
@@ -59,6 +59,7 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
                 rowWidth = thisWidth
             }
         }
+
         return rows
     }
 
@@ -107,8 +108,6 @@ struct SizePreference: Equatable {
 }
 
 struct SizePreferenceListKey: PreferenceKey {
-    typealias Value = [SizePreference]
-
     static var defaultValue = [SizePreference]()
 
     static func reduce(value: inout [SizePreference], nextValue: () -> [SizePreference]) {
@@ -118,8 +117,6 @@ struct SizePreferenceListKey: PreferenceKey {
 
 // used to store the overall width available to the CollectionView
 struct SizePreferenceKey: PreferenceKey {
-    typealias Value = CGSize
-
     static var defaultValue: CGSize = .zero
 
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
