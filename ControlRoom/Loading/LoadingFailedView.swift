@@ -10,13 +10,16 @@ import SwiftUI
 
 /// Shown when loading the simulator data from simctl has failed.
 struct LoadingFailedView: View {
+
+    let errorMessage: String
+
     var body: some View {
-        Text("Loading failed. This usually happens because the command /usr/bin/xcrun can't be found.")
+        Text(errorMessage)
     }
 }
 
 struct LoadingFailed_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingFailedView()
+        LoadingFailedView(errorMessage: "Lorem ipsum")
     }
 }

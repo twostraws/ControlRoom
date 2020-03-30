@@ -23,6 +23,9 @@ class SimulatorsController: ObservableObject {
 
         /// Loading failed
         case failed
+
+        /// Invalid command line tool
+        case invalidCommandLineTool
     }
 
     /// The current loading state; defaults to .loading
@@ -69,7 +72,7 @@ class SimulatorsController: ObservableObject {
                 if tool != .empty {
                     self.loadSimulators()
                 } else {
-                    self.loadingStatus = .failed
+                    self.loadingStatus = .invalidCommandLineTool
                 }
             }
             .store(in: &cancellables)

@@ -16,7 +16,7 @@ struct XcodeCommandLineToolsController {
             .replaceError(with: ([], ""))
             .map { devTools, xcodeSelectResult -> DeveloperTool in
                 for devTool in devTools {
-                    if xcodeSelectResult.contains(devTool.path) {
+                    if xcodeSelectResult.contains(devTool.path), devTool.version >= "11.4" {
                         return devTool
                     }
                 }
