@@ -10,68 +10,11 @@ import Combine
 import Foundation
 
 /// A container for all the functionality for talking to simctl.
-enum SimCtl {
+enum SimCtl: CommandLineCommandExecuter {
 
-    /// Errors we might get from running simctl
-    enum Error: Swift.Error {
-        case missingCommand
-        case missingOutput
-        case unknown(Swift.Error)
-    }
+    typealias Error = CommandLineError
 
-    private static func execute(_ arguments: [String], completion: @escaping (Result<Data, SimCtl.Error>) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let data = Process.execute("/usr/bin/xcrun", arguments: ["simctl"] + arguments) {
-                completion(.success(data))
-            } else {
-                completion(.failure(.missingCommand))
-            }
-        }
-    }
-
-    private static func execute(_ arguments: [String]) -> PassthroughSubject<Data, SimCtl.Error> {
-        let publisher = PassthroughSubject<Data, SimCtl.Error>()
-
-        execute(arguments) { result in
-            switch result {
-            case .success(let data):
-                publisher.send(data)
-                publisher.send(completion: .finished)
-            case .failure(let error):
-                publisher.send(completion: .failure(error))
-            }
-        }
-
-        return publisher
-    }
-
-    private static func execute(_ command: Command, completion: ((Result<Data, SimCtl.Error>) -> Void)? = nil) {
-        execute(command.arguments, completion: completion ?? { _ in })
-    }
-
-    private static func executeJSON<T: Decodable>(_ command: Command) -> AnyPublisher<T, SimCtl.Error> {
-        executeAndDecode(command.arguments, decoder: JSONDecoder())
-    }
-
-    private static func executePropertyList<T: Decodable>(_ command: Command) -> AnyPublisher<T, SimCtl.Error> {
-        executeAndDecode(command.arguments, decoder: PropertyListDecoder())
-    }
-
-    private static func executeAndDecode<Item: Decodable, Decoder: TopLevelDecoder>(_ arguments: [String],
-                                                                                    decoder: Decoder) -> AnyPublisher<Item, SimCtl.Error> where Decoder.Input == Data {
-        execute(arguments)
-            .decode(type: Item.self, decoder: decoder)
-            .mapError({ error -> SimCtl.Error in
-                if error is DecodingError {
-                    return .missingOutput
-                } else if let command = error as? SimCtl.Error {
-                    return command
-                } else {
-                    return .unknown(error)
-                }
-            })
-            .eraseToAnyPublisher()
-    }
+    static var launchPath = "/usr/bin/xcrun"
 
     static func watchDeviceList() -> AnyPublisher<DeviceList, SimCtl.Error> {
         if CoreSimulator.canRegisterForSimulatorNotifications {
@@ -131,7 +74,7 @@ enum SimCtl {
     }
 
     static func create(name: String, deviceType: DeviceType, runtime: Runtime) {
-        execute(["create", name, deviceType.identifier, runtime.identifier]) { _ in }
+        execute(.create(name: name, deviceTypeId: deviceType.identifier, runtimeId: runtime.identifier)) { _ in }
     }
 
     static func rename(_ simulator: String, name: String) {

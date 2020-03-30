@@ -53,6 +53,8 @@
 		AC472CFB240D5F22007FF521 /* NotificationEditorView.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */; };
 		ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */; };
 		ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD798D240AE82C0004ECE5 /* PushNotification.swift */; };
+		ACD2064D2431F20000F8659B /* CommandLineExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD2064C2431F20000F8659B /* CommandLineExecuter.swift */; };
+		ACD206572432272500F8659B /* XcodeCommandLineToolsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD206562432272500F8659B /* XcodeCommandLineToolsController.swift */; };
 		ACDF076623F7D1C300597B3B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076523F7D1C300597B3B /* Application.swift */; };
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
@@ -122,6 +124,8 @@
 		AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = NotificationEditorView.strings; sourceTree = "<group>"; };
 		ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEditorView.swift; sourceTree = "<group>"; };
 		ACCD798D240AE82C0004ECE5 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
+		ACD2064C2431F20000F8659B /* CommandLineExecuter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineExecuter.swift; sourceTree = "<group>"; };
+		ACD206562432272500F8659B /* XcodeCommandLineToolsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeCommandLineToolsController.swift; sourceTree = "<group>"; };
 		ACDF076523F7D1C300597B3B /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		ACDF076723F7E91A00597B3B /* ApplicationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationType.swift; sourceTree = "<group>"; };
 		B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommands.swift"; sourceTree = "<group>"; };
@@ -237,13 +241,14 @@
 			isa = PBXGroup;
 			children = (
 				511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */,
-				511BA5A523F420AB00E3E660 /* FormSpacer.swift */,
-				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
-				555A145B23F70CCF00313BC5 /* Process.swift */,
-				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
 				55DF68BC23F8C76800E717D3 /* Collection.swift */,
-				5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */,
+				ACD2064C2431F20000F8659B /* CommandLineExecuter.swift */,
+				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
 				5534158523FE1AC4005C0A41 /* Flow.swift */,
+				511BA5A523F420AB00E3E660 /* FormSpacer.swift */,
+				555A145B23F70CCF00313BC5 /* Process.swift */,
+				5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */,
+				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -310,17 +315,18 @@
 		555A146323F762AD00313BC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				55AF68B623F9D2E200C5D87A /* UIState.swift */,
-				5523A7E023F99D7200F25EEC /* Preferences.swift */,
-				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
-				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
-				B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */,
-				ACDF076723F7E91A00597B3B /* ApplicationType.swift */,
-				511BA59723F4096800E3E660 /* Simulator.swift */,
 				ACDF076523F7D1C300597B3B /* Application.swift */,
-				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
+				ACDF076723F7E91A00597B3B /* ApplicationType.swift */,
 				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
+				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				ACCD798D240AE82C0004ECE5 /* PushNotification.swift */,
+				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
+				B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */,
+				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
+				511BA59723F4096800E3E660 /* Simulator.swift */,
+				551F8CF023F498C30006D1BD /* SimulatorsController.swift */,
+				55AF68B623F9D2E200C5D87A /* UIState.swift */,
+				ACD206562432272500F8659B /* XcodeCommandLineToolsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -534,11 +540,13 @@
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
 				ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
+				ACD2064D2431F20000F8659B /* CommandLineExecuter.swift in Sources */,
 				555A145723F707E700313BC5 /* CoreSimulator.m in Sources */,
 				55DF68B923F86C0700E717D3 /* ContextMenu.swift in Sources */,
 				55AF68B923F9D32100C5D87A /* MainWindowController.swift in Sources */,
 				555A145C23F70CCF00313BC5 /* Process.swift in Sources */,
 				55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */,
+				ACD206572432272500F8659B /* XcodeCommandLineToolsController.swift in Sources */,
 				5534157E23FE04FA005C0A41 /* AboutView.swift in Sources */,
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
