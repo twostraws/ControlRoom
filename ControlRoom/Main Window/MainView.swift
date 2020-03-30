@@ -16,12 +16,12 @@ struct MainView: View {
 
     var body: some View {
         Group {
-            if controller.loadingStatus == .loading {
-                LoadingView()
+            if controller.loadingStatus == .failed {
+                LoadingFailedView()
             } else if controller.loadingStatus == .success {
                 SplitLayoutView(controller: controller)
             } else {
-                LoadingFailedView()
+                LoadingView()
             }
         }
         .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)

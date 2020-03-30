@@ -62,11 +62,23 @@ class SimulatorsController: ObservableObject {
 
     init(preferences: Preferences) {
         self.preferences = preferences
-        loadSimulators()
 
-        preferences.objectDidChange.sink(receiveValue: { [weak self] in
-            self?.filterSimulators()
-        }).store(in: &cancellables)
+        XcodeCommandLineToolsController.selectedCommandLineTool()
+            .receive(on: DispatchQueue.main)
+            .sink { tool in
+                if tool != .empty {
+                    self.loadSimulators()
+                } else {
+                    self.loadingStatus = .failed
+                }
+            }
+            .store(in: &cancellables)
+
+        preferences.objectDidChange
+            .sink { [weak self] in
+                self?.filterSimulators()
+            }
+            .store(in: &cancellables)
     }
 
     /// Fetches all simulators from simctl.
