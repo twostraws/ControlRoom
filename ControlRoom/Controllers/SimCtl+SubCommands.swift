@@ -10,11 +10,11 @@ import Foundation
 
 // swiftlint:disable file_length
 extension SimCtl {
-    struct Command {
+    struct Command: CommandLineCommand {
         let arguments: [String]
 
         private init(_ subcommand: String, arguments: [String]) {
-            self.arguments = [subcommand] + arguments
+            self.arguments = ["simctl", subcommand] + arguments
         }
 
         /// Create a new device.
