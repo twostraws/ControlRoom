@@ -21,7 +21,7 @@ struct MainView: View {
             } else if controller.loadingStatus == .invalidCommandLineTool {
                 LoadingFailedView(errorMessage: "Loading failed. You need to use Xcode 11.4+ and install the command line tools.")
             } else if controller.loadingStatus == .success {
-                SplitLayoutView(controller: controller)
+                SplitLayoutView(controller: self.controller)
             } else {
                 LoadingView()
             }

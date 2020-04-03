@@ -23,7 +23,8 @@ struct SplitLayoutView: View {
             // the size of the Text.
             GeometryReader { _ in
                 if self.controller.selectedSimulatorIDs.count == 1 {
-                    ControlView(simulator: self.controller.selectedSimulators[0],
+                    ControlView(controller: self.controller,
+                                simulator: self.controller.selectedSimulators[0],
                                 applications: self.controller.applications)
                         .padding()
                 } else {

@@ -65,6 +65,11 @@ struct Simulator: Identifiable, Comparable, Hashable {
 
     /// The current state of the simulator
     let state: State
+    
+    /// Wheter this simulator is the `Default` one or not
+    var isDefault: Bool {
+        id == "booted"
+    }
 
     /// The path to the simulator directory location
     let dataPath: String
