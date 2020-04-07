@@ -45,6 +45,9 @@ class MainWindowController: NSWindowController {
         window.title = "Control Room"
         window.isMovableByWindowBackground = true
 
+        // disable the system-generated tab bar menu items, because we can't use them
+        window.tabbingMode = .disallowed
+
         self.window = window
         adjustWindowLevel()
 
