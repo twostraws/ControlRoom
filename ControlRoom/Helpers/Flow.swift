@@ -48,7 +48,7 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
 
         for (item, size) in zip(items, itemSizes) {
             let thisWidth = size.size.width
-            if (width - rowWidth - horizontalSpacing - thisWidth ) >= 0, !rows.isEmpty {
+            if (width - rowWidth - horizontalSpacing - thisWidth) >= 0, rows.isNotEmpty {
                 var row = rows.removeLast()
                 row.items.append(item)
                 rows.append(row)

@@ -168,7 +168,7 @@ class SimulatorsController: ObservableObject {
             filtered = [.default] + filtered
         }
 
-        if trimmed.isEmpty == false {
+        if trimmed.isNotEmpty {
             filtered = filtered.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
         }
 

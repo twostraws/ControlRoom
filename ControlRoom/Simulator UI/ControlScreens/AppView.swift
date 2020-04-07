@@ -28,7 +28,7 @@ struct AppView: View {
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
 
     private var isApplicationSelected: Bool {
-        !selectedApplication.bundleIdentifier.isEmpty
+        selectedApplication.bundleIdentifier.isNotEmpty
     }
 
     init(simulator: Simulator, applications: [Application]) {

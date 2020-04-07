@@ -41,7 +41,7 @@ struct AboutView: View {
             Text("Version \(appVersion) (\(appBuild))")
                 .font(.caption)
 
-            if authors.isEmpty == false {
+            if authors.isNotEmpty {
                 Text("Built thanks to the contributions of:")
                     .font(.caption)
 

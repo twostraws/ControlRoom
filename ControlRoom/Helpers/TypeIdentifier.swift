@@ -44,7 +44,7 @@ struct TypeIdentifier: Hashable {
         var typesToCheck = [self]
         var checked = Set<TypeIdentifier>()
 
-        while typesToCheck.isEmpty == false {
+        while typesToCheck.isNotEmpty {
             let first = typesToCheck.removeFirst()
             guard checked.contains(first) == false else { continue }
             checked.insert(first)

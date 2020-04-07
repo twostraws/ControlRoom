@@ -111,7 +111,8 @@ struct SimulatorSidebarView: View {
     }
 
     private func performAction(_ action: Action) {
-        guard newName.isEmpty == false else { return }
+        guard newName.isNotEmpty else { return }
+
         switch action {
         case .rename: SimCtl.rename(simulator.udid, name: newName)
         case .clone: SimCtl.clone(simulator.udid, name: newName)

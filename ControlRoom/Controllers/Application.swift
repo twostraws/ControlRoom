@@ -34,11 +34,7 @@ struct Application: Hashable {
     }
 
     init?(application: SimCtl.Application) {
-        guard
-            let url = URL(string: application.bundlePath)
-            else {
-                return nil
-            }
+        guard let url = URL(string: application.bundlePath) else { return nil }
 
         self.url = url
         type = application.type

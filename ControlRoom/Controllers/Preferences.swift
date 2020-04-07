@@ -71,12 +71,15 @@ struct UserDefault<Value> {
 
         get {
             let wrapper = instance[keyPath: storageKeyPath]
+
             guard let anyValue = instance.userDefaults.value(forKey: wrapper.key) else {
                 return wrapper.defaultValue
             }
+
             guard let value = anyValue as? Value else {
                 return wrapper.defaultValue
             }
+
             return value
         }
         set {
