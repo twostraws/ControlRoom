@@ -22,7 +22,7 @@ struct CreateSimulatorActionSheet: View {
     }
 
     private var canCreate: Bool {
-        return name.isNotEmpty && warning == nil
+        name.isNotEmpty && warning == nil
     }
 
     private var warning: String? {

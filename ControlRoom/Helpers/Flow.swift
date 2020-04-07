@@ -64,7 +64,7 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
     }
 
     var unsizedItems: [Items.Element] {
-        return itemSizes.count == items.count ? [] : Array(items)
+        itemSizes.count == items.count ? [] : Array(items)
     }
 
     var body: some View {

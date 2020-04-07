@@ -17,7 +17,7 @@ struct AppView: View {
 
     /// The selected application we want to manipulate.
     private var selectedApplication: Application {
-        return applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
+        applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
             ?? .default
     }
 

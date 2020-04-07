@@ -10,15 +10,15 @@ import SwiftUI
 
 struct AboutView: View {
     var appName: String {
-        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "Control Room"
+        (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "Control Room"
     }
 
     var appVersion: String {
-        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "1.0"
+        (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "1.0"
     }
 
     var appBuild: String {
-        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "1.0"
+        (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "1.0"
     }
 
     var copyright: String {

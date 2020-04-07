@@ -452,7 +452,7 @@ extension SimCtl {
             case hevc
 
             var arguments: [String] {
-                return ["--codec=\(self.rawValue)"]
+                ["--codec=\(self.rawValue)"]
             }
         }
 
@@ -461,7 +461,7 @@ extension SimCtl {
             case external
 
             var arguments: [String] {
-                return ["--display=\(self.rawValue)"]
+                ["--display=\(self.rawValue)"]
             }
         }
 
@@ -471,7 +471,7 @@ extension SimCtl {
             case black
 
             var arguments: [String] {
-                return ["--mask=\(self.rawValue)"]
+                ["--mask=\(self.rawValue)"]
             }
         }
 
@@ -483,7 +483,7 @@ extension SimCtl {
             case jpeg
 
             var arguments: [String] {
-                return ["--type=\(self.rawValue)"]
+                ["--type=\(self.rawValue)"]
             }
         }
     }
@@ -659,7 +659,7 @@ extension SimCtl {
             case reset
 
             var arguments: [String] {
-                return [self.rawValue]
+                [self.rawValue]
             }
         }
 
@@ -679,7 +679,7 @@ extension SimCtl {
             case siri
 
             var arguments: [String] {
-                return [self.rawValue]
+                [self.rawValue]
             }
         }
     }

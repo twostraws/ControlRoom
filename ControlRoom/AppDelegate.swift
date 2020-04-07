@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+        true
     }
 
     @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {

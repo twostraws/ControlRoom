@@ -24,7 +24,7 @@ struct SystemView: View {
     @State private var locale: String = NSLocale.current.identifier
 
     private let languages: [String] = {
-        return NSLocale.isoLanguageCodes
+        NSLocale.isoLanguageCodes
             .filter { NSLocale.current.localizedString(forLanguageCode: $0) != nil }
             .sorted { (lhs, rhs) -> Bool in
                 let lhsString = NSLocale.current.localizedString(forLanguageCode: lhs) ?? ""
@@ -163,7 +163,7 @@ struct SystemView: View {
     }
 
     private func locales(for language: String) -> [String] {
-        return NSLocale.availableLocaleIdentifiers
+        NSLocale.availableLocaleIdentifiers
             .filter { $0.hasPrefix(language) }
             .sorted { (lhs, rhs) -> Bool in
                 let lhsString = NSLocale.current.localizedString(forIdentifier: lhs) ?? ""
@@ -181,6 +181,6 @@ struct SystemView_Previews: PreviewProvider {
 
 extension SimCtl.UI.Appearance {
     var displayName: String {
-        return self.rawValue.capitalized
+        self.rawValue.capitalized
     }
 }
