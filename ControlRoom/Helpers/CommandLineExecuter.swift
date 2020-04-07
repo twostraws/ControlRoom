@@ -46,15 +46,11 @@ protocol CommandLineCommand {
 }
 
 protocol CommandLineCommandExecuter {
-
     associatedtype Command: CommandLineCommand
-
     static var launchPath: String { get }
-
 }
 
 extension CommandLineCommandExecuter {
-
     private static func execute(_ arguments: [String], completion: @escaping (Result<Data, CommandLineError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             if let data = Process.execute(launchPath, arguments: arguments) {
@@ -95,10 +91,7 @@ extension CommandLineCommandExecuter {
         executeAndDecode(command.arguments, decoder: PropertyListDecoder())
     }
 
-    private static func executeAndDecode<Item, Decoder>(_ arguments: [String],
-                                                        decoder: Decoder) -> AnyPublisher<Item, CommandLineError> where Item: Decodable,
-                                                                                                                        Decoder: TopLevelDecoder,
-                                                                                                                        Decoder.Input == Data {
+    private static func executeAndDecode<Item, Decoder>(_ arguments: [String], decoder: Decoder) -> AnyPublisher<Item, CommandLineError> where Item: Decodable, Decoder: TopLevelDecoder, Decoder.Input == Data {
         execute(arguments)
             .decode(type: Item.self, decoder: decoder)
             .mapError({ error -> CommandLineError in

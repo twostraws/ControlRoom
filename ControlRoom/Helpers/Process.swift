@@ -9,8 +9,7 @@
 import Foundation
 
 extension Process {
-    @objc
-    static func execute(_ command: String, arguments: [String]) -> Data? {
+    @objc static func execute(_ command: String, arguments: [String]) -> Data? {
         let task = Process()
         task.launchPath = command
         task.arguments = arguments

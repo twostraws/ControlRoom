@@ -3,5 +3,5 @@ type_name:
 identifier_name:
   min_length: 2
 line_length:
-  warning: 200
+  warning: 220
   error: 250

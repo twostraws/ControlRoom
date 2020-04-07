@@ -88,12 +88,9 @@ struct NotificationEditorView: View {
 }
 
 private struct APSFormView: View {
+    @Binding private var notificationAps: PushNotificationAPS
 
-    @Binding
-    private var notificationAps: PushNotificationAPS
-
-    @State
-    private var selectedTabIndex = 1
+    @State private var selectedTabIndex = 1
 
     init(notificationAps: Binding<PushNotificationAPS>) {
         _notificationAps = notificationAps

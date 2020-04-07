@@ -10,16 +10,25 @@ import SwiftUI
 
 /// Shown when loading the simulator data from simctl has failed.
 struct LoadingFailedView: View {
-
-    let errorMessage: String
+    let title: String
+    let text: String
 
     var body: some View {
-        Text(errorMessage)
+        VStack(spacing: 10) {
+            Text(title)
+                .multilineTextAlignment(.center)
+                .font(.headline)
+                .padding(.horizontal)
+
+            Text(text)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+        }
     }
 }
 
 struct LoadingFailed_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingFailedView(errorMessage: "Lorem ipsum")
+        LoadingFailedView(title: "Lorem ipsum", text: "Dolor sit amet")
     }
 }

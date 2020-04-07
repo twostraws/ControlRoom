@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 struct XcodeCommandLineToolsController {
-
     static func selectedCommandLineTool() -> AnyPublisher<DeveloperTool, Never> {
         Publishers.CombineLatest(SystemProfiler.listDeveloperTools(), XcodeSelect.printPath())
             .replaceError(with: ([], ""))

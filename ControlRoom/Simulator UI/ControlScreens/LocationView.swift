@@ -76,4 +76,3 @@ struct LocationView: View {
             .post(notification)
     }
 }
-

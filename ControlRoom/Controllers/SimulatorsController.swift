@@ -12,7 +12,6 @@ import SwiftUI
 
 /// A centralized class that loads simulator data and handles filtering.
 class SimulatorsController: ObservableObject {
-
     /// Tracks the state of fetching simulator data from simctl.
     enum LoadingStatus {
         /// Loading is in progress

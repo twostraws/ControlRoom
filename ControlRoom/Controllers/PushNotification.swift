@@ -243,6 +243,7 @@ extension PushNotificationAPS {
             case name
             case volume
         }
+
         /**
          The critical alert flag. Set to true to enable the critical alert.
          */

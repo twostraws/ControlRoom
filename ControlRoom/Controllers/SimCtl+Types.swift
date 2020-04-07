@@ -9,7 +9,6 @@
 import Foundation
 
 extension SimCtl {
-
     enum Platform {
         case iOS
         case tvOS
