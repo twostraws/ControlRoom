@@ -35,20 +35,28 @@ struct AboutView: View {
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 64, height: 64)
 
-            Text("Control Room").fontWeight(.bold)
-            Text("Version \(appVersion) (\(appBuild))").font(.caption)
+            Text("Control Room")
+                .fontWeight(.bold)
+
+            Text("Version \(appVersion) (\(appBuild))")
+                .font(.caption)
 
             if authors.isEmpty == false {
-                Text("Built thanks to the contributions of:").font(.caption)
+                Text("Built thanks to the contributions of:")
+                    .font(.caption)
+
                 // contributors
                 CollectionView(authors, horizontalSpacing: 0, horizontalAlignment: .center, verticalSpacing: 0) { author in
-                    Button(action: { self.revealAuthor(author) }, label: {
-                        Text("@" + author.login).font(.caption)
-                    }).buttonStyle(RecessedButtonStyle())
+                    Button("@\(author.login)") {
+                        self.revealAuthor(author)
+                    }
+                    .buttonStyle(RecessedButtonStyle())
                 }
+                .font(.caption)
             }
 
-            Text(copyright).font(.caption)
+            Text(copyright)
+                .font(.caption)
         }.padding(20)
     }
 
