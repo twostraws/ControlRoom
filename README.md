@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+    <img src="https://img.shields.io/badge/macOS-10.15+-blue.svg" />
     <img src="https://img.shields.io/badge/Swift-5.1-brightgreen.svg" />
     <a href="https://twitter.com/twostraws">
         <img src="https://img.shields.io/badge/Contact-@twostraws-lightgrey.svg?style=flat" alt="Twitter: @twostraws" />
@@ -43,7 +44,7 @@ If you spot any errors please open an issue and let us know which macOS and Xcod
 
 ## Credits
 
-Control Room was designed and built by Paul Hudson, and is copyright © Paul Hudson 2020. Control Room is licensed under the MIT license; for the full license please see the LICENSE file.
+Control Room was originally designed and built by Paul Hudson, and is copyright © Paul Hudson 2020. Control Room is licensed under the MIT license; for the full license please see the LICENSE file. Many other folks have contributed features, fixes, and more to make Control Room what it is today.
 
 Control Room is built on top of Apple’s **simctl** command – the team who built that deserve the real credit here.
 
