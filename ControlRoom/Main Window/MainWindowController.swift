@@ -37,7 +37,7 @@ class MainWindowController: NSWindowController {
     override func loadWindow() {
         // Create the window and set the content view.
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 800, height: 300),
+            contentRect: NSRect(x: 0, y: 0, width: 950, height: 600),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.setFrameAutosaveName("Main Window")
