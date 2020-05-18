@@ -60,6 +60,7 @@
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
 		B07F585123F9F83800256D5D /* SimCtl+SubCommandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */; };
 		B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AD5F8323FE32A100A2DC81 /* HLine.swift */; };
+		CDC8A0972472846C00861888 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8A0962472846C00861888 /* ScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommandsTests.swift"; sourceTree = "<group>"; };
 		B07F585223F9F83800256D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0AD5F8323FE32A100A2DC81 /* HLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLine.swift; sourceTree = "<group>"; };
+		CDC8A0962472846C00861888 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
 				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
+				CDC8A0962472846C00861888 /* ScreenView.swift */,
 			);
 			path = ControlScreens;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
 				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
+				CDC8A0972472846C00861888 /* ScreenView.swift in Sources */,
 				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				5534158223FE0539005C0A41 /* Contributors.swift in Sources */,
