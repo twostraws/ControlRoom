@@ -73,6 +73,10 @@ class MainWindowController: NSWindowController {
         UIState.shared.currentSheet = .createSimulator
     }
 
+    @IBAction func deleteUnavailable(_ sender: Any) {
+        UIState.shared.currentAlert = .confirmDeleteUnavailable
+    }
+
 }
 
 extension MainWindowController: NSMenuItemValidation {

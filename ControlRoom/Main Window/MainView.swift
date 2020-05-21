@@ -29,6 +29,7 @@ struct MainView: View {
         }
         .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
         .sheet(item: $uiState.currentSheet, content: sheetView)
+        .alert(item: $uiState.currentAlert, content: alert)
     }
 
     private func sheetView(for sheet: UIState.Sheet) -> some View {
@@ -42,6 +43,17 @@ struct MainView: View {
                 NotificationEditorView()
                     .environmentObject(preferences)
             }
+        }
+    }
+
+    private func alert(for alert: UIState.Alert) -> Alert {
+        if alert == .confirmDeleteUnavailable {
+            let confirmButton = Alert.Button.default(Text("Confirm")) {
+                SimCtl.execute(.delete(.unavailable))
+            }
+            return Alert(title: Text("Are you sure you want to delete all unavailable simulators?"), primaryButton: confirmButton, secondaryButton: .cancel())
+        } else {
+            return Alert(title: Text("Unknown Alert"))
         }
     }
 }

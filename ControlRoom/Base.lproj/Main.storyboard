@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -65,6 +65,11 @@
                                         <menuItem title="New Simulator..." keyEquivalent="n" id="WUk-cr-sBl">
                                             <connections>
                                                 <action selector="newSimulator:" target="Ady-hI-5gd" id="QHt-ra-ClI"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Delete Unavailable Simulators..." keyEquivalent="D" id="tVk-RZ-EV2">
+                                            <connections>
+                                                <action selector="deleteUnavailable:" target="Ady-hI-5gd" id="nEs-s6-Ptr"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
