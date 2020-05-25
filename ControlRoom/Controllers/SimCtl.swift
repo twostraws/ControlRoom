@@ -127,14 +127,6 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.io(deviceId: simulator, operation: .screenshot(type: type, display: display, mask: mask, url: file)))
     }
 
-//    static func recordVideo(_ simulator: String, to file: String, codec: IO.Codec? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil) {
-//        execute(.io(deviceId: simulator, operation: .recordVideo(codec: codec, display: display, mask: mask, force: false, url: file)))
-//    }
-//
-//    static func stopVideo() {
-//        ToDO: interrupt command
-//    }
-
     static func delete(_ simulators: Set<String>) {
         execute(.delete(.devices(Array(simulators))))
     }
