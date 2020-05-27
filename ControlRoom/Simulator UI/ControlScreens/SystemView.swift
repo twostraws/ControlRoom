@@ -90,13 +90,6 @@ struct SystemView: View {
                     }
                 }
 
-                FormSpacer()
-            }
-
-            Group {
-                Section(header: Text("Screen")) {
-                    Button("Take Screenshot", action: takeScreenshot)
-                }
             }
 
             Spacer()
@@ -144,22 +137,9 @@ struct SystemView: View {
         SimCtl.copyPasteboardToSimulator(simulator.udid)
     }
 
-    /// Takes a screenshot of the device's current screen and saves it to the desktop.
-    func takeScreenshot() {
-        SimCtl.saveScreenshot(simulator.udid, to: makeScreenshotFilename())
-    }
-
     /// Erases the current device.
     func eraseDevice() {
         SimCtl.erase(simulator.udid)
-    }
-
-    /// Creates a filename for a screenshot that ought to be unique
-    func makeScreenshotFilename() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y-MM-dd-HH-mm-ss"
-        let dateString = formatter.string(from: Date())
-        return "~/Desktop/ControlRoom-\(dateString).png"
     }
 
     private func locales(for language: String) -> [String] {

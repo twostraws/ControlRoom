@@ -123,8 +123,8 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.pbsync(source: .host, destination: .deviceId(simulator)))
     }
 
-    static func saveScreenshot(_ simulator: String, to file: String) {
-        execute(.io(deviceId: simulator, operation: .screenshot(url: file)))
+    static func saveScreenshot(_ simulator: String, to file: String, type: IO.ImageFormat? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil) {
+        execute(.io(deviceId: simulator, operation: .screenshot(type: type, display: display, mask: mask, url: file)))
     }
 
     static func delete(_ simulators: Set<String>) {

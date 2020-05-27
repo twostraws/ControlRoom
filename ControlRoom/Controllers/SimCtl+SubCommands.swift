@@ -454,6 +454,8 @@ extension SimCtl {
             var arguments: [String] {
                 ["--codec=\(self.rawValue)"]
             }
+
+            static let all = [Self.h264, .hevc]
         }
 
         enum Display: String {
@@ -463,6 +465,8 @@ extension SimCtl {
             var arguments: [String] {
                 ["--display=\(self.rawValue)"]
             }
+
+            static let all: [Self?] = [Self.internal, .external, nil]
         }
 
         enum Mask: String {
@@ -473,6 +477,8 @@ extension SimCtl {
             var arguments: [String] {
                 ["--mask=\(self.rawValue)"]
             }
+
+            static let all: [Self?] = [Self.ignored, .alpha, .black, nil]
         }
 
         enum ImageFormat: String {
@@ -485,6 +491,8 @@ extension SimCtl {
             var arguments: [String] {
                 ["--type=\(self.rawValue)"]
             }
+
+            static let all = [Self.png, .tiff, .bmp, .gif, .jpeg]
         }
     }
 
