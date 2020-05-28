@@ -8,14 +8,15 @@
 
 import SwiftUI
 
-///controlls the Screen
+/// Controls screenshots and videos of the simulator
 struct ScreenView: View {
-    ///private struct to store the local settings for screenshots
+    /// Store the local settings for screenshots
     private struct Screenshot {
         var type: SimCtl.IO.ImageFormat
         var display: SimCtl.IO.Display?
         var mask: SimCtl.IO.Mask?
     }
+
     var simulator: Simulator
 
     @State private var screenshot = Screenshot(type: .png, display: .none, mask: .none)
@@ -25,8 +26,8 @@ struct ScreenView: View {
             Group {
                 Section(header: Text("Screenshot")) {
                     Picker("Format:", selection: self.$screenshot.type) {
-                        ForEach(SimCtl.IO.ImageFormat.all, id: \.self) { type in
-                            Text(type.rawValue).tag(type)
+                        ForEach(SimCtl.IO.ImageFormat.allCases, id: \.self) { type in
+                            Text(type.rawValue.uppercased()).tag(type)
                         }
                     }
 
@@ -49,13 +50,10 @@ struct ScreenView: View {
                     }
 
                     FormSpacer()
-
                 }
-
             }
 
             Spacer()
-
         }.tabItem {
             Text("Screen")
         }
@@ -78,7 +76,6 @@ struct ScreenView: View {
         let dateString = formatter.string(from: Date())
         return "~/Desktop/ControlRoom-\(dateString).\(self.screenshot.type.rawValue)"
     }
-
 }
 
 struct ScreenshotAndRecordingView_Previews: PreviewProvider {

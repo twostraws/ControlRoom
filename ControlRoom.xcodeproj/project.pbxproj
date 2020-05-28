@@ -210,8 +210,8 @@
 				511BA59F23F4197200E3E660 /* NetworkView.swift */,
 				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
 				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
-				511BA59B23F4172400E3E660 /* SystemView.swift */,
 				CDC8A0962472846C00861888 /* ScreenView.swift */,
+				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
 			path = ControlScreens;
 			sourceTree = "<group>";

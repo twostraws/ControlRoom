@@ -481,7 +481,7 @@ extension SimCtl {
             static let all: [Self?] = [Self.ignored, .alpha, .black, nil]
         }
 
-        enum ImageFormat: String {
+        enum ImageFormat: String, CaseIterable {
             case png
             case tiff
             case bmp
@@ -491,8 +491,6 @@ extension SimCtl {
             var arguments: [String] {
                 ["--type=\(self.rawValue)"]
             }
-
-            static let all = [Self.png, .tiff, .bmp, .gif, .jpeg]
         }
     }
 
