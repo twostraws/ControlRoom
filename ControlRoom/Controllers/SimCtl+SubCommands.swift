@@ -446,27 +446,35 @@ extension SimCtl {
                     return ["poll"]
                 case .recordVideo(let codec, let display, let mask, let force, let url):
                     var arguments = [String]()
+                    
                     if let codec = codec {
                         arguments.append(contentsOf: codec.arguments)
                     }
+
                     if let display = display {
                         arguments.append(contentsOf: display.arguments)
                     }
+
                     if let mask = mask {
                         arguments.append(contentsOf: mask.arguments)
                     }
+
                     return ["recordVideo"] + arguments + (force ? ["--force"] : []) + [url]
                 case .screenshot(let type, let display, let mask, let url):
                     var arguments = [String]()
+
                     if let type = type {
                         arguments.append(contentsOf: type.arguments)
                     }
+
                     if let display = display {
                         arguments.append(contentsOf: display.arguments)
                     }
+
                     if let mask = mask {
                         arguments.append(contentsOf: mask.arguments)
                     }
+
                     return ["screenshot"] + arguments + [url]
                 }
             }
@@ -510,7 +518,6 @@ extension SimCtl {
             case png
             case tiff
             case bmp
-            case gif
             case jpeg
 
             var arguments: [String] {
