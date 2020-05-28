@@ -106,85 +106,110 @@ extension SimCtl {
         static func launch(deviceId: String, appBundleId: String, waitForDebugger: Bool = false, output: Launch.Output? = nil) -> Command {
             Command("launch", arguments: [deviceId, appBundleId] + (waitForDebugger ? ["-w"] : []) + (output?.arguments ?? []))
         }
+
         /// Terminate an application by identifier on a device.
         static func terminate(deviceId: String, appBundleId: String) -> Command {
             Command("terminate", arguments: [deviceId, appBundleId])
         }
+
         /// Spawn a process by executing a given executable on a device.
         static func spawn(deviceId: String, pathToExecutable: String, options: [Spawn.Option] = []) -> Command {
             Command("spawn", arguments: options.flatMap { $0.arguments } + [deviceId, pathToExecutable])
         }
+
         /// List available devices, device types, runtimes, or device pairs.
         static func list(filter: List.Filter? = nil, search: List.Search? = nil, flags: [List.Flag] = []) -> Command {
             var arguments: [String] = []
+
             if let filter = filter {
                 arguments.append(contentsOf: filter.arguments)
             }
+
             if let search = search {
                 arguments.append(contentsOf: search.arguments)
             }
+
             return Command("list", arguments: arguments + flags.flatMap { $0.arguments })
         }
+
         /// Show the installed applications.
         static func listApps(deviceId: String, flags: [List.Flag] = []) -> Command {
             Command("listapps", arguments: [deviceId] + flags.flatMap { $0.arguments })
         }
+
         /// Trigger iCloud sync on a device.
         static func icloudSync(deviceId: String) -> Command {
             Command("icloud_sync", arguments: [deviceId])
         }
+
         /// Sync the pasteboard content from one pasteboard to another.
         static func pbsync(source: Pasteboard.Device, destination: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
             Command("pbsync", arguments: source.arguments + destination.arguments + flags.flatMap { $0.arguments })
         }
+
         /// Copy standard input onto the device pasteboard.
         static func pbcopy(device: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
             Command("pbcopy", arguments: device.arguments + flags.flatMap { $0.arguments })
         }
+
         /// Print the contents of the device's pasteboard to standard output.
         static func pbpaste(device: Pasteboard.Device, flags: [Pasteboard.Flag] = []) -> Command {
             Command("pbpaste", arguments: device.arguments + flags.flatMap { $0.arguments })
         }
+
         /// Set up a device IO operation.
         static func io(deviceId: String, operation: IO.Operation) -> Command {
             Command("io", arguments: [deviceId] + operation.arguments)
         }
+
         /// Collect diagnostic information and logs.
         static func diagnose(flags: [Diagnose.Flag]) -> Command {
             Command("diagnose", arguments: flags.flatMap { $0.arguments })
         }
+
         /// enable or disable verbose logging for a device
         static func logverbose(deviceId: String?, isEnabled: Bool = false) -> Command {
-            var arguments: [String] = []
+            var arguments = [String]()
+
             if let deviceId = deviceId {
                 arguments.append(deviceId)
             }
+
             return Command("logverbose", arguments: arguments + [(isEnabled ? "enabled" : "disabled")])
         }
+
         /// Set or clear status bar overrides
         static func statusBar(deviceId: String, operation: StatusBar.Operation) -> Command {
             Command("status_bar", arguments: [deviceId] + operation.arguments)
         }
+
         /// Get or Set UI options
         static func ui(deviceId: String, option: UI.Option) -> Command {
             Command("ui", arguments: [deviceId] + option.arguments)
         }
+
         /// Send a simulated push notification
         static func push(deviceId: String, appBundleId: String? = nil, json: Push.JSON) -> Command {
             var arguments: [String] = [deviceId]
+
             if let appBundleId = appBundleId {
                 arguments.append(appBundleId)
             }
+
             return Command("push", arguments: arguments + json.arguments)
         }
+
         /// Grant, revoke, or reset privacy and permissi Manipulate a device's keychain
         static func privacy(deviceId: String, action: Privacy.Action, service: Privacy.Permission, appBundleId: String? = nil) -> Command {
             var arguments: [String] = [deviceId] + action.arguments + service.arguments
+
             if let appBundleId = appBundleId {
                 arguments.append(appBundleId)
             }
+
             return Command("privacy", arguments: arguments)
         }
+
         /// Manipulate a device's keychain
         static func keychain(deviceId: String, action: Keychain.Action) -> Command {
             Command("keychain", arguments: [deviceId] + action.arguments)
@@ -270,7 +295,7 @@ extension SimCtl {
                 case .consolePTY:
                     return ["--consolePTY"]
                 case .std(outPath: let out, errPath: let err):
-                    var arguments: [String] = []
+                    var arguments = [String]()
                     if let out = out {
                         arguments.append("--stdout=\"\(out)\"")
                     }
@@ -420,7 +445,7 @@ extension SimCtl {
                 case .poll:
                     return ["poll"]
                 case .recordVideo(let codec, let display, let mask, let force, let url):
-                    var arguments: [String] = []
+                    var arguments = [String]()
                     if let codec = codec {
                         arguments.append(contentsOf: codec.arguments)
                     }
@@ -432,7 +457,7 @@ extension SimCtl {
                     }
                     return ["recordVideo"] + arguments + (force ? ["--force"] : []) + [url]
                 case .screenshot(let type, let display, let mask, let url):
-                    var arguments: [String] = []
+                    var arguments = [String]()
                     if let type = type {
                         arguments.append(contentsOf: type.arguments)
                     }
