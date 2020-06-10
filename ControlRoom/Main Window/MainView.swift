@@ -27,7 +27,7 @@ struct MainView: View {
                 LoadingView()
             }
         }
-        .frame(minWidth: 500, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
+        .frame(minWidth: 950, maxWidth: .infinity, minHeight: 600, maxHeight: .infinity)
         .sheet(item: $uiState.currentSheet, content: sheetView)
         .alert(item: $uiState.currentAlert, content: alert)
     }
