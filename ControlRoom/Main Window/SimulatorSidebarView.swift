@@ -79,7 +79,8 @@ struct SimulatorSidebarView: View {
             Image(nsImage: simulator.image)
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
-                .frame(maxWidth: 24)
+                .frame(maxWidth: 24, alignment: .center)
+                .padding(.top, 2)
             Text(simulator.name)
             Spacer()
         }
