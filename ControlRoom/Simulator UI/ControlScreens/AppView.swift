@@ -27,40 +27,49 @@ struct AppView: View {
     /// If true shows the uninstall confirmation alert.
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
 
-    private var isApplicationSelected: Bool {
-        selectedApplication.bundleIdentifier.isNotEmpty
-    }
-
     init(simulator: Simulator, applications: [Application]) {
         self.simulator = simulator
         self.applications = applications
     }
 
     var body: some View {
-        let apps = applications.filter({ $0.type == .user || preferences.shouldShowSystemApps })
+		let apps = applications.filter({ $0.type == .user || preferences.shouldShowSystemApps }).sorted()
+		let selectedApplication = apps.first(where: { $0.bundleIdentifier == preferences.lastBundleID }) ?? .default
+		let isApplicationSelected = selectedApplication.bundleIdentifier.isNotEmpty
 
         return Form {
             Section {
                 HStack {
-                    VStack(alignment: .trailing) {
-                        Picker("Application:", selection: $preferences.lastBundleID) {
-                            ForEach(apps, id: \.bundleIdentifier) { application in
-                                Text(application.bundleIdentifier)
-                                    .tag(application.bundleIdentifier)
-                            }
-                        }
-                        .pickerStyle(PopUpButtonPickerStyle())
-                        HStack {
-                            Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
-                            Button("Open data folder", action: openDataFolder)
-                            Button("Open app bundle", action: openAppBundle)
-                            Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
-                        }
-                        .disabled(!isApplicationSelected)
-                    }
-                    AppSummaryView(application: selectedApplication)
+					Picker("Application:", selection: $preferences.lastBundleID) {
+						ForEach(apps, id: \.bundleIdentifier) { application in
+							HStack {
+								AppIcon(application: application, width: 16)
+								Text(application.displayName)
+									.frame(minWidth: 150, alignment: .leading)
+								Text(application.bundleIdentifier)
+									.font(.caption)
+							}
+							.tag(application.bundleIdentifier)
+						}
+					}
+					.pickerStyle(PopUpButtonPickerStyle())
+					Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
                 }
-            }
+				HStack {
+					AppSummaryView(application: selectedApplication)
+					Spacer()
+					VStack(alignment: .trailing) {
+						HStack {
+							Button("Open data folder", action: openDataFolder)
+								.disabled(selectedApplication.dataFolderURL == nil)
+							Button("Open app bundle", action: openAppBundle)
+								.disabled(selectedApplication.bundleURL == nil)
+						}
+						Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
+							.disabled(selectedApplication.type != .user)
+					}
+				}
+			}
 
             FormSpacer()
 
@@ -82,6 +91,7 @@ struct AppView: View {
                     Button("Open URL", action: openURL)
                 }
             }
+			.disabled(!isApplicationSelected)
 
             FormSpacer()
 
@@ -92,11 +102,10 @@ struct AppView: View {
                 HStack(spacing: 10) {
                     Spacer()
                     Button("Open Notification Editor", action: openNotificationEditor)
-                        .disabled(!isApplicationSelected)
                     Button("Send Push Notification", action: sendPushNotification)
-                        .disabled(!isApplicationSelected)
                 }
             }
+			.disabled(!isApplicationSelected)
 
             Spacer()
 
@@ -165,24 +174,43 @@ struct AppView: View {
     }
 }
 
+private struct AppIcon: View {
+
+	let application: Application
+	let width: CGFloat
+
+    var body: some View {
+		if let icon = application.icon {
+			return AnyView(Image(nsImage: icon)
+				.resizable()
+				.cornerRadius(width / 5)
+				.frame(width: width, height: width)
+			)
+		}
+		return AnyView(Rectangle()
+			.fill(Color.clear)
+			.overlay(
+				RoundedRectangle(cornerRadius: width / 5)
+					.stroke(Color.primary, style: StrokeStyle(lineWidth: 0.5, dash: [width / 20 + 1]))
+			)
+			.frame(width: width, height: width)
+		)
+	}
+}
+
 private struct AppSummaryView: View {
 
     let application: Application
 
     var body: some View {
         HStack {
-            application.imageURLs?.last
-                .flatMap(NSImage.init)
-                .flatMap(Image.init)?
-                .resizable()
-                .cornerRadius(5)
-                .frame(width: 60, height: 60)
-            VStack(alignment: .leading) {
+            AppIcon(application: application, width: 60)
+			VStack(alignment: .leading) {
                 Text(application.displayName)
                     .font(.headline)
-                Text(application.versionNumber)
+				Text(!application.versionNumber.isEmpty ? "Version \(application.versionNumber)" : "")
                     .font(.caption)
-                Text(application.buildNumber)
+				Text(!application.buildNumber.isEmpty ? "Build \(application.buildNumber)" : "")
                     .font(.caption)
             }
         }

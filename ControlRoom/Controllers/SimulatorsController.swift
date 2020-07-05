@@ -190,7 +190,7 @@ class SimulatorsController: ObservableObject {
             let selectedDeviceUDID = selectedSimulatorIDs.first
             else { return }
         SimCtl.listApplications(selectedDeviceUDID)
-            .catch { _ in Empty<SimCtl.ApplicationsList, Never>() }
+            .catch { _ in Just(SimCtl.ApplicationsList()) }
             .map { $0.values.compactMap(Application.init) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.applications, on: self)

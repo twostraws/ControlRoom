@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import AppKit
 
-struct Application: Hashable {
+struct Application: Hashable, Comparable {
     let url: URL?
     let type: ApplicationType?
     let displayName: String
@@ -20,6 +21,10 @@ struct Application: Hashable {
     let bundleURL: URL?
 
     static let `default` = Application()
+
+	static func < (lhs: Application, rhs: Application) -> Bool {
+		lhs.displayName.localizedStandardCompare(rhs.displayName) == .orderedAscending
+	}
 
     private init() {
         url = nil
@@ -46,16 +51,57 @@ struct Application: Hashable {
         versionNumber = plistDictionary?["CFBundleShortVersionString"] as? String ?? ""
         buildNumber = plistDictionary?["CFBundleVersion"] as? String ?? ""
 
-        imageURLs = [Self.fetchIconNames(plistDitionary: plistDictionary),
-                     Self.fetchIconNames(plistDitionary: plistDictionary, platformIdentifier: "~ipad")]
-            .flatMap { $0 }
-            .compactMap { Bundle(url: url)?.urlForImageResource($0) }
+        imageURLs = Self.fetchIconName(plistDitionary: plistDictionary)
+			.sorted(by: >)
+			.compactMap { Bundle(url: url)?.urlForImageResource($0) }
 
         dataFolderURL = URL(string: application.dataFolderPath ?? "")
         bundleURL = URL(string: application.bundlePath)
     }
 
-    private static func fetchIconNames(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
+	var icon: NSImage? {
+		guard let imageURLs = imageURLs else { return nil }
+		for iconURL in imageURLs {
+			if let iconImage = NSImage(contentsOf: iconURL) {
+				return iconImage
+			}
+		}
+		return nil
+	}
+
+    private static func fetchIconName(plistDitionary: NSDictionary?) -> [String] {
+		guard let plistDitionary = plistDitionary else { return [] }
+
+		var iconFilesNames = iconsList(plistDitionary: plistDitionary)
+		if iconFilesNames.isEmpty {
+			iconFilesNames = iconsList(plistDitionary: plistDitionary, platformIdentifier: "~ipad")
+
+			//if empty, check for CFBundleIconFiles (since 3.2)
+			if iconFilesNames.isEmpty, let iconFiles = plistDitionary["CFBundleIconFiles"] as? [String] {
+				iconFilesNames = iconFiles
+			}
+		}
+
+		if !iconFilesNames.isEmpty {
+			//Search some patterns for primary app icon
+			for match in ["76", "60"] {
+				let result = iconFilesNames.filter { $0.contains(match) }
+				if !result.isEmpty {
+					return result
+				}
+			}
+
+			return iconFilesNames
+		}
+
+		//Check for CFBundleIconFile (legacy, before 3.2)
+		if let iconFileName = plistDitionary["CFBundleIconFile"] as? String {
+			return [iconFileName]
+		}
+		return []
+    }
+
+	private static func iconsList(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
         let scaleSuffixes: [String] = ["@2x", "@3x"]
         guard
             let plistDitionary = plistDitionary,
