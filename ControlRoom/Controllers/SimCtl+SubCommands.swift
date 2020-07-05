@@ -446,7 +446,7 @@ extension SimCtl {
                     return ["poll"]
                 case .recordVideo(let codec, let display, let mask, let force, let url):
                     var arguments = [String]()
-                    
+
                     if let codec = codec {
                         arguments.append(contentsOf: codec.arguments)
                     }
