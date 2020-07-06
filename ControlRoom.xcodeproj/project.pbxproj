@@ -16,7 +16,7 @@
 		511BA59223F4031F00E3E660 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59123F4031F00E3E660 /* ControlView.swift */; };
 		511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59523F408F800E3E660 /* LoadingFailedView.swift */; };
 		511BA59823F4096800E3E660 /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59723F4096800E3E660 /* Simulator.swift */; };
-		511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59923F415C800E3E660 /* BatteryView.swift */; };
+		511BA59A23F415C800E3E660 /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59923F415C800E3E660 /* StatusBarView.swift */; };
 		511BA59C23F4172400E3E660 /* SystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59B23F4172400E3E660 /* SystemView.swift */; };
 		511BA5A023F4197200E3E660 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59F23F4197200E3E660 /* NetworkView.swift */; };
 		511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */; };
@@ -86,7 +86,7 @@
 		511BA59123F4031F00E3E660 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		511BA59523F408F800E3E660 /* LoadingFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFailedView.swift; sourceTree = "<group>"; };
 		511BA59723F4096800E3E660 /* Simulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
-		511BA59923F415C800E3E660 /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
+		511BA59923F415C800E3E660 /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		511BA59B23F4172400E3E660 /* SystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemView.swift; sourceTree = "<group>"; };
 		511BA59F23F4197200E3E660 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				511BA5A723F42EE400E3E660 /* AppView.swift */,
-				511BA59923F415C800E3E660 /* BatteryView.swift */,
+				511BA59923F415C800E3E660 /* StatusBarView.swift */,
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59F23F4197200E3E660 /* NetworkView.swift */,
 				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
@@ -528,7 +528,7 @@
 				551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */,
 				511BA5A023F4197200E3E660 /* NetworkView.swift in Sources */,
 				ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */,
-				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
+				511BA59A23F415C800E3E660 /* StatusBarView.swift in Sources */,
 				B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */,
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,

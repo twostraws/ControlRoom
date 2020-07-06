@@ -9,12 +9,11 @@
 import CoreLocation
 import SwiftUI
 
-/// Controls system-wide settings such as time and appearance.
+/// Controls system-wide settings such as appearance.
 struct SystemView: View {
     var simulator: Simulator
 
-    /// The current time to show in the device.
-    @State private var time = Date()
+    @EnvironmentObject var preferences: Preferences
 
     /// The system-wide appearance; "Light" or "Dark".
     @State private var appearance: SimCtl.UI.Appearance = .light
@@ -35,15 +34,6 @@ struct SystemView: View {
 
     var body: some View {
         Form {
-            Group {
-                HStack {
-                    DatePicker("Time:", selection: $time)
-                    Button("Set", action: setTime)
-                }
-
-                FormSpacer()
-            }
-
             Group {
                 Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
                     ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
@@ -90,7 +80,13 @@ struct SystemView: View {
                     }
                 }
 
+				FormSpacer()
             }
+
+			HStack {
+				TextField("URL to open", text: $preferences.lastOpenURL)
+				Button("Open URL", action: openURL)
+			}
 
             Spacer()
 
@@ -103,11 +99,6 @@ struct SystemView: View {
             Text("System")
         }
         .padding()
-    }
-
-    /// Changes the system clock to a new value.
-    func setTime() {
-        SimCtl.overrideStatusBarTime(simulator.udid, time: time)
     }
 
     /// Moves between light and dark mode.
@@ -135,6 +126,11 @@ struct SystemView: View {
     /// Copies the Mac's pasteboard to the simulator.
     func copyPasteboardToSim() {
         SimCtl.copyPasteboardToSimulator(simulator.udid)
+    }
+
+    /// Opens a URL in the appropriate device app.
+    func openURL() {
+        SimCtl.openURL(simulator.udid, URL: preferences.lastOpenURL)
     }
 
     /// Erases the current device.

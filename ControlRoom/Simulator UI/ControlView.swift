@@ -48,9 +48,8 @@ struct ControlView: View {
             TabView {
                 SystemView(simulator: simulator)
                 AppView(simulator: simulator, applications: applications)
-                BatteryView(simulator: simulator)
+                StatusBarView(simulator: simulator)
                 LocationView(controller: controller, simulator: simulator)
-                NetworkView(simulator: simulator)
                 ScreenView(simulator: simulator)
             }
             .disabled(simulator.state != .booted)

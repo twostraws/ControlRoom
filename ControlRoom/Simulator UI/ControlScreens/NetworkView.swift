@@ -28,66 +28,64 @@ struct NetworkView: View {
     /// How many cellular bars the device is showing, as a range from 0 through 4.
     @State private var cellularBar: SimCtl.StatusBar.CellularBars = .four
 
-    var body: some View {
-        Form {
-            Section {
-                TextField("Operator", text: $preferences.carrierName) {
-                    self.updateData()
-                }
+	var body: some View {
+		HStack {
+			Form {
+				Section {
+					TextField("Operator", text: $preferences.carrierName) {
+						self.updateData()
+					}
 
-                Picker("Network type:", selection: $dataNetwork.onChange(updateData)) {
-                    ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
-                        Text(network.displayName)
-                    }
-                }
-                .pickerStyle(PopUpButtonPickerStyle())
-            }
+					Picker("Network type:", selection: $dataNetwork.onChange(updateData)) {
+						ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
+							Text(network.displayName)
+						}
+					}
+					.pickerStyle(PopUpButtonPickerStyle())
+				}
 
-            FormSpacer()
+				FormSpacer()
 
-            Section {
-                Picker("WiFi mode:", selection: $wiFiMode.onChange(updateData)) {
-                    ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
-                        Text(mode.displayName)
-                    }
-                }
-                .pickerStyle(PopUpButtonPickerStyle())
+				Section {
+					Picker("WiFi mode:", selection: $wiFiMode.onChange(updateData)) {
+						ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
+							Text(mode.displayName)
+						}
+					}
+					.pickerStyle(PopUpButtonPickerStyle())
 
-                Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
-                    ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
-                        Image(nsImage: self.nsimage(named: "wifi.\(bars.rawValue)", size: NSSize(width: 19, height: 13.8)))
-                            .tag(bars.rawValue)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
+					Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
+						ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
+							Image(nsImage: self.nsimage(named: "wifi.\(bars.rawValue)", size: NSSize(width: 19, height: 13.8)))
+								.tag(bars.rawValue)
+						}
+					}
+					.pickerStyle(SegmentedPickerStyle())
+				}
 
-            FormSpacer()
+				FormSpacer()
 
-            Section {
-                Picker("Cellular mode:", selection: $cellularMode.onChange(updateData)) {
-                    ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
-                        Text(mode.displayName)
-                    }
-                }
-                .pickerStyle(PopUpButtonPickerStyle())
+				Section {
+					Picker("Cellular mode:", selection: $cellularMode.onChange(updateData)) {
+						ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
+							Text(mode.displayName)
+						}
+					}
+					.pickerStyle(PopUpButtonPickerStyle())
 
-                Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
-                    ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
-                        Image(nsImage: self.nsimage(named: "cell.\(bars.rawValue)", size: NSSize(width: 21, height: 11.4)))
-                            .tag(bars.rawValue)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-
-            Spacer()
-        }
-        .tabItem {
-            Text("Network")
-        }
-        .padding()
-    }
+					Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
+						ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
+							Image(nsImage: self.nsimage(named: "cell.\(bars.rawValue)", size: NSSize(width: 21, height: 11.4)))
+								.tag(bars.rawValue)
+						}
+					}
+					.pickerStyle(SegmentedPickerStyle())
+				}
+			}
+			.frame(width: 350)
+			Spacer()
+		}
+	}
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually.
     func updateData() {
