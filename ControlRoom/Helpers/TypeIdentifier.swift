@@ -34,6 +34,7 @@ struct TypeIdentifier: Hashable {
     private let bundle: Bundle?
     private var iconFile: String? { declaration[kUTTypeIconFileKey as String] as? String }
     private var iconPath: String? { declaration["_LSIconPath"] as? String }
+    private var iconIdentifier: String? { declaration[kUTTypeIdentifierKey as String] as? String }
     private var conformsTo: [TypeIdentifier] {
         let list = (declaration[kUTTypeConformsToKey as String] as? [String]) ?? []
         return list.map(TypeIdentifier.init)
@@ -59,6 +60,10 @@ struct TypeIdentifier: Hashable {
             } else if let iconPath = first.iconPath {
                 let fullPath = (thisBundle.bundlePath as NSString).appendingPathComponent(iconPath)
                 return URL(fileURLWithPath: fullPath)
+            } else if let iconIdentifier = first.iconIdentifier {
+                if let url = thisBundle.url(forResource: iconIdentifier, withExtension: "icns") {
+                    return url
+                }
             }
 
             typesToCheck.append(contentsOf: first.conformsTo)
