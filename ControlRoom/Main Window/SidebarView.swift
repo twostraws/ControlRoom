@@ -87,7 +87,7 @@ struct SidebarView: View {
             if simulators.isEmpty {
                 EmptyView()
             } else {
-                Section(header: Text(family.displayName.uppercased())) {
+                Section(header: Text(family.displayName)) {
                     ForEach(simulators) { simulator in
                         SimulatorSidebarView(simulator: simulator, canShowContextualMenu: canShowContext)
                             .tag(simulator.udid)

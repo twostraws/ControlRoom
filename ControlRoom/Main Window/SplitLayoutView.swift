@@ -13,7 +13,7 @@ struct SplitLayoutView: View {
     @ObservedObject var controller: SimulatorsController
 
     var body: some View {
-        HSplitView {
+        NavigationView {
             SidebarView(controller: controller)
                 .frame(minWidth: 200)
                 .layoutPriority(1)
