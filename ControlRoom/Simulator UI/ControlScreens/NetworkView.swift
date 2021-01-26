@@ -31,9 +31,7 @@ struct NetworkView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Operator", text: $preferences.carrierName) {
-                    self.updateData()
-                }
+                TextField("Operator", text: $preferences.carrierName, onCommit: updateData)
 
                 Picker("Network type:", selection: $dataNetwork.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
