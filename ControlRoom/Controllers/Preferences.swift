@@ -40,7 +40,7 @@ class Preferences: ObservableObject {
     @UserDefault("CRNetwork_CarrierName") var carrierName = "Carrier"
 
     init(defaults: UserDefaults = .standard) {
-        self.userDefaults = defaults
+        userDefaults = defaults
     }
 }
 

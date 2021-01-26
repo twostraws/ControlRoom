@@ -27,7 +27,6 @@ struct XcodeCommandLineToolsController {
 }
 
 private enum XcodeSelect: CommandLineCommandExecuter {
-
     typealias Error = CommandLineError
 
     static var launchPath = "/usr/bin/xcode-select"
@@ -40,7 +39,6 @@ private enum XcodeSelect: CommandLineCommandExecuter {
 }
 
 private extension XcodeSelect {
-
     struct Command: CommandLineCommand {
         let arguments: [String]
 
@@ -56,7 +54,6 @@ private extension XcodeSelect {
 }
 
 private enum SystemProfiler: CommandLineCommandExecuter {
-
     typealias Error = CommandLineError
 
     static var launchPath = "/usr/sbin/system_profiler"
@@ -70,7 +67,6 @@ private enum SystemProfiler: CommandLineCommandExecuter {
 }
 
 private extension SystemProfiler {
-
     struct Command: CommandLineCommand {
         let arguments: [String]
 
@@ -99,7 +95,6 @@ struct DeveloperTool: Decodable, Equatable {
 
 // swiftlint:disable nesting
 extension SystemProfiler {
-
     struct DeveloperToolsList: Decodable {
         private enum CodingKeys: String, CodingKey {
             case list = "SPDeveloperToolsDataType"

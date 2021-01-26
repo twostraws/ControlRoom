@@ -85,27 +85,27 @@ struct SimulatorSidebarView: View {
             Spacer()
         }
         .contextMenu(ContextMenu(shouldDisplay: canShowContextualMenu) {
-            Button("Rename...") { self.action = .rename }
-            Button("Clone...") { self.action = .clone }
+            Button("Rename...") { action = .rename }
+            Button("Clone...") { action = .clone }
                 .disabled(simulator.state == .booted)
-            Button("Delete...") { self.action = .delete }
+            Button("Delete...") { action = .delete }
         })
-        .sheet(item: self.$action) { action in
+        .sheet(item: $action) { action in
             if action == .delete {
-                SimulatorActionSheet(icon: self.simulator.image,
+                SimulatorActionSheet(icon: simulator.image,
                                      message: action.sheetTitle,
                                      informativeText: action.sheetMessage,
                                      confirmationTitle: action.saveActionTitle,
-                                     confirm: { self.performAction(action) })
+                                     confirm: { performAction(action) })
             } else {
-                SimulatorActionSheet(icon: self.simulator.image,
+                SimulatorActionSheet(icon: simulator.image,
                                      message: action.sheetTitle,
                                      informativeText: action.sheetMessage,
                                      confirmationTitle: action.saveActionTitle,
-                                     confirm: { self.performAction(action) },
-                                     canConfirm: self.newName.isNotEmpty,
+                                     confirm: { performAction(action) },
+                                     canConfirm: newName.isNotEmpty,
                                      content: {
-                                        TextField("Name", text: self.$newName)
+                                        TextField("Name", text: $newName)
                 })
             }
         }

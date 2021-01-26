@@ -21,7 +21,7 @@ struct PreferencesView: View {
             }
 
             Button("Done") {
-                self.presentationMode.wrappedValue.dismiss()
+                presentationMode.wrappedValue.dismiss()
             }
         }
         .padding(20)

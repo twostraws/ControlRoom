@@ -48,6 +48,6 @@ struct RecessedButton<Label: View>: View {
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 1, trailing: 6))
             .foregroundColor(fgColor)
             .background(RoundedRectangle(cornerRadius: 4).fill(bgColor).animation(.none))
-            .onHover { self.isHovering = $0 }
+            .onHover { isHovering = $0 }
     }
 }

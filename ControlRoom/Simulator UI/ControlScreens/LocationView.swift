@@ -45,7 +45,7 @@ struct LocationView: View {
 
     /// Updates the simulated location to the value of `currentLocation`.
     func changeLocation() {
-        guard let location = self.currentLocation else { return }
+        guard let location = currentLocation else { return }
 
         let coordinate = location.coordinate
 
@@ -55,7 +55,7 @@ struct LocationView: View {
                 .filter { $0.state == .booted && !$0.isDefault }
                 .map { $0.udid }
         } else {
-            simulatorIds = [self.simulator.id]
+            simulatorIds = [simulator.id]
         }
 
         let userInfo: [AnyHashable: Any] = [

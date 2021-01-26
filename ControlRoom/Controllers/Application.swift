@@ -51,7 +51,7 @@ struct Application: Hashable, Comparable {
         versionNumber = plistDictionary?["CFBundleShortVersionString"] as? String ?? ""
         buildNumber = plistDictionary?["CFBundleVersion"] as? String ?? ""
 
-        imageURLs = Self.fetchIconName(plistDitionary: plistDictionary)
+        imageURLs = Self.fetchIconName(plistDictionary: plistDictionary)
 			.sorted(by: >)
 			.compactMap { Bundle(url: url)?.urlForImageResource($0) }
 
@@ -61,23 +61,26 @@ struct Application: Hashable, Comparable {
 
 	var icon: NSImage? {
 		guard let imageURLs = imageURLs else { return nil }
+
 		for iconURL in imageURLs {
 			if let iconImage = NSImage(contentsOf: iconURL) {
 				return iconImage
 			}
 		}
+
 		return nil
 	}
 
-    private static func fetchIconName(plistDitionary: NSDictionary?) -> [String] {
-		guard let plistDitionary = plistDitionary else { return [] }
+    private static func fetchIconName(plistDictionary: NSDictionary?) -> [String] {
+		guard let plistDictionary = plistDictionary else { return [] }
 
-		var iconFilesNames = iconsList(plistDitionary: plistDitionary)
+		var iconFilesNames = iconsList(plistDictionary: plistDictionary)
+
 		if iconFilesNames.isEmpty {
-			iconFilesNames = iconsList(plistDitionary: plistDitionary, platformIdentifier: "~ipad")
+			iconFilesNames = iconsList(plistDictionary: plistDictionary, platformIdentifier: "~ipad")
 
-			//if empty, check for CFBundleIconFiles (since 3.2)
-			if iconFilesNames.isEmpty, let iconFiles = plistDitionary["CFBundleIconFiles"] as? [String] {
+			// If empty, check for CFBundleIconFiles (since 3.2)
+			if iconFilesNames.isEmpty, let iconFiles = plistDictionary["CFBundleIconFiles"] as? [String] {
 				iconFilesNames = iconFiles
 			}
 		}
@@ -94,18 +97,20 @@ struct Application: Hashable, Comparable {
 			return iconFilesNames
 		}
 
-		//Check for CFBundleIconFile (legacy, before 3.2)
-		if let iconFileName = plistDitionary["CFBundleIconFile"] as? String {
+		// Check for CFBundleIconFile (legacy, before 3.2)
+		if let iconFileName = plistDictionary["CFBundleIconFile"] as? String {
 			return [iconFileName]
 		}
+
 		return []
     }
 
-	private static func iconsList(plistDitionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
+	private static func iconsList(plistDictionary: NSDictionary?, platformIdentifier: String = "") -> [String] {
         let scaleSuffixes: [String] = ["@2x", "@3x"]
+
         guard
-            let plistDitionary = plistDitionary,
-            let iconsDictionary = plistDitionary["CFBundleIcons\(platformIdentifier)"] as? NSDictionary,
+            let plistDictionary = plistDictionary,
+            let iconsDictionary = plistDictionary["CFBundleIcons\(platformIdentifier)"] as? NSDictionary,
             let primaryIconDictionary = iconsDictionary["CFBundlePrimaryIcon"] as? NSDictionary,
             let iconFilesNames = primaryIconDictionary["CFBundleIconFiles"] as? [String]
             else {

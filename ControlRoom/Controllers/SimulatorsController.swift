@@ -93,8 +93,8 @@ class SimulatorsController: ObservableObject {
 
         devices.combineLatest(deviceTypes, runtimes)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: self.finishedLoadingSimulators,
-                  receiveValue: self.handleLoadedInformation)
+            .sink(receiveCompletion: finishedLoadingSimulators,
+                  receiveValue: handleLoadedInformation)
             .store(in: &cancellables)
     }
 

@@ -67,8 +67,8 @@ struct TextView: NSViewRepresentable {
 
         func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
-            self.parent.text = textView.string
-            self.selectedRanges = textView.selectedRanges
+            parent.text = textView.string
+            selectedRanges = textView.selectedRanges
         }
     }
 }

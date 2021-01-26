@@ -58,11 +58,11 @@ struct SimulatorActionSheet<Content: View>: View {
             }
 
             HStack {
-                Button("Cancel", action: self.dismiss)
+                Button("Cancel", action: dismiss)
                 Spacer()
                 Button(confirmationTitle) {
-                    self.confirmationAction()
-                    self.dismiss()
+                    confirmationAction()
+                    dismiss()
                 }
                 .disabled(canConfirm == false)
             }
@@ -73,7 +73,7 @@ struct SimulatorActionSheet<Content: View>: View {
     }
 
     private func dismiss() {
-        self.presentationMode.wrappedValue.dismiss()
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

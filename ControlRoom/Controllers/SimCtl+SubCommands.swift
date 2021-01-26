@@ -335,7 +335,7 @@ extension SimCtl {
             case pairs
 
             var arguments: [String] {
-                return [rawValue]
+                [rawValue]
             }
         }
 
@@ -358,7 +358,7 @@ extension SimCtl {
             case verbose = "-v"
 
             var arguments: [String] {
-                [self.rawValue]
+                [rawValue]
             }
         }
     }
@@ -383,7 +383,7 @@ extension SimCtl {
             case promise = "-p"
 
             var arguments: [String] {
-                [self.rawValue]
+                [rawValue]
             }
         }
     }
@@ -485,7 +485,7 @@ extension SimCtl {
             case hevc
 
             var arguments: [String] {
-                ["--codec=\(self.rawValue)"]
+                ["--codec=\(rawValue)"]
             }
 
             static let all = [Self.h264, .hevc]
@@ -496,7 +496,7 @@ extension SimCtl {
             case external
 
             var arguments: [String] {
-                ["--display=\(self.rawValue)"]
+                ["--display=\(rawValue)"]
             }
 
             static let all: [Self?] = [Self.internal, .external, nil]
@@ -508,7 +508,7 @@ extension SimCtl {
             case black
 
             var arguments: [String] {
-                ["--mask=\(self.rawValue)"]
+                ["--mask=\(rawValue)"]
             }
 
             static let all: [Self?] = [Self.ignored, .alpha, .black, nil]
@@ -521,7 +521,7 @@ extension SimCtl {
             case jpeg
 
             var arguments: [String] {
-                ["--type=\(self.rawValue)"]
+                ["--type=\(rawValue)"]
             }
         }
     }
@@ -697,7 +697,7 @@ extension SimCtl {
             case reset
 
             var arguments: [String] {
-                [self.rawValue]
+                [rawValue]
             }
         }
 
@@ -717,7 +717,7 @@ extension SimCtl {
             case siri
 
             var arguments: [String] {
-                [self.rawValue]
+                [rawValue]
             }
         }
     }

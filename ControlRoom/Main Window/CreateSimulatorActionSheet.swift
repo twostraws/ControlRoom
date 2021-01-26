@@ -38,7 +38,7 @@ struct CreateSimulatorActionSheet: View {
                              message: "Create Simulator",
                              informativeText: "Choose the device type and operating system for the new simulator",
                              confirmationTitle: "Create",
-                             confirm: self.confirm,
+                             confirm: confirm,
                              canConfirm: canCreate,
                              content: {
                                 Form {

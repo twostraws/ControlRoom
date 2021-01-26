@@ -22,7 +22,7 @@ struct MainView: View {
                 LoadingFailedView(title: "Loading failed. You need to use Xcode 11.4+ and install the command line tools.",
                                   text: "If you already have Xcode 11.4+ installed, go to Xcode's Preferences, choose the Locations tab, then make sure Xcode is selected for Command Line Tools.")
             } else if controller.loadingStatus == .success {
-                SplitLayoutView(controller: self.controller)
+                SplitLayoutView(controller: controller)
             } else {
                 LoadingView()
             }
@@ -51,6 +51,7 @@ struct MainView: View {
             let confirmButton = Alert.Button.default(Text("Confirm")) {
                 SimCtl.execute(.delete(.unavailable))
             }
+
             return Alert(title: Text("Are you sure you want to delete all unavailable simulators?"), primaryButton: confirmButton, secondaryButton: .cancel())
         } else {
             return Alert(title: Text("Unknown Alert"))
@@ -60,7 +61,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        let prefs = Preferences()
-        return MainView(controller: SimulatorsController(preferences: prefs))
+        MainView(controller: SimulatorsController(preferences: Preferences()))
     }
 }

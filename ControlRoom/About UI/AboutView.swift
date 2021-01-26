@@ -48,7 +48,7 @@ struct AboutView: View {
                 // contributors
                 CollectionView(authors, horizontalSpacing: 0, horizontalAlignment: .center, verticalSpacing: 0) { author in
                     Button("@\(author.login)") {
-                        self.revealAuthor(author)
+                        revealAuthor(author)
                     }
                     .buttonStyle(RecessedButtonStyle())
                 }

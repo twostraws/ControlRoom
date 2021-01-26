@@ -58,7 +58,7 @@ struct NotificationEditorView: View {
         }
         .padding(20)
         .onAppear {
-            self.notificationAps = self.preferences.pushPayload
+            notificationAps = preferences.pushPayload
                 .data(using: .utf8)
                 .flatMap { try? JSONDecoder().decode(PushNotification.self, from: $0) }?.aps ?? PushNotificationAPS()
             }
@@ -311,7 +311,7 @@ private struct InfoButtonModifier: ViewModifier {
             content
 
             Button("?") {
-                self.shouldShowDescription = true
+                shouldShowDescription = true
             }
         }
         .alert(isPresented: $shouldShowDescription) {

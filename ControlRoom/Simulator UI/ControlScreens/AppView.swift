@@ -65,7 +65,7 @@ struct AppView: View {
 							Button("Open app bundle", action: openAppBundle)
 								.disabled(selectedApplication.bundleURL == nil)
 						}
-						Button("Uninstall App") { self.shouldShowUninstallConfirmationAlert = true }
+						Button("Uninstall App") { shouldShowUninstallConfirmationAlert = true }
 							.disabled(selectedApplication.type != .user)
 					}
 				}
@@ -181,20 +181,19 @@ private struct AppIcon: View {
 
     var body: some View {
 		if let icon = application.icon {
-			return AnyView(Image(nsImage: icon)
+			Image(nsImage: icon)
 				.resizable()
 				.cornerRadius(width / 5)
 				.frame(width: width, height: width)
-			)
-		}
-		return AnyView(Rectangle()
-			.fill(Color.clear)
-			.overlay(
-				RoundedRectangle(cornerRadius: width / 5)
-					.stroke(Color.primary, style: StrokeStyle(lineWidth: 0.5, dash: [width / 20 + 1]))
-			)
-			.frame(width: width, height: width)
-		)
+        } else {
+            Rectangle()
+                .fill(Color.clear)
+                .overlay(
+                    RoundedRectangle(cornerRadius: width / 5)
+                        .stroke(Color.primary, style: StrokeStyle(lineWidth: 0.5, dash: [width / 20 + 1]))
+                )
+                .frame(width: width, height: width)
+        }
 	}
 }
 
@@ -235,7 +234,7 @@ extension SimCtl.Privacy.Permission {
         case .photosAdd:
             return "Photos Add"
         default:
-            return self.rawValue.capitalized
+            return rawValue.capitalized
         }
     }
 }

@@ -161,6 +161,6 @@ struct SystemView_Previews: PreviewProvider {
 
 extension SimCtl.UI.Appearance {
     var displayName: String {
-        self.rawValue.capitalized
+        rawValue.capitalized
     }
 }

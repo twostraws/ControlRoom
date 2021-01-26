@@ -50,7 +50,7 @@ struct BatteryView: View {
     /// Triggered when the user adjusts the battery level.
     func levelChanged(_ isEditing: Bool) {
         if isEditing == false {
-            self.updateBattery()
+            updateBattery()
         }
     }
 }
@@ -63,6 +63,6 @@ struct BatteryView_Previews: PreviewProvider {
 
 extension SimCtl.StatusBar.BatteryState {
     var displayName: String {
-        self.rawValue.capitalized
+        rawValue.capitalized
     }
 }
