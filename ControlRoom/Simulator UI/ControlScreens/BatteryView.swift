@@ -26,7 +26,8 @@ struct BatteryView: View {
                     Text(state.displayName)
                 }
             }
-                    .pickerStyle(RadioGroupPickerStyle())
+            .pickerStyle(RadioGroupPickerStyle())
+
             VStack {
                 Text("Current battery percentage: \(Int(round(batteryLevel)))%")
                 Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {

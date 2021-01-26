@@ -104,6 +104,7 @@ struct PushNotificationAPS: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         isContentAvailable = (try container.decodeIfPresent(Int.self, forKey: .isContentAvailable) == 1 ? true : false)
+
         if !isContentAvailable {
             alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? Alert()
             sound = try container.decodeIfPresent(Sound.self, forKey: .sound) ?? Sound()
@@ -111,6 +112,7 @@ struct PushNotificationAPS: Codable {
                 badge = String(badgeValue)
             }
         }
+
         threadID = try container.decodeIfPresent(String.self, forKey: .threadID) ?? ""
         category = try container.decodeIfPresent(String.self, forKey: .category) ?? ""
         isMutableContent = (try container.decodeIfPresent(Int.self, forKey: .isMutableContent) == 1 ? true : false)
@@ -237,7 +239,6 @@ extension PushNotificationAPS {
 
 extension PushNotificationAPS {
     struct Sound: Codable {
-
         private enum CodingKeys: String, CodingKey {
             case isCritical = "critical"
             case name
@@ -275,6 +276,7 @@ extension PushNotificationAPS {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             isCritical = (try container.decodeIfPresent(Int.self, forKey: .isCritical)) == 1 ? true : false
             name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+
             if isCritical {
                 volume = Double(try container.decodeIfPresent(String.self, forKey: .volume) ?? "") ?? 0
             }

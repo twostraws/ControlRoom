@@ -11,7 +11,6 @@ import Combine
 import SwiftUI
 
 class MainWindowController: NSWindowController {
-
     // Without this, AppKit won't call -loadWindow
     override var windowNibName: NSNib.Name? { "None" }
 
@@ -76,7 +75,6 @@ class MainWindowController: NSWindowController {
     @IBAction func deleteUnavailable(_ sender: Any) {
         UIState.shared.currentAlert = .confirmDeleteUnavailable
     }
-
 }
 
 extension MainWindowController: NSMenuItemValidation {
@@ -92,5 +90,4 @@ extension MainWindowController: NSMenuItemValidation {
 
         return responds(to: menuItem.action)
     }
-
 }

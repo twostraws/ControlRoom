@@ -12,6 +12,7 @@ struct HLine: NSViewRepresentable {
     func makeNSView(context: Context) -> NSBox {
         let hline = NSBox()
         hline.boxType = .separator
+
         return hline
     }
 

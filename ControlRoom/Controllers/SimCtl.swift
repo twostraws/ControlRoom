@@ -13,7 +13,7 @@ import Foundation
 enum SimCtl: CommandLineCommandExecuter {
     typealias Error = CommandLineError
 
-    static var launchPath = "/usr/bin/xcrun"
+    static let launchPath = "/usr/bin/xcrun"
 
     static func watchDeviceList() -> AnyPublisher<DeviceList, SimCtl.Error> {
         if CoreSimulator.canRegisterForSimulatorNotifications {

@@ -11,6 +11,11 @@
 import SwiftUI
 
 struct CollectionView<Items, Content>: View where Items: RandomAccessCollection, Items.Element: Identifiable, Content: View {
+    struct Row: Identifiable {
+        let id: Int
+        var items: [Items.Element]
+    }
+
     @State private var itemSizes = [SizePreference]()
     @State private var width: CGFloat = 0
 
@@ -23,11 +28,6 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
 
     var unsizedItems: [Items.Element] {
         itemSizes.count == items.count ? [] : Array(items)
-    }
-
-    struct Row: Identifiable {
-        let id: Int
-        var items: [Items.Element]
     }
 
     init(_ items: Items, horizontalSpacing: CGFloat = 8, horizontalAlignment: HorizontalAlignment, verticalSpacing: CGFloat = 8, content: @escaping (Items.Element) -> Content) {
@@ -51,8 +51,8 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             GeometryReader { proxy in
-                // this is a phantom view that is used to calculate the item sizes,
-                // once calculated, they disappear from this collection and will be split into `rows` that are used above.
+                // This is a phantom view that is used to calculate the item sizes.
+                // Once calculated, they disappear from this collection and will be split into `rows` that are used above.
                 ZStack {
                     Color.clear.preference(key: SizePreferenceKey.self, value: proxy.size)
 
@@ -62,7 +62,7 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
                 }
                 .onPreferenceChange(SizePreferenceListKey.self) { sizes in
                     if sizes.count == self.items.count {
-                        // wait until all sizes are calculated before assigning itemSizes
+                        // Wait until all sizes are calculated before assigning itemSizes
                         itemSizes = sizes
                     }
                 }
@@ -75,7 +75,7 @@ struct CollectionView<Items, Content>: View where Items: RandomAccessCollection,
 
     func rows(width: CGFloat) -> [Row] {
         guard itemSizes.count == items.count else {
-            // if itemSizes isn't yet set, return a row for each item.
+            // If itemSizes isn't yet set, return a row for each item.
             return items.enumerated().map { index, item in
                 return Row(id: index, items: [item])
             }

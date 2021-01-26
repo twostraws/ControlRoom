@@ -16,11 +16,8 @@ struct SidebarView: View {
     @State private var shouldShowDeleteAlert = false
 
     private var selectedSimulatorsSummary: String {
-        guard
-            controller.selectedSimulators.count > 0
-            else {
-                return ""
-            }
+        guard controller.selectedSimulators.count > 0 else { return "" }
+
         switch controller.selectedSimulators.count {
         case 1:
             return controller.selectedSimulators[0].summary

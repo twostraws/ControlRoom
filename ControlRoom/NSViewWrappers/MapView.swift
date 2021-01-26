@@ -20,14 +20,14 @@ struct MapView: NSViewRepresentable {
     func makeNSView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         context.coordinator.mapView = mapView
+
         let gesture = NSPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(_:)))
         mapView.addGestureRecognizer(gesture)
+
         return mapView
     }
 
-    func updateNSView(_ uiView: MKMapView, context: Context) {
-
-    }
+    func updateNSView(_ uiView: MKMapView, context: Context) { }
 
     class Coordinator: NSObject {
         let binding: Binding<CLLocation?>

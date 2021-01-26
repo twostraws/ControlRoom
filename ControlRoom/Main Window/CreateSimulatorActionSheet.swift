@@ -34,39 +34,41 @@ struct CreateSimulatorActionSheet: View {
     }
 
     var body: some View {
-        SimulatorActionSheet(icon: (deviceType.modelTypeIdentifier ?? .defaultiPhone).icon,
-                             message: "Create Simulator",
-                             informativeText: "Choose the device type and operating system for the new simulator",
-                             confirmationTitle: "Create",
-                             confirm: confirm,
-                             canConfirm: canCreate,
-                             content: {
-                                Form {
-                                    TextField("Name", text: $name)
+        SimulatorActionSheet(
+            icon: (deviceType.modelTypeIdentifier ?? .defaultiPhone).icon,
+            message: "Create Simulator",
+            informativeText: "Choose the device type and operating system for the new simulator",
+            confirmationTitle: "Create",
+            confirm: confirm,
+            canConfirm: canCreate,
+            content: {
+                Form {
+                    TextField("Name", text: $name)
 
-                                    Picker("Device", selection: $deviceType) {
-                                        ForEach(controller.deviceTypes) {
-                                            Text($0.name).tag($0)
-                                        }
-                                    }
+                    Picker("Device", selection: $deviceType) {
+                        ForEach(controller.deviceTypes) {
+                            Text($0.name).tag($0)
+                        }
+                    }
 
-                                    Picker("System", selection: $runtime) {
-                                        ForEach(controller.runtimes) {
-                                            Text($0.name).tag($0)
-                                        }
-                                    }
+                    Picker("System", selection: $runtime) {
+                        ForEach(controller.runtimes) {
+                            Text($0.name).tag($0)
+                        }
+                    }
 
-                                    if let warning = warning {
-                                        HStack(alignment: .top) {
-                                            Image(nsImage: NSImage(named: NSImage.cautionName)!)
-                                                .resizable()
-                                                .aspectRatio(1.0, contentMode: .fit)
-                                                .frame(width: 18)
-                                            Text(warning)
-                                        }
-                                    }
-                                }
-        })
+                    if let warning = warning {
+                        HStack(alignment: .top) {
+                            Image(nsImage: NSImage(named: NSImage.cautionName)!)
+                                .resizable()
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: 18)
+                            Text(warning)
+                        }
+                    }
+                }
+            }
+        )
     }
 
     private func confirm() {

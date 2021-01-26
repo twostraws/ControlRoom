@@ -83,6 +83,7 @@ struct Simulator: Identifiable, Comparable, Hashable {
         self.dataPath = dataPath
 
         let typeIdentifier: TypeIdentifier
+
         if let model = deviceType?.modelTypeIdentifier {
             typeIdentifier = model
         } else if name.contains("iPad") {

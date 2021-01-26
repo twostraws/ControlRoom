@@ -84,6 +84,7 @@ struct UserDefault<Value> {
         }
         set {
             instance.objectWillChange.send()
+
             let wrapper = instance[keyPath: storageKeyPath]
             instance.userDefaults.set(newValue, forKey: wrapper.key)
             instance.objectDidChange.send()
