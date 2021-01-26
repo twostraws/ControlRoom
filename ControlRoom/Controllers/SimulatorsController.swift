@@ -164,6 +164,7 @@ class SimulatorsController: ObservableObject {
         } else {
             filtered = filtered.sorted()
         }
+
         if preferences.showDefaultSimulator {
             filtered = [.default] + filtered
         }
@@ -179,7 +180,7 @@ class SimulatorsController: ObservableObject {
         simulators = filtered
 
         let oldSelection = selectedSimulatorIDs
-        let selectableIDs = Set(filtered.map { $0.udid })
+        let selectableIDs = Set(filtered.map(\.udid))
         let newSelection = oldSelection.intersection(selectableIDs)
 
         selectedSimulatorIDs = newSelection

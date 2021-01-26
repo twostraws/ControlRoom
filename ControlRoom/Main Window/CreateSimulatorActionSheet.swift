@@ -29,7 +29,7 @@ struct CreateSimulatorActionSheet: View {
         let supportedFamilies = runtime.supportedFamilies
         if supportedFamilies.contains(deviceType.family) { return nil }
 
-        let familyList = ListFormatter().string(from: supportedFamilies.map { $0.displayName })!
+        let familyList = ListFormatter().string(from: supportedFamilies.map(\.displayName))!
         return "\(runtime.name) can only be used with \(familyList) devices."
     }
 
@@ -56,13 +56,13 @@ struct CreateSimulatorActionSheet: View {
                                         }
                                     }
 
-                                    if warning != nil {
+                                    if let warning = warning {
                                         HStack(alignment: .top) {
                                             Image(nsImage: NSImage(named: NSImage.cautionName)!)
                                                 .resizable()
                                                 .aspectRatio(1.0, contentMode: .fit)
                                                 .frame(width: 18)
-                                            Text(warning!)
+                                            Text(warning)
                                         }
                                     }
                                 }

@@ -26,7 +26,7 @@ struct SystemView: View {
     private let languages: [String] = {
         NSLocale.isoLanguageCodes
             .filter { NSLocale.current.localizedString(forLanguageCode: $0) != nil }
-            .sorted { (lhs, rhs) -> Bool in
+            .sorted { lhs, rhs in
                 let lhsString = NSLocale.current.localizedString(forLanguageCode: lhs) ?? ""
                 let rhsString = NSLocale.current.localizedString(forLanguageCode: rhs) ?? ""
                 return lhsString.lowercased() < rhsString.lowercased()

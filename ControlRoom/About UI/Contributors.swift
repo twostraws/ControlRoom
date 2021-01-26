@@ -15,7 +15,15 @@ struct Author: Decodable, Identifiable {
     var id: String { login }
 }
 
-private struct Contributor: Decodable {
+private struct Contributor: Decodable, Comparable {
+    static func < (lhs: Contributor, rhs: Contributor) -> Bool {
+        lhs.total < rhs.total
+    }
+
+    static func == (lhs: Contributor, rhs: Contributor) -> Bool {
+        lhs.author.id == rhs.author.id
+    }
+
     let total: Int
     let author: Author
 }
@@ -29,6 +37,6 @@ extension Bundle {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         guard let contributors = try? decoder.decode([Contributor].self, from: rawJSON) else { return [] }
-        return contributors.sorted(by: { $0.total > $1.total }).map { $0.author }
+        return contributors.sorted().reversed().map(\.author)
     }
 }

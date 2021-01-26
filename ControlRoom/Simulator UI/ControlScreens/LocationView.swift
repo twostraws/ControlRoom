@@ -48,12 +48,12 @@ struct LocationView: View {
         guard let location = currentLocation else { return }
 
         let coordinate = location.coordinate
-
         let simulatorIds: [String]
+
         if simulator.isDefault {
             simulatorIds = controller.simulators
                 .filter { $0.state == .booted && !$0.isDefault }
-                .map { $0.udid }
+                .map(\.udid)
         } else {
             simulatorIds = [simulator.id]
         }

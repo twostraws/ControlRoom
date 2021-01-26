@@ -207,9 +207,9 @@ private struct AppSummaryView: View {
 			VStack(alignment: .leading) {
                 Text(application.displayName)
                     .font(.headline)
-				Text(!application.versionNumber.isEmpty ? "Version \(application.versionNumber)" : "")
+				Text(application.versionNumber.isNotEmpty ? "Version \(application.versionNumber)" : "")
                     .font(.caption)
-				Text(!application.buildNumber.isEmpty ? "Build \(application.buildNumber)" : "")
+				Text(application.buildNumber.isNotEmpty ? "Build \(application.buildNumber)" : "")
                     .font(.caption)
             }
         }

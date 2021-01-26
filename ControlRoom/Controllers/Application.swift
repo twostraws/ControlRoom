@@ -85,11 +85,11 @@ struct Application: Hashable, Comparable {
 			}
 		}
 
-		if !iconFilesNames.isEmpty {
+		if iconFilesNames.isNotEmpty {
 			//Search some patterns for primary app icon
 			for match in ["76", "60"] {
 				let result = iconFilesNames.filter { $0.contains(match) }
-				if !result.isEmpty {
+				if result.isNotEmpty {
 					return result
 				}
 			}
