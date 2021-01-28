@@ -98,6 +98,8 @@ struct AppView: View {
 
             VStack {
                 TextEditor(text: $preferences.pushPayload)
+                    .font(.system(.body, design: .monospaced))
+                    .disableAutocorrection(true)
                     .frame(minHeight: 150, maxHeight: .infinity)
 
                 HStack(spacing: 10) {
