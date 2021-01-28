@@ -55,7 +55,7 @@ class SimulatorsController: ObservableObject {
         if selectedSimulatorIDs.contains(Simulator.default.udid) {
             selected.append(Simulator.default)
         }
-        selected.append(contentsOf: allSimulators.filter({ selectedSimulatorIDs.contains($0.udid) }))
+        selected.append(contentsOf: allSimulators.filter { selectedSimulatorIDs.contains($0.udid) })
         return selected
     }
 
@@ -103,8 +103,8 @@ class SimulatorsController: ObservableObject {
                                          _ runtimes: SimCtl.RuntimeList) {
         var final = [Simulator]()
 
-        let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: { $0.identifier }).compactMapValues({ $0.first })
-        let lookupRuntime = Dictionary(grouping: runtimes.runtimes, by: { $0.identifier }).compactMapValues({ $0.first })
+        let lookupDeviceType = Dictionary(grouping: deviceTypes.devicetypes, by: \.identifier).compactMapValues(\.first)
+        let lookupRuntime = Dictionary(grouping: runtimes.runtimes, by: \.identifier).compactMapValues(\.first)
 
         for (runtimeIdentifier, devices) in deviceList.devices {
             let runtime: SimCtl.Runtime?
@@ -190,6 +190,7 @@ class SimulatorsController: ObservableObject {
         guard
             let selectedDeviceUDID = selectedSimulatorIDs.first
             else { return }
+
         SimCtl.listApplications(selectedDeviceUDID)
             .catch { _ in Just(SimCtl.ApplicationsList()) }
             .map { $0.values.compactMap(Application.init) }

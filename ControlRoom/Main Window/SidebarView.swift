@@ -77,7 +77,7 @@ struct SidebarView: View {
     }
 
     private func section(for family: SimCtl.DeviceFamily) -> some View {
-        let simulators = controller.simulators.filter({ $0.deviceFamily == family })
+        let simulators = controller.simulators.filter { $0.deviceFamily == family }
         let canShowContext = controller.selectedSimulatorIDs.count < 2
 
         return Group {

@@ -65,10 +65,11 @@ struct UserDefault<Value> {
     /// In other words, this allows us to get access to "self": the object that holds the property wrapper.
     /// By using this, we can directly access the Preferences's "objectWillChange" publisher, as well
     /// as its stored UserDefaults instance.
-    static subscript(_enclosingInstance instance: Preferences,
-                     wrapped wrappedKeyPath: ReferenceWritableKeyPath<Preferences, Value>,
-                     storage storageKeyPath: ReferenceWritableKeyPath<Preferences, Self>) -> Value {
-
+    static subscript(
+        _enclosingInstance instance: Preferences,
+        wrapped wrappedKeyPath: ReferenceWritableKeyPath<Preferences, Value>,
+        storage storageKeyPath: ReferenceWritableKeyPath<Preferences, Self>
+    ) -> Value {
         get {
             let wrapper = instance[keyPath: storageKeyPath]
 
@@ -82,6 +83,7 @@ struct UserDefault<Value> {
 
             return value
         }
+
         set {
             instance.objectWillChange.send()
 

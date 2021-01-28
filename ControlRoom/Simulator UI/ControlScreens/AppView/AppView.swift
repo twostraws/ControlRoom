@@ -33,7 +33,7 @@ struct AppView: View {
     }
 
     var body: some View {
-		let apps = applications.filter({ $0.type == .user || preferences.shouldShowSystemApps }).sorted()
+		let apps = applications.filter { $0.type == .user || preferences.shouldShowSystemApps }.sorted()
 		let selectedApplication = apps.first(where: { $0.bundleIdentifier == preferences.lastBundleID }) ?? .default
 		let isApplicationSelected = selectedApplication.bundleIdentifier.isNotEmpty
 

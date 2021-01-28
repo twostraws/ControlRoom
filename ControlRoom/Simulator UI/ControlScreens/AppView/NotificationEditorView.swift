@@ -52,8 +52,8 @@ struct NotificationEditorView: View {
             }
 
             HStack(spacing: 10) {
-                Button(action: discardNotificationJson, label: { Text("Discard") })
-                Button(action: saveNotificationJson, label: { Text("Save") })
+                Button("Discard", action: discardNotificationJson)
+                Button("Save", action: saveNotificationJson)
             }
             .alert(isPresented: $shouldDismissConfirmationAlert) {
                 Alert(title: Text("Are you sure you want to discard the changes?"),

@@ -13,38 +13,6 @@ struct SimulatorSidebarView: View {
     let simulator: Simulator
     let canShowContextualMenu: Bool
 
-    enum Action: Int, Identifiable {
-        case rename
-        case clone
-        case delete
-
-        var id: Int { rawValue }
-
-        var sheetTitle: String {
-            switch self {
-            case .rename: return "Rename Simulator"
-            case .clone: return "Clone Simulator"
-            case .delete: return "Delete Simulator"
-            }
-        }
-
-        var sheetMessage: String {
-            switch self {
-            case .rename: return "Enter a new name for this simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify."
-            case .clone: return "Enter a name for the new simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify."
-            case .delete: return "Are you sure you want to delete this simulator? You will not be able to undo this action."
-            }
-        }
-
-        var saveActionTitle: String {
-            switch self {
-            case .rename: return "Rename"
-            case .clone: return "Clone"
-            case .delete: return "Delete"
-            }
-        }
-    }
-
     @State private var action: Action?
     @State private var newName: String
 
@@ -64,10 +32,14 @@ struct SimulatorSidebarView: View {
         let name: NSImage.Name
 
         switch simulator.state {
-        case .booting: name = NSImage.statusPartiallyAvailableName
-        case .shuttingDown: name = NSImage.statusPartiallyAvailableName
-        case .booted: name = NSImage.statusAvailableName
-        default: name = NSImage.statusNoneName
+        case .booting:
+            name = NSImage.statusPartiallyAvailableName
+        case .shuttingDown:
+            name = NSImage.statusPartiallyAvailableName
+        case .booted:
+            name = NSImage.statusAvailableName
+        default:
+            name = NSImage.statusNoneName
         }
 
         return NSImage(named: name)!
@@ -94,21 +66,25 @@ struct SimulatorSidebarView: View {
         )
         .sheet(item: $action) { action in
             if action == .delete {
-                SimulatorActionSheet(icon: simulator.image,
-                                     message: action.sheetTitle,
-                                     informativeText: action.sheetMessage,
-                                     confirmationTitle: action.saveActionTitle,
-                                     confirm: { performAction(action) })
+                SimulatorActionSheet(
+                    icon: simulator.image,
+                    message: action.sheetTitle,
+                    informativeText: action.sheetMessage,
+                    confirmationTitle: action.saveActionTitle,
+                    confirm: { performAction(action) }
+                )
             } else {
-                SimulatorActionSheet(icon: simulator.image,
-                                     message: action.sheetTitle,
-                                     informativeText: action.sheetMessage,
-                                     confirmationTitle: action.saveActionTitle,
-                                     confirm: { performAction(action) },
-                                     canConfirm: newName.isNotEmpty,
-                                     content: {
-                                        TextField("Name", text: $newName)
-                })
+                SimulatorActionSheet(
+                    icon: simulator.image,
+                    message: action.sheetTitle,
+                    informativeText: action.sheetMessage,
+                    confirmationTitle: action.saveActionTitle,
+                    confirm: { performAction(action) },
+                    canConfirm: newName.isNotEmpty,
+                    content: {
+                        TextField("Name", text: $newName)
+                    }
+                )
             }
         }
     }
