@@ -17,7 +17,7 @@ struct BatteryView: View {
     /// Note: "Charged" looks the same as "Discharging", so it's not included in this screen.
     @State private var batteryState: SimCtl.StatusBar.BatteryState = .charging
 
-    var simulator: Simulator
+    let simulator: Simulator
 
     var body: some View {
         Form {

@@ -11,7 +11,7 @@ import SwiftUI
 /// Controls WiFi and cellular data state for the whole device.
 struct NetworkView: View {
     @EnvironmentObject var preferences: Preferences
-    var simulator: Simulator
+    let simulator: Simulator
 
     /// The active data network; can be one of "WiFi", "3G", "4G", "LTE", "LTE-A", or "LTE+".
     @State private var dataNetwork: SimCtl.StatusBar.DataNetwork = .wifi

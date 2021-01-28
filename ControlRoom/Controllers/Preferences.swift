@@ -16,7 +16,9 @@ class Preferences: ObservableObject {
 
     let userDefaults: UserDefaults
 
+    @UserDefault("CRWantsMenuBarIcon") var wantsMenuBarIcon = true
     @UserDefault("CRWantsFloatingWindow") var wantsFloatingWindow = false
+    @UserDefault("CRLastSimulatorUDID") var lastSimulatorUDID = "booted"
 
     @UserDefault("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
     @UserDefault("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false

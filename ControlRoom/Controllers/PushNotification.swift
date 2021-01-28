@@ -114,6 +114,7 @@ struct PushNotificationAPS: Codable {
         if !isContentAvailable {
             alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? Alert()
             sound = try container.decodeIfPresent(Sound.self, forKey: .sound) ?? Sound()
+
             if let badgeValue = try container.decodeIfPresent(Int.self, forKey: .badge) {
                 badge = String(badgeValue)
             }
@@ -222,6 +223,7 @@ extension PushNotificationAPS {
                 try container.encodeIfNotEmpty(subtitle, forKey: .subtitle)
                 try container.encodeIfNotEmpty(body, forKey: .body)
             }
+
             try container.encodeIfNotEmpty(launchImage, forKey: .launchImage)
         }
 

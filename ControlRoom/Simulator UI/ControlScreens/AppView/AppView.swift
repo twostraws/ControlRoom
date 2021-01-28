@@ -12,8 +12,8 @@ import SwiftUI
 struct AppView: View {
     @EnvironmentObject var preferences: Preferences
 
-    var simulator: Simulator
-    var applications: [Application]
+    let simulator: Simulator
+    let applications: [Application]
 
     /// The selected application we want to manipulate.
     private var selectedApplication: Application {
@@ -156,6 +156,9 @@ struct AppView: View {
 
     /// Sends a JSON string to the device as push notification,
     func sendPushNotification() {
+        // stash this away so our menu bar button to resend last push works
+        preferences.lastSimulatorUDID = simulator.udid
+
         SimCtl.sendPushNotification(simulator.udid, appID: preferences.lastBundleID, jsonPayload: preferences.pushPayload)
     }
 

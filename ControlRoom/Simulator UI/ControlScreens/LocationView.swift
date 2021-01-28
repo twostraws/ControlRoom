@@ -11,9 +11,8 @@ import SwiftUI
 
 /// Map view to change simulated user's position
 struct LocationView: View {
-
     @ObservedObject var controller: SimulatorsController
-    var simulator: Simulator
+    let simulator: Simulator
 
     /// The location that is being simulated
     @State private var currentLocation = MKCoordinateRegion(

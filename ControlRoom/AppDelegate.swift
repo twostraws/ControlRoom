@@ -11,11 +11,16 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     lazy var mainWindow: MainWindowController = MainWindowController()
+
+    var menuBarItem: NSStatusItem!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         mainWindow.showWindow(self)
+
+        if mainWindow.preferences.wantsMenuBarIcon {
+            addMenuBarItem()
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -40,4 +45,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    func addMenuBarItem() {
+        menuBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        menuBarItem.button?.image = NSImage(named: NSImage.smartBadgeTemplateName)
+        menuBarItem.menu = NSMenu()
+
+        let resend = NSMenuItem(title: "Resend last push notification", action: #selector(resendLastPushNotification), keyEquivalent: "")
+        menuBarItem.menu?.addItem(resend)
+    }
+
+    func removeMenuBarItem() {
+        guard menuBarItem != nil else { return }
+        NSStatusBar.system.removeStatusItem(menuBarItem)
+    }
+
+    @objc func resendLastPushNotification(_ sender: NSMenuItem) {
+        SimCtl.sendPushNotification(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID, jsonPayload: mainWindow.preferences.pushPayload)
+    }
 }

@@ -12,7 +12,7 @@ import SwiftUI
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
     @EnvironmentObject var preferences: Preferences
-    var simulator: Simulator
+    let simulator: Simulator
 
     /// The current time to show in the device.
     @State private var time = Date()

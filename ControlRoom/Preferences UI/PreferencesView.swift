@@ -14,17 +14,34 @@ struct PreferencesView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Main Window")) {
+            Section(header: Text("Preferences")) {
+                Toggle("Show icon in menu bar", isOn: $preferences.wantsMenuBarIcon)
                 Toggle("Keep window on top", isOn: $preferences.wantsFloatingWindow)
                 Toggle("Show Default simulator", isOn: $preferences.showDefaultSimulator)
                 Toggle("Show booted devices first", isOn: $preferences.showBootedDevicesFirst)
             }
 
-            Button("Done") {
-                presentationMode.wrappedValue.dismiss()
+            Spacer()
+                .frame(height: 30)
+
+            HStack {
+                Spacer()
+
+                Button("Done") {
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }
         .padding(20)
+        .onChange(of: preferences.wantsMenuBarIcon) { newValue in
+            guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+
+            if newValue {
+                appDelegate.addMenuBarItem()
+            } else {
+                appDelegate.removeMenuBarItem()
+            }
+        }
     }
 }
 
