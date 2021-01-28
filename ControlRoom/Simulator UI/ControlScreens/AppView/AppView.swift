@@ -60,8 +60,15 @@ struct AppView: View {
                             Button("Open app bundle", action: openAppBundle)
                                 .disabled(selectedApplication.bundleURL == nil)
                         }
-                        Button("Uninstall App") { shouldShowUninstallConfirmationAlert = true }
-                            .disabled(selectedApplication.type != .user)
+
+                        HStack {
+                            Button("Clear Restoration State", action: clearRestorationState)
+                                .disabled(selectedApplication.dataFolderURL == nil)
+                                .help("Removes any saved state restoration data, such as @SceneStorage properties used by the app.")
+
+                            Button("Uninstall App", action: confirmDeleteApp)
+                                .disabled(selectedApplication.type != .user)
+                        }
                     }
                 }
             }
@@ -130,6 +137,21 @@ struct AppView: View {
             let infoPropertyListURL = selectedApplication.bundleURL?.appendingPathComponent("Info.plist")
         else { return }
         NSWorkspace.shared.activateFileViewerSelecting([infoPropertyListURL])
+    }
+
+    /// Removes this app's state restoration data
+    func clearRestorationState() {
+        guard let dataFolderURL = selectedApplication.dataFolderURL else { return }
+
+        let library = dataFolderURL.appendingPathComponent("Library")
+        let savedAppState = library.appendingPathComponent("Saved Application State")
+
+        try? FileManager.default.removeItem(at: savedAppState)
+    }
+
+    /// Shows a confirmation alert asking the user if they are sure they want to delete the selected app.
+    func confirmDeleteApp() {
+        shouldShowUninstallConfirmationAlert = true
     }
 
     /// Open the notification editor
