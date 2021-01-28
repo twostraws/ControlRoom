@@ -11,32 +11,32 @@ import SwiftUI
 /// Controls features relating to one specific app.
 struct AppView: View {
     @EnvironmentObject var preferences: Preferences
-    
+
     var simulator: Simulator
     var applications: [Application]
-    
+
     /// The selected application we want to manipulate.
     private var selectedApplication: Application {
         applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
             ?? .default
     }
-    
+
     /// The current permission option the user has selected to grant, reset, or revoke.
     @State private var resetPermission: SimCtl.Privacy.Permission = .all
-    
+
     /// If true shows the uninstall confirmation alert.
     @State private var shouldShowUninstallConfirmationAlert: Bool = false
-    
+
     init(simulator: Simulator, applications: [Application]) {
         self.simulator = simulator
         self.applications = applications
     }
-    
+
     var body: some View {
         let apps = applications.filter { $0.type == .user || preferences.shouldShowSystemApps }.sorted()
         let selectedApplication = apps.first(where: { $0.bundleIdentifier == preferences.lastBundleID }) ?? .default
         let isApplicationSelected = selectedApplication.bundleIdentifier.isNotEmpty
-        
+
         return Form {
             Section {
                 HStack {
@@ -49,7 +49,7 @@ struct AppView: View {
                     .pickerStyle(PopUpButtonPickerStyle())
                     Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
                 }
-                
+
                 HStack {
                     AppSummaryView(application: selectedApplication)
                     Spacer()
@@ -65,9 +65,9 @@ struct AppView: View {
                     }
                 }
             }
-            
+
             FormSpacer()
-            
+
             Section {
                 HStack {
                     Picker("Permissions:", selection: $resetPermission) {
@@ -75,27 +75,27 @@ struct AppView: View {
                             Text($0.displayName)
                         }
                     }
-                    
+
                     Button("Grant", action: grantPrivacy)
                     Button("Revoke", action: revokePrivacy)
                     Button("Reset", action: resetPrivacy)
                 }
-                
+
                 HStack {
                     TextField("URL to open", text: $preferences.lastOpenURL)
                     Button("Open URL", action: openURL)
                 }
             }
             .disabled(!isApplicationSelected)
-            
+
             FormSpacer()
-            
+
             VStack {
                 TextView(text: $preferences.pushPayload)
                     .font(.system(.body, design: .monospaced))
                     .disableAutocorrection(true)
                     .frame(minHeight: 150, maxHeight: .infinity)
-                
+
                 HStack(spacing: 10) {
                     Spacer()
                     Button("Open Notification Editor", action: openNotificationEditor)
@@ -103,9 +103,8 @@ struct AppView: View {
                 }
             }
             .disabled(!isApplicationSelected)
-            
+
             Spacer()
-            
         }
         .tabItem {
             Text("App")
@@ -118,13 +117,13 @@ struct AppView: View {
                   secondaryButton: .default(Text("Cancel")))
         }
     }
-    
+
     /// Reveals the app's container directory in Finder.
     func openDataFolder() {
         guard let dataFolderURL = selectedApplication.dataFolderURL else { return }
         NSWorkspace.shared.activateFileViewerSelecting([dataFolderURL])
     }
-    
+
     /// Reveals the app's bundle directory in Finder.
     func openAppBundle() {
         guard
@@ -132,37 +131,37 @@ struct AppView: View {
         else { return }
         NSWorkspace.shared.activateFileViewerSelecting([infoPropertyListURL])
     }
-    
+
     /// Open the notification editor
     func openNotificationEditor() {
         UIState.shared.currentSheet = .notificationEditor
     }
-    
+
     /// Sends a JSON string to the device as push notification,
     func sendPushNotification() {
         SimCtl.sendPushNotification(simulator.udid, appID: preferences.lastBundleID, jsonPayload: preferences.pushPayload)
     }
-    
+
     /// Removes the identified app from the device.
     func uninstallApp() {
         SimCtl.uninstall(simulator.udid, appID: selectedApplication.bundleIdentifier)
     }
-    
+
     /// Opens a URL in the appropriate device app.
     func openURL() {
         SimCtl.openURL(simulator.udid, URL: preferences.lastOpenURL)
     }
-    
+
     /// Grants some type of permission to the app.
     func grantPrivacy() {
         SimCtl.grantPermission(simulator.udid, appID: selectedApplication.bundleIdentifier, permission: resetPermission)
     }
-    
+
     /// Revokes some type of permission from the app.
     func revokePrivacy() {
         SimCtl.revokePermission(simulator.udid, appID: selectedApplication.bundleIdentifier, permission: resetPermission)
     }
-    
+
     /// Resets some type of permission to the app, so it will be asked for again.
     func resetPrivacy() {
         SimCtl.resetPermission(simulator.udid, appID: selectedApplication.bundleIdentifier, permission: resetPermission)

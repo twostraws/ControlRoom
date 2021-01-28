@@ -45,7 +45,7 @@ struct ScreenView: View {
                         }
                     }
 
-                    Button("Take Screenshot", action: takeScrenshot)
+                    Button("Take Screenshot", action: takeScreenshot)
 
                     FormSpacer()
                 }
@@ -59,7 +59,7 @@ struct ScreenView: View {
     }
 
     /// Takes a screenshot of the device's current screen and saves it to the desktop.
-    func takeScrenshot() {
+    func takeScreenshot() {
         SimCtl.saveScreenshot(simulator.id, to: makeScreenshotFilename(), type: screenshot.type, display: screenshot.display, with: screenshot.mask)
     }
 
