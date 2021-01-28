@@ -41,6 +41,11 @@ struct PreferencesView: View {
                     Text("Restart last selected app")
                     KeyboardShortcuts.Recorder(for: .restartLastSelectedApp)
                 }
+
+                HStack {
+                    Text("Reopen last URL")
+                    KeyboardShortcuts.Recorder(for: .reopenLastURL)
+                }
             }
 
             Spacer()

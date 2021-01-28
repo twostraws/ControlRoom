@@ -30,6 +30,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         KeyboardShortcuts.onKeyUp(for: .restartLastSelectedApp) { [weak self] in
             self?.restartLastSelectedApp()
         }
+
+        KeyboardShortcuts.onKeyUp(for: .reopenLastURL) { [weak self] in
+            self?.reopenLastURL()
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -66,6 +70,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let restart = NSMenuItem(title: "Restart last selected app", action: #selector(restartLastSelectedApp), keyEquivalent: "")
         restart.setShortcut(for: .restartLastSelectedApp)
         menuBarItem.menu?.addItem(restart)
+
+        let reopen = NSMenuItem(title: "Reopen last URL", action: #selector(reopenLastURL), keyEquivalent: "")
+        reopen.setShortcut(for: .reopenLastURL)
+        menuBarItem.menu?.addItem(reopen)
     }
 
     func removeMenuBarItem() {
@@ -79,5 +87,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func restartLastSelectedApp() {
         SimCtl.restart(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID)
+    }
+
+    @objc func reopenLastURL() {
+        SimCtl.openURL(mainWindow.preferences.lastSimulatorUDID, URL: mainWindow.preferences.lastOpenURL)
     }
 }
