@@ -7,7 +7,12 @@
 //
 
 import Combine
+import KeyboardShortcuts
 import SwiftUI
+
+extension KeyboardShortcuts.Name {
+    static let resendLastPushNotification = Self("resendLastPushNotification", default: .init(.p, modifiers: [.control, .option, .command]))
+}
 
 class Preferences: ObservableObject {
     /// For parts of the app that want to observe a particular value directly,

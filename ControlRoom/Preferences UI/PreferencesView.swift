@@ -6,6 +6,7 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
+import KeyboardShortcuts
 import SwiftUI
 
 struct PreferencesView: View {
@@ -14,11 +15,27 @@ struct PreferencesView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Preferences")) {
-                Toggle("Show icon in menu bar", isOn: $preferences.wantsMenuBarIcon)
+            Section(header: Text("Main Window").font(.headline)) {
                 Toggle("Keep window on top", isOn: $preferences.wantsFloatingWindow)
                 Toggle("Show Default simulator", isOn: $preferences.showDefaultSimulator)
                 Toggle("Show booted devices first", isOn: $preferences.showBootedDevicesFirst)
+            }
+
+            Spacer()
+                .frame(height: 30)
+
+            Section(header: Text("Menu Bar").font(.headline)) {
+                Toggle("Show icon in menu bar", isOn: $preferences.wantsMenuBarIcon)
+            }
+
+            Spacer()
+                .frame(height: 30)
+
+            Section(header: Text("Keyboard shortcuts").font(.headline)) {
+                HStack {
+                    Text("Resend last push notification")
+                    KeyboardShortcuts.Recorder(for: .resendLastPushNotification)
+                }
             }
 
             Spacer()

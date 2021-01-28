@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import KeyboardShortcuts
 import SwiftUI
 
 @NSApplicationMain
@@ -20,6 +21,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         if mainWindow.preferences.wantsMenuBarIcon {
             addMenuBarItem()
+        }
+
+        KeyboardShortcuts.onKeyUp(for: .resendLastPushNotification) { [weak self] in
+            self?.resendLastPushNotification()
         }
     }
 
@@ -51,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menuBarItem.menu = NSMenu()
 
         let resend = NSMenuItem(title: "Resend last push notification", action: #selector(resendLastPushNotification), keyEquivalent: "")
+        resend.setShortcut(for: .resendLastPushNotification)
         menuBarItem.menu?.addItem(resend)
     }
 
@@ -59,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSStatusBar.system.removeStatusItem(menuBarItem)
     }
 
-    @objc func resendLastPushNotification(_ sender: NSMenuItem) {
+    @objc func resendLastPushNotification() {
         SimCtl.sendPushNotification(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID, jsonPayload: mainWindow.preferences.pushPayload)
     }
 }
