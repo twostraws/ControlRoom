@@ -39,41 +39,9 @@ struct TypeIdentifier: Hashable {
         return list.map(TypeIdentifier.init)
     }
 
-    /// Iterates through this type identifier and all identifiers to which it conforms, looking for one that defines an icon
-    private var iconURL: URL? {
-        var typesToCheck = [self]
-        var checked = Set<TypeIdentifier>()
-
-        while typesToCheck.isNotEmpty {
-            let first = typesToCheck.removeFirst()
-            guard checked.contains(first) == false else { continue }
-            checked.insert(first)
-
-            guard let thisBundle = first.bundle else { continue }
-
-            if let iconName = first.iconFile {
-                if let url = thisBundle.url(forResource: iconName, withExtension: nil) ??
-                    thisBundle.url(forResource: iconName, withExtension: "icns") {
-                    return url
-                }
-            } else if let iconPath = first.iconPath {
-                let fullPath = (thisBundle.bundlePath as NSString).appendingPathComponent(iconPath)
-                return URL(fileURLWithPath: fullPath)
-            }
-
-            typesToCheck.append(contentsOf: first.conformsTo)
-        }
-
-        return nil
-    }
-
     /// Constructs an icon for this type identifier, as defined by its declaration
     var icon: NSImage {
-        if let iconURL = iconURL {
-            return NSImage(byReferencing: iconURL)
-        }
-
-        return NSWorkspace.shared.icon(forFileType: "'ques'")
+        NSWorkspace.shared.icon(forFileType: rawValue)
     }
 
     func hash(into hasher: inout Hasher) {
