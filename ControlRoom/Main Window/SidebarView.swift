@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-/// Shows the list of available simulators.
+/// Shows the list of available simulators, allowing selection, filtering, and deletion.
 struct SidebarView: View {
     @EnvironmentObject var preferences: Preferences
     @ObservedObject var controller: SimulatorsController
@@ -28,50 +28,50 @@ struct SidebarView: View {
     }
 
     var body: some View {
-        GeometryReader { _ in
-            VStack(spacing: 0) {
-                List(selection: $controller.selectedSimulatorIDs) {
-                    if controller.simulators.isEmpty {
-                        Text("No simulators")
-                    } else {
-                        ForEach(SimCtl.DeviceFamily.allCases, id: \.self) { platform in
-                            section(for: platform)
-                        }
+        VStack(spacing: 0) {
+            List(selection: $controller.selectedSimulatorIDs) {
+                if controller.simulators.isEmpty {
+                    Text("No simulators")
+                } else {
+                    ForEach(SimCtl.DeviceFamily.allCases, id: \.self, content: section)
+                }
+            }
+            .contextMenu {
+                if controller.selectedSimulatorIDs.isNotEmpty {
+                    Button("Delete...") {
+                        shouldShowDeleteAlert = true
                     }
                 }
-                .contextMenu {
-                    if controller.selectedSimulatorIDs.count > 0 {
-                        Button("Delete...") {
-                            shouldShowDeleteAlert = true
-                        }
-                    }
-                }
-                .listStyle(SidebarListStyle())
+            }
+            .listStyle(SidebarListStyle())
 
-                Divider()
+            Divider()
 
-                HStack(spacing: 4) {
-                    Button(action: { preferences.shouldShowOnlyActiveDevices.toggle() }, label: {
-                        Image("power")
+            HStack(spacing: 4) {
+                Button {
+                    preferences.shouldShowOnlyActiveDevices.toggle()
+                } label: {
+                    Image("power")
                         .resizable()
                         .foregroundColor(preferences.shouldShowOnlyActiveDevices ? .accentColor : .secondary)
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 16)
                         .padding(.horizontal, 2)
-                    })
-                    .buttonStyle(BorderlessButtonStyle())
-                    .padding(.leading, 3)
-                    FilterField("Filter", text: $preferences.filterText)
                 }
-                .padding(2)
-                .sheet(isPresented: $shouldShowDeleteAlert) {
-                    SimulatorActionSheet(icon: controller.selectedSimulators[0].image,
-                                         message: "Delete Simulators?",
-                                         informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
-                                         confirmationTitle: "Delete",
-                                         confirm: deleteSelectedSimulators,
-                                         content: { EmptyView() })
-                }
+                .buttonStyle(BorderlessButtonStyle())
+                .padding(.leading, 3)
+
+                FilterField("Filter", text: $preferences.filterText)
+            }
+            .padding(2)
+            .sheet(isPresented: $shouldShowDeleteAlert) {
+                SimulatorActionSheet(icon: controller.selectedSimulators[0].image,
+                                     message: "Delete Simulators?",
+                                     informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
+                                     confirmationTitle: "Delete",
+                                     confirm: deleteSelectedSimulators,
+                                     content: { EmptyView() }
+                )
             }
         }
     }
@@ -96,7 +96,7 @@ struct SidebarView: View {
 
     /// Deletes all simulators that are currently selected.
     func deleteSelectedSimulators() {
-        guard controller.selectedSimulatorIDs.count > 0 else { return }
+        guard controller.selectedSimulatorIDs.isNotEmpty else { return }
         SimCtl.delete(controller.selectedSimulatorIDs)
     }
 }
