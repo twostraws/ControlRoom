@@ -36,10 +36,16 @@ struct LocationView: View {
 
     var body: some View {
         Form {
-            Text("Long press to set desired user position, then activate it in the simulator with the bottom button")
+            Text("Move the map wherever you want, then click Activate to update the simulator to match your centered coordinate.")
 
-            Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
-                MapPin(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+            ZStack {
+                Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
+                    MapPin(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                }
+
+                Circle()
+                    .stroke(Color.blue, lineWidth: 4)
+                    .frame(width: 20)
             }
             .padding(.bottom, 10)
 
