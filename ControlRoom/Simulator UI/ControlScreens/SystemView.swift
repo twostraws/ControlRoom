@@ -39,6 +39,7 @@ struct SystemView: View {
                 HStack {
                     DatePicker("Time:", selection: $time)
                     Button("Set", action: setTime)
+                    Button("Set to 9:41", action: setAppleTime)
                 }
 
                 FormSpacer()
@@ -108,6 +109,17 @@ struct SystemView: View {
     /// Changes the system clock to a new value.
     func setTime() {
         SimCtl.overrideStatusBarTime(simulator.udid, time: time)
+    }
+
+    func setAppleTime() {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: Date())
+        components.hour = 9
+        components.minute = 41
+        components.second = 0
+
+        let appleTime = calendar.date(from: components) ?? Date()
+        SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
     }
 
     /// Moves between light and dark mode.
