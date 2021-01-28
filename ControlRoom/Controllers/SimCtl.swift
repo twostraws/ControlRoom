@@ -137,6 +137,24 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.uninstall(deviceId: simulator, appBundleId: appID))
     }
 
+    static func launch(_ simulator: String, appID: String) {
+        execute(.launch(deviceId: simulator, appBundleId: appID))
+    }
+
+    static func terminate(_ simulator: String, appID: String) {
+        execute(.terminate(deviceId: simulator, appBundleId: appID))
+    }
+
+    static func restart(_ simulator: String, appID: String) {
+        terminate(simulator, appID: appID)
+
+        // Wait a fraction of a section to ensure the system has terminated
+        // the app before we relaunch it.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            launch(simulator, appID: appID)
+        }
+    }
+
     static func sendPushNotification(_ simulator: String, appID: String, jsonPayload: String) {
         let tempDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let fileName = "\(UUID().uuidString).json"

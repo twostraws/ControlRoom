@@ -26,6 +26,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         KeyboardShortcuts.onKeyUp(for: .resendLastPushNotification) { [weak self] in
             self?.resendLastPushNotification()
         }
+
+        KeyboardShortcuts.onKeyUp(for: .restartLastSelectedApp) { [weak self] in
+            self?.restartLastSelectedApp()
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -58,6 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let resend = NSMenuItem(title: "Resend last push notification", action: #selector(resendLastPushNotification), keyEquivalent: "")
         resend.setShortcut(for: .resendLastPushNotification)
         menuBarItem.menu?.addItem(resend)
+
+        let restart = NSMenuItem(title: "Restart last selected app", action: #selector(restartLastSelectedApp), keyEquivalent: "")
+        restart.setShortcut(for: .restartLastSelectedApp)
+        menuBarItem.menu?.addItem(restart)
     }
 
     func removeMenuBarItem() {
@@ -67,5 +75,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func resendLastPushNotification() {
         SimCtl.sendPushNotification(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID, jsonPayload: mainWindow.preferences.pushPayload)
+    }
+
+    @objc func restartLastSelectedApp() {
+        SimCtl.restart(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID)
     }
 }

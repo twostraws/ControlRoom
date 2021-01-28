@@ -29,7 +29,7 @@ struct SidebarView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            List(selection: $controller.selectedSimulatorIDs) {
+            List(selection: $controller.selectedSimulatorIDs.onChange(updateSelectedSimulators)) {
                 if controller.simulators.isEmpty {
                     Text("No simulators")
                 } else {
@@ -65,12 +65,13 @@ struct SidebarView: View {
             }
             .padding(2)
             .sheet(isPresented: $shouldShowDeleteAlert) {
-                SimulatorActionSheet(icon: controller.selectedSimulators[0].image,
-                                     message: "Delete Simulators?",
-                                     informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
-                                     confirmationTitle: "Delete",
-                                     confirm: deleteSelectedSimulators,
-                                     content: { EmptyView() }
+                SimulatorActionSheet(
+                    icon: controller.selectedSimulators[0].image,
+                    message: "Delete Simulators?",
+                    informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
+                    confirmationTitle: "Delete",
+                    confirm: deleteSelectedSimulators,
+                    content: { EmptyView() }
                 )
             }
         }
@@ -98,6 +99,15 @@ struct SidebarView: View {
     func deleteSelectedSimulators() {
         guard controller.selectedSimulatorIDs.isNotEmpty else { return }
         SimCtl.delete(controller.selectedSimulatorIDs)
+    }
+
+    /// Called whenever the user adjusts their selection of simulator.
+    func updateSelectedSimulators() {
+        // If we selected exactly one simulator, stash its UDID away so we can
+        // quickly use it elsewhere in the app, e.g. in the menu bar icon.
+        if controller.selectedSimulatorIDs.count == 1 {
+            preferences.lastSimulatorUDID = controller.selectedSimulators.first!.udid
+        }
     }
 }
 

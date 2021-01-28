@@ -59,14 +59,17 @@ struct AppView: View {
                                 .disabled(selectedApplication.dataFolderURL == nil)
                             Button("Open app bundle", action: openAppBundle)
                                 .disabled(selectedApplication.bundleURL == nil)
-                        }
 
-                        HStack {
                             Button("Clear Restoration State", action: clearRestorationState)
                                 .disabled(selectedApplication.dataFolderURL == nil)
                                 .help("Removes any saved state restoration data, such as @SceneStorage properties used by the app.")
+                        }
 
-                            Button("Uninstall App", action: confirmDeleteApp)
+                        HStack {
+                            Button("Launch", action: launchApp)
+                            Button("Terminate", action: terminateApp)
+                            Button("Restart", action: restartApp)
+                            Button("Uninstall", action: confirmDeleteApp)
                                 .disabled(selectedApplication.type != .user)
                         }
                     }
@@ -120,6 +123,21 @@ struct AppView: View {
         }
     }
 
+    /// Launches the currently selected app.
+    func launchApp() {
+        SimCtl.launch(simulator.udid, appID: preferences.lastBundleID)
+    }
+
+    /// Terminates the currently selected app.
+    func terminateApp() {
+        SimCtl.terminate(simulator.udid, appID: preferences.lastBundleID)
+    }
+
+    /// Terminates the currently selected app, then restarts it immediately.
+    func restartApp() {
+        SimCtl.restart(simulator.udid, appID: preferences.lastBundleID)
+    }
+
     /// Reveals the app's container directory in Finder.
     func openDataFolder() {
         guard let dataFolderURL = selectedApplication.dataFolderURL else { return }
@@ -156,9 +174,6 @@ struct AppView: View {
 
     /// Sends a JSON string to the device as push notification,
     func sendPushNotification() {
-        // stash this away so our menu bar button to resend last push works
-        preferences.lastSimulatorUDID = simulator.udid
-
         SimCtl.sendPushNotification(simulator.udid, appID: preferences.lastBundleID, jsonPayload: preferences.pushPayload)
     }
 

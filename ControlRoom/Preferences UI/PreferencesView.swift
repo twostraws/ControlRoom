@@ -36,6 +36,11 @@ struct PreferencesView: View {
                     Text("Resend last push notification")
                     KeyboardShortcuts.Recorder(for: .resendLastPushNotification)
                 }
+
+                HStack {
+                    Text("Restart last selected app")
+                    KeyboardShortcuts.Recorder(for: .restartLastSelectedApp)
+                }
             }
 
             Spacer()
