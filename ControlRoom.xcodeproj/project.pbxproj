@@ -23,6 +23,8 @@
 		511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A523F420AB00E3E660 /* FormSpacer.swift */; };
 		511BA5A823F42EE400E3E660 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A723F42EE400E3E660 /* AppView.swift */; };
 		51B0241625C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0241525C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift */; };
+		51B0241D25C3104C0042394E /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0241C25C3104C0042394E /* AppIcon.swift */; };
+		51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0242225C3106E0042394E /* AppSummaryView.swift */; };
 		551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEC23F489A50006D1BD /* SidebarView.swift */; };
 		551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */; };
 		551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF023F498C30006D1BD /* SimulatorsController.swift */; };
@@ -92,6 +94,8 @@
 		511BA5A523F420AB00E3E660 /* FormSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSpacer.swift; sourceTree = "<group>"; };
 		511BA5A723F42EE400E3E660 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		51B0241525C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D-Identifiable.swift"; sourceTree = "<group>"; };
+		51B0241C25C3104C0042394E /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		51B0242225C3106E0042394E /* AppSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSummaryView.swift; sourceTree = "<group>"; };
 		551F8CEC23F489A50006D1BD /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLayoutView.swift; sourceTree = "<group>"; };
 		551F8CF023F498C30006D1BD /* SimulatorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorsController.swift; sourceTree = "<group>"; };
@@ -202,12 +206,10 @@
 		511BA5AB23F434B500E3E660 /* ControlScreens */ = {
 			isa = PBXGroup;
 			children = (
-				511BA5A723F42EE400E3E660 /* AppView.swift */,
+				51B0241B25C3103B0042394E /* AppView */,
 				511BA59923F415C800E3E660 /* BatteryView.swift */,
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59F23F4197200E3E660 /* NetworkView.swift */,
-				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
-				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
 				CDC8A0962472846C00861888 /* ScreenView.swift */,
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
@@ -259,6 +261,18 @@
 				511BA58F23F4030D00E3E660 /* LoadingView.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		51B0241B25C3103B0042394E /* AppView */ = {
+			isa = PBXGroup;
+			children = (
+				511BA5A723F42EE400E3E660 /* AppView.swift */,
+				51B0242225C3106E0042394E /* AppSummaryView.swift */,
+				51B0241C25C3104C0042394E /* AppIcon.swift */,
+				ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */,
+				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
+			);
+			path = AppView;
 			sourceTree = "<group>";
 		};
 		5534157C23FE04EC005C0A41 /* About UI */ = {
@@ -510,6 +524,7 @@
 			files = (
 				ACDF076623F7D1C300597B3B /* Application.swift in Sources */,
 				5534158623FE1AC4005C0A41 /* Flow.swift in Sources */,
+				51B0241D25C3104C0042394E /* AppIcon.swift in Sources */,
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
 				5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */,
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
@@ -525,6 +540,7 @@
 				511BA5A023F4197200E3E660 /* NetworkView.swift in Sources */,
 				ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
+				51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */,
 				B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */,
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,

@@ -55,6 +55,7 @@ struct AppView: View {
 					.pickerStyle(PopUpButtonPickerStyle())
 					Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
                 }
+
 				HStack {
 					AppSummaryView(application: selectedApplication)
 					Spacer()
@@ -124,9 +125,7 @@ struct AppView: View {
 
     /// Reveals the app's container directory in Finder.
     func openDataFolder() {
-        guard
-            let dataFolderURL = selectedApplication.dataFolderURL
-            else { return }
+        guard let dataFolderURL = selectedApplication.dataFolderURL else { return }
         NSWorkspace.shared.activateFileViewerSelecting([dataFolderURL])
     }
 
@@ -171,48 +170,6 @@ struct AppView: View {
     /// Resets some type of permission to the app, so it will be asked for again.
     func resetPrivacy() {
         SimCtl.resetPermission(simulator.udid, appID: selectedApplication.bundleIdentifier, permission: resetPermission)
-    }
-}
-
-private struct AppIcon: View {
-
-	let application: Application
-	let width: CGFloat
-
-    var body: some View {
-		if let icon = application.icon {
-			Image(nsImage: icon)
-				.resizable()
-				.cornerRadius(width / 5)
-				.frame(width: width, height: width)
-        } else {
-            Rectangle()
-                .fill(Color.clear)
-                .overlay(
-                    RoundedRectangle(cornerRadius: width / 5)
-                        .stroke(Color.primary, style: StrokeStyle(lineWidth: 0.5, dash: [width / 20 + 1]))
-                )
-                .frame(width: width, height: width)
-        }
-	}
-}
-
-private struct AppSummaryView: View {
-
-    let application: Application
-
-    var body: some View {
-        HStack {
-            AppIcon(application: application, width: 60)
-			VStack(alignment: .leading) {
-                Text(application.displayName)
-                    .font(.headline)
-				Text(application.versionNumber.isNotEmpty ? "Version \(application.versionNumber)" : "")
-                    .font(.caption)
-				Text(application.buildNumber.isNotEmpty ? "Build \(application.buildNumber)" : "")
-                    .font(.caption)
-            }
-        }
     }
 }
 
