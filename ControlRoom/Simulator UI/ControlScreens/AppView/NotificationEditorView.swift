@@ -36,7 +36,7 @@ struct NotificationEditorView: View {
                         .font(.headline)
                         .addingInfoButton(title: "APS", description: "NotificationView.Hints.APS")
 
-                    TextEditor(text: .constant(notificationAps.json))
+                    TextView(text: .constant(notificationAps.json))
                         .font(.system(.body, design: .monospaced))
                         .disableAutocorrection(true)
                         .frame(height: 200)
@@ -45,7 +45,7 @@ struct NotificationEditorView: View {
                         .font(.headline)
                         .addingInfoButton(title: "User info", description: "NotificationView.Hints.UserInfo")
 
-                    TextEditor(text: $userInfo)
+                    TextView(text: $userInfo)
                         .font(.system(.body, design: .monospaced))
                         .disableAutocorrection(true)
                         .frame(height: 200)
