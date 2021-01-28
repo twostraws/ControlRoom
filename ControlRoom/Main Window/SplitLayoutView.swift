@@ -15,7 +15,7 @@ struct SplitLayoutView: View {
     var body: some View {
         NavigationView {
             SidebarView(controller: controller)
-                .frame(minWidth: 200)
+                .frame(minWidth: 220)
                 .layoutPriority(1)
 
             // Use a GeometryReader here to take up as much space as possible

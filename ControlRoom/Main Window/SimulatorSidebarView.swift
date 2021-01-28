@@ -84,12 +84,14 @@ struct SimulatorSidebarView: View {
             Text(simulator.name)
             Spacer()
         }
-        .contextMenu(ContextMenu(shouldDisplay: canShowContextualMenu) {
-            Button("Rename...") { action = .rename }
-            Button("Clone...") { action = .clone }
-                .disabled(simulator.state == .booted)
-            Button("Delete...") { action = .delete }
-        })
+        .contextMenu(
+            ContextMenu(shouldDisplay: canShowContextualMenu) {
+                Button("Rename...") { action = .rename }
+                Button("Clone...") { action = .clone }
+                    .disabled(simulator.state == .booted)
+                Button("Delete...") { action = .delete }
+            }
+        )
         .sheet(item: $action) { action in
             if action == .delete {
                 SimulatorActionSheet(icon: simulator.image,

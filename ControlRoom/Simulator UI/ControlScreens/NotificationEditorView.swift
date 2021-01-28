@@ -35,16 +35,22 @@ struct NotificationEditorView: View {
                     Text("Aps")
                         .font(.headline)
                         .addingInfoButton(title: "APS", description: "NotificationView.Hints.APS")
-                    TextView(text: notificationAps.json)
+
+                    TextEditor(text: .constant(notificationAps.json))
                         .frame(height: 200)
+
                     Text("User info")
                         .font(.headline)
                         .addingInfoButton(title: "User info", description: "NotificationView.Hints.UserInfo")
-                    TextView(text: $userInfo)
+
+                    TextEditor(text: $userInfo)
                         .frame(height: 200)
+                        .font(.body)
+
                     Spacer()
                 }
             }
+
             HStack(spacing: 10) {
                 Button(action: discardNotificationJson, label: { Text("Discard") })
                 Button(action: saveNotificationJson, label: { Text("Save") })

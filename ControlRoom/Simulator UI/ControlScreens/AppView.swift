@@ -96,7 +96,7 @@ struct AppView: View {
             FormSpacer()
 
             VStack {
-                TextView(text: $preferences.pushPayload)
+                TextEditor(text: $preferences.pushPayload)
                     .frame(minHeight: 150, maxHeight: .infinity)
 
                 HStack(spacing: 10) {

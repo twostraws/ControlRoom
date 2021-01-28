@@ -70,17 +70,20 @@ struct PushNotificationAPS: Codable {
     var json: String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
+
         guard
             let data = try? encoder.encode(self),
             let output = String(data: data, encoding: .utf8)
             else {
                 return ""
             }
+
         return output
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+
         if !isContentAvailable {
             try container.encode(alert, forKey: .alert)
             try container.encode(sound, forKey: .sound)
@@ -91,11 +94,14 @@ struct PushNotificationAPS: Codable {
         } else {
             try container.encode(1, forKey: .isContentAvailable)
         }
+
         try container.encodeIfNotEmpty(threadID, forKey: .threadID)
         try container.encodeIfNotEmpty(category, forKey: .category)
+
         if isMutableContent {
             try container.encode(1, forKey: .isMutableContent)
         }
+
         try container.encodeIfNotEmpty(targetContentID, forKey: .targetContentID)
     }
 
