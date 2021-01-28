@@ -24,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
         let authors = Bundle.main.authors
+
         if authors.isNotEmpty {
             let content = NSViewController()
             content.title = "Control Room"
