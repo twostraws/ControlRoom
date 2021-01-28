@@ -87,11 +87,6 @@ struct AppView: View {
                     Button("Revoke", action: revokePrivacy)
                     Button("Reset", action: resetPrivacy)
                 }
-
-                HStack {
-                    TextField("URL to open", text: $preferences.lastOpenURL)
-                    Button("Open URL", action: openURL)
-                }
             }
             .disabled(!isApplicationSelected)
 
@@ -167,11 +162,6 @@ struct AppView: View {
     /// Removes the identified app from the device.
     func uninstallApp() {
         SimCtl.uninstall(simulator.udid, appID: selectedApplication.bundleIdentifier)
-    }
-
-    /// Opens a URL in the appropriate device app.
-    func openURL() {
-        SimCtl.openURL(simulator.udid, URL: preferences.lastOpenURL)
     }
 
     /// Grants some type of permission to the app.

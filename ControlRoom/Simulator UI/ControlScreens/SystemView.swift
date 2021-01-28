@@ -11,6 +11,7 @@ import SwiftUI
 
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
+    @EnvironmentObject var preferences: Preferences
     var simulator: Simulator
 
     /// The current time to show in the device.
@@ -19,8 +20,10 @@ struct SystemView: View {
     /// The system-wide appearance; "Light" or "Dark".
     @State private var appearance: SimCtl.UI.Appearance = .light
 
+    /// The currently active language identifier
     @State private var language: String = NSLocale.current.languageCode ?? ""
 
+    /// The currently active locale identifier
     @State private var locale: String = NSLocale.current.identifier
 
     private let languages: [String] = {
@@ -91,6 +94,17 @@ struct SystemView: View {
                     }
                 }
 
+                FormSpacer()
+            }
+
+            Group {
+                Section(header: Text("Open URL")) {
+                    HStack {
+                        TextField("URL / deep link to open", text: $preferences.lastOpenURL)
+                        Button("Open URL", action: openURL)
+                    }
+                }
+
             }
 
             Spacer()
@@ -147,6 +161,11 @@ struct SystemView: View {
     /// Copies the Mac's pasteboard to the simulator.
     func copyPasteboardToSim() {
         SimCtl.copyPasteboardToSimulator(simulator.udid)
+    }
+
+    /// Opens a URL in the appropriate device app.
+    func openURL() {
+        SimCtl.openURL(simulator.udid, URL: preferences.lastOpenURL)
     }
 
     /// Erases the current device.
