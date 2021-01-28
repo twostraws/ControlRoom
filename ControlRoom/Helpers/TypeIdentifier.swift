@@ -29,23 +29,9 @@ struct TypeIdentifier: Hashable {
     /// The string representation of the Uniform Type Identifier
     let rawValue: String
 
-    /// Private values for extracting metadata about this type identifier
-    private let declaration: [String: Any]
-    private let bundle: Bundle?
-    private var iconFile: String? { declaration[kUTTypeIconFileKey as String] as? String }
-    private var iconPath: String? { declaration["_LSIconPath"] as? String }
-    private var conformsTo: [TypeIdentifier] {
-        let list = (declaration[kUTTypeConformsToKey as String] as? [String]) ?? []
-        return list.map(TypeIdentifier.init)
-    }
-
     /// Constructs an icon for this type identifier, as defined by its declaration
     var icon: NSImage {
         NSWorkspace.shared.icon(forFileType: rawValue)
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(rawValue)
     }
 
     func conformsTo(_ other: TypeIdentifier) -> Bool {
@@ -64,7 +50,5 @@ struct TypeIdentifier: Hashable {
     /// Constructs a type identifier based on its string representation
     init(_ identifier: String) {
         rawValue = identifier
-        declaration = (UTTypeCopyDeclaration(identifier as CFString)?.takeRetainedValue() as? [String: Any]) ?? [:]
-        bundle = (UTTypeCopyDeclaringBundleURL(identifier as CFString)?.takeRetainedValue()).flatMap { Bundle(url: $0 as URL) }
     }
 }
