@@ -162,8 +162,13 @@ struct ScreenView: View {
 
             sourceURL.convertToGIF(maxSize: size) { progress in
                 exportProgress = progress
-            } completion: { gifURL in
-                try? FileManager.default.moveItem(atPath: gifURL.path, toPath: gifExtension)
+            } completion: { result in
+                switch result {
+                case .success(let gifURL):
+                    try? FileManager.default.moveItem(atPath: gifURL.path, toPath: gifExtension)
+                case .failure(let reason):
+                    print(reason.localizedDescription)
+                }
             }
         } else {
             try? FileManager.default.moveItem(atPath: sourceURL.path, toPath: savePath)

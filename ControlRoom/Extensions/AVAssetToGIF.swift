@@ -10,14 +10,28 @@
 import AVFoundation
 import Foundation
 
+enum GIFError: Error {
+    case unableToReadFile
+    case unableToFindTrack
+    case unableToCreateOutput
+    case unknown
+}
+
 extension URL {
     // swiftlint:disable:next function_body_length cyclomatic_complexity
-    func convertToGIF(maxSize cappedResolution: CGFloat?, updateProgress: @escaping (CGFloat) -> Void, completion: @escaping (URL) -> Void) {
+    func convertToGIF(maxSize cappedResolution: CGFloat?, updateProgress: @escaping (CGFloat) -> Void, completion: @escaping (Result<URL, GIFError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let asset = AVURLAsset(url: self)
 
-            guard let reader = try? AVAssetReader(asset: asset) else { return }
-            guard let videoTrack = asset.tracks(withMediaType: .video).first else { return }
+            guard let reader = try? AVAssetReader(asset: asset) else {
+                completion(.failure(.unableToReadFile))
+                return
+            }
+
+            guard let videoTrack = asset.tracks(withMediaType: .video).first else {
+                completion(.failure(.unableToFindTrack))
+                return
+            }
 
             let videoSize = videoTrack.naturalSize.applying(videoTrack.preferredTransform)
 
@@ -88,7 +102,10 @@ extension URL {
                 }
             }
 
-            guard let destination = CGImageDestinationCreateWithURL(resultingFileURL as CFURL, kUTTypeGIF, totalFrames, nil) else { return }
+            guard let destination = CGImageDestinationCreateWithURL(resultingFileURL as CFURL, kUTTypeGIF, totalFrames, nil) else {
+                completion(.failure(.unableToCreateOutput))
+                return
+            }
 
             CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
 
@@ -155,12 +172,11 @@ extension URL {
             let didCreateGIF = CGImageDestinationFinalize(destination)
 
             guard didCreateGIF else {
+                completion(.failure(.unknown))
                 return
             }
 
-            DispatchQueue.main.async {
-                completion(resultingFileURL)
-            }
+            completion(.success(resultingFileURL))
         }
     }
 
