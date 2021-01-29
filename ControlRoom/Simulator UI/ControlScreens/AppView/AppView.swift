@@ -55,23 +55,31 @@ struct AppView: View {
                     Spacer()
                     VStack(alignment: .trailing) {
                         HStack {
+                            Button("Launch", action: launchApp)
+                            Button("Terminate", action: terminateApp)
+                            Button("Restart", action: restartApp)
+                            Button("Uninstall", action: confirmDeleteApp)
+                        }
+                        .disabled(selectedApplication == .default)
+
+                        Menu {
                             Button("Open data folder", action: openDataFolder)
                                 .disabled(selectedApplication.dataFolderURL == nil)
                             Button("Open app bundle", action: openAppBundle)
                                 .disabled(selectedApplication.bundleURL == nil)
 
+                            Button("Edit UserDefaults", action: editUserDefaults)
+                                .disabled(selectedApplication.dataFolderURL == nil)
+
+                            Divider()
+
                             Button("Clear Restoration State", action: clearRestorationState)
                                 .disabled(selectedApplication.dataFolderURL == nil)
                                 .help("Removes any saved state restoration data, such as @SceneStorage properties used by the app.")
+                        } label: {
+                            Label("App Data", systemImage: "square.and.pencil")
                         }
-
-                        HStack {
-                            Button("Launch", action: launchApp)
-                            Button("Terminate", action: terminateApp)
-                            Button("Restart", action: restartApp)
-                            Button("Uninstall", action: confirmDeleteApp)
-                                .disabled(selectedApplication.type != .user)
-                        }
+                        .frame(maxWidth: 250)
                     }
                 }
             }
@@ -180,6 +188,15 @@ struct AppView: View {
     /// Removes the identified app from the device.
     func uninstallApp() {
         SimCtl.uninstall(simulator.udid, appID: selectedApplication.bundleIdentifier)
+    }
+
+    /// Opens the app's UserDefaults plist file in Xcode.
+    func editUserDefaults() {
+        guard let dataFolderURL = selectedApplication.dataFolderURL else { return }
+        let preferencesURL = dataFolderURL.appendingPathComponent("Library/Preferences")
+        let plist = preferencesURL.appendingPathComponent("\(selectedApplication.bundleIdentifier).plist")
+
+        NSWorkspace.shared.open(plist)
     }
 
     /// Grants some type of permission to the app.
