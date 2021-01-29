@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/macOS-10.15+-blue.svg" />
+    <img src="https://img.shields.io/badge/macOS-11+-blue.svg" />
     <img src="https://img.shields.io/badge/Swift-5.3-brightgreen.svg" />
     <a href="https://twitter.com/twostraws">
         <img src="https://img.shields.io/badge/Contact-@twostraws-lightgrey.svg?style=flat" alt="Twitter: @twostraws" />
