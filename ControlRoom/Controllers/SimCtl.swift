@@ -154,7 +154,7 @@ enum SimCtl: CommandLineCommandExecuter {
 
         // Wait a fraction of a section to ensure the system has terminated
         // the app before we relaunch it.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             launch(simulator, appID: appID)
         }
     }
