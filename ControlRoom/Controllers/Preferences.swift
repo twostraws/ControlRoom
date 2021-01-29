@@ -41,6 +41,7 @@ class Preferences: ObservableObject {
     """
 
     @UserDefault("CRNetwork_CarrierName") var carrierName = "Carrier"
+    @UserDefault("CRMedia_VideoFormat") var videoFormat = 0
 
     init(defaults: UserDefaults = .standard) {
         userDefaults = defaults

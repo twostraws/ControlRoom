@@ -516,9 +516,9 @@ extension SimCtl {
 
         enum ImageFormat: String, CaseIterable {
             case png
+            case jpeg
             case tiff
             case bmp
-            case jpeg
 
             var arguments: [String] {
                 ["--type=\(rawValue)"]
