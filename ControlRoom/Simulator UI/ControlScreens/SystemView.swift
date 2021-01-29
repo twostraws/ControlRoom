@@ -111,6 +111,7 @@ struct SystemView: View {
 
             HStack {
                 Spacer()
+                Button("Reset Keychain", action: resetKeychain)
                 Button("Erase Content and Settings", action: eraseDevice)
             }
         }
@@ -134,6 +135,8 @@ struct SystemView: View {
 
         let appleTime = calendar.date(from: components) ?? Date()
         SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
+
+        time = appleTime
     }
 
     /// Moves between light and dark mode.
@@ -171,6 +174,11 @@ struct SystemView: View {
     /// Erases the current device.
     func eraseDevice() {
         SimCtl.erase(simulator.udid)
+    }
+
+    /// Resets the keychain on the current device
+    func resetKeychain() {
+        SimCtl.execute(.keychain(deviceId: simulator.udid, action: .reset))
     }
 
     private func locales(for language: String) -> [String] {
