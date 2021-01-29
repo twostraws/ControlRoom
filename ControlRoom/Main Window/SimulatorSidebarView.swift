@@ -53,6 +53,7 @@ struct SimulatorSidebarView: View {
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(maxWidth: 24, alignment: .center)
                 .padding(.top, 2)
+                .shadow(color: .primary, radius: 1)
             Text(simulator.name)
             Spacer()
         }
