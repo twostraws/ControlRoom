@@ -19,7 +19,14 @@ struct ScreenView: View {
 
     let simulator: Simulator
 
+    /// The user's settings for a screenshot.
     @State private var screenshot = Screenshot(type: .png, display: .none, mask: .none)
+
+    /// The currently active recording process, if it exists. We don't need to monitor this, just keep it alive.
+    @State private var recordingProcess: Process?
+
+    /// The name of the file we're writing to, used at first in a temporary directory then on the desktop.
+    @State private var recordingFilename = ""
 
     var body: some View {
         Form {
@@ -47,6 +54,12 @@ struct ScreenView: View {
 
                     Button("Take Screenshot", action: takeScreenshot)
 
+                    Button("Start Video", action: startRecordingVideo)
+                        .disabled(recordingProcess != nil)
+
+                    Button("Stop Video", action: stopRecordingVideo)
+                        .disabled(recordingProcess == nil)
+
                     FormSpacer()
                 }
             }
@@ -63,6 +76,28 @@ struct ScreenView: View {
         SimCtl.saveScreenshot(simulator.id, to: makeScreenshotFilename(), type: screenshot.type, display: screenshot.display, with: screenshot.mask)
     }
 
+    /// Starts recording video of the device, saving it to the desktop.
+    func startRecordingVideo() {
+        recordingFilename = makeVideoFilename()
+
+        let tempPath = FileManager.default.temporaryDirectory.appendingPathComponent(recordingFilename).path
+
+        recordingProcess = SimCtl.startVideo(simulator.id, to: tempPath, type: .h264, display: screenshot.display, with: screenshot.mask)
+    }
+
+    func stopRecordingVideo() {
+        recordingProcess?.interrupt()
+        recordingProcess?.waitUntilExit()
+        recordingProcess = nil
+
+        let sourcePath = FileManager.default.temporaryDirectory.appendingPathComponent(recordingFilename).path
+
+        let paths = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
+        let savePath = paths[0].appendingPathComponent(recordingFilename).path
+
+        try? FileManager.default.moveItem(atPath: sourcePath, toPath: savePath)
+    }
+
     /// Creates a filename for a screenshot that ought to be unique
     func makeScreenshotFilename() -> String {
         let formatter = DateFormatter()
@@ -71,6 +106,16 @@ struct ScreenView: View {
         let dateString = formatter.string(from: Date())
 
         return "~/Desktop/ControlRoom-\(dateString).\(screenshot.type.rawValue)"
+    }
+
+    /// Creates a filename for a video that ought to be unique
+    func makeVideoFilename() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd-HH-mm-ss"
+
+        let dateString = formatter.string(from: Date())
+
+        return "ControlRoom-\(dateString).mp4"
     }
 }
 

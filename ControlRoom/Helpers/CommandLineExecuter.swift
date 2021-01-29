@@ -61,8 +61,21 @@ extension CommandLineCommandExecuter {
         }
     }
 
+    static func executeAsync(_ command: Command) -> Process {
+        let task = Process()
+        task.launchPath = launchPath
+        task.arguments = command.arguments
+
+        let pipe = Pipe()
+        task.standardOutput = pipe
+
+        try? task.run()
+        return task
+    }
+
     static func execute(_ arguments: [String]) -> PassthroughSubject<Data, CommandLineError> {
         let publisher = PassthroughSubject<Data, CommandLineError>()
+
         execute(arguments) { result in
             switch result {
             case .success(let data):
@@ -72,6 +85,7 @@ extension CommandLineCommandExecuter {
                 publisher.send(completion: .failure(error))
             }
         }
+
         return publisher
     }
 
