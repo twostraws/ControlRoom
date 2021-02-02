@@ -388,9 +388,9 @@ extension SimCtl {
         }
     }
 
-    //swiftlint:disable type_name
+    // swiftlint:disable type_name
     enum IO {
-    //swiftlint:enable type_name
+    // swiftlint:enable type_name
         enum Operation {
             case enumerate(poll: Bool = false)
             case poll
@@ -654,9 +654,9 @@ extension SimCtl {
         }
     }
 
-    //swiftlint:disable type_name
+    // swiftlint:disable type_name
     enum UI {
-    //swiftlint:enable type_name
+    // swiftlint:enable type_name
         enum Option {
             case appearance(Appearance)
 
