@@ -86,7 +86,7 @@ struct Application: Hashable, Comparable {
 		}
 
 		if iconFilesNames.isNotEmpty {
-			//Search some patterns for primary app icon
+			// Search some patterns for primary app icon
 			for match in ["76", "60"] {
 				let result = iconFilesNames.filter { $0.contains(match) }
 
