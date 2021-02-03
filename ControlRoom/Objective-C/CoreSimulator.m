@@ -7,7 +7,7 @@
 //
 
 #import "CoreSimulator.h"
-#import "ControlRoom-Swift.h"
+#import "Control_Room-Swift.h"
 
 /*
  This file uses private API in the CoreSimulator framework, which is located at /Library/Developer/PrivateFrameworks.
