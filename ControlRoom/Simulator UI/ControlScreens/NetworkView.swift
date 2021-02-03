@@ -109,6 +109,7 @@ struct NetworkView: View {
 struct DataView_Previews: PreviewProvider {
     static var previews: some View {
         NetworkView(simulator: .example)
+            .environmentObject(Preferences())
     }
 }
 

@@ -74,5 +74,6 @@ struct ControlView_Previews: PreviewProvider {
         ControlView(controller: .init(preferences: .init()),
                     simulator: .example,
                     applications: [])
+            .environmentObject(Preferences())
     }
 }

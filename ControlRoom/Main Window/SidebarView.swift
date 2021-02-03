@@ -121,6 +121,8 @@ struct SidebarView_Previews: PreviewProvider {
     @State static var selected: Simulator?
 
     static var previews: some View {
-        SidebarView(controller: SimulatorsController(preferences: Preferences()))
+        let preferences = Preferences()
+        return SidebarView(controller: SimulatorsController(preferences: preferences))
+            .environmentObject(preferences)
     }
 }
