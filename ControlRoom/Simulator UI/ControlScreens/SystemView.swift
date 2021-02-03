@@ -195,6 +195,7 @@ struct SystemView: View {
 struct SystemView_Previews: PreviewProvider {
     static var previews: some View {
         SystemView(simulator: .example)
+            .environmentObject(Preferences())
     }
 }
 

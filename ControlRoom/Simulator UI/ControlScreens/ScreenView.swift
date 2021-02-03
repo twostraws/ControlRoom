@@ -199,5 +199,6 @@ struct ScreenView: View {
 struct ScreenshotAndRecordingView_Previews: PreviewProvider {
     static var previews: some View {
         ScreenView(simulator: .example)
+            .environmentObject(Preferences())
     }
 }
