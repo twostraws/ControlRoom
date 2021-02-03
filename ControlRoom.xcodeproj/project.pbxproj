@@ -82,7 +82,7 @@
 /* Begin PBXFileReference section */
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		5108721425C331360009E39F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
-		511BA57923F3FFEA00E3E660 /* ControlRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		511BA57E23F3FFEA00E3E660 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		511BA58023F3FFEB00E3E660 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 		511BA57A23F3FFEA00E3E660 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				511BA57923F3FFEA00E3E660 /* ControlRoom.app */,
+				511BA57923F3FFEA00E3E660 /* Control Room.app */,
 				B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */,
 			);
 			name = Products;
@@ -414,7 +414,7 @@
 				5179289525C37586000F6F3A /* KeyboardShortcuts */,
 			);
 			productName = ControlRoom;
-			productReference = 511BA57923F3FFEA00E3E660 /* ControlRoom.app */;
+			productReference = 511BA57923F3FFEA00E3E660 /* Control Room.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B07F584D23F9F83800256D5D /* ControlRoomTests */ = {
@@ -768,7 +768,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Control Room";
 				SWIFT_OBJC_BRIDGING_HEADER = "ControlRoom/Objective-C/ControlRoom-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -801,7 +801,7 @@
 				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Control Room";
 				SWIFT_OBJC_BRIDGING_HEADER = "ControlRoom/Objective-C/ControlRoom-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
