@@ -11,7 +11,6 @@ import SwiftUI
 /// Hosts a LoadingView followed by the main ControlView, or a LoadingFailedView if simctl failed.
 struct MainView: View {
     @ObservedObject var controller: SimulatorsController
-    @EnvironmentObject var preferences: Preferences
     @EnvironmentObject var uiState: UIState
 
     var body: some View {
@@ -36,12 +35,10 @@ struct MainView: View {
         Group {
             if sheet == .preferences {
                 PreferencesView()
-                    .environmentObject(preferences)
             } else if sheet == .createSimulator {
                 CreateSimulatorActionSheet(controller: controller)
             } else if sheet == .notificationEditor {
                 NotificationEditorView()
-                    .environmentObject(preferences)
             }
         }
     }

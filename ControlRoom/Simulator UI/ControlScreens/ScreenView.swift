@@ -33,7 +33,6 @@ struct ScreenView: View {
         var mask: SimCtl.IO.Mask?
     }
 
-    @EnvironmentObject var preferences: Preferences
     let simulator: Simulator
 
     /// The user's settings for a screenshot.
@@ -47,6 +46,8 @@ struct ScreenView: View {
 
     /// Converting MP4 to GIF takes time, so this tracks the progress of the operation
     @State private var exportProgress: CGFloat = 1.0
+
+    @AppStorage("CRMedia_VideoFormat") private var videoFormat = 0
 
     var body: some View {
         Form {
@@ -63,13 +64,13 @@ struct ScreenView: View {
             }
 
             Section(header: Text("Video").font(.headline)) {
-                Picker("Format:", selection: $preferences.videoFormat) {
+                Picker("Format:", selection: $videoFormat) {
                     ForEach(0..<VideoFormat.all.count) { item in
                         Text(VideoFormat.all[item].name)
                     }
                 }
 
-                Text(VideoFormat.all[preferences.videoFormat].description)
+                Text(VideoFormat.all[videoFormat].description)
 
                 HStack {
                     Button(recordingProcess == nil ? "Start Recording" : "Stop Recording", action: toggleRecordingVideo)
@@ -145,7 +146,7 @@ struct ScreenView: View {
         let paths = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let savePath = paths[0].appendingPathComponent(recordingFilename).path
 
-        let format = VideoFormat.all[preferences.videoFormat].name
+        let format = VideoFormat.all[videoFormat].name
 
         if format.hasPrefix("GIF") {
             var size: CGFloat?

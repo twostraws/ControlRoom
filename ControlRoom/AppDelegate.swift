@@ -16,10 +16,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var menuBarItem: NSStatusItem!
 
+    @AppStorage("CRWantsMenuBarIcon") private var wantsMenuBarIcon = true
+    @AppStorage("CRApps_LastOpenURL") private var lastOpenURL = ""
+    @AppStorage("CRApps_LastBundleID") private var lastBundleID = ""
+    @AppStorage("CRLastSimulatorUDID") private var lastSimulatorUDID = "booted"
+    @AppStorage("CRApps_PushPayload") private var pushPayload = """
+    {
+        "aps": {
+            "alert": {
+                "body": "Hello, World!",
+                "title": "From Control Room"
+            }
+        }
+    }
+    """
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         mainWindow.showWindow(self)
 
-        if mainWindow.preferences.wantsMenuBarIcon {
+        if wantsMenuBarIcon {
             addMenuBarItem()
         }
 
@@ -82,14 +97,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func resendLastPushNotification() {
-        SimCtl.sendPushNotification(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID, jsonPayload: mainWindow.preferences.pushPayload)
+        SimCtl.sendPushNotification(lastSimulatorUDID, appID: lastBundleID, jsonPayload: pushPayload)
     }
 
     @objc func restartLastSelectedApp() {
-        SimCtl.restart(mainWindow.preferences.lastSimulatorUDID, appID: mainWindow.preferences.lastBundleID)
+        SimCtl.restart(lastSimulatorUDID, appID: lastBundleID)
     }
 
     @objc func reopenLastURL() {
-        SimCtl.openURL(mainWindow.preferences.lastSimulatorUDID, URL: mainWindow.preferences.lastOpenURL)
+        SimCtl.openURL(lastSimulatorUDID, URL: lastOpenURL)
     }
 }

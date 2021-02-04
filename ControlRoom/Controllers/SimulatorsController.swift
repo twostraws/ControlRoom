@@ -42,6 +42,8 @@ class SimulatorsController: ObservableObject {
     private(set) var deviceTypes = [DeviceType]()
     private(set) var runtimes = [Runtime]()
 
+    @AppStorage("CRSidebar_FilterText") private var filterText = ""
+
     /// The simulators the user has selected to work with. If this has one item then
     /// they are working with a simulator; if more than one they are probably about
     /// to delete several at a time.
@@ -151,10 +153,10 @@ class SimulatorsController: ObservableObject {
     }
 
     /// Filters the list of simulators using `filterText`, and assigns the result to `simulators`.
-    private func filterSimulators() {
+    func filterSimulators() {
         guard loadingStatus == .success else { return }
 
-        let trimmed = preferences.filterText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = filterText.trimmingCharacters(in: .whitespacesAndNewlines)
         var filtered = allSimulators
 
         if preferences.showBootedDevicesFirst {

@@ -11,8 +11,11 @@ import SwiftUI
 
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
-    @EnvironmentObject var preferences: Preferences
     let simulator: Simulator
+
+    @EnvironmentObject var preferences: Preferences
+
+    @AppStorage("CRApps_LastOpenURL") private var lastOpenURL = ""
 
     /// The current time to show in the device.
     @State private var time = Date()
@@ -100,7 +103,7 @@ struct SystemView: View {
             Group {
                 Section(header: Text("Open URL")) {
                     HStack {
-                        TextField("URL / deep link to open", text: $preferences.lastOpenURL)
+                        TextField("URL / deep link to open", text: $lastOpenURL)
                         Button("Open URL", action: openURL)
                     }
                 }
@@ -168,7 +171,7 @@ struct SystemView: View {
 
     /// Opens a URL in the appropriate device app.
     func openURL() {
-        SimCtl.openURL(simulator.udid, URL: preferences.lastOpenURL)
+        SimCtl.openURL(simulator.udid, URL: lastOpenURL)
     }
 
     /// Erases the current device.

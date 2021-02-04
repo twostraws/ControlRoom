@@ -13,6 +13,9 @@ struct SidebarView: View {
     @EnvironmentObject var preferences: Preferences
     @ObservedObject var controller: SimulatorsController
 
+    @AppStorage("CRSidebar_FilterText") private var filterText = ""
+    @AppStorage("CRLastSimulatorUDID") private var lastSimulatorUDID = "booted"
+
     @State private var shouldShowDeleteAlert = false
 
     private var selectedSimulatorsSummary: String {
@@ -61,7 +64,7 @@ struct SidebarView: View {
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(.leading, 3)
 
-                FilterField("Filter", text: $preferences.filterText)
+                FilterField("Filter", text: $filterText.onChange(controller.filterSimulators))
             }
             .padding(2)
             .sheet(isPresented: $shouldShowDeleteAlert) {
@@ -106,7 +109,7 @@ struct SidebarView: View {
         // If we selected exactly one simulator, stash its UDID away so we can
         // quickly use it elsewhere in the app, e.g. in the menu bar icon.
         if controller.selectedSimulatorIDs.count == 1 {
-            preferences.lastSimulatorUDID = controller.selectedSimulators.first!.udid
+            lastSimulatorUDID = controller.selectedSimulators.first!.udid
         }
     }
 }

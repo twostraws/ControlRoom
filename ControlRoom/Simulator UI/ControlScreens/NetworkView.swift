@@ -10,7 +10,6 @@ import SwiftUI
 
 /// Controls WiFi and cellular data state for the whole device.
 struct NetworkView: View {
-    @EnvironmentObject var preferences: Preferences
     let simulator: Simulator
 
     /// The active data network; can be one of "WiFi", "3G", "4G", "LTE", "LTE-A", or "LTE+".
@@ -28,10 +27,12 @@ struct NetworkView: View {
     /// How many cellular bars the device is showing, as a range from 0 through 4.
     @State private var cellularBar: SimCtl.StatusBar.CellularBars = .four
 
+    @AppStorage("CRNetwork_CarrierName") private var carrierName = "Carrier"
+
     var body: some View {
         Form {
             Section {
-                TextField("Operator", text: $preferences.carrierName, onCommit: updateData)
+                TextField("Operator", text: $carrierName, onCommit: updateData)
 
                 Picker("Network type:", selection: $dataNetwork.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
@@ -92,7 +93,7 @@ struct NetworkView: View {
         SimCtl.overrideStatusBarNetwork(simulator.udid, network: dataNetwork,
                                         wifiMode: wiFiMode, wifiBars: wiFiBar,
                                         cellMode: cellularMode, cellBars: cellularBar,
-                                        carrier: preferences.carrierName)
+                                        carrier: carrierName)
     }
 
     /// Workaround for getting configurable image sizes in Segmented Control; It seems to be broken in SwiftUI right now.
