@@ -10,7 +10,7 @@ import Combine
 import KeyboardShortcuts
 import SwiftUI
 
-class Preferences: ObservableObject {
+final class Preferences: ObservableObject {
     /// For parts of the app that want to observe a particular value directly,
     /// they need a way to be notified AFTER the value has changed.
     let objectDidChange = PassthroughSubject<Void, Never>()
@@ -19,29 +19,10 @@ class Preferences: ObservableObject {
 
     @UserDefault("CRWantsMenuBarIcon") var wantsMenuBarIcon = true
     @UserDefault("CRWantsFloatingWindow") var wantsFloatingWindow = false
-    @UserDefault("CRLastSimulatorUDID") var lastSimulatorUDID = "booted"
 
     @UserDefault("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
     @UserDefault("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false
     @UserDefault("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
-    @UserDefault("CRSidebar_FilterText") var filterText = ""
-
-    @UserDefault("CRApps_LastOpenURL") var lastOpenURL = ""
-    @UserDefault("CRApps_LastBundleID") var lastBundleID = ""
-    @UserDefault("CRApps_ShowSystemApps") var shouldShowSystemApps = true
-    @UserDefault("CRApps_PushPayload") var pushPayload = """
-    {
-        "aps": {
-            "alert": {
-                "body": "Hello, World!",
-                "title": "From Control Room"
-            }
-        }
-    }
-    """
-
-    @UserDefault("CRNetwork_CarrierName") var carrierName = "Carrier"
-    @UserDefault("CRMedia_VideoFormat") var videoFormat = 0
 
     init(defaults: UserDefaults = .standard) {
         userDefaults = defaults

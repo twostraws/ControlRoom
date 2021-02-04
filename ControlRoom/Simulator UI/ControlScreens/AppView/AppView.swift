@@ -12,12 +12,25 @@ import SwiftUI
 struct AppView: View {
     @EnvironmentObject var preferences: Preferences
 
+    @AppStorage("CRApps_ShowSystemApps") private var shouldShowSystemApps = true
+    @AppStorage("CRApps_LastBundleID") private var lastBundleID = ""
+    @AppStorage("CRApps_PushPayload") private var pushPayload = """
+    {
+        "aps": {
+            "alert": {
+                "body": "Hello, World!",
+                "title": "From Control Room"
+            }
+        }
+    }
+    """
+
     let simulator: Simulator
     let applications: [Application]
 
     /// The selected application we want to manipulate.
     private var selectedApplication: Application {
-        applications.first(where: { $0.bundleIdentifier == preferences.lastBundleID })
+        applications.first(where: { $0.bundleIdentifier == lastBundleID })
             ?? .default
     }
 
@@ -33,21 +46,21 @@ struct AppView: View {
     }
 
     var body: some View {
-        let apps = applications.filter { $0.type == .user || preferences.shouldShowSystemApps }.sorted()
-        let selectedApplication = apps.first(where: { $0.bundleIdentifier == preferences.lastBundleID }) ?? .default
+        let apps = applications.filter { $0.type == .user || shouldShowSystemApps }.sorted()
+        let selectedApplication = apps.first(where: { $0.bundleIdentifier == lastBundleID }) ?? .default
         let isApplicationSelected = selectedApplication.bundleIdentifier.isNotEmpty
 
         return Form {
             Section {
                 HStack {
-                    Picker("Application:", selection: $preferences.lastBundleID) {
+                    Picker("Application:", selection: $lastBundleID) {
                         ForEach(apps, id: \.bundleIdentifier) { application in
                             Text("\(application.displayName) – \(application.bundleIdentifier)")
                                 .tag(application.bundleIdentifier)
                         }
                     }
                     .pickerStyle(PopUpButtonPickerStyle())
-                    Toggle("Show system apps", isOn: $preferences.shouldShowSystemApps)
+                    Toggle("Show system apps", isOn: $shouldShowSystemApps)
                 }
 
                 HStack {
@@ -104,7 +117,7 @@ struct AppView: View {
             FormSpacer()
 
             VStack {
-                TextView(text: $preferences.pushPayload)
+                TextView(text: $pushPayload)
                     .font(.system(.body, design: .monospaced))
                     .disableAutocorrection(true)
                     .frame(minHeight: 150, maxHeight: .infinity)
@@ -133,17 +146,17 @@ struct AppView: View {
 
     /// Launches the currently selected app.
     func launchApp() {
-        SimCtl.launch(simulator.udid, appID: preferences.lastBundleID)
+        SimCtl.launch(simulator.udid, appID: lastBundleID)
     }
 
     /// Terminates the currently selected app.
     func terminateApp() {
-        SimCtl.terminate(simulator.udid, appID: preferences.lastBundleID)
+        SimCtl.terminate(simulator.udid, appID: lastBundleID)
     }
 
     /// Terminates the currently selected app, then restarts it immediately.
     func restartApp() {
-        SimCtl.restart(simulator.udid, appID: preferences.lastBundleID)
+        SimCtl.restart(simulator.udid, appID: lastBundleID)
     }
 
     /// Reveals the app's container directory in Finder.
@@ -182,7 +195,7 @@ struct AppView: View {
 
     /// Sends a JSON string to the device as push notification,
     func sendPushNotification() {
-        SimCtl.sendPushNotification(simulator.udid, appID: preferences.lastBundleID, jsonPayload: preferences.pushPayload)
+        SimCtl.sendPushNotification(simulator.udid, appID: lastBundleID, jsonPayload: pushPayload)
     }
 
     /// Removes the identified app from the device.

@@ -10,9 +10,21 @@ import SwiftUI
 
 struct NotificationEditorView: View {
     @EnvironmentObject var preferences: Preferences
+
     @State private var notificationAps = PushNotificationAPS()
     @State private var userInfo = ""
     @State private var shouldDismissConfirmationAlert: Bool = false
+
+    @AppStorage("CRApps_PushPayload") private var pushPayload = """
+    {
+        "aps": {
+            "alert": {
+                "body": "Hello, World!",
+                "title": "From Control Room"
+            }
+        }
+    }
+    """
 
     private var fullJson: String {
         guard
@@ -67,7 +79,7 @@ struct NotificationEditorView: View {
         }
         .padding(20)
         .onAppear {
-            notificationAps = preferences.pushPayload
+            notificationAps = pushPayload
                 .data(using: .utf8)
                 .flatMap { try? JSONDecoder().decode(PushNotification.self, from: $0) }?.aps ?? PushNotificationAPS()
             }
@@ -75,12 +87,12 @@ struct NotificationEditorView: View {
     }
 
     private func saveNotificationJson() {
-        preferences.pushPayload = fullJson
+        pushPayload = fullJson
         dismiss()
     }
 
     private func discardNotificationJson() {
-        if preferences.pushPayload != fullJson {
+        if pushPayload != fullJson {
             shouldDismissConfirmationAlert = true
         } else {
             dismiss()

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "511BA57823F3FFEA00E3E660"
-               BuildableName = "ControlRoom.app"
+               BuildableName = "Control Room.app"
                BlueprintName = "ControlRoom"
                ReferencedContainer = "container:ControlRoom.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "511BA57823F3FFEA00E3E660"
-            BuildableName = "ControlRoom.app"
+            BuildableName = "Control Room.app"
             BlueprintName = "ControlRoom"
             ReferencedContainer = "container:ControlRoom.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "511BA57823F3FFEA00E3E660"
-            BuildableName = "ControlRoom.app"
+            BuildableName = "Control Room.app"
             BlueprintName = "ControlRoom"
             ReferencedContainer = "container:ControlRoom.xcodeproj">
          </BuildableReference>
