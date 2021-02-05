@@ -6,7 +6,7 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
-@testable import ControlRoom
+@testable import Control_Room
 import XCTest
 
 class SimCtlSubCommandsTests: XCTestCase {

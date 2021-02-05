@@ -824,7 +824,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoomTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ControlRoom.app/Contents/MacOS/ControlRoom";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Control Room.app/Contents/MacOS/Control Room";
 			};
 			name = Debug;
 		};
@@ -845,7 +845,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoomTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ControlRoom.app/Contents/MacOS/ControlRoom";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Control Room.app/Contents/MacOS/Control Room";
 			};
 			name = Release;
 		};
