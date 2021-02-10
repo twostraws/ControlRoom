@@ -44,7 +44,6 @@
 		5534158223FE0539005C0A41 /* Contributors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534158123FE0539005C0A41 /* Contributors.swift */; };
 		5534158623FE1AC4005C0A41 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534158523FE1AC4005C0A41 /* Flow.swift */; };
 		555A145723F707E700313BC5 /* CoreSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A145623F707E700313BC5 /* CoreSimulator.m */; };
-		555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A145923F70A5100313BC5 /* CoreSimulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
 		555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */; };
 		55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B423F9CFD600C5D87A /* PreferencesView.swift */; };
@@ -153,7 +152,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				555A145A23F70A5100313BC5 /* CoreSimulator.framework in Frameworks */,
 				5179289625C37586000F6F3A /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
