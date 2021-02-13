@@ -12,6 +12,10 @@ import SwiftUI
 struct LoadingView: View {
     var body: some View {
         Text("Fetching simulator list…")
+            .padding()
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+            .scaleEffect(2)
     }
 }
 
