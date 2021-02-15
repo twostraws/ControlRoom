@@ -44,7 +44,7 @@ If you spot any errors please open an issue and let us know which macOS and Xcod
 
 Control Room was originally designed and built by Paul Hudson, and is copyright © Paul Hudson 2021. The icon was designed by Raphael Lopes.
 
-Control Room is licensed under the MIT license; for the full license please see the LICENSE file. Many other folks have contributed features, fixes, and more to make Control Room what it is today. Control Room is built on top of Apple’s **simctl** command – the team who built that deserve the real credit here.
+Control Room is licensed under the MIT license; for the full license please see the [LICENSE file](LICENSE). Many other folks have contributed features, fixes, and more to make Control Room what it is today. Control Room is built on top of Apple’s **simctl** command – the team who built that deserve the real credit here.
 
 Swift, the Swift logo, and Xcode are trademarks of Apple Inc., registered in the U.S. and other countries.
 
