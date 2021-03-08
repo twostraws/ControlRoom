@@ -144,6 +144,7 @@ extension SimCtl {
         let displayName: String
         let bundlePath: String
         let dataFolderPath: String?
+        let appGroupsFolderPaths: [String: String]?
     }
 }
 
@@ -155,5 +156,6 @@ extension SimCtl.Application {
         case displayName = "CFBundleDisplayName"
         case bundlePath = "Bundle"
         case dataFolderPath = "DataContainer"
+        case appGroupsFolderPaths = "GroupContainers"
     }
 }

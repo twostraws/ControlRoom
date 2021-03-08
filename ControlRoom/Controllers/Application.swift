@@ -18,6 +18,7 @@ struct Application: Hashable, Comparable {
     let buildNumber: String
     let imageURLs: [URL]?
     let dataFolderURL: URL?
+    let firstAppGroupFolderURL: URL?
     let bundleURL: URL?
 
     static let `default` = Application()
@@ -35,6 +36,7 @@ struct Application: Hashable, Comparable {
         buildNumber = ""
         imageURLs = nil
         dataFolderURL = nil
+        firstAppGroupFolderURL = nil
         bundleURL = nil
     }
 
@@ -56,6 +58,7 @@ struct Application: Hashable, Comparable {
 			.compactMap { Bundle(url: url)?.urlForImageResource($0) }
 
         dataFolderURL = URL(string: application.dataFolderPath ?? "")
+        firstAppGroupFolderURL = URL(string: application.appGroupsFolderPaths?.first?.value ?? "")
         bundleURL = URL(string: application.bundlePath)
     }
 

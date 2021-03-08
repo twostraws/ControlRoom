@@ -78,6 +78,8 @@ struct AppView: View {
                         Menu {
                             Button("Open data folder", action: openDataFolder)
                                 .disabled(selectedApplication.dataFolderURL == nil)
+                            Button("Open first app group folder", action: openFirstAppGroupFolder)
+                                .disabled(selectedApplication.firstAppGroupFolderURL == nil)
                             Button("Open app bundle", action: openAppBundle)
                                 .disabled(selectedApplication.bundleURL == nil)
 
@@ -163,6 +165,12 @@ struct AppView: View {
     func openDataFolder() {
         guard let dataFolderURL = selectedApplication.dataFolderURL else { return }
         NSWorkspace.shared.activateFileViewerSelecting([dataFolderURL])
+    }
+
+    /// Reveals the first app group's container directory in Finder.
+    func openFirstAppGroupFolder() {
+        guard let firstAppGroupFolderURL = selectedApplication.firstAppGroupFolderURL else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([firstAppGroupFolderURL])
     }
 
     /// Reveals the app's bundle directory in Finder.
