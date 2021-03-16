@@ -81,7 +81,7 @@ struct LocationView: View {
             "simulateLocationDevices": simulatorIds
         ]
 
-        // An undocumented notification name to change the current simulator's location. From here: https://github.com/lyft/set-simulator-location
+        // An undocumented notification name to change the current simulator's location. From here: https://github.com/MobileNativeFoundation/set-simulator-location
         let locationNotificationName = "com.apple.iphonesimulator.simulateLocation"
 
         let notification = Notification(name: Notification.Name(rawValue: locationNotificationName),
