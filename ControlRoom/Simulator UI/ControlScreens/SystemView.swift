@@ -17,6 +17,8 @@ struct SystemView: View {
 
     @AppStorage("CRApps_LastOpenURL") private var lastOpenURL = ""
 
+    @AppStorage("CRApps_LastCertificateFilePath") private var lastCertificateFilePath = ""
+
     /// The current time to show in the device.
     @State private var time = Date()
 
@@ -110,6 +112,15 @@ struct SystemView: View {
 
             }
 
+            Group {
+                Section(header: Text("Add Root Certificate")) {
+                    HStack {
+                        TextField("Trusted root certificate file location", text: $lastCertificateFilePath)
+                        Button("Add Root Certificate", action: addRootCertificate)
+                    }
+                }
+            }
+
             Spacer()
 
             HStack {
@@ -172,6 +183,10 @@ struct SystemView: View {
     /// Opens a URL in the appropriate device app.
     func openURL() {
         SimCtl.openURL(simulator.udid, URL: lastOpenURL)
+    }
+
+    func addRootCertificate() {
+        SimCtl.addRootCertificate(simulator.udid, filePath: lastCertificateFilePath)
     }
 
     /// Erases the current device.

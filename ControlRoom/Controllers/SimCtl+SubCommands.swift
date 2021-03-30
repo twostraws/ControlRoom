@@ -82,6 +82,10 @@ extension SimCtl {
             Command("openurl", arguments: [deviceId, url])
         }
 
+        static func addRootCert(deviceId: String, filePath: String) -> Command {
+            Command("keychain", arguments: [deviceId, filePath])
+        }
+
         /// Add photos, live photos, videos, or contacts to the library of a device.
         static func addMedia(deviceId: String, mediaPaths: [String]) -> Command {
             Command("addmedia", arguments: [deviceId] + mediaPaths)
