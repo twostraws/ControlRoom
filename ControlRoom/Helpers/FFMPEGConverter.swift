@@ -18,25 +18,16 @@ enum FFMPEGConverter: CommandLineCommandExecuter {
         var fps = 60
         var videoQuality = VideoQuality.default
         var videoBitrate = "2.0M"
-        var audioBitrate = "128k"
 
         var arguments: [String] {
             [
-                "-i", inPath,
-                "-codec:v", "libx264",
-                "-b:v", videoBitrate,
-                "-filter:v", "fps=\(fps)",
-                "-crf", "\(videoQuality.crf)",
-                "-bf", "2",
-                "-flags", "+cgop",
-                "-pix_fmt", "yuv420p",
-                "-codec:a", "mp3",
-                "-strict",
-                "-2",
-                "-b:a", audioBitrate,
-                "-r:a", "48000",
-                "-movflags", "faststart",
-                outPath
+                "-i", inPath,                   // Input file
+                "-codec:v", "libx264",          // Video Codec: H.264
+                "-b:v", videoBitrate,           // Limit video bitrate
+                "-filter:v", "fps=\(fps)",      // Set video FPS
+                "-crf", "\(videoQuality.crf)",  // Set H.264 compression quality (0 - 51, smaller better)
+                "-c:a", "copy",                 // Copy audio as is
+                outPath                         // Output file
             ]
         }
     }
