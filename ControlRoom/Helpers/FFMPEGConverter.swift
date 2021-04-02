@@ -38,14 +38,27 @@ enum FFMPEGConverter: CommandLineCommandExecuter {
 
     static func convert(input inPath: String, output outPath: String,
                         callback: @escaping (Result<Void, CommandLineError>) -> Void) {
+        let initialSize = fileSizeString(inPath)
         execute(Command(inPath: inPath, outPath: outPath)) { result in
             switch result {
             case .success:
+                let resultSize = fileSizeString(outPath)
+                print("Video Compressed: \(initialSize) -> \(resultSize)")
                 callback(.success(()))
             case .failure(let error):
                 callback(.failure(error))
             }
         }
+    }
+
+    static private func fileSizeString(_ path: String) -> String {
+        guard let sizeAttribute = try? FileManager.default.attributesOfItem(atPath: path)[FileAttributeKey.size],
+              let size = sizeAttribute as? UInt64
+        else {
+            return "?"
+        }
+        let sizeMb = Double(size) / 1024 / 1024
+        return String(format: "%0.3f Mb", sizeMb)
     }
 }
 
