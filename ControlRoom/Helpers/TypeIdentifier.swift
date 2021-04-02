@@ -29,59 +29,13 @@ struct TypeIdentifier: Hashable {
     /// The string representation of the Uniform Type Identifier
     let rawValue: String
 
-    /// Private values for extracting metadata about this type identifier
-    private let declaration: [String: Any]
-    private let bundle: Bundle?
-    private var iconFile: String? { declaration[kUTTypeIconFileKey as String] as? String }
-    private var iconPath: String? { declaration["_LSIconPath"] as? String }
-    private var conformsTo: [TypeIdentifier] {
-        let list = (declaration[kUTTypeConformsToKey as String] as? [String]) ?? []
-        return list.map(TypeIdentifier.init)
-    }
-
-    /// Iterates through this type identifier and all identifiers to which it conforms, looking for one that defines an icon
-    private var iconURL: URL? {
-        var typesToCheck = [self]
-        var checked = Set<TypeIdentifier>()
-
-        while typesToCheck.isEmpty == false {
-            let first = typesToCheck.removeFirst()
-            guard checked.contains(first) == false else { continue }
-            checked.insert(first)
-
-            guard let thisBundle = first.bundle else { continue }
-
-            if let iconName = first.iconFile {
-                if let url = thisBundle.url(forResource: iconName, withExtension: nil) ??
-                    thisBundle.url(forResource: iconName, withExtension: "icns") {
-                    return url
-                }
-
-            } else if let iconPath = first.iconPath {
-                let fullPath = (thisBundle.bundlePath as NSString).appendingPathComponent(iconPath)
-                return URL(fileURLWithPath: fullPath)
-            }
-
-            typesToCheck.append(contentsOf: first.conformsTo)
-        }
-
-        return nil
-    }
-
     /// Constructs an icon for this type identifier, as defined by its declaration
     var icon: NSImage {
-        if let iconURL = iconURL {
-            return NSImage(byReferencing: iconURL)
-        }
-        return NSWorkspace.shared.icon(forFileType: "'ques'")
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(rawValue)
+        NSWorkspace.shared.icon(forFileType: rawValue)
     }
 
     func conformsTo(_ other: TypeIdentifier) -> Bool {
-        return UTTypeConformsTo(rawValue as CFString, other.rawValue as CFString)
+        UTTypeConformsTo(rawValue as CFString, other.rawValue as CFString)
     }
 
     /// Constructs a type identifier from a device model code, such as "iPad8,4"
@@ -95,8 +49,6 @@ struct TypeIdentifier: Hashable {
 
     /// Constructs a type identifier based on its string representation
     init(_ identifier: String) {
-        self.rawValue = identifier
-        self.declaration = (UTTypeCopyDeclaration(identifier as CFString)?.takeRetainedValue() as? [String: Any]) ?? [:]
-        self.bundle = (UTTypeCopyDeclaringBundleURL(identifier as CFString)?.takeRetainedValue()).flatMap { Bundle(url: $0 as URL) }
+        rawValue = identifier
     }
 }

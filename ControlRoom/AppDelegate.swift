@@ -7,47 +7,104 @@
 //
 
 import Cocoa
+import KeyboardShortcuts
 import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var window: NSWindow!
+    lazy var mainWindow: MainWindowController = MainWindowController()
 
-    /// One shared `SimulatorsController` to fetch and filter simulator data only once.
-    let controller = SimulatorsController()
+    var menuBarItem: NSStatusItem!
 
-    var defaultsObservation: NSKeyValueObservation?
+    @AppStorage("CRWantsMenuBarIcon") private var wantsMenuBarIcon = true
+    @AppStorage("CRApps_LastOpenURL") private var lastOpenURL = ""
+    @AppStorage("CRApps_LastBundleID") private var lastBundleID = ""
+    @AppStorage("CRLastSimulatorUDID") private var lastSimulatorUDID = "booted"
+    @AppStorage("CRApps_PushPayload") private var pushPayload = """
+    {
+        "aps": {
+            "alert": {
+                "body": "Hello, World!",
+                "title": "From Control Room"
+            }
+        }
+    }
+    """
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = MainView(controller: controller)
+        mainWindow.showWindow(self)
 
-        // Create the window and set the content view. 
-        window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false)
-        window.center()
-        window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
-        window.makeKeyAndOrderFront(nil)
-        window.title = "Control Room"
-        window.isMovableByWindowBackground = true
+        if wantsMenuBarIcon {
+            addMenuBarItem()
+        }
 
-        UserDefaults.standard.register(defaults: [Defaults.wantsFloatingWindow: false])
+        KeyboardShortcuts.onKeyUp(for: .resendLastPushNotification) { [weak self] in
+            self?.resendLastPushNotification()
+        }
 
-        defaultsObservation = UserDefaults.standard.observe(\.CRWantsFloatingWindow, options: [.initial, .new]) { [weak self] (defaults, _) in
-            guard let self = self else { return }
-            self.window.level = defaults.CRWantsFloatingWindow ? .floating : .normal
+        KeyboardShortcuts.onKeyUp(for: .restartLastSelectedApp) { [weak self] in
+            self?.restartLastSelectedApp()
+        }
+
+        KeyboardShortcuts.onKeyUp(for: .reopenLastURL) { [weak self] in
+            self?.reopenLastURL()
         }
     }
 
-    deinit {
-        defaultsObservation?.invalidate()
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        true
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+    @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
+        let authors = Bundle.main.authors
+
+        if authors.isNotEmpty {
+            let content = NSViewController()
+            content.title = "Control Room"
+            let view = NSHostingView(rootView: AboutView(authors: authors))
+            view.frame.size = view.fittingSize
+            content.view = view
+            let panel = NSPanel(contentViewController: content)
+            panel.styleMask = [.closable, .titled]
+            panel.orderFront(sender)
+            panel.makeKey()
+        } else {
+            NSApp.orderFrontStandardAboutPanel(sender)
+        }
     }
 
+    func addMenuBarItem() {
+        menuBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        menuBarItem.button?.image = NSImage(named: NSImage.smartBadgeTemplateName)
+        menuBarItem.menu = NSMenu()
+
+        let resend = NSMenuItem(title: "Resend last push notification", action: #selector(resendLastPushNotification), keyEquivalent: "")
+        resend.setShortcut(for: .resendLastPushNotification)
+        menuBarItem.menu?.addItem(resend)
+
+        let restart = NSMenuItem(title: "Restart last selected app", action: #selector(restartLastSelectedApp), keyEquivalent: "")
+        restart.setShortcut(for: .restartLastSelectedApp)
+        menuBarItem.menu?.addItem(restart)
+
+        let reopen = NSMenuItem(title: "Reopen last URL", action: #selector(reopenLastURL), keyEquivalent: "")
+        reopen.setShortcut(for: .reopenLastURL)
+        menuBarItem.menu?.addItem(reopen)
+    }
+
+    func removeMenuBarItem() {
+        guard menuBarItem != nil else { return }
+        NSStatusBar.system.removeStatusItem(menuBarItem)
+    }
+
+    @objc func resendLastPushNotification() {
+        SimCtl.sendPushNotification(lastSimulatorUDID, appID: lastBundleID, jsonPayload: pushPayload)
+    }
+
+    @objc func restartLastSelectedApp() {
+        SimCtl.restart(lastSimulatorUDID, appID: lastBundleID)
+    }
+
+    @objc func reopenLastURL() {
+        SimCtl.openURL(lastSimulatorUDID, URL: lastOpenURL)
+    }
 }

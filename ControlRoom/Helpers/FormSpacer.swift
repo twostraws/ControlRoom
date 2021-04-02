@@ -12,7 +12,12 @@ import SwiftUI
 /// section itself, so this is a way to get uniform spacing between form components.
 struct FormSpacer: View {
     var body: some View {
-        Spacer()
-            .frame(maxHeight: 30)
+        VStack {
+            Spacer()
+                .frame(maxHeight: 15)
+            HLine()
+            Spacer()
+                .frame(maxHeight: 15)
+        }
     }
 }
