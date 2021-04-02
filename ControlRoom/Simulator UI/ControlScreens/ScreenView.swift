@@ -20,7 +20,8 @@ struct VideoFormat {
         VideoFormat(name: "GIF (Small)", description: "Up to 400px in either dimension."),
         VideoFormat(name: "GIF (Medium)", description: "Up to 800px in either dimension."),
         VideoFormat(name: "GIF (Large)", description: "Up to 1200px in either dimension."),
-        VideoFormat(name: "GIF (Full)", description: "Saved at the natural resolution of the device. ⚠️ Warning: this creates very large files.")
+        VideoFormat(name: "GIF (Full)", description: "Saved at the natural resolution of the device. ⚠️ Warning: this creates very large files."),
+        VideoFormat(name: "H.264 (Compressed)", description: "Compressed video with the original device resolution. Requires `ffmpeg` tool to be installed.")
     ]
 }
 
@@ -43,6 +44,9 @@ struct ScreenView: View {
 
     /// The name of the file we're writing to, used at first in a temporary directory then on the desktop.
     @State private var recordingFilename = ""
+
+    /// The export format description to be shown while exporting
+    @State private var exportDescription = ""
 
     /// Converting MP4 to GIF takes time, so this tracks the progress of the operation
     @State private var exportProgress: CGFloat = 1.0
@@ -105,7 +109,7 @@ struct ScreenView: View {
             Spacer()
 
             if exportProgress != 1.0 {
-                ProgressView("Exporting GIF", value: exportProgress, total: 1.0)
+                ProgressView("Exporting \(exportDescription)", value: exportProgress, total: 1.0)
             }
         }.tabItem {
             Text("Screen")
@@ -149,30 +153,60 @@ struct ScreenView: View {
         let format = VideoFormat.all[videoFormat].name
 
         if format.hasPrefix("GIF") {
-            var size: CGFloat?
-
-            if format.contains("Small") {
-                size = 400
-            } else if format.contains("Medium") {
-                size = 800
-            } else if format.contains("Large") {
-                size = 1200
-            }
-
-            let gifExtension = savePath.replacingOccurrences(of: ".mp4", with: ".gif")
-
-            sourceURL.convertToGIF(maxSize: size) { progress in
-                exportProgress = progress
-            } completion: { result in
-                switch result {
-                case .success(let gifURL):
-                    try? FileManager.default.moveItem(atPath: gifURL.path, toPath: gifExtension)
-                case .failure(let reason):
-                    print(reason.localizedDescription)
-                }
-            }
+            exportGif(format, savePath, sourceURL)
+        } else if format.contains("Compressed") {
+            exportCompressedVideo(savePath, sourceURL)
         } else {
             try? FileManager.default.moveItem(atPath: sourceURL.path, toPath: savePath)
+        }
+    }
+
+    /// Saves recorded video as a GIF-file
+    private func exportGif(_ format: String, _ savePath: String, _ sourceURL: URL) {
+        var size: CGFloat?
+
+        if format.contains("Small") {
+            size = 400
+        } else if format.contains("Medium") {
+            size = 800
+        } else if format.contains("Large") {
+            size = 1200
+        }
+
+        let gifExtension = savePath.replacingOccurrences(of: ".mp4", with: ".gif")
+
+        exportDescription = "GIF"
+        sourceURL.convertToGIF(maxSize: size) { progress in
+            exportProgress = progress
+        } completion: { result in
+            switch result {
+            case .success(let gifURL):
+                try? FileManager.default.moveItem(atPath: gifURL.path, toPath: gifExtension)
+            case .failure(let reason):
+                print(reason.localizedDescription)
+            }
+        }
+    }
+
+    /// Compresses recorded video with `ffmpeg` before saving
+    private func exportCompressedVideo(_ savePath: String, _ sourceURL: URL) {
+        guard FFMPEGConverter.available else {
+            try? FileManager.default.moveItem(atPath: sourceURL.path, toPath: savePath)
+            print("The 'ffmpeg' isn't available.")
+            return
+        }
+
+        let convertPath = sourceURL.path.appending("-compressed.mp4")
+        exportDescription = "Compressed Video"
+        exportProgress = 0.0
+        FFMPEGConverter.convert(input: sourceURL.path, output: convertPath) { result in
+            exportProgress = 1.0
+            switch result {
+            case .success:
+                try? FileManager.default.moveItem(atPath: convertPath, toPath: savePath)
+            case .failure(let reason):
+                print(reason.localizedDescription)
+            }
         }
     }
 
