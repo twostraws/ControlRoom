@@ -614,6 +614,7 @@ extension SimCtl {
             case wifi = "wifi"
             case threeG = "3g"
             case fourG = "4g"
+            case fiveG = "5g"
             case lte = "lte"
             case lteA = "lte-a"
             case ltePlus = "lte+"
