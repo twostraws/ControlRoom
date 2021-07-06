@@ -39,6 +39,8 @@ struct SystemView: View {
             }
     }()
 
+	@State var dropHovering: Bool = false
+
     var body: some View {
         Form {
             Group {
@@ -107,13 +109,57 @@ struct SystemView: View {
                         Button("Open URL", action: openURL)
                     }
                 }
-
+				FormSpacer()
             }
 
-            Spacer()
+			Group {
+				Section(header: Text("Location on Disk")) {
+					HStack {
+						Text("Device ID")
+						Spacer()
+						Text(simulator.udid)
+						Button("Copy", action: copyDeviceID)
+					}
+					HStack(alignment: .top) {
+						Text("Root Path:")
+						Spacer()
+						Text(simulator.urlForFilePath(.root).relativePath)
+					}
+					HStack {
+						Spacer()
+						Button("Copy", action: { copyPath(.root) })
+						Button("Open in Finder", action: { openInFinder(.root) })
+						Button("Open in Terminal", action: { openInTerminal(.root) })
+					}
+					VStack {
+						HStack(alignment: .top) {
+							Text("Files Path:")
+							Spacer()
+							Text(simulator.urlForFilePath(.files).relativePath)
+						}
+						HStack(alignment: .bottom) {
+							Text("drag file(s) here to copy").font(.caption)
+							Spacer()
+							Button("Copy", action: { copyPath(.files) })
+							Button("Open in Finder", action: { openInFinder(.files) })
+							Button("Open in Terminal", action: { openInTerminal(.files) })
+						}
+					}
+					.padding(5)
+					.overlay(
+						RoundedRectangle(cornerRadius: 5)
+							.stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
+					)
+					.onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
+						return simulator.copyFilesFromProviders(providers, toFilePath: .files)
+					}
+				}
+				FormSpacer()
+			}
+
+			Spacer()
 
             HStack {
-                Spacer()
                 Button("Reset Keychain", action: resetKeychain)
                 Button("Erase Content and Settings", action: eraseDevice)
             }
@@ -184,7 +230,35 @@ struct SystemView: View {
         SimCtl.execute(.keychain(deviceId: simulator.udid, action: .reset))
     }
 
-    private func locales(for language: String) -> [String] {
+	func copyDeviceID() {
+		NSPasteboard.general.declareTypes([.string], owner: nil)
+		NSPasteboard.general.setString(simulator.udid, forType: .string)
+	}
+
+	func copyPath(_ filePath: Simulator.FilePathKind) {
+		NSPasteboard.general.declareTypes([.string], owner: nil)
+		NSPasteboard.general.setString(simulator.urlForFilePath(filePath).relativePath, forType: .string)
+	}
+
+	func openInFinder(_ filePath: Simulator.FilePathKind) {
+		NSWorkspace.shared.activateFileViewerSelecting([simulator.urlForFilePath(filePath)])
+	}
+
+	func openInTerminal(_ filePath: Simulator.FilePathKind) {
+		let terminalUrl = URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app") as CFURL
+		let unmanagedTerminalUrl = Unmanaged<CFURL>.passUnretained(terminalUrl)
+
+		let folderUrl = simulator.urlForFilePath(filePath)
+		let unmanagedFolderUrl = Unmanaged<CFArray>.passRetained([folderUrl] as CFArray)
+
+		let launchSpec = LSLaunchURLSpec(appURL: unmanagedTerminalUrl, itemURLs: unmanagedFolderUrl, passThruParams: nil, launchFlags: [], asyncRefCon: nil)
+
+		withUnsafePointer(to: launchSpec) { (pointer: UnsafePointer<LSLaunchURLSpec>) -> Void in
+			LSOpenFromURLSpec(pointer, nil)
+		}
+	}
+
+	private func locales(for language: String) -> [String] {
         NSLocale.availableLocaleIdentifiers
             .filter { $0.hasPrefix(language) }
             .sorted { (lhs, rhs) -> Bool in
