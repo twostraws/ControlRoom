@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
 		5108721525C331360009E39F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5108721425C331360009E39F /* TextView.swift */; };
 		511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		5108721425C331360009E39F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,6 +261,7 @@
 				555A145B23F70CCF00313BC5 /* Process.swift */,
 				5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */,
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
+				41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
 				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
 				ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */,
+				41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
 				ACD2064D2431F20000F8659B /* CommandLineExecuter.swift in Sources */,
 				5179289A25C37D2A000F6F3A /* KeyboardShortcuts.swift in Sources */,
