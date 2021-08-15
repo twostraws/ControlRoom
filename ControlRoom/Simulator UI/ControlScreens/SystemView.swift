@@ -17,6 +17,8 @@ struct SystemView: View {
 
     @AppStorage("CRApps_LastOpenURL") private var lastOpenURL = ""
 
+    @AppStorage("CRApps_LastCertificateFilePath") private var lastCertificateFilePath = ""
+
     /// The current time to show in the device.
     @State private var time = Date()
 
@@ -109,55 +111,62 @@ struct SystemView: View {
                         Button("Open URL", action: openURL)
                     }
                 }
-				FormSpacer()
+				        FormSpacer()
+                Section(header: Text("Add Root Certificate")) {
+                    HStack {
+                        TextField("Trusted root certificate file location", text: $lastCertificateFilePath)
+                        Button("Add Root Certificate", action: addRootCertificate)
+                    }
+                }
+          }
+
+          Spacer()
+          Group {
+          Section(header: Text("Location on Disk")) {
+            HStack {
+              Text("Device ID")
+              Spacer()
+              Text(simulator.udid)
+              Button("Copy", action: copyDeviceID)
             }
+            HStack(alignment: .top) {
+              Text("Root Path:")
+              Spacer()
+              Text(simulator.urlForFilePath(.root).relativePath)
+            }
+            HStack {
+              Spacer()
+              Button("Copy", action: { copyPath(.root) })
+              Button("Open in Finder", action: { openInFinder(.root) })
+              Button("Open in Terminal", action: { openInTerminal(.root) })
+            }
+            VStack {
+              HStack(alignment: .top) {
+                Text("Files Path:")
+                Spacer()
+                Text(simulator.urlForFilePath(.files).relativePath)
+              }
+              HStack(alignment: .bottom) {
+                Text("drag file(s) here to copy").font(.caption)
+                Spacer()
+                Button("Copy", action: { copyPath(.files) })
+                Button("Open in Finder", action: { openInFinder(.files) })
+                Button("Open in Terminal", action: { openInTerminal(.files) })
+              }
+            }
+            .padding(5)
+            .overlay(
+              RoundedRectangle(cornerRadius: 5)
+                .stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
+            )
+            .onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
+              return simulator.copyFilesFromProviders(providers, toFilePath: .files)
+            }
+          }
+          FormSpacer()
+        }
 
-			Group {
-				Section(header: Text("Location on Disk")) {
-					HStack {
-						Text("Device ID")
-						Spacer()
-						Text(simulator.udid)
-						Button("Copy", action: copyDeviceID)
-					}
-					HStack(alignment: .top) {
-						Text("Root Path:")
-						Spacer()
-						Text(simulator.urlForFilePath(.root).relativePath)
-					}
-					HStack {
-						Spacer()
-						Button("Copy", action: { copyPath(.root) })
-						Button("Open in Finder", action: { openInFinder(.root) })
-						Button("Open in Terminal", action: { openInTerminal(.root) })
-					}
-					VStack {
-						HStack(alignment: .top) {
-							Text("Files Path:")
-							Spacer()
-							Text(simulator.urlForFilePath(.files).relativePath)
-						}
-						HStack(alignment: .bottom) {
-							Text("drag file(s) here to copy").font(.caption)
-							Spacer()
-							Button("Copy", action: { copyPath(.files) })
-							Button("Open in Finder", action: { openInFinder(.files) })
-							Button("Open in Terminal", action: { openInTerminal(.files) })
-						}
-					}
-					.padding(5)
-					.overlay(
-						RoundedRectangle(cornerRadius: 5)
-							.stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
-					)
-					.onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
-						return simulator.copyFilesFromProviders(providers, toFilePath: .files)
-					}
-				}
-				FormSpacer()
-			}
-
-			Spacer()
+        Spacer()
 
             HStack {
                 Button("Reset Keychain", action: resetKeychain)
@@ -218,6 +227,10 @@ struct SystemView: View {
     /// Opens a URL in the appropriate device app.
     func openURL() {
         SimCtl.openURL(simulator.udid, URL: lastOpenURL)
+    }
+
+    func addRootCertificate() {
+        SimCtl.addRootCertificate(simulator.udid, filePath: lastCertificateFilePath)
     }
 
     /// Erases the current device.

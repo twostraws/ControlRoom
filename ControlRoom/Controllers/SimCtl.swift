@@ -177,6 +177,10 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.openURL(deviceId: simulator, url: URL))
     }
 
+    static func addRootCertificate(_ simulator: String, filePath: String) {
+        execute(.keychain(deviceId: simulator, action: .addRootCert(path: filePath)))
+    }
+
     static func grantPermission(_ simulator: String, appID: String, permission: Privacy.Permission) {
         execute(.privacy(deviceId: simulator, action: .grant, service: permission, appBundleId: appID))
     }
