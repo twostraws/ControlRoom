@@ -709,6 +709,7 @@ extension SimCtl {
         enum Permission: String, CaseIterable {
             case all
             case calendar
+            case camera
             case contactsLimited = "contacts-limited"
             case contacts
             case location
