@@ -47,6 +47,18 @@ struct PreferencesView: View {
                     KeyboardShortcuts.Recorder(for: .reopenLastURL)
                 }
             }
+          
+            Spacer()
+                .frame(height: 30)
+            
+            Section(header: Text("Terminal app path").font(.headline)) {
+                TextField(
+                    "Filepath",
+                    text: $preferences.terminalAppPath
+                )
+                    .labelsHidden()
+                .textFieldStyle(.roundedBorder)
+            }
 
             Spacer()
                 .frame(height: 30)
