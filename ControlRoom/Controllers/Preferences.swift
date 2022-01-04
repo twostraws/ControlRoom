@@ -23,7 +23,7 @@ final class Preferences: ObservableObject {
     @UserDefault("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
     @UserDefault("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false
     @UserDefault("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
-    
+
     @UserDefault("CRTerminalAppPath") var terminalAppPath = "/System/Applications/Utilities/Terminal.app"
 
     init(defaults: UserDefaults = .standard) {

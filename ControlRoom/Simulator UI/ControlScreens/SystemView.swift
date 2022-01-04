@@ -259,7 +259,7 @@ struct SystemView: View {
 
 	func openInTerminal(_ filePath: Simulator.FilePathKind) {
         guard preferences.terminalAppPath.isNotEmpty else { return }
-        
+
         let terminalUrl = URL(fileURLWithPath: preferences.terminalAppPath) as CFURL
 		let unmanagedTerminalUrl = Unmanaged<CFURL>.passUnretained(terminalUrl)
 
