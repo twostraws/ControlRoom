@@ -175,9 +175,14 @@ struct Simulator: Identifiable, Comparable, Hashable {
 		}
 	}
 
-    /// Sort simulators alphabetically.
+    /// Sort simulators alphabetically, and then by OS version.
     static func < (lhs: Simulator, rhs: Simulator) -> Bool {
-        lhs.name < rhs.name
+        if lhs.name == rhs.name,
+           let lhsRuntime = lhs.runtime,
+           let rhsRuntime = rhs.runtime {
+            return lhsRuntime.buildversion < rhsRuntime.buildversion
+        }
+        return lhs.name < rhs.name
     }
 
     /// An example simulator for Xcode preview purposes
