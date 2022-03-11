@@ -125,6 +125,7 @@ struct AppView: View {
                     .frame(minHeight: 150, maxHeight: .infinity)
 
                 HStack(spacing: 10) {
+                    Button("Select Notification Templates", action: openNotificationTemplate)
                     Spacer()
                     Button("Open Notification Editor", action: openNotificationEditor)
                     Button("Send Push Notification", action: sendPushNotification)
@@ -194,6 +195,14 @@ struct AppView: View {
     /// Shows a confirmation alert asking the user if they are sure they want to delete the selected app.
     func confirmDeleteApp() {
         shouldShowUninstallConfirmationAlert = true
+    }
+
+    /// Open notification templates
+    func openNotificationTemplate() {
+        DocumentPicker.show(withConfig: DocumentPickerConfig(allowedContentTypes: [.json])) { selectedFile in
+            guard let selectedPaload = String(data: selectedFile, encoding: .utf8) else { return }
+            self.pushPayload = selectedPaload
+        }
     }
 
     /// Open the notification editor
