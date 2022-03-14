@@ -197,7 +197,7 @@ struct AppView: View {
         shouldShowUninstallConfirmationAlert = true
     }
 
-    /// Open notification templates
+    /// Open Finder to select notification template
     func openNotificationTemplate() {
         DocumentPicker.show(withConfig: DocumentPickerConfig(allowedContentTypes: [.json])) { selectedFile in
             guard let selectedPaload = String(data: selectedFile, encoding: .utf8) else { return }

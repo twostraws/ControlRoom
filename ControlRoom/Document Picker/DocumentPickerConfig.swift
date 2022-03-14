@@ -9,15 +9,15 @@
 import Foundation
 import UniformTypeIdentifiers
 
+/// Finder dialog configuration to select file/s
 struct DocumentPickerConfig {
-    let title: String
+
     let showHiddenFiles: Bool
     let canChooseFiles: Bool
     let canChooseDirectories: Bool
     let allowedContentTypes: [UTType]
 
-    init(title: String = "", showHiddenFiles: Bool = false, canChooseFiles: Bool = true, canChooseDirectories: Bool = false, allowedContentTypes: [UTType]) {
-        self.title = title
+    init(showHiddenFiles: Bool = false, canChooseFiles: Bool = true, canChooseDirectories: Bool = false, allowedContentTypes: [UTType]) {
         self.showHiddenFiles = showHiddenFiles
         self.canChooseFiles = canChooseFiles
         self.canChooseDirectories = canChooseDirectories
