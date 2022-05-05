@@ -20,6 +20,13 @@ struct LocationView: View {
         span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
     @State private var pinnedLocation: CLLocationCoordinate2D?
 
+    /// A randomly generated location offset from the currentLocation.
+    /// Non-nil only when jittering is enabled.
+    @State private var jitteredLocation: CLLocationCoordinate2D?
+
+    @State private var isJittering: Bool = false
+    private let jitterTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     var annotations: [CLLocationCoordinate2D] {
         if let pinnedLocation = pinnedLocation {
             return [pinnedLocation]
@@ -51,6 +58,8 @@ struct LocationView: View {
             HStack {
                 Text("Coordinates: \(locationText)")
                 Spacer()
+                Toggle("Jitter location", isOn: $isJittering)
+                    .toggleStyle(.checkbox)
                 Button("Activate", action: changeLocation)
             }
         }
@@ -58,11 +67,19 @@ struct LocationView: View {
             Text("Location")
         }
         .padding()
+        .onReceive(jitterTimer) { _ in
+            guard isJittering else {
+                jitteredLocation = nil
+                return
+            }
+
+            jitterLocation()
+        }
     }
 
     /// Updates the simulated location to the value of `currentLocation`.
     func changeLocation() {
-        let coordinate = currentLocation.center
+        let coordinate = jitteredLocation ?? currentLocation.center
         pinnedLocation = coordinate
 
         let simulatorIds: [String]
@@ -91,5 +108,13 @@ struct LocationView: View {
         DistributedNotificationCenter
             .default()
             .post(notification)
+    }
+
+    /// Randomly generates a new location slightly offset from the currentLocation
+    private func jitterLocation() {
+        let lat = currentLocation.center.latitude + (Double.random(in: -0.0001...0.0001))
+        let long = currentLocation.center.longitude + (Double.random(in: -0.0001...0.0001))
+        jitteredLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        changeLocation()
     }
 }
