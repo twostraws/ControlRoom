@@ -37,7 +37,8 @@ struct LocationView: View {
 
     /// User-facing text describing `currentLocation`
     var locationText: String {
-        String(format: "%.5f, %.5f", currentLocation.center.latitude, currentLocation.center.longitude)
+        let location = jitteredLocation ?? currentLocation.center
+        return String(format: "%.5f, %.5f", location.latitude, location.longitude)
     }
 
     var body: some View {
