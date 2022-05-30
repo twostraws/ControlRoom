@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 /// Shows one simulator in the sidebar.
 struct SimulatorSidebarView: View {
