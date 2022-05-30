@@ -108,9 +108,30 @@ enum SimCtl: CommandLineCommandExecuter {
         let timeString = ISO8601DateFormatter().string(from: time)
         execute(.statusBar(deviceId: simulator, operation: .override([.time(timeString)])))
     }
-
     static func setAppearance(_ simulator: String, appearance: UI.Appearance) {
         execute(.ui(deviceId: simulator, option: .appearance(appearance)))
+    }
+    static func setLogging(_ simulator: String, enableLogging: Bool) {
+        UserDefaults.standard.set(enableLogging, forKey: "\(simulator).logging")
+        execute(.setLogging(deviceTypeId: simulator, enableLogging: enableLogging))
+        execute(.shutdown(.devices([simulator])))
+        execute(.boot(deviceId: simulator))
+    }
+    static func getLogs(_ simulator: String) {
+        //execute(.getLogs(deviceTypeId: simulator))
+        let source = """
+                            tell application "Terminal"
+                                activate
+                                do script "xcrun simctl diagnose && exit"
+                            end tell
+                      """
+        if let script = NSAppleScript(source: source) {
+            var error: NSDictionary?
+            script.executeAndReturnError(&error)
+            if let err = error {
+                print(err)
+            }
+        }
     }
 
     static func triggeriCloudSync(_ simulator: String) {

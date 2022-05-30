@@ -30,6 +30,8 @@ struct SystemView: View {
 
     /// The currently active locale identifier
     @State private var locale: String = NSLocale.current.identifier
+    /// The current state of logging
+    @State private var isLoggingEnabled = false
 
     private let languages: [String] = {
         NSLocale.isoLanguageCodes
@@ -51,27 +53,27 @@ struct SystemView: View {
                     Button("Set", action: setTime)
                     Button("Set to 9:41", action: setAppleTime)
                 }
-
+                
                 FormSpacer()
             }
-
+            
             Group {
                 Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
                     ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
                         Text($0.displayName)
                     }
                 }
-
+                
                 FormSpacer()
             }
-
+            
             Group {
                 Picker("Language:", selection: $language) {
                     ForEach(languages, id: \.self) {
                         Text(NSLocale.current.localizedString(forLanguageCode: $0) ?? "")
                     }
                 }
-
+                
                 Picker("Locale:", selection: $locale) {
                     ForEach(locales(for: language), id: \.self) {
                         Text(NSLocale.current.localizedString(forIdentifier: $0) ?? "")
@@ -81,18 +83,32 @@ struct SystemView: View {
                     Button("Set Language/Locale", action: updateLanguage)
                     Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
                 }
-
+                
                 FormSpacer()
             }
-
+            
             Group {
                 Section {
                     Button("Trigger iCloud Sync", action: triggerSync)
                 }
-
+                
                 FormSpacer()
             }
-
+            Group {
+                Section(header: Text("Logging")) {
+                    HStack {
+                        if isLoggingEnabled {
+                            Button("Disable Logging", action: updateLogging)
+                            Button("Get Logs", action: getLogs)
+                        } else if !isLoggingEnabled {
+                            Button("Enable Logging", action: updateLogging)
+                        }
+                    }
+                }
+                
+                FormSpacer()
+            }
+            
             Group {
                 Section(header: Text("Copy Pasteboard")) {
                     HStack {
@@ -100,10 +116,10 @@ struct SystemView: View {
                         Button("Mac → Simulator", action: copyPasteboardToSim)
                     }
                 }
-
+                
                 FormSpacer()
             }
-
+            
             Group {
                 Section(header: Text("Open URL")) {
                     HStack {
@@ -111,72 +127,74 @@ struct SystemView: View {
                         Button("Open URL", action: openURL)
                     }
                 }
-				        FormSpacer()
+                FormSpacer()
                 Section(header: Text("Add Root Certificate")) {
                     HStack {
                         TextField("Trusted root certificate file location", text: $lastCertificateFilePath)
                         Button("Add Root Certificate", action: addRootCertificate)
                     }
                 }
-          }
-
-          Spacer()
-          Group {
-          Section(header: Text("Location on Disk")) {
-            HStack {
-              Text("Device ID")
-              Spacer()
-              Text(simulator.udid)
-              Button("Copy", action: copyDeviceID)
             }
-            HStack(alignment: .top) {
-              Text("Root Path:")
-              Spacer()
-              Text(simulator.urlForFilePath(.root).relativePath)
-            }
-            HStack {
-              Spacer()
-              Button("Copy", action: { copyPath(.root) })
-              Button("Open in Finder", action: { openInFinder(.root) })
-              Button("Open in Terminal", action: { openInTerminal(.root) })
-            }
-            VStack {
-              HStack(alignment: .top) {
-                Text("Files Path:")
+            Group {
                 Spacer()
-                Text(simulator.urlForFilePath(.files).relativePath)
-              }
-              HStack(alignment: .bottom) {
-                Text("drag file(s) here to copy").font(.caption)
+                Group {
+                    Section(header: Text("Location on Disk")) {
+                        HStack {
+                            Text("Device ID")
+                            Spacer()
+                            Text(simulator.udid)
+                            Button("Copy", action: copyDeviceID)
+                        }
+                        HStack(alignment: .top) {
+                            Text("Root Path:")
+                            Spacer()
+                            Text(simulator.urlForFilePath(.root).relativePath)
+                        }
+                        HStack {
+                            Spacer()
+                            Button("Copy", action: { copyPath(.root) })
+                            Button("Open in Finder", action: { openInFinder(.root) })
+                            Button("Open in Terminal", action: { openInTerminal(.root) })
+                        }
+                        VStack {
+                            HStack(alignment: .top) {
+                                Text("Files Path:")
+                                Spacer()
+                                Text(simulator.urlForFilePath(.files).relativePath)
+                            }
+                            HStack(alignment: .bottom) {
+                                Text("drag file(s) here to copy").font(.caption)
+                                Spacer()
+                                Button("Copy", action: { copyPath(.files) })
+                                Button("Open in Finder", action: { openInFinder(.files) })
+                                Button("Open in Terminal", action: { openInTerminal(.files) })
+                            }
+                        }
+                        .padding(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
+                        )
+                        .onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
+                            return simulator.copyFilesFromProviders(providers, toFilePath: .files)
+                        }
+                    }
+                    FormSpacer()
+                }
                 Spacer()
-                Button("Copy", action: { copyPath(.files) })
-                Button("Open in Finder", action: { openInFinder(.files) })
-                Button("Open in Terminal", action: { openInTerminal(.files) })
-              }
-            }
-            .padding(5)
-            .overlay(
-              RoundedRectangle(cornerRadius: 5)
-                .stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
-            )
-            .onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
-              return simulator.copyFilesFromProviders(providers, toFilePath: .files)
-            }
-          }
-          FormSpacer()
-        }
-
-        Spacer()
-
-            HStack {
-                Button("Reset Keychain", action: resetKeychain)
-                Button("Erase Content and Settings", action: eraseDevice)
+                HStack {
+                    Button("Reset Keychain", action: resetKeychain)
+                    Button("Erase Content and Settings", action: eraseDevice)
+                }
             }
         }
         .tabItem {
             Text("System")
         }
         .padding()
+        .onAppear {
+            isLoggingEnabled = UserDefaults.standard.bool(forKey: "\(simulator.udid).logging")
+        }
     }
 
     /// Changes the system clock to a new value.
@@ -212,6 +230,20 @@ struct SystemView: View {
     /// Starts an immediate iCloud sync.
     func triggerSync() {
         SimCtl.triggeriCloudSync(simulator.udid)
+    }
+    /// Update logging.
+    func updateLogging() {
+        if isLoggingEnabled {
+            SimCtl.setLogging(simulator.udid, enableLogging: false)
+            isLoggingEnabled = false
+        } else {
+            SimCtl.setLogging(simulator.udid, enableLogging: true)
+            isLoggingEnabled = true
+        }
+    }
+    /// Get logs.
+    func getLogs() {
+        SimCtl.getLogs(simulator.udid)
     }
 
     /// Copies the simulator's pasteboard to the Mac.

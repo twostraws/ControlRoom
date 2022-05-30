@@ -32,5 +32,7 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Do you want to allow automation for this app?</string>
 </dict>
 </plist>
