@@ -54,27 +54,22 @@ struct SystemView: View {
                     Button("Set", action: setTime)
                     Button("Set to 9:41", action: setAppleTime)
                 }
-                
                 FormSpacer()
             }
-            
             Group {
                 Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
                     ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
                         Text($0.displayName)
                     }
                 }
-                
                 FormSpacer()
             }
-            
             Group {
                 Picker("Language:", selection: $language) {
                     ForEach(languages, id: \.self) {
                         Text(NSLocale.current.localizedString(forLanguageCode: $0) ?? "")
                     }
                 }
-                
                 Picker("Locale:", selection: $locale) {
                     ForEach(locales(for: language), id: \.self) {
                         Text(NSLocale.current.localizedString(forIdentifier: $0) ?? "")
@@ -94,15 +89,12 @@ struct SystemView: View {
                 .onChange(of: contentSize) { _ in
                     updateContentSize()
                 }
-              
                 FormSpacer()
             }
-            
             Group {
                 Section {
                     Button("Trigger iCloud Sync", action: triggerSync)
                 }
-                
                 FormSpacer()
             }
             Group {
@@ -116,10 +108,8 @@ struct SystemView: View {
                         }
                     }
                 }
-                
                 FormSpacer()
             }
-            
             Group {
                 Section(header: Text("Copy Pasteboard")) {
                     HStack {
@@ -127,10 +117,8 @@ struct SystemView: View {
                         Button("Mac → Simulator", action: copyPasteboardToSim)
                     }
                 }
-                
                 FormSpacer()
             }
-            
             Group {
                 Section(header: Text("Open URL")) {
                     HStack {
@@ -305,11 +293,10 @@ struct SystemView: View {
 	}
 
 	func openInTerminal(_ filePath: Simulator.FilePathKind) {
-        guard preferences.terminalAppPath.isNotEmpty else { return }
+        guard preferences.terminalAppPath.isNotEmpty else { return }
 
         let terminalUrl = URL(fileURLWithPath: preferences.terminalAppPath) as CFURL
 		let unmanagedTerminalUrl = Unmanaged<CFURL>.passUnretained(terminalUrl)
-
 		let folderUrl = simulator.urlForFilePath(filePath)
 		let unmanagedFolderUrl = Unmanaged<CFArray>.passRetained([folderUrl] as CFArray)
 
