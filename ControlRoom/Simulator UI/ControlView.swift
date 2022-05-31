@@ -16,46 +16,48 @@ struct ControlView: View {
     let applications: [Application]
 
     var body: some View {
-        VStack {
-            HStack {
-                Image(nsImage: simulator.image)
-                    .resizable()
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(maxWidth: 64)
+        ScrollView {
+            VStack {
+                HStack {
+                    Image(nsImage: simulator.image)
+                        .resizable()
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .frame(maxWidth: 64)
 
-                VStack(alignment: .leading) {
-                    Text(simulator.name)
-                        .font(.title)
-                    if simulator.runtime != nil {
-                        Text(simulator.runtime!.description)
+                    VStack(alignment: .leading) {
+                        Text(simulator.name)
+                            .font(.title)
+                        if simulator.runtime != nil {
+                            Text(simulator.runtime!.description)
+                        }
+                    }
+
+                    Spacer()
+
+                    VStack {
+                        if simulator.state != .booted {
+                            Button("Boot", action: bootDevice)
+                        }
+
+                        if simulator.state != .shutdown {
+                            Button("Shutdown", action: shutdownDevice)
+                        }
                     }
                 }
+                .padding(.bottom, 10)
 
-                Spacer()
-
-                VStack {
-                    if simulator.state != .booted {
-                        Button("Boot", action: bootDevice)
-                    }
-
-                    if simulator.state != .shutdown {
-                        Button("Shutdown", action: shutdownDevice)
-                    }
+                TabView {
+                    SystemView(simulator: simulator)
+                    AppView(simulator: simulator, applications: applications)
+                    BatteryView(simulator: simulator)
+                    LocationView(controller: controller, simulator: simulator)
+                    NetworkView(simulator: simulator)
+                    ScreenView(simulator: simulator)
                 }
+                .disabled(simulator.state != .booted)
             }
-            .padding(.bottom, 10)
-
-            TabView {
-                SystemView(simulator: simulator)
-                AppView(simulator: simulator, applications: applications)
-                BatteryView(simulator: simulator)
-                LocationView(controller: controller, simulator: simulator)
-                NetworkView(simulator: simulator)
-                ScreenView(simulator: simulator)
-            }
-            .disabled(simulator.state != .booted)
+            .padding()
         }
-        .padding()
     }
 
     /// Launches the current device.

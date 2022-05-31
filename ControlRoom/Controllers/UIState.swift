@@ -13,6 +13,7 @@ class UIState: ObservableObject {
         case preferences
         case createSimulator
         case notificationEditor
+        case confirmDeleteSelected
 
         var id: Int { rawValue }
     }

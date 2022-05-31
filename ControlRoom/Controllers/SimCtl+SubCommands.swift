@@ -668,15 +668,43 @@ extension SimCtl {
     }
 
     // swiftlint:disable type_name
-    enum UI {
+    public enum UI {
     // swiftlint:enable type_name
         enum Option {
             case appearance(Appearance)
+            case contentSize(ContentSizes)
 
             var arguments: [String] {
                 switch self {
                 case .appearance(let appearance):
                     return ["appearance", appearance.rawValue]
+                case .contentSize(let size):
+                    switch size {
+                    case .extraSmall:
+                        return ["content_size", "extra-small"]
+                    case .small:
+                        return ["content_size", "small"]
+                    case .medium:
+                        return ["content_size", "medium"]
+                    case .large:
+                        return ["content_size", "large"]
+                    case .extraLarge:
+                        return ["content_size", "extra-large"]
+                    case .extraExtraLarge:
+                        return ["content_size", "extra-extra-large"]
+                    case .extraExtraExtraLarge:
+                        return ["content_size", "extra-extra-extra-large"]
+                    case .accessibilityMedium:
+                        return ["content_size", "accessibility-medium"]
+                    case .accessibilityLarge:
+                        return ["content_size", "accessibility-large"]
+                    case .accessibilityExtraLarge:
+                        return ["content_size", "accessibility-extra-large"]
+                    case .accessibilityExtraExtraLarge:
+                        return ["content_size", "accessibility-extra-extra-large"]
+                    case .accessibilityExtraExtraExtraLarge:
+                        return ["content_size", "accessibility-extra-extra-extra-large"]
+                    }
                 }
             }
         }
@@ -684,6 +712,20 @@ extension SimCtl {
         enum Appearance: String, CaseIterable {
             case light
             case dark
+        }
+        enum ContentSizes: String, CaseIterable {
+            case extraSmall = "Extra Small"
+            case small = "Small"
+            case medium = "Regular"
+            case large = "Large"
+            case extraLarge = "Extra Large"
+            case extraExtraLarge = "Extra Extra Large"
+            case extraExtraExtraLarge = "Extra Extra Extra Large"
+            case accessibilityMedium = "Accessibility Medium"
+            case accessibilityLarge = "Accessibility Large"
+            case accessibilityExtraLarge = "Accessibility Extra Large"
+            case accessibilityExtraExtraLarge = "Accessibility Extra Extra Large"
+            case accessibilityExtraExtraExtraLarge = "Accessibility Extra Extra Extra Large"
         }
     }
 

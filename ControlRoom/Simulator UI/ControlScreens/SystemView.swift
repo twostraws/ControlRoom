@@ -32,6 +32,7 @@ struct SystemView: View {
     @State private var locale: String = NSLocale.current.identifier
     /// The current state of logging
     @State private var isLoggingEnabled = false
+    @State private var contentSize: SimCtl.UI.ContentSizes = .medium
 
     private let languages: [String] = {
         NSLocale.isoLanguageCodes
@@ -83,7 +84,17 @@ struct SystemView: View {
                     Button("Set Language/Locale", action: updateLanguage)
                     Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
                 }
-                
+                Picker("Content Size:", selection: $contentSize) {
+                    ForEach(SimCtl.UI.ContentSizes.allCases, id: \.self) { size in
+                        HStack {
+                            Text(size.rawValue)
+                        }
+                    }
+                }
+                .onChange(of: contentSize) { _ in
+                    updateContentSize()
+                }
+              
                 FormSpacer()
             }
             
@@ -244,6 +255,9 @@ struct SystemView: View {
     /// Get logs.
     func getLogs() {
         SimCtl.getLogs(simulator.udid)
+    /// Update Content Size.
+    func updateContentSize() {
+        SimCtl.setContentSize(simulator.udid, contentSize: contentSize)
     }
 
     /// Copies the simulator's pasteboard to the Mac.
@@ -290,7 +304,9 @@ struct SystemView: View {
 	}
 
 	func openInTerminal(_ filePath: Simulator.FilePathKind) {
-		let terminalUrl = URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app") as CFURL
+        guard preferences.terminalAppPath.isNotEmpty else { return }
+
+        let terminalUrl = URL(fileURLWithPath: preferences.terminalAppPath) as CFURL
 		let unmanagedTerminalUrl = Unmanaged<CFURL>.passUnretained(terminalUrl)
 
 		let folderUrl = simulator.urlForFilePath(filePath)

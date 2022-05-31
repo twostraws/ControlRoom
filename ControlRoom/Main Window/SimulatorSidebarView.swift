@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 /// Shows one simulator in the sidebar.
 struct SimulatorSidebarView: View {
@@ -23,9 +24,9 @@ struct SimulatorSidebarView: View {
     }
 
     private var simulatorSummary: String {
-        [simulator.name, simulator.runtime?.name]
+        [simulator.name, (simulator.runtime?.version).map { "(\($0))" }]
             .compactMap { $0 }
-            .joined(separator: " - ")
+            .joined(separator: " ")
     }
 
     private var statusImage: NSImage {
@@ -54,7 +55,7 @@ struct SimulatorSidebarView: View {
                 .frame(maxWidth: 24, alignment: .center)
                 .padding(.top, 2)
                 .shadow(color: .primary, radius: 1)
-            Text(simulator.name)
+            Text(simulatorSummary)
             Spacer()
         }
         .contextMenu(
