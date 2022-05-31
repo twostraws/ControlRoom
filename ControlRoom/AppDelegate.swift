@@ -52,7 +52,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        true
+        return false
+    }
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        mainWindow.showWindow(self)
+
+        if wantsMenuBarIcon {
+            addMenuBarItem()
+        }
+
+        KeyboardShortcuts.onKeyUp(for: .resendLastPushNotification) { [weak self] in
+            self?.resendLastPushNotification()
+        }
+
+        KeyboardShortcuts.onKeyUp(for: .restartLastSelectedApp) { [weak self] in
+            self?.restartLastSelectedApp()
+        }
+
+        KeyboardShortcuts.onKeyUp(for: .reopenLastURL) { [weak self] in
+            self?.reopenLastURL()
+        }
+        return true
     }
 
     @IBAction func orderFrontStandardAboutPanel(_ sender: Any?) {
