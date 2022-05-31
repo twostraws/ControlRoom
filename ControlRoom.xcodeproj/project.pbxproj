@@ -31,6 +31,9 @@
 		51B0241625C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0241525C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift */; };
 		51B0241D25C3104C0042394E /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0241C25C3104C0042394E /* AppIcon.swift */; };
 		51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0242225C3106E0042394E /* AppSummaryView.swift */; };
+		54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C2092727DBDB6F00E47016 /* DocumentPicker.swift */; };
+		54C2092B27DBDE2200E47016 /* DocumentPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C2092A27DBDE2200E47016 /* DocumentPickerConfig.swift */; };
+		54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C2092C27DBDE7500E47016 /* UTType+Extension.swift */; };
 		551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEC23F489A50006D1BD /* SidebarView.swift */; };
 		551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */; };
 		551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CF023F498C30006D1BD /* SimulatorsController.swift */; };
@@ -106,6 +109,9 @@
 		51B0241525C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D-Identifiable.swift"; sourceTree = "<group>"; };
 		51B0241C25C3104C0042394E /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		51B0242225C3106E0042394E /* AppSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSummaryView.swift; sourceTree = "<group>"; };
+		54C2092727DBDB6F00E47016 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		54C2092A27DBDE2200E47016 /* DocumentPickerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerConfig.swift; sourceTree = "<group>"; };
+		54C2092C27DBDE7500E47016 /* UTType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTType+Extension.swift"; sourceTree = "<group>"; };
 		551F8CEC23F489A50006D1BD /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		551F8CEE23F48B030006D1BD /* SplitLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLayoutView.swift; sourceTree = "<group>"; };
 		551F8CF023F498C30006D1BD /* SimulatorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorsController.swift; sourceTree = "<group>"; };
@@ -190,6 +196,7 @@
 		511BA57B23F3FFEA00E3E660 /* ControlRoom */ = {
 			isa = PBXGroup;
 			children = (
+				54C2092927DBDE0800E47016 /* Document Picker */,
 				555A145F23F758DE00313BC5 /* Main Window */,
 				55AF68B323F9CFC600C5D87A /* Preferences UI */,
 				511BA5D223F456B900E3E660 /* Loading */,
@@ -285,6 +292,16 @@
 				AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */,
 			);
 			path = AppView;
+			sourceTree = "<group>";
+		};
+		54C2092927DBDE0800E47016 /* Document Picker */ = {
+			isa = PBXGroup;
+			children = (
+				54C2092727DBDB6F00E47016 /* DocumentPicker.swift */,
+				54C2092A27DBDE2200E47016 /* DocumentPickerConfig.swift */,
+				54C2092C27DBDE7500E47016 /* UTType+Extension.swift */,
+			);
+			path = "Document Picker";
 			sourceTree = "<group>";
 		};
 		5534157C23FE04EC005C0A41 /* About UI */ = {
@@ -551,6 +568,7 @@
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
+				54C2092B27DBDE2200E47016 /* DocumentPickerConfig.swift in Sources */,
 				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
 				517928C225C47392000F6F3A /* AVAssetToGIF.swift in Sources */,
 				CDC8A0972472846C00861888 /* ScreenView.swift in Sources */,
@@ -566,8 +584,10 @@
 				B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */,
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
+				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
 				5534158023FE0514005C0A41 /* RecessedButtonStyle.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
+				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,
 				55DF68BD23F8C76800E717D3 /* Collection.swift in Sources */,

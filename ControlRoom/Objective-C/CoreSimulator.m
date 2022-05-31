@@ -38,7 +38,7 @@
 - (id<SimDeviceSet_Protocol>)defaultDeviceSetWithError:(NSError **)error;
 @end
 
-id<SimDeviceSet_Protocol> deviceSet() {
+id<SimDeviceSet_Protocol> deviceSet(void) {
     static id<SimDeviceSet_Protocol> set;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
