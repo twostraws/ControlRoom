@@ -258,7 +258,9 @@ struct SystemView: View {
 	}
 
 	func openInTerminal(_ filePath: Simulator.FilePathKind) {
-		let terminalUrl = URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app") as CFURL
+        guard preferences.terminalAppPath.isNotEmpty else { return }
+
+        let terminalUrl = URL(fileURLWithPath: preferences.terminalAppPath) as CFURL
 		let unmanagedTerminalUrl = Unmanaged<CFURL>.passUnretained(terminalUrl)
 
 		let folderUrl = simulator.urlForFilePath(filePath)

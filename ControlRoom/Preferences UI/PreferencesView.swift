@@ -51,6 +51,18 @@ struct PreferencesView: View {
             Spacer()
                 .frame(height: 30)
 
+            Section(header: Text("Terminal app path").font(.headline)) {
+                TextField(
+                    "Filepath",
+                    text: $preferences.terminalAppPath
+                )
+                    .labelsHidden()
+                .textFieldStyle(.roundedBorder)
+            }
+
+            Spacer()
+                .frame(height: 30)
+
             HStack {
                 Spacer()
 
