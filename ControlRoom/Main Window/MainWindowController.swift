@@ -55,7 +55,6 @@ class MainWindowController: NSWindowController {
             self?.adjustWindowLevel()
         }).store(in: &cancellables)
     }
-
     private func adjustWindowLevel() {
         window?.level = preferences.wantsFloatingWindow ? .floating : .normal
     }
@@ -70,6 +69,9 @@ class MainWindowController: NSWindowController {
 
     @IBAction func newSimulator(_ sender: Any) {
         UIState.shared.currentSheet = .createSimulator
+    }
+    @IBAction func deleteSelectedSimulators(_ sender: Any) {
+        UIState.shared.currentSheet = .confirmDeleteSelected
     }
 
     @IBAction func deleteUnavailable(_ sender: Any) {

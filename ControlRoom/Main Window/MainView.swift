@@ -39,8 +39,23 @@ struct MainView: View {
                 CreateSimulatorActionSheet(controller: controller)
             } else if sheet == .notificationEditor {
                 NotificationEditorView()
+            } else if sheet == .confirmDeleteSelected {
+                SimulatorActionSheet(
+                    icon: controller.selectedSimulators[0].image,
+                    message: "Delete Simulators?",
+                    informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
+                    confirmationTitle: "Delete",
+                    confirm: deleteSelectedSimulators,
+                    content: { EmptyView() }
+                )
             }
         }
+    }
+    
+    /// Deletes all simulators that are currently selected.
+    func deleteSelectedSimulators() {
+        guard controller.selectedSimulatorIDs.isNotEmpty else { return }
+        SimCtl.delete(controller.selectedSimulatorIDs)
     }
 
     private func alert(for alert: UIState.Alert) -> Alert {
