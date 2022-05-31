@@ -30,6 +30,7 @@ struct SystemView: View {
 
     /// The currently active locale identifier
     @State private var locale: String = NSLocale.current.identifier
+    @State private var contentSize: SimCtl.UI.ContentSizes = .medium
 
     private let languages: [String] = {
         NSLocale.isoLanguageCodes
@@ -80,6 +81,16 @@ struct SystemView: View {
                 HStack {
                     Button("Set Language/Locale", action: updateLanguage)
                     Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
+                }
+                Picker("Content Size:", selection: $contentSize) {
+                    ForEach(SimCtl.UI.ContentSizes.allCases, id: \.self) { size in
+                        HStack {
+                            Text(size.rawValue)
+                        }
+                    }
+                }
+                .onChange(of: contentSize) { _ in
+                    updateContentSize()
                 }
 
                 FormSpacer()
@@ -212,6 +223,10 @@ struct SystemView: View {
     /// Starts an immediate iCloud sync.
     func triggerSync() {
         SimCtl.triggeriCloudSync(simulator.udid)
+    }
+    /// Update Content Size.
+    func updateContentSize() {
+        SimCtl.setContentSize(simulator.udid, contentSize: contentSize)
     }
 
     /// Copies the simulator's pasteboard to the Mac.
