@@ -21,6 +21,14 @@ extension SimCtl {
         static func create(name: String, deviceTypeId: String, runtimeId: String? = nil) -> Command {
             Command("create", arguments: [name, deviceTypeId])
         }
+        /// Set logging.
+        static func setLogging(deviceTypeId: String, enableLogging: Bool) -> Command {
+            Command("logverbose", arguments: [deviceTypeId, String(describing: enableLogging)])
+        }
+        /// Get logs.
+        static func getLogs(deviceTypeId: String) -> Command {
+            Command("diagnose", arguments: [])
+        }
 
         /// Clone an existing device.
         static func clone(deviceId: String, name: String) -> Command {
