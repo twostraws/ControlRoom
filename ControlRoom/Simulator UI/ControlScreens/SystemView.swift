@@ -255,6 +255,7 @@ struct SystemView: View {
     /// Get logs.
     func getLogs() {
         SimCtl.getLogs(simulator.udid)
+    }
     /// Update Content Size.
     func updateContentSize() {
         SimCtl.setContentSize(simulator.udid, contentSize: contentSize)
