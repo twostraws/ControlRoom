@@ -121,7 +121,6 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.boot(deviceId: simulator))
     }
     static func getLogs(_ simulator: String) {
-        //execute(.getLogs(deviceTypeId: simulator))
         let source = """
                             tell application "Terminal"
                                 activate

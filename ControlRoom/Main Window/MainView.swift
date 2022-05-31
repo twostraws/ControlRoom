@@ -51,7 +51,6 @@ struct MainView: View {
             }
         }
     }
-    
     /// Deletes all simulators that are currently selected.
     func deleteSelectedSimulators() {
         guard controller.selectedSimulatorIDs.isNotEmpty else { return }
