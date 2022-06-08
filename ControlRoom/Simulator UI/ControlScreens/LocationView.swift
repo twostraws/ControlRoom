@@ -49,6 +49,7 @@ struct LocationView: View {
                 Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
                     MapPin(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
                 }
+                .frame(height: 300)
 
                 Circle()
                     .stroke(Color.blue, lineWidth: 4)
