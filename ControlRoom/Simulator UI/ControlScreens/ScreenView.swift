@@ -69,7 +69,7 @@ struct ScreenView: View {
 
             Section(header: Text("Video").font(.headline)) {
                 Picker("Format:", selection: $videoFormat) {
-                    ForEach(0..<VideoFormat.all.count) { item in
+                    ForEach(0..<VideoFormat.all.count, id: \.self) { item in
                         Text(VideoFormat.all[item].name)
                     }
                 }
