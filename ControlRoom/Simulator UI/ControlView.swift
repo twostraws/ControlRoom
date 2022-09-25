@@ -47,7 +47,7 @@ struct ControlView: View {
                 .padding(.bottom, 10)
 
                 TabView {
-                    SystemView(simulator: simulator)
+                    SystemView(controller: controller, simulator: simulator)
                     AppView(simulator: simulator, applications: applications)
                     BatteryView(simulator: simulator)
                     LocationView(controller: controller, simulator: simulator)
@@ -62,7 +62,9 @@ struct ControlView: View {
 
     /// Launches the current device.
     func bootDevice() {
-        SimCtl.boot(simulator.udid)
+        if let tool = controller.developerTool {
+            SimCtl.boot(simulator.udid, tool: tool)
+        }
     }
 
     /// Terminates the current device.

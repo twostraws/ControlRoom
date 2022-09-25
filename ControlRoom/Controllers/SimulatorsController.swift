@@ -36,6 +36,8 @@ class SimulatorsController: ObservableObject {
     /// An array of all the applications installed on the selected simulator.
     @Published var applications = [Application]()
 
+    var developerTool: DeveloperTool? = nil
+    
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
@@ -72,6 +74,7 @@ class SimulatorsController: ObservableObject {
             .sink { tool in
                 if tool != .empty {
                     self.loadSimulators()
+                    self.developerTool = tool
                 } else {
                     self.loadingStatus = .invalidCommandLineTool
                 }

@@ -50,8 +50,9 @@ enum SimCtl: CommandLineCommandExecuter {
         executePropertyList(.listApps(deviceId: simulator, flags: [.json]))
     }
 
-    static func boot(_ simulator: String) {
+    static func boot(_ simulator: String, tool: DeveloperTool) {
         execute(.boot(deviceId: simulator))
+        execute(.openSimulator(tool))
     }
 
     static func shutdown(_ simulator: String) {
@@ -61,9 +62,10 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.ui(deviceId: simulator, option: .contentSize(contentSize)))
     }
 
-    static func reboot(_ simulator: String) {
+    static func reboot(_ simulator: String, tool: DeveloperTool) {
         execute(.shutdown(.devices([simulator]))) { _ in
             execute(.boot(deviceId: simulator))
+            execute(.openSimulator(tool))
         }
     }
 

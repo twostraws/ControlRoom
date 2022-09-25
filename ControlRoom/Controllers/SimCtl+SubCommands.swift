@@ -16,6 +16,10 @@ extension SimCtl {
         private init(_ subcommand: String, arguments: [String]) {
             self.arguments = ["simctl", subcommand] + arguments
         }
+      
+        private init(_ subcommand: String) {
+            self.arguments = ["open", subcommand]
+        }
 
         /// Create a new device.
         static func create(name: String, deviceTypeId: String, runtimeId: String? = nil) -> Command {
@@ -68,6 +72,10 @@ extension SimCtl {
         /// Boot a device.
         static func boot(deviceId: String) -> Command {
             Command("boot", arguments: [deviceId])
+        }
+      
+        static func openSimulator(_ tool: DeveloperTool) -> Command {
+            Command("\(tool.path)/Contents/Developer/Applications/Simulator.app")
         }
 
         /// Shutdown a device.

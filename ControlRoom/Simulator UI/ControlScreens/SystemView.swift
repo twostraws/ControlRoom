@@ -11,6 +11,8 @@ import SwiftUI
 
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
+    @ObservedObject var controller: SimulatorsController
+    
     let simulator: Simulator
 
     @EnvironmentObject var preferences: Preferences
@@ -223,7 +225,9 @@ struct SystemView: View {
         let plistPath = simulator.dataPath + "/Library/Preferences/.GlobalPreferences.plist"
         _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLanguages", "-json", "[\"\(language)\" ]", plistPath])
         _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLocale", "-string", locale, plistPath])
-        SimCtl.reboot(simulator.id)
+        if let tool = controller.developerTool {
+            SimCtl.reboot(simulator.id, tool: tool)
+        }
     }
 
     /// Starts an immediate iCloud sync.
@@ -320,7 +324,8 @@ struct SystemView: View {
 
 struct SystemView_Previews: PreviewProvider {
     static var previews: some View {
-        SystemView(simulator: .example)
+        SystemView(controller: .init(preferences: .init()),
+                   simulator: .example)
             .environmentObject(Preferences())
     }
 }
