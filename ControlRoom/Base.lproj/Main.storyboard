@@ -94,39 +94,28 @@ CA
                                                 <action selector="deleteSelectedSimulators:" target="Ady-hI-5gd" id="DXU-j3-jKE"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="m7H-iA-6aX"/>
+                                        <menuItem isSeparatorItem="YES" id="VlF-Lz-b50"/>
+                                        <menuItem title="Cut" keyEquivalent="x" id="fuj-su-hDM">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="Iic-AZ-esb"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="crV-ox-do9" userLabel="Copy">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="gBe-Db-CS8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste" keyEquivalent="v" id="f5u-Np-Ehc" userLabel="Paste">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="8AP-N5-VFw"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="mT5-gh-yJv"/>
-                                        <menuItem title="Cut" keyEquivalent="x" id="Lo4-5C-JY9">
-                                            <connections>
-                                                <action selector="cut:" target="Ady-hI-5gd" id="7UW-sz-F3S"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Copy" keyEquivalent="c" id="ZZe-Ei-cnB">
-                                            <connections>
-                                                <action selector="copy:" target="Ady-hI-5gd" id="yar-jw-GAs"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Paste" keyEquivalent="v" id="3kE-jL-FYK">
-                                            <connections>
-                                                <action selector="paste:" target="Ady-hI-5gd" id="N3S-PO-ip5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="gW2-gY-yRa"/>
-                                        <menuItem title="Undo" keyEquivalent="z" id="LCL-cC-LYU">
-                                            <connections>
-                                                <action selector="undo:" target="Ady-hI-5gd" id="ePR-Bd-AsD"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Redo" keyEquivalent="y" id="ffF-eI-Ink">
-                                            <connections>
-                                                <action selector="redo:" target="Ady-hI-5gd" id="YYA-Yu-eZu"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="l8R-YC-BZg"/>
                                     </items>
                                 </menu>
                             </menuItem>
