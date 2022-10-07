@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -100,6 +100,33 @@ CA
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="mT5-gh-yJv"/>
+                                        <menuItem title="Cut" keyEquivalent="x" id="Lo4-5C-JY9">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="7UW-sz-F3S"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="ZZe-Ei-cnB">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="yar-jw-GAs"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste" keyEquivalent="v" id="3kE-jL-FYK">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="N3S-PO-ip5"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="gW2-gY-yRa"/>
+                                        <menuItem title="Undo" keyEquivalent="z" id="LCL-cC-LYU">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="ePR-Bd-AsD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="y" id="ffF-eI-Ink">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="YYA-Yu-eZu"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -156,7 +183,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="ControlRoom Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="Project GitHub" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>

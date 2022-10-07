@@ -33,6 +33,7 @@ struct TextView: NSViewRepresentable {
         text.isVerticallyResizable = true
         text.isHorizontallyResizable = false
         text.isEditable = isEditable
+        text.allowsUndo = true
 
         let scroll = NSScrollView()
         scroll.hasVerticalScroller = true

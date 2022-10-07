@@ -77,6 +77,10 @@ class MainWindowController: NSWindowController {
     @IBAction func deleteUnavailable(_ sender: Any) {
         UIState.shared.currentAlert = .confirmDeleteUnavailable
     }
+
+    @IBAction func showHelp(_ sender: Any) {
+        NSWorkspace.shared.open(URL(string: "https://github.com/twostraws/ControlRoom")!)
+    }
 }
 
 extension MainWindowController: NSMenuItemValidation {
