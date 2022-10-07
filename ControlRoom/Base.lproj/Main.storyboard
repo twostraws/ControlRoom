@@ -110,12 +110,23 @@ CA
                                                 <action selector="paste:" target="Ady-hI-5gd" id="8AP-N5-VFw"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="l8R-YC-BZg"/>
+                                        <menuItem title="Undo" keyEquivalent="z" id="IA0-pV-GaV" userLabel="Paste">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="Cey-75-aUE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="y" id="pSm-M9-WHH" userLabel="Paste">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="AMx-eg-7c5"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Z9S-mc-uGv"/>
                                         <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="l8R-YC-BZg"/>
                                     </items>
                                 </menu>
                             </menuItem>
