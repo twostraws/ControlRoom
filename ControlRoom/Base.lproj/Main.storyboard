@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -110,12 +110,23 @@ CA
                                                 <action selector="paste:" target="Ady-hI-5gd" id="8AP-N5-VFw"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="l8R-YC-BZg"/>
+                                        <menuItem title="Undo" keyEquivalent="z" id="IA0-pV-GaV" userLabel="Paste">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="Cey-75-aUE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="y" id="pSm-M9-WHH" userLabel="Paste">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="AMx-eg-7c5"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Z9S-mc-uGv"/>
                                         <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="l8R-YC-BZg"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -172,7 +183,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="ControlRoom Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="Project GitHub" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
