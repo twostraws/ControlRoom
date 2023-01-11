@@ -6,6 +6,8 @@
 //  Copyright © 2021 Paul Hudson. All rights reserved.
 //
 
+import struct SwiftUI.LocalizedStringKey
+
 enum Action: Int, Identifiable {
     case rename
     case clone
@@ -13,7 +15,7 @@ enum Action: Int, Identifiable {
 
     var id: Int { rawValue }
 
-    var sheetTitle: String {
+    var sheetTitle: LocalizedStringKey {
         switch self {
         case .rename: return "Rename Simulator"
         case .clone: return "Clone Simulator"
