@@ -13,7 +13,7 @@ struct SimulatorActionSheet<Content: View>: View {
 
     let icon: NSImage
     let message: LocalizedStringKey
-    let informativeText: String
+    let informativeText: LocalizedStringKey
     let content: Content
 
     let confirmationTitle: String
@@ -22,7 +22,7 @@ struct SimulatorActionSheet<Content: View>: View {
 
     internal init(icon: NSImage,
                   message: LocalizedStringKey,
-                  informativeText: String,
+                  informativeText: LocalizedStringKey,
                   confirmationTitle: String,
                   confirm: @escaping () -> Void,
                   canConfirm: Bool = true,
@@ -82,7 +82,7 @@ struct SimulatorActionSheet<Content: View>: View {
 extension SimulatorActionSheet where Content == EmptyView {
     internal init(icon: NSImage,
                   message: LocalizedStringKey,
-                  informativeText: String,
+                  informativeText: LocalizedStringKey,
                   confirmationTitle: String,
                   confirm: @escaping () -> Void) {
 

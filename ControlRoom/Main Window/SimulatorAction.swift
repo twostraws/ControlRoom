@@ -23,7 +23,7 @@ enum Action: Int, Identifiable {
         }
     }
 
-    var sheetMessage: String {
+    var sheetMessage: LocalizedStringKey {
         switch self {
         case .rename: return "Enter a new name for this simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify."
         case .clone: return "Enter a name for the new simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify."
