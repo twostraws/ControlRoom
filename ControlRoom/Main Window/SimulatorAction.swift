@@ -31,7 +31,7 @@ enum Action: Int, Identifiable {
         }
     }
 
-    var saveActionTitle: String {
+    var saveActionTitle: LocalizedStringKey {
         switch self {
         case .rename: return "Rename"
         case .clone: return "Clone"

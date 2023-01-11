@@ -16,14 +16,14 @@ struct SimulatorActionSheet<Content: View>: View {
     let informativeText: LocalizedStringKey
     let content: Content
 
-    let confirmationTitle: String
+    let confirmationTitle: LocalizedStringKey
     let confirmationAction: () -> Void
     let canConfirm: Bool
 
     internal init(icon: NSImage,
                   message: LocalizedStringKey,
                   informativeText: LocalizedStringKey,
-                  confirmationTitle: String,
+                  confirmationTitle: LocalizedStringKey,
                   confirm: @escaping () -> Void,
                   canConfirm: Bool = true,
                   @ViewBuilder content: () -> Content) {
@@ -83,7 +83,7 @@ extension SimulatorActionSheet where Content == EmptyView {
     internal init(icon: NSImage,
                   message: LocalizedStringKey,
                   informativeText: LocalizedStringKey,
-                  confirmationTitle: String,
+                  confirmationTitle: LocalizedStringKey,
                   confirm: @escaping () -> Void) {
 
         self.init(icon: icon, message: message, informativeText: informativeText, confirmationTitle: confirmationTitle, confirm: confirm, content: { EmptyView() })
