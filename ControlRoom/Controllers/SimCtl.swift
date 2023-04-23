@@ -50,8 +50,8 @@ enum SimCtl: CommandLineCommandExecuter {
         executePropertyList(.listApps(deviceId: simulator, flags: [.json]))
     }
 
-    static func boot(_ simulator: String) {
-        execute(.boot(deviceId: simulator))
+    static func boot(_ simulator: Simulator) {
+        execute(.boot(simulator: simulator))
     }
 
     static func shutdown(_ simulator: String) {
@@ -61,9 +61,9 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.ui(deviceId: simulator, option: .contentSize(contentSize)))
     }
 
-    static func reboot(_ simulator: String) {
-        execute(.shutdown(.devices([simulator]))) { _ in
-            execute(.boot(deviceId: simulator))
+    static func reboot(_ simulator: Simulator) {
+        execute(.shutdown(.devices([simulator.udid]))) { _ in
+            execute(.boot(simulator: simulator))
         }
     }
 
@@ -114,11 +114,11 @@ enum SimCtl: CommandLineCommandExecuter {
     static func setAppearance(_ simulator: String, appearance: UI.Appearance) {
         execute(.ui(deviceId: simulator, option: .appearance(appearance)))
     }
-    static func setLogging(_ simulator: String, enableLogging: Bool) {
-        UserDefaults.standard.set(enableLogging, forKey: "\(simulator).logging")
-        execute(.setLogging(deviceTypeId: simulator, enableLogging: enableLogging))
-        execute(.shutdown(.devices([simulator])))
-        execute(.boot(deviceId: simulator))
+    static func setLogging(_ simulator: Simulator, enableLogging: Bool) {
+        UserDefaults.standard.set(enableLogging, forKey: "\(simulator.udid).logging")
+        execute(.setLogging(deviceTypeId: simulator.udid, enableLogging: enableLogging))
+        execute(.shutdown(.devices([simulator.udid])))
+        execute(.boot(simulator: simulator))
     }
     static func getLogs(_ simulator: String) {
         let source = """

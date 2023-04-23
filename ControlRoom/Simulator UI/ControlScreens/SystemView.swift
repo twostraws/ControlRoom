@@ -223,7 +223,7 @@ struct SystemView: View {
         let plistPath = simulator.dataPath + "/Library/Preferences/.GlobalPreferences.plist"
         _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLanguages", "-json", "[\"\(language)\" ]", plistPath])
         _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLocale", "-string", locale, plistPath])
-        SimCtl.reboot(simulator.id)
+        SimCtl.reboot(simulator)
     }
 
     /// Starts an immediate iCloud sync.
@@ -233,10 +233,10 @@ struct SystemView: View {
     /// Update logging.
     func updateLogging() {
         if isLoggingEnabled {
-            SimCtl.setLogging(simulator.udid, enableLogging: false)
+            SimCtl.setLogging(simulator, enableLogging: false)
             isLoggingEnabled = false
         } else {
-            SimCtl.setLogging(simulator.udid, enableLogging: true)
+            SimCtl.setLogging(simulator, enableLogging: true)
             isLoggingEnabled = true
         }
     }
