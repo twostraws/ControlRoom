@@ -12,7 +12,7 @@ extension Process {
     @objc static func execute(_ command: String, arguments: [String]) -> Data? {
         Self.execute(command, arguments: arguments, environmentOverrides: nil)
     }
-    
+
     static func execute(_ command: String, arguments: [String], environmentOverrides: [String: String]? = nil) -> Data? {
         let task = Process()
         task.launchPath = command

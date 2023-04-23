@@ -41,7 +41,7 @@ private enum XcodeSelect: CommandLineCommandExecuter {
 private extension XcodeSelect {
     struct Command: CommandLineCommand {
         let arguments: [String]
-        var environmentOverrides: [String : String]? { nil }
+        var environmentOverrides: [String: String]? { nil }
 
         private init(_ subcommand: String, arguments: [String]) {
             self.arguments = [subcommand] + arguments
@@ -70,7 +70,7 @@ private enum SystemProfiler: CommandLineCommandExecuter {
 private extension SystemProfiler {
     struct Command: CommandLineCommand {
         let arguments: [String]
-        var environmentOverrides: [String : String]? { nil }
+        var environmentOverrides: [String: String]? { nil }
 
         private init(_ subcommand: String, arguments: [String]) {
             self.arguments = [subcommand] + arguments
