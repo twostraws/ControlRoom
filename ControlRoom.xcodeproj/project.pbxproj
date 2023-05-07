@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
-		5108721525C331360009E39F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5108721425C331360009E39F /* TextView.swift */; };
 		511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */; };
 		511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57E23F3FFEA00E3E660 /* MainView.swift */; };
 		511BA58123F3FFEB00E3E660 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 511BA58023F3FFEB00E3E660 /* Assets.xcassets */; };
@@ -23,7 +22,6 @@
 		511BA59C23F4172400E3E660 /* SystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59B23F4172400E3E660 /* SystemView.swift */; };
 		511BA5A023F4197200E3E660 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59F23F4197200E3E660 /* NetworkView.swift */; };
 		511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */; };
-		511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A523F420AB00E3E660 /* FormSpacer.swift */; };
 		511BA5A823F42EE400E3E660 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A723F42EE400E3E660 /* AppView.swift */; };
 		5179289625C37586000F6F3A /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 5179289525C37586000F6F3A /* KeyboardShortcuts */; };
 		5179289A25C37D2A000F6F3A /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5179289925C37D2A000F6F3A /* KeyboardShortcuts.swift */; };
@@ -68,7 +66,6 @@
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
 		B07F585123F9F83800256D5D /* SimCtl+SubCommandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */; };
-		B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AD5F8323FE32A100A2DC81 /* HLine.swift */; };
 		CDC8A0972472846C00861888 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8A0962472846C00861888 /* ScreenView.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,7 +82,6 @@
 /* Begin PBXFileReference section */
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
-		5108721425C331360009E39F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		511BA57E23F3FFEA00E3E660 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -102,7 +98,6 @@
 		511BA59B23F4172400E3E660 /* SystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemView.swift; sourceTree = "<group>"; };
 		511BA59F23F4197200E3E660 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
-		511BA5A523F420AB00E3E660 /* FormSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSpacer.swift; sourceTree = "<group>"; };
 		511BA5A723F42EE400E3E660 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		5179289925C37D2A000F6F3A /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
 		517928C125C47392000F6F3A /* AVAssetToGIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAssetToGIF.swift; sourceTree = "<group>"; };
@@ -151,7 +146,6 @@
 		B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ControlRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommandsTests.swift"; sourceTree = "<group>"; };
 		B07F585223F9F83800256D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0AD5F8323FE32A100A2DC81 /* HLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLine.swift; sourceTree = "<group>"; };
 		CDC8A0962472846C00861888 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -237,8 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				551F8CF423F4AF7B0006D1BD /* FilterField.swift */,
-				B0AD5F8323FE32A100A2DC81 /* HLine.swift */,
-				5108721425C331360009E39F /* TextView.swift */,
 			);
 			path = NSViewWrappers;
 			sourceTree = "<group>";
@@ -264,7 +256,6 @@
 				ACD2064C2431F20000F8659B /* CommandLineExecuter.swift */,
 				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
 				5534158523FE1AC4005C0A41 /* Flow.swift */,
-				511BA5A523F420AB00E3E660 /* FormSpacer.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
 				5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */,
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
@@ -582,7 +573,6 @@
 				ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */,
 				511BA59A23F415C800E3E660 /* BatteryView.swift in Sources */,
 				51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */,
-				B0AD5F8423FE32A100A2DC81 /* HLine.swift in Sources */,
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
@@ -595,7 +585,6 @@
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
 				551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */,
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,
-				511BA5A623F420AB00E3E660 /* FormSpacer.swift in Sources */,
 				ACCD798C240ADEE20004ECE5 /* NotificationEditorView.swift in Sources */,
 				41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */,
 				70BE435A23F54B7200FD6282 /* LocationView.swift in Sources */,
@@ -612,7 +601,6 @@
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
 				510871F225C317830009E39F /* SimulatorAction.swift in Sources */,
-				5108721525C331360009E39F /* TextView.swift in Sources */,
 				55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */,
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,
 				B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */,

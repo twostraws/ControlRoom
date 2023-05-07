@@ -99,7 +99,7 @@ struct AppView: View {
                 }
             }
 
-            FormSpacer()
+            Divider()
 
             Section {
                 HStack {
@@ -116,10 +116,10 @@ struct AppView: View {
             }
             .disabled(!isApplicationSelected)
 
-            FormSpacer()
+            Divider()
 
             VStack {
-                TextView(text: $pushPayload)
+                TextEditor(text: $pushPayload)
                     .font(.system(.body, design: .monospaced))
                     .disableAutocorrection(true)
                     .frame(minHeight: 150, maxHeight: .infinity)

@@ -42,7 +42,7 @@ struct NetworkView: View {
                 .pickerStyle(PopUpButtonPickerStyle())
             }
 
-            FormSpacer()
+            Divider()
 
             Section {
                 Picker("WiFi mode:", selection: $wiFiMode.onChange(updateData)) {
@@ -61,7 +61,7 @@ struct NetworkView: View {
                 .pickerStyle(SegmentedPickerStyle())
             }
 
-            FormSpacer()
+            Divider()
 
             Section {
                 Picker("Cellular mode:", selection: $cellularMode.onChange(updateData)) {

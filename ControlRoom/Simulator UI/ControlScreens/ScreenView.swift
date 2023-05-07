@@ -64,7 +64,7 @@ struct ScreenView: View {
 
                 Button("Take Screenshot", action: takeScreenshot)
 
-                FormSpacer()
+                Divider()
             }
 
             Section(header: Text("Video").font(.headline)) {
@@ -80,7 +80,7 @@ struct ScreenView: View {
                     Button(recordingProcess == nil ? "Start Recording" : "Stop Recording", action: toggleRecordingVideo)
                 }
 
-                FormSpacer()
+                Divider()
             }
 
             Section(header:
