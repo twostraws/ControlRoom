@@ -16,47 +16,24 @@ struct ControlView: View {
     let applications: [Application]
 
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Image(nsImage: simulator.image)
-                        .resizable()
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .frame(maxWidth: 64)
-
-                    VStack(alignment: .leading) {
-                        Text(simulator.name)
-                            .font(.title)
-                        if simulator.runtime != nil {
-                            Text(simulator.runtime!.description)
-                        }
-                    }
-
-                    Spacer()
-
-                    VStack {
-                        if simulator.state != .booted {
-                            Button("Boot", action: bootDevice)
-                        }
-
-                        if simulator.state != .shutdown {
-                            Button("Shutdown", action: shutdownDevice)
-                        }
-                    }
-                }
-                .padding(.bottom, 10)
-
-                TabView {
-                    SystemView(simulator: simulator)
-                    AppView(simulator: simulator, applications: applications)
-                    BatteryView(simulator: simulator)
-                    LocationView(controller: controller, simulator: simulator)
-                    NetworkView(simulator: simulator)
-                    ScreenView(simulator: simulator)
-                }
-                .disabled(simulator.state != .booted)
+        TabView {
+            SystemView(simulator: simulator)
+            AppView(simulator: simulator, applications: applications)
+            BatteryView(simulator: simulator)
+            LocationView(controller: controller, simulator: simulator)
+            NetworkView(simulator: simulator)
+            ScreenView(simulator: simulator)
+        }
+        .disabled(simulator.state != .booted)
+        .navigationSubtitle("\(simulator.name) – \(simulator.runtime?.description ?? "Unknown OS")")
+        .toolbar {
+            if simulator.state != .booted {
+                Button("Boot", action: bootDevice)
             }
-            .padding()
+
+            if simulator.state != .shutdown {
+                Button("Shutdown", action: shutdownDevice)
+            }
         }
     }
 

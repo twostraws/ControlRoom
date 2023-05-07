@@ -73,13 +73,14 @@ struct PreferencesView: View {
         }
         .padding(20)
         .onChange(of: preferences.wantsMenuBarIcon) { newValue in
-            guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
-
-            if newValue {
-                appDelegate.addMenuBarItem()
-            } else {
-                appDelegate.removeMenuBarItem()
-            }
+            #warning("FIXME: Commented out")
+//            guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+//
+//            if newValue {
+//                appDelegate.addMenuBarItem()
+//            } else {
+//                appDelegate.removeMenuBarItem()
+//            }
         }
     }
 }

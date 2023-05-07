@@ -12,18 +12,17 @@ import SwiftUI
 struct SplitLayoutView: View {
     @ObservedObject var controller: SimulatorsController
 
-	@State var dropHovering: Bool = false
+	@State private var dropHovering: Bool = false
 
     var body: some View {
-        NavigationView {
-			SidebarView(controller: controller)
-				.frame(minWidth: 220)
-                .layoutPriority(1)
-
+        NavigationSplitView {
+            SidebarView(controller: controller)
+                .frame(minWidth: 220)
+        } detail: {
             // Use a GeometryReader here to take up as much space as possible
             // otherwise the view would collapse down to (potentially)
             // the size of the Text.
-            GeometryReader { _ in
+            Group {
 				switch controller.selectedSimulatorIDs.count {
 				case 0:
 					Text("Select a simulator from the list.")
@@ -46,9 +45,7 @@ struct SplitLayoutView: View {
 						}
 						.frame(maxWidth: .infinity, maxHeight: .infinity)
 				}
-
             }
-            .layoutPriority(2)
         }
     }
 
