@@ -125,10 +125,10 @@ struct AppView: View {
                     .frame(minHeight: 150, maxHeight: .infinity)
 
                 HStack(spacing: 10) {
-                    Button("Select Notification Templates", action: openNotificationTemplate)
+                    Button("Select Templates", action: openNotificationTemplate)
                     Spacer()
-                    Button("Open Notification Editor", action: openNotificationEditor)
-                    Button("Send Push Notification", action: sendPushNotification)
+                    Button("Open Editor", action: openNotificationEditor)
+                    Button("Send Push", action: sendPushNotification)
                 }
             }
             .disabled(!isApplicationSelected)
