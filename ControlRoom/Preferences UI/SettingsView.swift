@@ -1,5 +1,5 @@
 //
-//  PreferencesView.swift
+//  SettingsView.swift
 //  ControlRoom
 //
 //  Created by Dave DeLong on 2/16/20.
@@ -9,7 +9,7 @@
 import KeyboardShortcuts
 import SwiftUI
 
-struct PreferencesView: View {
+struct SettingsView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.presentationMode) var presentationMode
 
@@ -87,7 +87,7 @@ struct PreferencesView: View {
 
 struct PreferencesView_Previews: PreviewProvider {
     static var previews: some View {
-        PreferencesView()
+        SettingsView()
             .environmentObject(Preferences())
     }
 }

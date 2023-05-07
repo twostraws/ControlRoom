@@ -34,7 +34,7 @@ struct MainView: View {
     private func sheetView(for sheet: UIState.Sheet) -> some View {
         Group {
             if sheet == .preferences {
-                PreferencesView()
+                SettingsView()
             } else if sheet == .createSimulator {
                 CreateSimulatorActionSheet(controller: controller)
             } else if sheet == .notificationEditor {

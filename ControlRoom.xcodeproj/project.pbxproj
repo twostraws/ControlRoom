@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
-		511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */; };
+		511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */; };
 		511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57E23F3FFEA00E3E660 /* MainView.swift */; };
 		511BA58123F3FFEB00E3E660 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 511BA58023F3FFEB00E3E660 /* Assets.xcassets */; };
 		511BA58423F3FFEB00E3E660 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 511BA58323F3FFEB00E3E660 /* Preview Assets.xcassets */; };
@@ -47,7 +47,7 @@
 		555A145723F707E700313BC5 /* CoreSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A145623F707E700313BC5 /* CoreSimulator.m */; };
 		555A145C23F70CCF00313BC5 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145B23F70CCF00313BC5 /* Process.swift */; };
 		555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */; };
-		55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B423F9CFD600C5D87A /* PreferencesView.swift */; };
+		55AF68B523F9CFD600C5D87A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B423F9CFD600C5D87A /* SettingsView.swift */; };
 		55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B623F9D2E200C5D87A /* UIState.swift */; };
 		55AF68B923F9D32100C5D87A /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF68B823F9D32100C5D87A /* MainWindowController.swift */; };
 		55DF68B723F856E100E717D3 /* SimulatorActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */; };
@@ -82,7 +82,7 @@
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlRoomApp.swift; sourceTree = "<group>"; };
 		511BA57E23F3FFEA00E3E660 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		511BA58023F3FFEB00E3E660 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		511BA58323F3FFEB00E3E660 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		555A145923F70A5100313BC5 /* CoreSimulator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSimulator.framework; path = /Library/Developer/PrivateFrameworks/CoreSimulator.framework; sourceTree = "<absolute>"; };
 		555A145B23F70CCF00313BC5 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreSimulatorPublisher.swift; sourceTree = "<group>"; };
-		55AF68B423F9CFD600C5D87A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		55AF68B423F9CFD600C5D87A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		55AF68B623F9D2E200C5D87A /* UIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIState.swift; sourceTree = "<group>"; };
 		55AF68B823F9D32100C5D87A /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		55DF68B623F856E100E717D3 /* SimulatorActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorActionSheet.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		511BA5D023F455E100E3E660 /* SystemBits */ = {
 			isa = PBXGroup;
 			children = (
-				511BA57C23F3FFEA00E3E660 /* AppDelegate.swift */,
+				511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */,
 				511BA58823F3FFEB00E3E660 /* Info.plist */,
 				511BA58923F3FFEB00E3E660 /* ControlRoom.entitlements */,
 				511BA58523F3FFEB00E3E660 /* Main.storyboard */,
@@ -366,7 +366,7 @@
 		55AF68B323F9CFC600C5D87A /* Preferences UI */ = {
 			isa = PBXGroup;
 			children = (
-				55AF68B423F9CFD600C5D87A /* PreferencesView.swift */,
+				55AF68B423F9CFD600C5D87A /* SettingsView.swift */,
 			);
 			path = "Preferences UI";
 			sourceTree = "<group>";
@@ -575,7 +575,7 @@
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
-				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,
+				511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,
 				55DF68BD23F8C76800E717D3 /* Collection.swift in Sources */,
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
@@ -597,7 +597,7 @@
 				511BA59023F4030D00E3E660 /* LoadingView.swift in Sources */,
 				511BA59623F408F800E3E660 /* LoadingFailedView.swift in Sources */,
 				510871F225C317830009E39F /* SimulatorAction.swift in Sources */,
-				55AF68B523F9CFD600C5D87A /* PreferencesView.swift in Sources */,
+				55AF68B523F9CFD600C5D87A /* SettingsView.swift in Sources */,
 				555A145E23F70E8600313BC5 /* CoreSimulatorPublisher.swift in Sources */,
 				B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */,
 				551F8CF523F4AF7B0006D1BD /* FilterField.swift in Sources */,

@@ -15,68 +15,12 @@ final class Preferences: ObservableObject {
     /// they need a way to be notified AFTER the value has changed.
     let objectDidChange = PassthroughSubject<Void, Never>()
 
-    let userDefaults: UserDefaults
+    @AppStorage("CRWantsMenuBarIcon") var wantsMenuBarIcon = true
+    @AppStorage("CRWantsFloatingWindow") var wantsFloatingWindow = false
 
-    @UserDefault("CRWantsMenuBarIcon") var wantsMenuBarIcon = true
-    @UserDefault("CRWantsFloatingWindow") var wantsFloatingWindow = false
+    @AppStorage("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
+    @AppStorage("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false
+    @AppStorage("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
 
-    @UserDefault("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
-    @UserDefault("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false
-    @UserDefault("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
-
-    @UserDefault("CRTerminalAppPath") var terminalAppPath = "/System/Applications/Utilities/Terminal.app"
-
-    init(defaults: UserDefaults = .standard) {
-        userDefaults = defaults
-    }
-}
-
-@propertyWrapper
-struct UserDefault<Value> {
-    let key: String
-    let defaultValue: Value
-
-    init(wrappedValue: Value, _ key: String) {
-        self.key = key
-        self.defaultValue = wrappedValue
-    }
-
-    var wrappedValue: Value {
-        get { fatalError("called wrappedValue getter") }
-        // swiftlint:disable unused_setter_value
-        set { fatalError("called wrappedValue setter") }
-        // swiftlint:enable unused_setter_value
-    }
-
-    /// This uses a prototype Property Wrapper feature to get access to the "enclosing self".
-    /// In other words, this allows us to get access to "self": the object that holds the property wrapper.
-    /// By using this, we can directly access the Preferences's "objectWillChange" publisher, as well
-    /// as its stored UserDefaults instance.
-    static subscript(
-        _enclosingInstance instance: Preferences,
-        wrapped wrappedKeyPath: ReferenceWritableKeyPath<Preferences, Value>,
-        storage storageKeyPath: ReferenceWritableKeyPath<Preferences, Self>
-    ) -> Value {
-        get {
-            let wrapper = instance[keyPath: storageKeyPath]
-
-            guard let anyValue = instance.userDefaults.value(forKey: wrapper.key) else {
-                return wrapper.defaultValue
-            }
-
-            guard let value = anyValue as? Value else {
-                return wrapper.defaultValue
-            }
-
-            return value
-        }
-
-        set {
-            instance.objectWillChange.send()
-
-            let wrapper = instance[keyPath: storageKeyPath]
-            instance.userDefaults.set(newValue, forKey: wrapper.key)
-            instance.objectDidChange.send()
-        }
-    }
+    @AppStorage("CRTerminalAppPath") var terminalAppPath = "/System/Applications/Utilities/Terminal.app"
 }
