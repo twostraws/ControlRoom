@@ -179,6 +179,11 @@ extension SimCtl {
             Command("diagnose", arguments: flags.flatMap(\.arguments))
         }
 
+        /// Set the user's current locaiton
+        static func location(deviceId: String, latitude: Double, longitude: Double) -> Command {
+            Command("location", arguments: [deviceId, "set", "\(latitude),\(longitude)"])
+        }
+
         /// enable or disable verbose logging for a device
         static func logverbose(deviceId: String?, isEnabled: Bool = false) -> Command {
             var arguments = [String]()

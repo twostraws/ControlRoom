@@ -84,32 +84,7 @@ struct LocationView: View {
         let coordinate = jitteredLocation ?? currentLocation.center
         pinnedLocation = coordinate
 
-        let simulatorIds: [String]
-
-        if simulator.isDefault {
-            simulatorIds = controller.simulators
-                .filter { $0.state == .booted && !$0.isDefault }
-                .map(\.udid)
-        } else {
-            simulatorIds = [simulator.id]
-        }
-
-        let userInfo: [AnyHashable: Any] = [
-            "simulateLocationLatitude": coordinate.latitude,
-            "simulateLocationLongitude": coordinate.longitude,
-            "simulateLocationDevices": simulatorIds
-        ]
-
-        // An undocumented notification name to change the current simulator's location. From here: https://github.com/MobileNativeFoundation/set-simulator-location
-        let locationNotificationName = "com.apple.iphonesimulator.simulateLocation"
-
-        let notification = Notification(name: Notification.Name(rawValue: locationNotificationName),
-                                        object: nil,
-                                        userInfo: userInfo)
-
-        DistributedNotificationCenter
-            .default()
-            .post(notification)
+        SimCtl.execute(.location(deviceId: simulator.udid, latitude: coordinate.latitude, longitude: coordinate.longitude))
     }
 
     /// Randomly generates a new location slightly offset from the currentLocation
