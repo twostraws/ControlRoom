@@ -42,7 +42,6 @@
 		551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */; };
 		5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5523A7E023F99D7200F25EEC /* Preferences.swift */; };
 		5534157E23FE04FA005C0A41 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534157D23FE04FA005C0A41 /* AboutView.swift */; };
-		5534158023FE0514005C0A41 /* RecessedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */; };
 		5534158223FE0539005C0A41 /* Contributors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534158123FE0539005C0A41 /* Contributors.swift */; };
 		5534158623FE1AC4005C0A41 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534158523FE1AC4005C0A41 /* Flow.swift */; };
 		555A145723F707E700313BC5 /* CoreSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A145623F707E700313BC5 /* CoreSimulator.m */; };
@@ -117,7 +116,6 @@
 		551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+Types.swift"; sourceTree = "<group>"; };
 		5523A7E023F99D7200F25EEC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5534157D23FE04FA005C0A41 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecessedButtonStyle.swift; sourceTree = "<group>"; };
 		5534158123FE0539005C0A41 /* Contributors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contributors.swift; sourceTree = "<group>"; };
 		5534158523FE1AC4005C0A41 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		555A145423F707E700313BC5 /* ControlRoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ControlRoom-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -257,7 +255,6 @@
 				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
 				5534158523FE1AC4005C0A41 /* Flow.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
-				5534157F23FE0514005C0A41 /* RecessedButtonStyle.swift */,
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 				41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */,
 			);
@@ -576,7 +573,6 @@
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
-				5534158023FE0514005C0A41 /* RecessedButtonStyle.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* AppDelegate.swift in Sources */,

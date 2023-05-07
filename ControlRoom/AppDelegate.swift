@@ -21,6 +21,27 @@ struct ControlRoomApp: App {
                 .environmentObject(preferences)
                 .environmentObject(UIState.shared)
         }
+        .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About Control Room") {
+                    let authors = Bundle.main.authors
+
+                    if authors.isNotEmpty {
+                        let content = NSViewController()
+                        content.title = "Control Room"
+                        let view = NSHostingView(rootView: AboutView(authors: authors))
+                        view.frame.size = view.fittingSize
+                        content.view = view
+                        let panel = NSPanel(contentViewController: content)
+                        panel.styleMask = [.closable, .titled]
+                        panel.orderFront(nil)
+                        panel.makeKey()
+                    } else {
+                        NSApp.orderFrontStandardAboutPanel(nil)
+                    }
+                }
+            }
+        }
     }
 
     init() {
