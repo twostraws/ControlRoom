@@ -47,7 +47,7 @@ struct LocationView: View {
 
             ZStack {
                 Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
-                    MapPin(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                    MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
                 }
                 .frame(height: 300)
 

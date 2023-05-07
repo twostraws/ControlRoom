@@ -47,7 +47,7 @@ struct RecessedButton<Label: View>: View {
         label
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 1, trailing: 6))
             .foregroundColor(fgColor)
-            .background(RoundedRectangle(cornerRadius: 4).fill(bgColor).animation(.none))
+            .background(RoundedRectangle(cornerRadius: 4).fill(bgColor))
             .onHover { isHovering = $0 }
     }
 }

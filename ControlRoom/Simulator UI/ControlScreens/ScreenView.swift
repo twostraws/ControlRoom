@@ -163,7 +163,7 @@ struct ScreenView: View {
 
     /// Saves recorded video as a GIF-file
     private func exportGif(_ format: String, _ savePath: String, _ sourceURL: URL) {
-        var size: CGFloat?
+        let size: CGFloat?
 
         if format.contains("Small") {
             size = 400
@@ -171,14 +171,19 @@ struct ScreenView: View {
             size = 800
         } else if format.contains("Large") {
             size = 1200
+        } else {
+            size = 1600
         }
 
         let gifExtension = savePath.replacingOccurrences(of: ".mp4", with: ".gif")
 
         exportDescription = "GIF"
-        sourceURL.convertToGIF(maxSize: size) { progress in
-            exportProgress = progress
-        } completion: { result in
+
+        Task {
+            let result = try await sourceURL.convertToGIF(maxSize: size) { progress in
+                exportProgress = progress
+            }
+
             switch result {
             case .success(let gifURL):
                 try? FileManager.default.moveItem(atPath: gifURL.path, toPath: gifExtension)
@@ -215,7 +220,7 @@ struct ScreenView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "y-MM-dd-HH-mm-ss"
 
-        let dateString = formatter.string(from: Date())
+        let dateString = formatter.string(from: Date.now)
 
         return "~/Desktop/ControlRoom-\(dateString).\(screenshot.type.rawValue)"
     }
@@ -225,7 +230,7 @@ struct ScreenView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "y-MM-dd-HH-mm-ss"
 
-        let dateString = formatter.string(from: Date())
+        let dateString = formatter.string(from: Date.now)
 
         return "ControlRoom-\(dateString).mp4"
     }

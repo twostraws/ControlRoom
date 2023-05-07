@@ -8,6 +8,7 @@
 
 import Cocoa
 import CoreServices
+import UniformTypeIdentifiers
 
 struct TypeIdentifier: Hashable {
     static let anyDevice = TypeIdentifier("public.device")
@@ -31,19 +32,24 @@ struct TypeIdentifier: Hashable {
 
     /// Constructs an icon for this type identifier, as defined by its declaration
     var icon: NSImage {
-        NSWorkspace.shared.icon(forFileType: rawValue)
+        let type = UTType(rawValue) ?? .bundle
+        return NSWorkspace.shared.icon(for: type)
     }
 
     func conformsTo(_ other: TypeIdentifier) -> Bool {
-        UTTypeConformsTo(rawValue as CFString, other.rawValue as CFString)
+        let ourType = UTType(rawValue) ?? .bundle
+        let otherType = UTType(other.rawValue) ?? .bundle
+        return ourType.conforms(to: otherType)
     }
 
     /// Constructs a type identifier from a device model code, such as "iPad8,4"
     init?(modelIdentifier: String) {
-        guard let preferred = UTTypeCreatePreferredIdentifierForTag("com.apple.device-model-code" as CFString,
-                                                                    modelIdentifier as CFString,
-                                                                    "public.device" as CFString) else { return nil }
-        let identifier = preferred.takeRetainedValue()
+        let modelTagClass = UTTagClass(rawValue: "com.apple.device-model-code")
+        let conformingTo = UTType("public.device")
+
+        let type = UTType(tag: modelIdentifier, tagClass: modelTagClass, conformingTo: conformingTo)
+
+        let identifier = type?.identifier ?? ""
         self.init(identifier as String)
     }
 

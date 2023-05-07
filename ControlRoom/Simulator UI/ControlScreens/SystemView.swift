@@ -20,13 +20,13 @@ struct SystemView: View {
     @AppStorage("CRApps_LastCertificateFilePath") private var lastCertificateFilePath = ""
 
     /// The current time to show in the device.
-    @State private var time = Date()
+    @State private var time = Date.now
 
     /// The system-wide appearance; "Light" or "Dark".
     @State private var appearance: SimCtl.UI.Appearance = .light
 
     /// The currently active language identifier
-    @State private var language: String = NSLocale.current.languageCode ?? ""
+    @State private var language: String = NSLocale.current.language.languageCode?.identifier ?? ""
 
     /// The currently active locale identifier
     @State private var locale: String = NSLocale.current.identifier
@@ -203,12 +203,12 @@ struct SystemView: View {
 
     func setAppleTime() {
         let calendar = Calendar.current
-        var components = calendar.dateComponents([.year, .month, .day], from: Date())
+        var components = calendar.dateComponents([.year, .month, .day], from: Date.now)
         components.hour = 9
         components.minute = 41
         components.second = 0
 
-        let appleTime = calendar.date(from: components) ?? Date()
+        let appleTime = calendar.date(from: components) ?? Date.now
         SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
 
         time = appleTime
