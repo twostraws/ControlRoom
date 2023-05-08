@@ -68,14 +68,14 @@ struct StatusBarView: View {
                     
                     Divider()
                     
-                    Picker("WiFi mode:", selection: $wiFiMode.onChange(updateNetworkData)) {
+                    Picker("Wi-Fi mode:", selection: $wiFiMode.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
                             Text(mode.displayName)
                         }
                     }
                     .pickerStyle(.menu)
                     
-                    Picker("WiFi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
+                    Picker("Wi-Fi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
                             Image(systemName: "wifi", variableValue: bars.rawValue)
                                 .tag(bars.rawValue)
@@ -106,7 +106,7 @@ struct StatusBarView: View {
                     .frame(height: 40)
                 
                 Section {
-                    Picker("Battery State:", selection: $batteryState.onChange(updateBattery)) {
+                    Picker("Battery state:", selection: $batteryState.onChange(updateBattery)) {
                         ForEach(SimCtl.StatusBar.BatteryState.allCases, id: \.self) { state in
                             Text(state.displayName)
                         }
@@ -178,7 +178,7 @@ extension SimCtl.StatusBar.DataNetwork {
     var displayName: String {
         switch self {
         case .wifi:
-            return "WiFi"
+            return "Wi-Fi"
         default:
             return rawValue.uppercased()
         }

@@ -38,7 +38,7 @@ struct SystemView: View {
                     }
                     .padding(.vertical, 5)
 
-                    LabeledContent("Root Path:") {
+                    LabeledContent("Root path:") {
                         Text(simulator.urlForFilePath(.root).relativePath)
                             .truncationMode(.head)
                             .textSelection(.enabled)
@@ -50,7 +50,7 @@ struct SystemView: View {
                         Button("Open in Terminal", action: { openInTerminal(.root) })
                     }
 
-                    LabeledContent("Files Path:") {
+                    LabeledContent("Files path:") {
                         VStack(alignment: .leading) {
                             Text(simulator.urlForFilePath(.files).relativePath)
                                 .textSelection(.enabled)
@@ -100,7 +100,7 @@ struct SystemView: View {
 
                 Group {
                     Section {
-                        LabeledContent("Copy Pasteboard:") {
+                        LabeledContent("Copy pasteboard:") {
                             HStack {
                                 Button("Simulator → Mac", action: copyPasteboardToMac)
                                 Button("Mac → Simulator", action: copyPasteboardToSim)

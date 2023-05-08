@@ -82,7 +82,7 @@ struct OverridesView: View {
                     Text("Accessibility overrides")
                         .font(.headline)
                 ) {
-                    Picker("Content Size:", selection: $contentSize) {
+                    Picker("Content size:", selection: $contentSize) {
                         ForEach(SimCtl.UI.ContentSizes.allCases, id: \.self) { size in
                             HStack {
                                 Text(size.rawValue)
