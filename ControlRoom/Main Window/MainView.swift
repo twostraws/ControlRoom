@@ -46,7 +46,7 @@ struct MainView: View {
                     informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
                     confirmationTitle: "Delete",
                     confirm: deleteSelectedSimulators,
-                    content: { EmptyView() }
+                    content: EmptyView.init
                 )
             }
         }

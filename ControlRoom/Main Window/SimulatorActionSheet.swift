@@ -50,7 +50,6 @@ struct SimulatorActionSheet<Content: View>: View {
                         .lineLimit(1)
 
                     Text(informativeText)
-                        .font(.caption)
                         .multilineTextAlignment(.leading)
 
                     content
