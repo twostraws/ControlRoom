@@ -42,7 +42,7 @@ struct ControlView: View {
             OverridesView(simulator: simulator)
         }
         .disabled(simulator.state != .booted)
-        .navigationSubtitle("\(simulator.name) – \(simulator.runtime?.description ?? "Unknown OS")")
+        .navigationSubtitle("\(simulator.name) – \(simulator.runtime?.name ?? "Unknown OS")")
         .toolbar {
             Menu("Take \(captureSettings.imageFormat.rawValue.uppercased()) Screenshot") {
                 Button("Save as PNG") {

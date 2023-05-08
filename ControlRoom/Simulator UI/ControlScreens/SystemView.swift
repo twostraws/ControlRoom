@@ -26,99 +26,106 @@ struct SystemView: View {
     var body: some View {
         ScrollView {
             Form {
-                Group {
-                    Section {
-                        Button("Trigger iCloud Sync", action: triggerSync)
+                Section {
+                    LabeledContent("Device:") {
+                        Text("\(simulator.name) – \(simulator.runtime?.description ?? "Unknown OS")")
+                            .textSelection(.enabled)
                     }
-                    Divider()
-                }
-                Group {
-                    Section(header: Text("Logging")) {
-                        HStack {
-                            if isLoggingEnabled {
-                                Button("Disable Logging", action: updateLogging)
-                                Button("Get Logs", action: getLogs)
-                            } else if !isLoggingEnabled {
-                                Button("Enable Logging", action: updateLogging)
-                            }
-                        }
+
+                    LabeledContent("Device ID:") {
+                        Text(simulator.udid)
+                            .textSelection(.enabled)
                     }
-                    Divider()
-                }
-                Group {
-                    Section(header: Text("Copy Pasteboard")) {
-                        HStack {
-                            Button("Simulator → Mac", action: copyPasteboardToMac)
-                            Button("Mac → Simulator", action: copyPasteboardToSim)
-                        }
+                    .padding(.vertical, 5)
+
+                    LabeledContent("Root Path:") {
+                        Text(simulator.urlForFilePath(.root).relativePath)
+                            .truncationMode(.head)
+                            .textSelection(.enabled)
                     }
-                    Divider()
-                }
-                Group {
-                    Section(header: Text("Open URL")) {
-                        HStack {
-                            TextField("URL / deep link to open", text: $lastOpenURL)
-                            Button("Open URL", action: openURL)
-                        }
-                    }
-                    Divider()
-                    Section(header: Text("Add Root Certificate")) {
-                        HStack {
-                            TextField("Trusted root certificate file location", text: $lastCertificateFilePath)
-                            Button("Add Root Certificate", action: addRootCertificate)
-                        }
-                    }
-                }
-                Group {
-                    Spacer()
-                    Group {
-                        Section(header: Text("Location on Disk")) {
-                            HStack {
-                                Text("Device ID")
-                                Spacer()
-                                Text(simulator.udid)
-                                Button("Copy", action: copyDeviceID)
-                            }
-                            HStack(alignment: .top) {
-                                Text("Root Path:")
-                                Spacer()
-                                Text(simulator.urlForFilePath(.root).relativePath)
-                            }
-                            HStack {
-                                Spacer()
-                                Button("Copy", action: { copyPath(.root) })
-                                Button("Open in Finder", action: { openInFinder(.root) })
-                                Button("Open in Terminal", action: { openInTerminal(.root) })
-                            }
-                            VStack {
-                                HStack(alignment: .top) {
-                                    Text("Files Path:")
-                                    Spacer()
-                                    Text(simulator.urlForFilePath(.files).relativePath)
-                                }
-                                HStack(alignment: .bottom) {
-                                    Text("drag file(s) here to copy").font(.caption)
-                                    Spacer()
-                                    Button("Copy", action: { copyPath(.files) })
-                                    Button("Open in Finder", action: { openInFinder(.files) })
-                                    Button("Open in Terminal", action: { openInTerminal(.files) })
-                                }
-                            }
-                            .padding(5)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
-                            )
-                            .onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
-                                return simulator.copyFilesFromProviders(providers, toFilePath: .files)
-                            }
-                        }
-                        Divider()
-                    }
-                    Spacer()
+
                     HStack {
+                        Spacer()
+                        Button("Open in Finder", action: { openInFinder(.root) })
+                        Button("Open in Terminal", action: { openInTerminal(.root) })
+                    }
+
+                    LabeledContent("Files Path:") {
+                        VStack(alignment: .leading) {
+                            Text(simulator.urlForFilePath(.files).relativePath)
+                                .textSelection(.enabled)
+
+                            HStack(alignment: .bottom) {
+                                Text("Drag file(s) here to copy").font(.caption)
+                                Spacer()
+                                Button("Open in Finder", action: { openInFinder(.files) })
+                                Button("Open in Terminal", action: { openInTerminal(.files) })
+                            }
+                        }
+                        .padding(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
+                        )
+                        .onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
+                            return simulator.copyFilesFromProviders(providers, toFilePath: .files)
+                        }
+                    }
+                    .padding(.vertical, 5)
+                }
+
+                Divider()
+
+                LabeledContent("Data:") {
+                    HStack {
+                        Button("Trigger iCloud Sync", action: triggerSync)
                         Button("Reset Keychain", action: resetKeychain)
                         Button("Erase Content and Settings", action: eraseDevice)
+                    }
+                }
+
+                Divider()
+
+                LabeledContent("Logging:") {
+                    HStack {
+                        if isLoggingEnabled {
+                            Button("Disable Logging", action: updateLogging)
+                            Button("Get Logs", action: getLogs)
+                        } else if !isLoggingEnabled {
+                            Button("Enable Logging", action: updateLogging)
+                        }
+                    }
+                }
+
+                Divider()
+
+                Group {
+                    Section {
+                        LabeledContent("Copy Pasteboard:") {
+                            HStack {
+                                Button("Simulator → Mac", action: copyPasteboardToMac)
+                                Button("Mac → Simulator", action: copyPasteboardToSim)
+                            }
+                        }
+                    }
+                    Divider()
+                }
+                
+                Group {
+                    Section {
+                        HStack {
+                            TextField("Open URL:", text: $lastOpenURL, prompt: Text("Enter the URL or deep link you want to open"))
+                            Button("Open", action: openURL)
+                        }
+                    }
+
+                    Divider()
+
+                    Section {
+                        HStack {
+                            TextField("Root certificate:", text: $lastCertificateFilePath, prompt: Text("Enter the full path to a trusted root certificate"))
+                            Button("Add", action: addRootCertificate)
+                        }
                     }
                 }
             }

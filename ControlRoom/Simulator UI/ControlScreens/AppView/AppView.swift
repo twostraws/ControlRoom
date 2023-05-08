@@ -122,7 +122,7 @@ struct AppView: View {
                 TextEditor(text: $pushPayload)
                     .font(.system(.body, design: .monospaced))
                     .disableAutocorrection(true)
-                    .frame(minHeight: 150, maxHeight: .infinity)
+                    .frame(minHeight: 100)
                     .scrollContentBackground(.hidden)
                     .padding(5)
                     .background(.quaternary)

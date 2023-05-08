@@ -59,6 +59,7 @@ struct LocationView: View {
 
             HStack {
                 Text("Coordinates: \(locationText)")
+                    .textSelection(.enabled)
                 Spacer()
                 Toggle("Jitter location", isOn: $isJittering)
                     .toggleStyle(.checkbox)
