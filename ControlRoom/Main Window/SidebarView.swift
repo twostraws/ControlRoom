@@ -53,6 +53,7 @@ struct SidebarView: View {
             HStack(spacing: 4) {
                 Button {
                     preferences.shouldShowOnlyActiveDevices.toggle()
+                    controller.filterSimulators()
                 } label: {
                     Image(systemName: "power")
                         .resizable()
