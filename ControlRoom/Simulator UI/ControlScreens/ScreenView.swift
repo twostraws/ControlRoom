@@ -27,17 +27,10 @@ struct VideoFormat {
 
 /// Controls screenshots and videos of the simulator
 struct ScreenView: View {
-    /// Store the local settings for screenshots
-    private struct Screenshot {
-        var type: SimCtl.IO.ImageFormat
-        var display: SimCtl.IO.Display?
-        var mask: SimCtl.IO.Mask?
-    }
-
     let simulator: Simulator
 
     /// The user's settings for a screenshot.
-    @State private var screenshot = Screenshot(type: .png, display: .none, mask: .none)
+    @AppStorage("screenshot") var screenshot = Screenshot(type: .png, display: .internal, mask: .ignored)
 
     /// The currently active recording process, if it exists. We don't need to monitor this, just keep it alive.
     @State private var recordingProcess: Process?
@@ -93,15 +86,15 @@ struct ScreenView: View {
             ) {
                 if simulator.deviceFamily == .iPad || simulator.deviceFamily == .iPhone {
                     Picker("Display:", selection: $screenshot.display) {
-                        ForEach(SimCtl.IO.Display.all, id: \.self) { display in
-                            Text(display?.rawValue.capitalized ?? "None").tag(display)
+                        ForEach(SimCtl.IO.Display.allCases, id: \.self) { display in
+                            Text(display.rawValue.capitalized).tag(display)
                         }
                     }
                 }
 
                 Picker("Mask:", selection: $screenshot.mask) {
-                    ForEach(SimCtl.IO.Mask.all, id: \.self) { mask in
-                        Text(mask?.rawValue.capitalized ?? "None").tag(mask)
+                    ForEach(SimCtl.IO.Mask.allCases, id: \.self) { mask in
+                        Text(mask.rawValue.capitalized).tag(mask)
                     }
                 }
             }
@@ -233,6 +226,35 @@ struct ScreenView: View {
         let dateString = formatter.string(from: Date.now)
 
         return "ControlRoom-\(dateString).mp4"
+    }
+}
+
+/// Store the local settings for screenshots
+struct Screenshot {
+    var type: SimCtl.IO.ImageFormat
+    var display: SimCtl.IO.Display
+    var mask: SimCtl.IO.Mask
+}
+
+extension Screenshot: RawRepresentable {
+    public init(rawValue: String) {
+        let components = rawValue.components(separatedBy: "~")
+
+        guard components.count == 3 else {
+            type = .png
+            display = .internal
+            mask = .ignored
+            return
+        }
+
+        type = SimCtl.IO.ImageFormat(rawValue: components[0]) ?? .png
+        display = SimCtl.IO.Display(rawValue: components[1]) ?? .internal
+        mask = SimCtl.IO.Mask(rawValue: components[2]) ?? .ignored
+    }
+
+    public var rawValue: String {
+        let result = "\(type.rawValue)~\(display.rawValue)~\(mask.rawValue)"
+        return result
     }
 }
 

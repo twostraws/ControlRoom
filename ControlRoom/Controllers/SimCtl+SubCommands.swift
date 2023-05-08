@@ -508,18 +508,16 @@ extension SimCtl {
             static let all = [Self.h264, .hevc]
         }
 
-        enum Display: String {
+        enum Display: String, CaseIterable {
             case `internal`
             case external
 
             var arguments: [String] {
                 ["--display=\(rawValue)"]
             }
-
-            static let all: [Self?] = [Self.internal, .external, nil]
         }
 
-        enum Mask: String {
+        enum Mask: String, CaseIterable {
             case ignored
             case alpha
             case black
@@ -527,8 +525,6 @@ extension SimCtl {
             var arguments: [String] {
                 ["--mask=\(rawValue)"]
             }
-
-            static let all: [Self?] = [Self.ignored, .alpha, .black, nil]
         }
 
         enum ImageFormat: String, CaseIterable {
