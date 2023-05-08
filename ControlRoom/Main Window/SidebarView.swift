@@ -46,7 +46,7 @@ struct SidebarView: View {
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
+            .listStyle(.sidebar)
 
             Divider()
 
@@ -61,7 +61,7 @@ struct SidebarView: View {
                         .frame(width: 16)
                         .padding(.horizontal, 2)
                 }
-                .buttonStyle(BorderlessButtonStyle())
+                .buttonStyle(.borderless)
                 .padding(.leading, 3)
 
                 FilterField("Filter", text: $filterText.onChange(controller.filterSimulators))

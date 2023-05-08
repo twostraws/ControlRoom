@@ -59,7 +59,7 @@ struct AppView: View {
                                 .tag(application.bundleIdentifier)
                         }
                     }
-                    .pickerStyle(PopUpButtonPickerStyle())
+                    .pickerStyle(.menu)
                     Toggle("Show system apps", isOn: $shouldShowSystemApps)
                 }
 

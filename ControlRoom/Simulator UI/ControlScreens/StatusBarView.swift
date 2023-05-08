@@ -64,7 +64,7 @@ struct StatusBarView: View {
                             Text(network.displayName)
                         }
                     }
-                    .pickerStyle(PopUpButtonPickerStyle())
+                    .pickerStyle(.menu)
                     
                     Divider()
                     
@@ -73,16 +73,15 @@ struct StatusBarView: View {
                             Text(mode.displayName)
                         }
                     }
-                    .pickerStyle(PopUpButtonPickerStyle())
+                    .pickerStyle(.menu)
                     
                     Picker("WiFi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
                             Image(systemName: "wifi", variableValue: bars.rawValue)
-                            //                            .frame
                                 .tag(bars.rawValue)
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(.segmented)
                     
                     Divider()
                     
@@ -91,7 +90,7 @@ struct StatusBarView: View {
                             Text(mode.displayName)
                         }
                     }
-                    .pickerStyle(PopUpButtonPickerStyle())
+                    .pickerStyle(.menu)
                     
                     Picker("Cellular bars:", selection: $cellularBar.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
@@ -99,7 +98,7 @@ struct StatusBarView: View {
                                 .tag(bars.rawValue)
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(.segmented)
                     
                 }
                 
@@ -112,7 +111,7 @@ struct StatusBarView: View {
                             Text(state.displayName)
                         }
                     }
-                    .pickerStyle(RadioGroupPickerStyle())
+                    .pickerStyle(.radioGroup)
                     
                     VStack {
                         Text("Current battery percentage: \(Int(round(batteryLevel)))%")
