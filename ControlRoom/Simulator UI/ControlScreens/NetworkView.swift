@@ -54,7 +54,8 @@ struct NetworkView: View {
 
                 Picker("WiFi bars:", selection: $wiFiBar.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
-                        Image(nsImage: nsImage(named: "wifi.\(bars.rawValue)", size: NSSize(width: 19, height: 13.8)))
+                        Image(systemName: "wifi", variableValue: bars.rawValue)
+//                            .frame
                             .tag(bars.rawValue)
                     }
                 }
@@ -73,7 +74,7 @@ struct NetworkView: View {
 
                 Picker("Cellular bars:", selection: $cellularBar.onChange(updateData)) {
                     ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
-                        Image(nsImage: nsImage(named: "cell.\(bars.rawValue)", size: NSSize(width: 21, height: 11.4)))
+                        Image(systemName: "cellularbars", variableValue: bars.rawValue)
                             .tag(bars.rawValue)
                     }
                 }

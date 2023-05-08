@@ -54,7 +54,7 @@ struct SidebarView: View {
                 Button {
                     preferences.shouldShowOnlyActiveDevices.toggle()
                 } label: {
-                    Image("power")
+                    Image(systemName: "power")
                         .resizable()
                         .foregroundColor(preferences.shouldShowOnlyActiveDevices ? .accentColor : .secondary)
                         .aspectRatio(contentMode: .fit)

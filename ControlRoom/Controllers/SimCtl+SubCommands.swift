@@ -673,11 +673,11 @@ extension SimCtl {
             case active
         }
 
-        enum WifiBars: Int, CaseIterable {
-            case zero
-            case one
-            case two
-            case three
+        enum WifiBars: Double, CaseIterable {
+            case zero = 0
+            case one = 0.25
+            case two = 0.6
+            case three = 1
         }
 
         enum CellularMode: String, CaseIterable {
@@ -687,12 +687,12 @@ extension SimCtl {
             case active
         }
 
-        enum CellularBars: Int, CaseIterable {
-            case zero
-            case one
-            case two
-            case three
-            case four
+        enum CellularBars: Double, CaseIterable {
+            case zero = 0
+            case one = 0.1
+            case two = 0.3
+            case three = 0.6
+            case four = 1
         }
 
         enum BatteryState: String, CaseIterable {
