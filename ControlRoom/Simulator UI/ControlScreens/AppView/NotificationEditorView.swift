@@ -52,6 +52,10 @@ struct NotificationEditorView: View {
                         .font(.system(.body, design: .monospaced))
                         .disableAutocorrection(true)
                         .frame(height: 200)
+                        .scrollContentBackground(.hidden)
+                        .padding(5)
+                        .background(.quaternary)
+                        .border(.tertiary, width: 1)
 
                     Text("User info")
                         .font(.headline)
@@ -61,6 +65,10 @@ struct NotificationEditorView: View {
                         .font(.system(.body, design: .monospaced))
                         .disableAutocorrection(true)
                         .frame(height: 200)
+                        .scrollContentBackground(.hidden)
+                        .padding(5)
+                        .background(.quaternary)
+                        .border(.tertiary, width: 1)
 
                     Spacer()
                 }

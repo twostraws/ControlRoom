@@ -123,6 +123,10 @@ struct AppView: View {
                     .font(.system(.body, design: .monospaced))
                     .disableAutocorrection(true)
                     .frame(minHeight: 150, maxHeight: .infinity)
+                    .scrollContentBackground(.hidden)
+                    .padding(5)
+                    .background(.quaternary)
+                    .border(.tertiary, width: 1)
 
                 HStack(spacing: 10) {
                     Button("Select Templates", action: openNotificationTemplate)
