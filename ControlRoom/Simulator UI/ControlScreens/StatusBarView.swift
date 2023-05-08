@@ -113,12 +113,13 @@ struct StatusBarView: View {
                     }
                     .pickerStyle(.radioGroup)
                     
-                    VStack {
+                    VStack(spacing: 0) {
                         Text("Current battery percentage: \(Int(round(batteryLevel)))%")
                         Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {
                             Text("Level:")
                         }
                     }
+                    .padding(.top, 5)
                 }
             }
             .padding()
