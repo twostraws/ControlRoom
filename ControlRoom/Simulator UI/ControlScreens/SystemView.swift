@@ -74,30 +74,29 @@ struct SystemView: View {
                     .padding(.vertical, 5)
                 }
 
-                Divider()
+                Spacer()
+                    .frame(height: 40)
+
+                HStack {
+                    TextField("Open URL:", text: $lastOpenURL, prompt: Text("Enter the URL or deep link you want to open"))
+                    Button("Open", action: openURL)
+                }
+
+                HStack {
+                    TextField("Root certificate:", text: $lastCertificateFilePath, prompt: Text("Enter the full path to a trusted root certificate"))
+                    Button("Add", action: addRootCertificate)
+                }
+
+                Spacer()
+                    .frame(height: 40)
 
                 LabeledContent("Data:") {
                     HStack {
                         Button("Trigger iCloud Sync", action: triggerSync)
                         Button("Reset Keychain", action: resetKeychain)
-                        Button("Erase Content and Settings", action: eraseDevice)
+                        Button("Erase", action: eraseDevice)
                     }
                 }
-
-                Divider()
-
-                LabeledContent("Logging:") {
-                    HStack {
-                        if isLoggingEnabled {
-                            Button("Disable Logging", action: updateLogging)
-                            Button("Get Logs", action: getLogs)
-                        } else if !isLoggingEnabled {
-                            Button("Enable Logging", action: updateLogging)
-                        }
-                    }
-                }
-
-                Divider()
 
                 Group {
                     Section {
@@ -108,23 +107,15 @@ struct SystemView: View {
                             }
                         }
                     }
-                    Divider()
                 }
-                
-                Group {
-                    Section {
-                        HStack {
-                            TextField("Open URL:", text: $lastOpenURL, prompt: Text("Enter the URL or deep link you want to open"))
-                            Button("Open", action: openURL)
-                        }
-                    }
 
-                    Divider()
-
-                    Section {
-                        HStack {
-                            TextField("Root certificate:", text: $lastCertificateFilePath, prompt: Text("Enter the full path to a trusted root certificate"))
-                            Button("Add", action: addRootCertificate)
+                LabeledContent("Logging:") {
+                    HStack {
+                        if isLoggingEnabled {
+                            Button("Disable Logging", action: updateLogging)
+                            Button("Get Logs", action: getLogs)
+                        } else if !isLoggingEnabled {
+                            Button("Enable Logging", action: updateLogging)
                         }
                     }
                 }

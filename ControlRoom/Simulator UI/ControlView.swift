@@ -43,7 +43,7 @@ struct ControlView: View {
         .disabled(simulator.state != .booted)
         .navigationSubtitle("\(simulator.name) – \(simulator.runtime?.name ?? "Unknown OS")")
         .toolbar {
-            Menu("Take \(captureSettings.imageFormat.rawValue.uppercased()) Screenshot") {
+            Menu("Save \(captureSettings.imageFormat.rawValue.uppercased())") {
                 Button("Save as PNG") {
                     takeScreenshot(format: .png)
                 }
@@ -64,7 +64,7 @@ struct ControlView: View {
             }
 
             if recordingProcess == nil {
-                Menu("Start \(captureSettings.videoFormat.name) Recording") {
+                Menu("Record \(captureSettings.videoFormat.name)") {
                     ForEach(SimCtl.IO.VideoFormat.all, id: \.self) { item in
                         if item == .divider {
                             Divider()

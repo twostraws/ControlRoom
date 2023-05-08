@@ -50,99 +50,101 @@ struct AppView: View {
         let selectedApplication = apps.first(where: { $0.bundleIdentifier == lastBundleID }) ?? .default
         let isApplicationSelected = selectedApplication.bundleIdentifier.isNotEmpty
 
-        Form {
-            Section {
-                HStack {
-                    Picker("Application:", selection: $lastBundleID) {
-                        ForEach(apps, id: \.bundleIdentifier) { application in
-                            Text("\(application.displayName) – \(application.bundleIdentifier)")
-                                .tag(application.bundleIdentifier)
+        ScrollView {
+            Form {
+                Section {
+                    HStack {
+                        Picker("Application:", selection: $lastBundleID) {
+                            ForEach(apps, id: \.bundleIdentifier) { application in
+                                Text("\(application.displayName) – \(application.bundleIdentifier)")
+                                    .tag(application.bundleIdentifier)
+                            }
                         }
-                    }
-                    .pickerStyle(.menu)
-                    Toggle("Show system apps", isOn: $shouldShowSystemApps)
-                }
-
-                HStack {
-                    AppSummaryView(application: selectedApplication)
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Button("Launch", action: launchApp)
-                            Button("Terminate", action: terminateApp)
-                            Button("Restart", action: restartApp)
-                            Button("Uninstall", action: confirmDeleteApp)
-                        }
-                        .disabled(selectedApplication == .default)
-
-                        Menu {
-                            Button("Open data folder", action: openDataFolder)
-                                .disabled(selectedApplication.dataFolderURL == nil)
-                            Button("Open first app group folder", action: openFirstAppGroupFolder)
-                                .disabled(selectedApplication.firstAppGroupFolderURL == nil)
-                            Button("Open app bundle", action: openAppBundle)
-                                .disabled(selectedApplication.bundleURL == nil)
-
-                            Button("Edit UserDefaults", action: editUserDefaults)
-                                .disabled(selectedApplication.dataFolderURL == nil)
-
-                            Divider()
-
-                            Button("Clear Restoration State", action: clearRestorationState)
-                                .disabled(selectedApplication.dataFolderURL == nil)
-                                .help("Removes any saved state restoration data, such as @SceneStorage properties used by the app.")
-                        } label: {
-                            Label("App Data", systemImage: "square.and.pencil")
-                        }
-                        .frame(maxWidth: 250)
-                    }
-                }
-            }
-
-            Divider()
-
-            Section {
-                HStack {
-                    Picker("Permissions:", selection: $resetPermission) {
-                        ForEach(SimCtl.Privacy.Permission.allCases, id: \.self) {
-                            Text($0.displayName)
-                        }
+                        .pickerStyle(.menu)
+                        Toggle("Show system apps", isOn: $shouldShowSystemApps)
                     }
 
-                    Button("Grant", action: grantPrivacy)
-                    Button("Revoke", action: revokePrivacy)
-                    Button("Reset", action: resetPrivacy)
+                    HStack {
+                        AppSummaryView(application: selectedApplication)
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Button("Launch", action: launchApp)
+                                Button("Terminate", action: terminateApp)
+                                Button("Restart", action: restartApp)
+                                Button("Uninstall", action: confirmDeleteApp)
+                            }
+                            .disabled(selectedApplication == .default)
+
+                            Menu {
+                                Button("Open data folder", action: openDataFolder)
+                                    .disabled(selectedApplication.dataFolderURL == nil)
+                                Button("Open first app group folder", action: openFirstAppGroupFolder)
+                                    .disabled(selectedApplication.firstAppGroupFolderURL == nil)
+                                Button("Open app bundle", action: openAppBundle)
+                                    .disabled(selectedApplication.bundleURL == nil)
+
+                                Button("Edit UserDefaults", action: editUserDefaults)
+                                    .disabled(selectedApplication.dataFolderURL == nil)
+
+                                Divider()
+
+                                Button("Clear Restoration State", action: clearRestorationState)
+                                    .disabled(selectedApplication.dataFolderURL == nil)
+                                    .help("Removes any saved state restoration data, such as @SceneStorage properties used by the app.")
+                            } label: {
+                                Label("App Data", systemImage: "square.and.pencil")
+                            }
+                            .frame(maxWidth: 250)
+                        }
+                    }
                 }
-            }
-            .disabled(!isApplicationSelected)
 
-            Divider()
+                Spacer()
+                    .frame(height: 40)
 
-            VStack {
-                TextEditor(text: $pushPayload)
-                    .font(.system(.body, design: .monospaced))
-                    .disableAutocorrection(true)
-                    .frame(minHeight: 100)
-                    .scrollContentBackground(.hidden)
-                    .padding(5)
-                    .background(.quaternary)
-                    .border(.tertiary, width: 1)
+                Section {
+                    HStack {
+                        Picker("Permissions:", selection: $resetPermission) {
+                            ForEach(SimCtl.Privacy.Permission.allCases, id: \.self) {
+                                Text($0.displayName)
+                            }
+                        }
 
-                HStack(spacing: 10) {
-                    Button("Select Templates", action: openNotificationTemplate)
-                    Spacer()
-                    Button("Open Editor", action: openNotificationEditor)
-                    Button("Send Push", action: sendPushNotification)
+                        Button("Grant", action: grantPrivacy)
+                        Button("Revoke", action: revokePrivacy)
+                        Button("Reset", action: resetPrivacy)
+                    }
                 }
-            }
-            .disabled(!isApplicationSelected)
+                .disabled(!isApplicationSelected)
 
-            Spacer()
+                Spacer()
+                    .frame(height: 40)
+
+                VStack {
+                    TextEditor(text: $pushPayload)
+                        .font(.system(.body, design: .monospaced))
+                        .disableAutocorrection(true)
+                        .frame(minHeight: 100)
+                        .scrollContentBackground(.hidden)
+                        .padding(5)
+                        .background(.quaternary)
+                        .border(.tertiary, width: 1)
+
+                    HStack(spacing: 10) {
+                        Button("Select Templates", action: openNotificationTemplate)
+                        Spacer()
+                        Button("Open Editor", action: openNotificationEditor)
+                        Button("Send Push", action: sendPushNotification)
+                    }
+                }
+                .disabled(!isApplicationSelected)
+            }
+            .padding()
         }
         .tabItem {
             Text("App")
         }
-        .padding()
         .alert(isPresented: $shouldShowUninstallConfirmationAlert) {
             Alert(title: Text("Are you sure you want to permanently delete \(selectedApplication.displayName)"),
                   message: Text("You can’t undo this action."),
