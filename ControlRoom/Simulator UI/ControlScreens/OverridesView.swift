@@ -206,6 +206,7 @@ struct OverridesView: View {
         // Automatically disable the cross-fade animation if reduce motion is being
         // disabled. This matches what Settings does.
         if reduceMotion == false {
+            preferCrossFadeTransitions = false
             updateAccessibility(key: "ReduceMotionReduceSlideTransitionsPreference", value: false)
         }
     }
