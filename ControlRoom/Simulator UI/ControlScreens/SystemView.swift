@@ -19,79 +19,13 @@ struct SystemView: View {
 
     @AppStorage("CRApps_LastCertificateFilePath") private var lastCertificateFilePath = ""
 
-    /// The current time to show in the device.
-    @State private var time = Date.now
-
-    /// The system-wide appearance; "Light" or "Dark".
-    @State private var appearance: SimCtl.UI.Appearance = .light
-
-    /// The currently active language identifier
-    @State private var language: String = NSLocale.current.language.languageCode?.identifier ?? ""
-
-    /// The currently active locale identifier
-    @State private var locale: String = NSLocale.current.identifier
     /// The current state of logging
     @State private var isLoggingEnabled = false
-    @State private var contentSize: SimCtl.UI.ContentSizes = .medium
-
-    private let languages: [String] = {
-        NSLocale.isoLanguageCodes
-            .filter { NSLocale.current.localizedString(forLanguageCode: $0) != nil }
-            .sorted { lhs, rhs in
-                let lhsString = NSLocale.current.localizedString(forLanguageCode: lhs) ?? ""
-                let rhsString = NSLocale.current.localizedString(forLanguageCode: rhs) ?? ""
-                return lhsString.lowercased() < rhsString.lowercased()
-            }
-    }()
-
 	@State var dropHovering: Bool = false
 
     var body: some View {
         ScrollView {
             Form {
-                Group {
-                    HStack {
-                        DatePicker("Time:", selection: $time)
-                        Button("Set", action: setTime)
-                        Button("Set to 9:41", action: setAppleTime)
-                    }
-                    Divider()
-                }
-                Group {
-                    Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
-                        ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
-                            Text($0.displayName)
-                        }
-                    }
-                    Divider()
-                }
-                Group {
-                    Picker("Language:", selection: $language) {
-                        ForEach(languages, id: \.self) {
-                            Text(NSLocale.current.localizedString(forLanguageCode: $0) ?? "")
-                        }
-                    }
-                    Picker("Locale:", selection: $locale) {
-                        ForEach(locales(for: language), id: \.self) {
-                            Text(NSLocale.current.localizedString(forIdentifier: $0) ?? "")
-                        }
-                    }
-                    HStack {
-                        Button("Set Language/Locale", action: updateLanguage)
-                        Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
-                    }
-                    Picker("Content Size:", selection: $contentSize) {
-                        ForEach(SimCtl.UI.ContentSizes.allCases, id: \.self) { size in
-                            HStack {
-                                Text(size.rawValue)
-                            }
-                        }
-                    }
-                    .onChange(of: contentSize) { _ in
-                        updateContentSize()
-                    }
-                    Divider()
-                }
                 Group {
                     Section {
                         Button("Trigger iCloud Sync", action: triggerSync)
@@ -188,44 +122,14 @@ struct SystemView: View {
                     }
                 }
             }
+            .padding()
         }
         .tabItem {
             Text("System")
         }
-        .padding()
         .onAppear {
             isLoggingEnabled = UserDefaults.standard.bool(forKey: "\(simulator.udid).logging")
         }
-    }
-
-    /// Changes the system clock to a new value.
-    func setTime() {
-        SimCtl.overrideStatusBarTime(simulator.udid, time: time)
-    }
-
-    func setAppleTime() {
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([.year, .month, .day], from: Date.now)
-        components.hour = 9
-        components.minute = 41
-        components.second = 0
-
-        let appleTime = calendar.date(from: components) ?? Date.now
-        SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
-
-        time = appleTime
-    }
-
-    /// Moves between light and dark mode.
-    func updateAppearance() {
-        SimCtl.setAppearance(simulator.udid, appearance: appearance)
-    }
-
-    func updateLanguage() {
-        let plistPath = simulator.dataPath + "/Library/Preferences/.GlobalPreferences.plist"
-        _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLanguages", "-json", "[\"\(language)\" ]", plistPath])
-        _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLocale", "-string", locale, plistPath])
-        SimCtl.reboot(simulator.id)
     }
 
     /// Starts an immediate iCloud sync.
@@ -245,10 +149,6 @@ struct SystemView: View {
     /// Get logs.
     func getLogs() {
         SimCtl.getLogs(simulator.udid)
-    }
-    /// Update Content Size.
-    func updateContentSize() {
-        SimCtl.setContentSize(simulator.udid, contentSize: contentSize)
     }
 
     /// Copies the simulator's pasteboard to the Mac.
@@ -308,16 +208,6 @@ struct SystemView: View {
 			LSOpenFromURLSpec(pointer, nil)
 		}
 	}
-
-	private func locales(for language: String) -> [String] {
-        NSLocale.availableLocaleIdentifiers
-            .filter { $0.hasPrefix(language) }
-            .sorted { (lhs, rhs) -> Bool in
-                let lhsString = NSLocale.current.localizedString(forIdentifier: lhs) ?? ""
-                let rhsString = NSLocale.current.localizedString(forIdentifier: rhs) ?? ""
-                return lhsString.lowercased() < rhsString.lowercased()
-            }
-    }
 }
 
 struct SystemView_Previews: PreviewProvider {

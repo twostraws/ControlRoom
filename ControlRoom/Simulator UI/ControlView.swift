@@ -22,6 +22,7 @@ struct ControlView: View {
             BatteryView(simulator: simulator)
             LocationView(controller: controller, simulator: simulator)
             NetworkView(simulator: simulator)
+            OverridesView(simulator: simulator)
             ScreenView(simulator: simulator)
         }
         .disabled(simulator.state != .booted)
