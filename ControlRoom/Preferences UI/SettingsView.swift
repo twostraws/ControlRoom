@@ -14,24 +14,19 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        Form {
-            Section(header: Text("Main Window").font(.headline)) {
+        TabView {
+            Form {
                 Toggle("Keep window on top", isOn: $preferences.wantsFloatingWindow)
                 Toggle("Show Default simulator", isOn: $preferences.showDefaultSimulator)
                 Toggle("Show booted devices first", isOn: $preferences.showBootedDevicesFirst)
-            }
-
-            Spacer()
-                .frame(height: 30)
-
-            Section(header: Text("Menu Bar").font(.headline)) {
                 Toggle("Show icon in menu bar", isOn: $preferences.wantsMenuBarIcon)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .tabItem {
+                Label("Window", systemImage: "macwindow")
+            }
 
-            Spacer()
-                .frame(height: 30)
-
-            Section(header: Text("Keyboard shortcuts").font(.headline)) {
+            Form {
                 HStack {
                     Text("Resend last push notification")
                     KeyboardShortcuts.Recorder(for: .resendLastPushNotification)
@@ -47,40 +42,33 @@ struct SettingsView: View {
                     KeyboardShortcuts.Recorder(for: .reopenLastURL)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .tabItem {
+                Label("Shortcuts", systemImage: "keyboard")
+            }
 
-            Spacer()
-                .frame(height: 30)
-
-            Section(header: Text("Terminal app path").font(.headline)) {
+            Form {
                 TextField(
-                    "Filepath",
+                    "Path to Terminal",
                     text: $preferences.terminalAppPath
                 )
-                    .labelsHidden()
                 .textFieldStyle(.roundedBorder)
             }
-
-            Spacer()
-                .frame(height: 30)
-
-            HStack {
-                Spacer()
-
-                Button("Done") {
-                    presentationMode.wrappedValue.dismiss()
-                }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .tabItem {
+                Label("Locations", systemImage: "externaldrive")
             }
-        }
-        .padding(20)
-        .onChange(of: preferences.wantsMenuBarIcon) { newValue in
-            #warning("FIXME: Commented out")
-//            guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
-//
-//            if newValue {
-//                appDelegate.addMenuBarItem()
-//            } else {
-//                appDelegate.removeMenuBarItem()
-//            }
+            .onChange(of: preferences.wantsMenuBarIcon) { newValue in
+                #warning("FIXME: Commented out")
+    //            guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+    //
+    //            if newValue {
+    //                appDelegate.addMenuBarItem()
+    //            } else {
+    //                appDelegate.removeMenuBarItem()
+    //            }
+            }
         }
     }
 }
