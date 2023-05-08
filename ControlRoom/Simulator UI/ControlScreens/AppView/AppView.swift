@@ -50,7 +50,7 @@ struct AppView: View {
         let selectedApplication = apps.first(where: { $0.bundleIdentifier == lastBundleID }) ?? .default
         let isApplicationSelected = selectedApplication.bundleIdentifier.isNotEmpty
 
-        return Form {
+        Form {
             Section {
                 HStack {
                     Picker("Application:", selection: $lastBundleID) {
