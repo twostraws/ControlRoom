@@ -53,8 +53,11 @@ struct OverridesView: View {
                             Text($0.displayName)
                         }
                     }
-                    Divider()
                 }
+
+                Spacer()
+                    .frame(height: 40)
+
                 Group {
                     Picker("Language:", selection: $language) {
                         ForEach(languages, id: \.self) {
@@ -70,9 +73,10 @@ struct OverridesView: View {
                         Button("Set Language/Locale", action: updateLanguage)
                         Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
                     }
-
-                    Divider()
                 }
+
+                Spacer()
+                    .frame(height: 40)
                 
                 Section(header:
                     Text("Accessibility overrides")

@@ -53,8 +53,8 @@ struct StatusBarView: View {
                     }
                 }
                 
-                Divider()
-                    .padding(.vertical, 20)
+                Spacer()
+                    .frame(height: 40)
                 
                 Section {
                     TextField("Operator", text: $carrierName, onCommit: updateNetworkData)
@@ -102,8 +102,8 @@ struct StatusBarView: View {
                     
                 }
                 
-                Divider()
-                    .padding(.vertical, 20)
+                Spacer()
+                    .frame(height: 40)
                 
                 Section {
                     Picker("Battery State:", selection: $batteryState.onChange(updateBattery)) {
