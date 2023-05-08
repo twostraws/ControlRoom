@@ -19,7 +19,7 @@ final class Preferences: ObservableObject {
     @AppStorage("CRWantsFloatingWindow") var wantsFloatingWindow = false
 
     @AppStorage("CRSidebar_ShowDefaultSimulator") var showDefaultSimulator = true
-    @AppStorage("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = false
+    @AppStorage("CRSidebar_ShowBootedDevicesFirst") var showBootedDevicesFirst = true
     @AppStorage("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
 
     @AppStorage("CRTerminalAppPath") var terminalAppPath = "/System/Applications/Utilities/Terminal.app"
