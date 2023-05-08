@@ -56,16 +56,16 @@ struct SystemView: View {
                                 .textSelection(.enabled)
 
                             HStack(alignment: .bottom) {
-                                Text("Drag file(s) here to copy").font(.caption)
+                                Text(dropHovering ? "Drop to copy" : "Drag files here to copy").font(.caption)
                                 Spacer()
-                                Button("Open in Finder", action: { openInFinder(.files) })
-                                Button("Open in Terminal", action: { openInTerminal(.files) })
+                                Button("Open in Finder") { openInFinder(.files) }
+                                Button("Open in Terminal") { openInTerminal(.files) }
                             }
                         }
                         .padding(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 5)
-                                .stroke(dropHovering ? Color.white : Color.gray, lineWidth: 1)
+                                .stroke(dropHovering ? Color.accentColor : Color.gray, lineWidth: 1)
                         )
                         .onDrop(of: [.fileURL], isTargeted: $dropHovering) { providers in
                             return simulator.copyFilesFromProviders(providers, toFilePath: .files)
