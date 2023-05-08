@@ -537,6 +537,40 @@ extension SimCtl {
                 ["--type=\(rawValue)"]
             }
         }
+
+        enum VideoFormat: String {
+            case h264, h264Compressed, divider, smallGif, mediumGif, largeGif, fullGif
+
+            static var all: [VideoFormat] {
+                var options: [VideoFormat] = [.h264, .divider, .smallGif, .mediumGif, .largeGif, .fullGif]
+
+                if FFMPEGConverter.available {
+                    options.insert(.h264Compressed, at: 1)
+                }
+
+                return options
+            }
+
+            var name: String {
+                switch self {
+                case .h264:
+                    return "H.264"
+                case .h264Compressed:
+                    return "H.264 (Compressed)"
+                case .divider:
+                    return ""
+                case .smallGif:
+                    return "GIF (Small)"
+                case .mediumGif:
+                    return "GIF (Medium)"
+                case .largeGif:
+                    return "GIF (Large)"
+                case .fullGif:
+                    return "GIF (Full)"
+                }
+            }
+        }
+
     }
 
     enum Diagnose {

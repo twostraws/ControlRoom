@@ -13,6 +13,9 @@ struct SettingsView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.presentationMode) var presentationMode
 
+    /// The user's settings for capturing
+    @AppStorage("captureSettings") var captureSettings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored)
+
     var body: some View {
         TabView {
             Form {
@@ -45,6 +48,40 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .tabItem {
                 Label("Shortcuts", systemImage: "keyboard")
+            }
+
+            Form {
+                Picker("Screenshot Format:", selection: $captureSettings.imageFormat) {
+                    ForEach(SimCtl.IO.ImageFormat.allCases, id: \.self) { type in
+                        Text(type.rawValue.uppercased()).tag(type)
+                    }
+                }
+
+                Picker("Video Format:", selection: $captureSettings.videoFormat) {
+                    ForEach(SimCtl.IO.VideoFormat.all, id: \.self) { item in
+                        if item == .divider {
+                            Divider()
+                        } else {
+                            Text(item.name).tag(item)
+                        }
+                    }
+                }
+
+                Picker("Display:", selection: $captureSettings.display) {
+                    ForEach(SimCtl.IO.Display.allCases, id: \.self) { display in
+                        Text(display.rawValue.capitalized).tag(display)
+                    }
+                }
+
+                Picker("Mask:", selection: $captureSettings.mask) {
+                    ForEach(SimCtl.IO.Mask.allCases, id: \.self) { mask in
+                        Text(mask.rawValue.capitalized).tag(mask)
+                    }
+                }
+            }
+            .padding()
+            .tabItem {
+                Label("Screenshots", systemImage: "camera.on.rectangle")
             }
 
             Form {

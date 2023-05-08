@@ -23,6 +23,7 @@
 		511BA5A023F4197200E3E660 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA59F23F4197200E3E660 /* NetworkView.swift */; };
 		511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */; };
 		511BA5A823F42EE400E3E660 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA5A723F42EE400E3E660 /* AppView.swift */; };
+		51203A512A09588A00CBE517 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51203A502A09588A00CBE517 /* Capture.swift */; };
 		5179289625C37586000F6F3A /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 5179289525C37586000F6F3A /* KeyboardShortcuts */; };
 		5179289A25C37D2A000F6F3A /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5179289925C37D2A000F6F3A /* KeyboardShortcuts.swift */; };
 		517928C225C47392000F6F3A /* AVAssetToGIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517928C125C47392000F6F3A /* AVAssetToGIF.swift */; };
@@ -99,6 +100,7 @@
 		511BA59F23F4197200E3E660 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		511BA5A723F42EE400E3E660 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		51203A502A09588A00CBE517 /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
 		5179289925C37D2A000F6F3A /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
 		517928C125C47392000F6F3A /* AVAssetToGIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAssetToGIF.swift; sourceTree = "<group>"; };
 		519732492A0863B400B1F68C /* OverridesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverridesView.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
 				5534158523FE1AC4005C0A41 /* Flow.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
+				51203A502A09588A00CBE517 /* Capture.swift */,
 				551F8CF623F4BEAC0006D1BD /* TypeIdentifier.swift */,
 				41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */,
 			);
@@ -576,6 +579,7 @@
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
+				51203A512A09588A00CBE517 /* Capture.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */,
