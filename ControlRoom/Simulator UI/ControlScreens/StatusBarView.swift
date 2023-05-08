@@ -43,90 +43,90 @@ struct StatusBarView: View {
     
 
     var body: some View {
-        Form {
-            Section {
-                HStack {
-                    DatePicker("Time:", selection: $time)
-                    Button("Set", action: setTime)
-                    Button("Set to 9:41", action: setAppleTime)
-                }
-            }
-
-            Divider()
-                .padding(.vertical, 20)
-
-            Section {
-                TextField("Operator", text: $carrierName, onCommit: updateNetworkData)
-
-                Picker("Network type:", selection: $dataNetwork.onChange(updateNetworkData)) {
-                    ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
-                        Text(network.displayName)
+        ScrollView {
+            Form {
+                Section {
+                    HStack {
+                        DatePicker("Time:", selection: $time)
+                        Button("Set", action: setTime)
+                        Button("Set to 9:41", action: setAppleTime)
                     }
                 }
-                .pickerStyle(PopUpButtonPickerStyle())
-
+                
                 Divider()
-
-                Picker("WiFi mode:", selection: $wiFiMode.onChange(updateNetworkData)) {
-                    ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
-                        Text(mode.displayName)
+                    .padding(.vertical, 20)
+                
+                Section {
+                    TextField("Operator", text: $carrierName, onCommit: updateNetworkData)
+                    
+                    Picker("Network type:", selection: $dataNetwork.onChange(updateNetworkData)) {
+                        ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
+                            Text(network.displayName)
+                        }
                     }
-                }
-                .pickerStyle(PopUpButtonPickerStyle())
-
-                Picker("WiFi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
-                    ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
-                        Image(systemName: "wifi", variableValue: bars.rawValue)
-//                            .frame
-                            .tag(bars.rawValue)
+                    .pickerStyle(PopUpButtonPickerStyle())
+                    
+                    Divider()
+                    
+                    Picker("WiFi mode:", selection: $wiFiMode.onChange(updateNetworkData)) {
+                        ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
+                            Text(mode.displayName)
+                        }
                     }
+                    .pickerStyle(PopUpButtonPickerStyle())
+                    
+                    Picker("WiFi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
+                        ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
+                            Image(systemName: "wifi", variableValue: bars.rawValue)
+                            //                            .frame
+                                .tag(bars.rawValue)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    Divider()
+                    
+                    Picker("Cellular mode:", selection: $cellularMode.onChange(updateNetworkData)) {
+                        ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
+                            Text(mode.displayName)
+                        }
+                    }
+                    .pickerStyle(PopUpButtonPickerStyle())
+                    
+                    Picker("Cellular bars:", selection: $cellularBar.onChange(updateNetworkData)) {
+                        ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
+                            Image(systemName: "cellularbars", variableValue: bars.rawValue)
+                                .tag(bars.rawValue)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
                 }
-                .pickerStyle(SegmentedPickerStyle())
-
+                
                 Divider()
-
-                Picker("Cellular mode:", selection: $cellularMode.onChange(updateNetworkData)) {
-                    ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
-                        Text(mode.displayName)
+                    .padding(.vertical, 20)
+                
+                Section {
+                    Picker("Battery State:", selection: $batteryState.onChange(updateBattery)) {
+                        ForEach(SimCtl.StatusBar.BatteryState.allCases, id: \.self) { state in
+                            Text(state.displayName)
+                        }
                     }
-                }
-                .pickerStyle(PopUpButtonPickerStyle())
-
-                Picker("Cellular bars:", selection: $cellularBar.onChange(updateNetworkData)) {
-                    ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
-                        Image(systemName: "cellularbars", variableValue: bars.rawValue)
-                            .tag(bars.rawValue)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-
-            }
-
-            Divider()
-                .padding(.vertical, 20)
-
-            Section {
-                Picker("Battery State:", selection: $batteryState.onChange(updateBattery)) {
-                    ForEach(SimCtl.StatusBar.BatteryState.allCases, id: \.self) { state in
-                        Text(state.displayName)
-                    }
-                }
-                .pickerStyle(RadioGroupPickerStyle())
-
-                VStack {
-                    Text("Current battery percentage: \(Int(round(batteryLevel)))%")
-                    Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {
-                        Text("Level:")
+                    .pickerStyle(RadioGroupPickerStyle())
+                    
+                    VStack {
+                        Text("Current battery percentage: \(Int(round(batteryLevel)))%")
+                        Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {
+                            Text("Level:")
+                        }
                     }
                 }
             }
-
-            Spacer()
+            .padding()
         }
         .tabItem {
             Text("Status Bar")
         }
-        .padding()
     }
 
     /// Changes the system clock to a new value.
