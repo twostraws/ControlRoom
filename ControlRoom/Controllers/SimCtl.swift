@@ -111,9 +111,11 @@ enum SimCtl: CommandLineCommandExecuter {
         let timeString = ISO8601DateFormatter().string(from: time)
         execute(.statusBar(deviceId: simulator, operation: .override([.time(timeString)])))
     }
+
     static func setAppearance(_ simulator: String, appearance: UI.Appearance) {
         execute(.ui(deviceId: simulator, option: .appearance(appearance)))
     }
+
     static func setLogging(_ simulator: String, enableLogging: Bool) {
         UserDefaults.standard.set(enableLogging, forKey: "\(simulator).logging")
         execute(.setLogging(deviceTypeId: simulator, enableLogging: enableLogging))
