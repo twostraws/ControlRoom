@@ -64,7 +64,7 @@ struct ControlRoomApp: App {
 
         MenuBarExtra(isInserted: .constant(preferences.wantsMenuBarIcon)) {
             Button("Resend last push notification", action: resendLastPushNotification)
-                .keyboardShortcut("r", modifiers: [.control, .option, .command])
+                .keyboardShortcut("p", modifiers: [.control, .option, .command])
             Button("Restart last selected app", action: restartLastSelectedApp)
                 .keyboardShortcut("r", modifiers: [.control, .option, .command])
             Button("Reopen last URL", action: reopenLastURL)
