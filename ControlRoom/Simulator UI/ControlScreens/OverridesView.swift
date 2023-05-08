@@ -11,9 +11,6 @@ import SwiftUI
 struct OverridesView: View {
     let simulator: Simulator
 
-    /// The current time to show in the device.
-    @State private var time = Date.now
-
     /// The system-wide appearance; "Light" or "Dark".
     @State private var appearance: SimCtl.UI.Appearance = .light
 
@@ -50,14 +47,6 @@ struct OverridesView: View {
     var body: some View {
         ScrollView {
             Form {
-                Group {
-                    HStack {
-                        DatePicker("Time:", selection: $time)
-                        Button("Set", action: setTime)
-                        Button("Set to 9:41", action: setAppleTime)
-                    }
-                    Divider()
-                }
                 Group {
                     Picker("Appearance:", selection: $appearance.onChange(updateAppearance)) {
                         ForEach(SimCtl.UI.Appearance.allCases, id: \.self) {
@@ -119,24 +108,6 @@ struct OverridesView: View {
         .tabItem {
             Text("Overrides")
         }
-    }
-
-    /// Changes the system clock to a new value.
-    func setTime() {
-        SimCtl.overrideStatusBarTime(simulator.udid, time: time)
-    }
-
-    func setAppleTime() {
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([.year, .month, .day], from: Date.now)
-        components.hour = 9
-        components.minute = 41
-        components.second = 0
-
-        let appleTime = calendar.date(from: components) ?? Date.now
-        SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
-
-        time = appleTime
     }
 
     /// Moves between light and dark mode.

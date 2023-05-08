@@ -699,6 +699,10 @@ extension SimCtl {
             case charging
             case charged
             case discharging
+
+            var displayName: String {
+                rawValue.capitalized
+            }
         }
     }
 

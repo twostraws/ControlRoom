@@ -36,9 +36,8 @@ struct ControlView: View {
         TabView {
             SystemView(simulator: simulator)
             AppView(simulator: simulator, applications: applications)
-            BatteryView(simulator: simulator)
             LocationView(controller: controller, simulator: simulator)
-            NetworkView(simulator: simulator)
+            StatusBarView(simulator: simulator)
             OverridesView(simulator: simulator)
         }
         .disabled(simulator.state != .booted)
