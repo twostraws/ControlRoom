@@ -49,7 +49,7 @@ struct LocationView: View {
                 Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
                     MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
                 }
-                .frame(height: 300)
+                .cornerRadius(5)
 
                 Circle()
                     .stroke(Color.blue, lineWidth: 4)
