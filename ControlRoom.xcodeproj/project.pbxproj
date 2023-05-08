@@ -194,7 +194,7 @@
 			children = (
 				54C2092927DBDE0800E47016 /* Document Picker */,
 				555A145F23F758DE00313BC5 /* Main Window */,
-				55AF68B323F9CFC600C5D87A /* Preferences UI */,
+				55AF68B323F9CFC600C5D87A /* Settings UI */,
 				511BA5D223F456B900E3E660 /* Loading */,
 				555A146223F7628100313BC5 /* Simulator UI */,
 				5534157C23FE04EC005C0A41 /* About UI */,
@@ -369,12 +369,12 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		55AF68B323F9CFC600C5D87A /* Preferences UI */ = {
+		55AF68B323F9CFC600C5D87A /* Settings UI */ = {
 			isa = PBXGroup;
 			children = (
 				55AF68B423F9CFD600C5D87A /* SettingsView.swift */,
 			);
-			path = "Preferences UI";
+			path = "Settings UI";
 			sourceTree = "<group>";
 		};
 		AC472CCD240D46C2007FF521 /* Extensions */ = {
