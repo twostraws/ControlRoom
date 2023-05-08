@@ -92,6 +92,7 @@ extension CommandLineCommandExecuter {
     static func executeSubject(_ command: Command) -> PassthroughSubject<Data, CommandLineError> {
         execute(command.arguments)
     }
+
     static func execute(_ command: Command, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
         execute(command.arguments, completion: completion ?? { _ in })
     }
