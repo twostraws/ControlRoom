@@ -123,7 +123,7 @@ struct OverridesView: View {
         let plistPath = simulator.dataPath + "/Library/Preferences/.GlobalPreferences.plist"
         _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLanguages", "-json", "[\"\(language)\" ]", plistPath])
         _ = Process.execute("/usr/bin/xcrun", arguments: ["plutil", "-replace", "AppleLocale", "-string", locale, plistPath])
-        SimCtl.reboot(simulator.id)
+        SimCtl.reboot(simulator)
     }
 
     private func locales(for language: String) -> [String] {

@@ -43,6 +43,7 @@ enum CommandLineError: Error {
 
 protocol CommandLineCommand {
     var arguments: [String] { get }
+    var environmentOverrides: [String: String]? { get }
 }
 
 protocol CommandLineCommandExecuter {
@@ -51,9 +52,10 @@ protocol CommandLineCommandExecuter {
 }
 
 extension CommandLineCommandExecuter {
-    private static func execute(_ arguments: [String], completion: @escaping (Result<Data, CommandLineError>) -> Void) {
+
+    private static func execute(_ command: Command, completion: @escaping (Result<Data, CommandLineError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            if let data = Process.execute(launchPath, arguments: arguments) {
+            if let data = Process.execute(launchPath, arguments: command.arguments, environmentOverrides: command.environmentOverrides) {
                 completion(.success(data))
             } else {
                 completion(.failure(.missingCommand))
@@ -73,10 +75,10 @@ extension CommandLineCommandExecuter {
         return task
     }
 
-    static func execute(_ arguments: [String]) -> PassthroughSubject<Data, CommandLineError> {
+    static func executeSubject(_ command: Command) -> PassthroughSubject<Data, CommandLineError> {
         let publisher = PassthroughSubject<Data, CommandLineError>()
 
-        execute(arguments) { result in
+        execute(command) { result in
             switch result {
             case .success(let data):
                 publisher.send(data)
@@ -88,25 +90,20 @@ extension CommandLineCommandExecuter {
 
         return publisher
     }
-
-    static func executeSubject(_ command: Command) -> PassthroughSubject<Data, CommandLineError> {
-        execute(command.arguments)
-    }
-
     static func execute(_ command: Command, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
-        execute(command.arguments, completion: completion ?? { _ in })
+        execute(command, completion: completion ?? { _ in })
     }
 
     static func executeJSON<T: Decodable>(_ command: Command) -> AnyPublisher<T, CommandLineError> {
-        executeAndDecode(command.arguments, decoder: JSONDecoder())
+        executeAndDecode(command, decoder: JSONDecoder())
     }
 
     static func executePropertyList<T: Decodable>(_ command: Command) -> AnyPublisher<T, CommandLineError> {
-        executeAndDecode(command.arguments, decoder: PropertyListDecoder())
+        executeAndDecode(command, decoder: PropertyListDecoder())
     }
 
-    private static func executeAndDecode<Item, Decoder>(_ arguments: [String], decoder: Decoder) -> AnyPublisher<Item, CommandLineError> where Item: Decodable, Decoder: TopLevelDecoder, Decoder.Input == Data {
-        execute(arguments)
+    private static func executeAndDecode<Item, Decoder>(_ command: Command, decoder: Decoder) -> AnyPublisher<Item, CommandLineError> where Item: Decodable, Decoder: TopLevelDecoder, Decoder.Input == Data {
+        executeSubject(command)
             .decode(type: Item.self, decoder: decoder)
             .mapError { error -> CommandLineError in
                 if error is DecodingError {

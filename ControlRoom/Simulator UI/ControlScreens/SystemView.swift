@@ -137,10 +137,10 @@ struct SystemView: View {
     /// Update logging.
     func updateLogging() {
         if isLoggingEnabled {
-            SimCtl.setLogging(simulator.udid, enableLogging: false)
+            SimCtl.setLogging(simulator, enableLogging: false)
             isLoggingEnabled = false
         } else {
-            SimCtl.setLogging(simulator.udid, enableLogging: true)
+            SimCtl.setLogging(simulator, enableLogging: true)
             isLoggingEnabled = true
         }
     }

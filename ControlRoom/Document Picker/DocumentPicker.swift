@@ -9,7 +9,7 @@
 import Foundation
 import AppKit
 
-/// Basic implementacion to open Finder and select file/s
+/// Basic implementation to open Finder and select file/s
 struct DocumentPicker {
 
     static func show(withConfig config: DocumentPickerConfig, selectedFile: ((Data) -> Void)) {
