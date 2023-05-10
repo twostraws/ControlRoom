@@ -93,4 +93,3 @@ struct ControlRoomApp: App {
         SimCtl.openURL(lastSimulatorUDID, URL: lastOpenURL)
     }
 }
-

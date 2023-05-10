@@ -96,16 +96,6 @@ struct SettingsView: View {
             .tabItem {
                 Label("Locations", systemImage: "externaldrive")
             }
-            .onChange(of: preferences.wantsMenuBarIcon) { newValue in
-                #warning("FIXME: Commented out")
-    //            guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
-    //
-    //            if newValue {
-    //                appDelegate.addMenuBarItem()
-    //            } else {
-    //                appDelegate.removeMenuBarItem()
-    //            }
-            }
         }
     }
 }

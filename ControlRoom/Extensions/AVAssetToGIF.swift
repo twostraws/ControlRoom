@@ -27,7 +27,6 @@ extension URL {
             return .failure(.unableToReadFile)
         }
 
-
         guard let videoTrack = try? await asset.loadTracks(withMediaType: .video).first else {
             return .failure(.unableToFindTrack)
         }

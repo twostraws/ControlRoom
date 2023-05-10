@@ -77,7 +77,7 @@ struct OverridesView: View {
 
                 Spacer()
                     .frame(height: 40)
-                
+
                 Section(header:
                     Text("Accessibility overrides")
                         .font(.headline)
@@ -101,9 +101,9 @@ struct OverridesView: View {
                     Toggle("Differentiate Without Color", isOn: $differentiateWithoutColor.onChange(setDifferentiateWithoutColor))
                     Toggle("Smart Invert", isOn: $smartInvert.onChange(setSmartInvert))
                 }
-                
+
                 Toggle("Reduce Motion", isOn: $reduceMotion.onChange(setReduceMotion))
-                
+
                 Toggle("Prefer Cross-Fade Transitions", isOn: $preferCrossFadeTransitions.onChange(setPreferCrossFadeTransitions))
                     .disabled(reduceMotion == false)
             }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -67,7 +67,6 @@
 		ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDF076723F7E91A00597B3B /* ApplicationType.swift */; };
 		B07F584923F99A1700256D5D /* SimCtl+SubCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */; };
 		B07F585123F9F83800256D5D /* SimCtl+SubCommandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */; };
-		CDC8A0972472846C00861888 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8A0962472846C00861888 /* ScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +147,6 @@
 		B07F584E23F9F83800256D5D /* ControlRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ControlRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B07F585023F9F83800256D5D /* SimCtl+SubCommandsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimCtl+SubCommandsTests.swift"; sourceTree = "<group>"; };
 		B07F585223F9F83800256D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CDC8A0962472846C00861888 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,7 +221,6 @@
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59F23F4197200E3E660 /* StatusBarView.swift */,
 				519732492A0863B400B1F68C /* OverridesView.swift */,
-				CDC8A0962472846C00861888 /* ScreenView.swift */,
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
 			path = ControlScreens;
@@ -514,6 +511,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		551F8CFA23F4CB770006D1BD /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -532,6 +530,7 @@
 		};
 		5534157B23FE0373005C0A41 /* Get Contributors */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -566,7 +565,6 @@
 				54C2092B27DBDE2200E47016 /* DocumentPickerConfig.swift in Sources */,
 				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
 				517928C225C47392000F6F3A /* AVAssetToGIF.swift in Sources */,
-				CDC8A0972472846C00861888 /* ScreenView.swift in Sources */,
 				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				5534158223FE0539005C0A41 /* Contributors.swift in Sources */,

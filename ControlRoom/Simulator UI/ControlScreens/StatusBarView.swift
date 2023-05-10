@@ -32,15 +32,12 @@ struct StatusBarView: View {
 
     @AppStorage("CRNetwork_CarrierName") private var carrierName = "Carrier"
 
-
     /// The current battery level of the device, as a value from 0 through 100
     @State private var batteryLevel = 100.0
 
     /// The current battery state of the device; must be "Charging", "Charged", or "Discharging"
     /// Note: "Charged" looks the same as "Discharging", so it's not included in this screen.
     @State private var batteryState: SimCtl.StatusBar.BatteryState = .charging
-
-    
 
     var body: some View {
         ScrollView {
@@ -52,29 +49,29 @@ struct StatusBarView: View {
                         Button("Set to 9:41", action: setAppleTime)
                     }
                 }
-                
+
                 Spacer()
                     .frame(height: 40)
-                
+
                 Section {
                     TextField("Operator", text: $carrierName, onCommit: updateNetworkData)
-                    
+
                     Picker("Network type:", selection: $dataNetwork.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
                             Text(network.displayName)
                         }
                     }
                     .pickerStyle(.menu)
-                    
+
                     Divider()
-                    
+
                     Picker("Wi-Fi mode:", selection: $wiFiMode.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
                             Text(mode.displayName)
                         }
                     }
                     .pickerStyle(.menu)
-                    
+
                     Picker("Wi-Fi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
                             Image(systemName: "wifi", variableValue: bars.rawValue)
@@ -82,16 +79,16 @@ struct StatusBarView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    
+
                     Divider()
-                    
+
                     Picker("Cellular mode:", selection: $cellularMode.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
                             Text(mode.displayName)
                         }
                     }
                     .pickerStyle(.menu)
-                    
+
                     Picker("Cellular bars:", selection: $cellularBar.onChange(updateNetworkData)) {
                         ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
                             Image(systemName: "cellularbars", variableValue: bars.rawValue)
@@ -99,12 +96,11 @@ struct StatusBarView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    
                 }
-                
+
                 Spacer()
                     .frame(height: 40)
-                
+
                 Section {
                     Picker("Battery state:", selection: $batteryState.onChange(updateBattery)) {
                         ForEach(SimCtl.StatusBar.BatteryState.allCases, id: \.self) { state in
@@ -112,7 +108,7 @@ struct StatusBarView: View {
                         }
                     }
                     .pickerStyle(.radioGroup)
-                    
+
                     VStack(spacing: 0) {
                         Text("Current battery percentage: \(Int(round(batteryLevel)))%")
                         Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {

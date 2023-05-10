@@ -55,7 +55,7 @@ class MainWindowController: NSWindowController {
             self?.adjustWindowLevel()
         }).store(in: &cancellables)
     }
-    
+
     private func adjustWindowLevel() {
         window?.level = preferences.wantsFloatingWindow ? .floating : .normal
     }
@@ -85,7 +85,6 @@ class MainWindowController: NSWindowController {
 }
 
 extension MainWindowController: NSMenuItemValidation {
-    
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if menuItem.action == #selector(toggleFloatingWindow(_:)) {
             menuItem.state = preferences.wantsFloatingWindow ? .on : .off
