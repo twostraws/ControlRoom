@@ -12,9 +12,11 @@ import Foundation
 extension SimCtl {
     struct Command: CommandLineCommand {
         let arguments: [String]
+        let environmentOverrides: [String: String]?
 
-        private init(_ subcommand: String, arguments: [String]) {
+        private init(_ subcommand: String, arguments: [String], environmentOverrides: [String: String]? = nil) {
             self.arguments = ["simctl", subcommand] + arguments
+            self.environmentOverrides = environmentOverrides
         }
 
         /// Create a new device.
@@ -66,8 +68,14 @@ extension SimCtl {
         }
 
         /// Boot a device.
-        static func boot(deviceId: String) -> Command {
-            Command("boot", arguments: [deviceId])
+        static func boot(simulator: Simulator) -> Command {
+            if let buildVersion = simulator.runtime?.buildversion, buildVersion.compare("16.0", options: .numeric) == .orderedDescending {
+                // Workaround to make status_bar overrides work for simulators > 16.1.
+                // See https://federated.saagarjha.com/notice/AUwNsSsOOCWFc8qCvY.
+                return Command("boot", arguments: [simulator.udid], environmentOverrides: ["SIMCTL_CHILD_SIMULATOR_RUNTIME_VERSION": "16.0"])
+            } else {
+                return Command("boot", arguments: [simulator.udid])
+            }
         }
 
         /// Shutdown a device.

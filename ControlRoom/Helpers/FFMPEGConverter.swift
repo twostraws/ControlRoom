@@ -30,6 +30,8 @@ enum FFMPEGConverter: CommandLineCommandExecuter {
                 outPath                         // Output file
             ]
         }
+
+        var environmentOverrides: [String: String]? { nil }
     }
 
     static let available: Bool = {

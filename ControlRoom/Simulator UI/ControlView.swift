@@ -62,7 +62,7 @@ struct ControlView: View {
 
     /// Launches the current device.
     func bootDevice() {
-        SimCtl.boot(simulator.udid)
+        SimCtl.boot(simulator)
     }
 
     /// Terminates the current device.
