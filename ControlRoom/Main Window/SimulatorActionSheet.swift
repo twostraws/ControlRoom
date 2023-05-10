@@ -12,18 +12,18 @@ struct SimulatorActionSheet<Content: View>: View {
     @Environment(\.presentationMode) var presentationMode
 
     let icon: NSImage
-    let message: String
-    let informativeText: String
+    let message: LocalizedStringKey
+    let informativeText: LocalizedStringKey
     let content: Content
 
-    let confirmationTitle: String
+    let confirmationTitle: LocalizedStringKey
     let confirmationAction: () -> Void
     let canConfirm: Bool
 
     internal init(icon: NSImage,
-                  message: String,
-                  informativeText: String,
-                  confirmationTitle: String,
+                  message: LocalizedStringKey,
+                  informativeText: LocalizedStringKey,
+                  confirmationTitle: LocalizedStringKey,
                   confirm: @escaping () -> Void,
                   canConfirm: Bool = true,
                   @ViewBuilder content: () -> Content) {
@@ -81,9 +81,9 @@ struct SimulatorActionSheet<Content: View>: View {
 
 extension SimulatorActionSheet where Content == EmptyView {
     internal init(icon: NSImage,
-                  message: String,
-                  informativeText: String,
-                  confirmationTitle: String,
+                  message: LocalizedStringKey,
+                  informativeText: LocalizedStringKey,
+                  confirmationTitle: LocalizedStringKey,
                   confirm: @escaping () -> Void) {
 
         self.init(icon: icon, message: message, informativeText: informativeText, confirmationTitle: confirmationTitle, confirm: confirm, content: { EmptyView() })
