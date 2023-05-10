@@ -15,7 +15,7 @@ struct StatusBarView: View {
     /// The current time to show in the device.
     @State private var time = Date.now
 
-    /// The active data network; can be one of "WiFi", "3G", "4G", "LTE", "LTE-A", or "LTE+".
+    /// The active data network; can be one of "WiFi", "3G", "4G", "5G", "5G+", "5G-UWB", "LTE", "LTE-A", or "LTE+".
     @State private var dataNetwork: SimCtl.StatusBar.DataNetwork = .wifi
 
     /// Whether WiFi is currently active; can be "Active", "Searching", or "Failed".
