@@ -54,9 +54,9 @@ struct StatusBarView: View {
                     .frame(height: 40)
 
                 Section {
-                    TextField("Operator", text: $carrierName, onCommit: updateNetworkData)
+                    TextField("Operator", text: $carrierName, onCommit: updateCellularData)
 
-                    Picker("Network type:", selection: $dataNetwork.onChange(updateNetworkData)) {
+                    Picker("Network type:", selection: $dataNetwork.onChange(updateWiFiData)) {
                         ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
                             Text(network.displayName)
                         }
@@ -65,16 +65,16 @@ struct StatusBarView: View {
 
                     Divider()
 
-                    Picker("Wi-Fi mode:", selection: $wiFiMode.onChange(updateNetworkData)) {
+                    Picker("Wi-Fi mode:", selection: $wiFiMode.onChange(updateWiFiData)) {
                         ForEach(SimCtl.StatusBar.WifiMode.allCases, id: \.self) { mode in
                             Text(mode.displayName)
                         }
                     }
                     .pickerStyle(.menu)
 
-                    Picker("Wi-Fi bars:", selection: $wiFiBar.onChange(updateNetworkData)) {
+                    Picker("Wi-Fi bars:", selection: $wiFiBar.onChange(updateWiFiData)) {
                         ForEach(SimCtl.StatusBar.WifiBars.allCases, id: \.self) { bars in
-                            Image(systemName: "wifi", variableValue: bars.rawValue)
+                            Image(systemName: "wifi", variableValue: bars.symbolVariable)
                                 .tag(bars.rawValue)
                         }
                     }
@@ -82,16 +82,16 @@ struct StatusBarView: View {
 
                     Divider()
 
-                    Picker("Cellular mode:", selection: $cellularMode.onChange(updateNetworkData)) {
+                    Picker("Cellular mode:", selection: $cellularMode.onChange(updateCellularData)) {
                         ForEach(SimCtl.StatusBar.CellularMode.allCases, id: \.self) { mode in
                             Text(mode.displayName)
                         }
                     }
                     .pickerStyle(.menu)
 
-                    Picker("Cellular bars:", selection: $cellularBar.onChange(updateNetworkData)) {
+                    Picker("Cellular bars:", selection: $cellularBar.onChange(updateCellularData)) {
                         ForEach(SimCtl.StatusBar.CellularBars.allCases, id: \.self) { bars in
-                            Image(systemName: "cellularbars", variableValue: bars.rawValue)
+                            Image(systemName: "cellularbars", variableValue: bars.symbolVariable)
                                 .tag(bars.rawValue)
                         }
                     }
@@ -143,12 +143,16 @@ struct StatusBarView: View {
         time = appleTime
     }
 
-    /// Sends status bar updates all at once; simctl gets unhappy if we send them individually.
-    func updateNetworkData() {
-        SimCtl.overrideStatusBarNetwork(simulator.udid, network: dataNetwork,
-                                        wifiMode: wiFiMode, wifiBars: wiFiBar,
-                                        cellMode: cellularMode, cellBars: cellularBar,
-                                        carrier: carrierName)
+    /// Sends status bar updates all at once; simctl gets unhappy if we send them individually, but
+    /// also for whatever reason prefers cellular data sent separately from WiFi.
+    func updateWiFiData() {
+        SimCtl.overrideStatusBarWiFi(simulator.udid, network: dataNetwork,
+                                        wifiMode: wiFiMode, wifiBars: wiFiBar)
+    }
+
+    func updateCellularData() {
+        SimCtl.overrideStatusBarCellular(simulator.udid, cellMode: cellularMode,
+                                        cellBars: cellularBar, carrier: carrierName)
     }
 
     /// Sends battery updates all at once; simctl gets unhappy if we send them individually.

@@ -87,20 +87,26 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.statusBar(deviceId: simulator, operation: .override([.batteryLevel(level), .batteryState(state)])))
     }
 
-    // swiftlint:disable:next function_parameter_count
-    static func overrideStatusBarNetwork(
+    static func overrideStatusBarWiFi(
         _ simulator: String,
         network: StatusBar.DataNetwork,
         wifiMode: StatusBar.WifiMode,
-        wifiBars: StatusBar.WifiBars,
+        wifiBars: StatusBar.WifiBars
+    ) {
+        execute(.statusBar(deviceId: simulator, operation: .override([
+            .dataNetwork(network),
+            .wifiMode(wifiMode),
+            .wifiBars(wifiBars)
+        ])))
+    }
+
+    static func overrideStatusBarCellular(
+        _ simulator: String,
         cellMode: StatusBar.CellularMode,
         cellBars: StatusBar.CellularBars,
         carrier: String
     ) {
         execute(.statusBar(deviceId: simulator, operation: .override([
-            .dataNetwork(network),
-            .wifiMode(wifiMode),
-            .wifiBars(wifiBars),
             .cellularMode(cellMode),
             .cellularBars(cellBars),
             .operatorName(carrier)

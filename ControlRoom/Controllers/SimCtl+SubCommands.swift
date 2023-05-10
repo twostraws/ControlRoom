@@ -649,11 +649,11 @@ extension SimCtl {
                     case .wifiMode(let mode):
                         return ["--wifiMode", mode.rawValue]
                     case .wifiBars(let bars):
-                        return ["--wifiBars", "\(bars.rawValue)"]
+                        return ["--wifiBars", "\(Int(bars.rawValue))"]
                     case .cellularMode(let mode):
                         return ["--cellularMode", mode.rawValue]
                     case .cellularBars(let bars):
-                        return ["--cellularBars", "\(bars.rawValue)"]
+                        return ["--cellularBars", "\(Int(bars.rawValue))"]
                     case .operatorName(let name):
                         return ["--operatorName", name]
                     case .batteryState(let state):
@@ -683,11 +683,15 @@ extension SimCtl {
             case active
         }
 
-        enum WifiBars: Double, CaseIterable {
-            case zero = 0
-            case one = 0.25
-            case two = 0.6
-            case three = 1
+        enum WifiBars: Int, CaseIterable {
+            case zero
+            case one
+            case two
+            case three
+
+            var symbolVariable: Double {
+                Double(self.rawValue) / Double(Self.allCases.count)
+            }
         }
 
         enum CellularMode: String, CaseIterable {
@@ -697,12 +701,16 @@ extension SimCtl {
             case active
         }
 
-        enum CellularBars: Double, CaseIterable {
-            case zero = 0
-            case one = 0.1
-            case two = 0.3
-            case three = 0.6
-            case four = 1
+        enum CellularBars: Int, CaseIterable {
+            case zero
+            case one
+            case two
+            case three
+            case four
+
+            var symbolVariable: Double {
+                Double(self.rawValue) / Double(Self.allCases.count)
+            }
         }
 
         enum BatteryState: String, CaseIterable {
