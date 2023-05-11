@@ -12,108 +12,108 @@ import CoreLocation
 
 /// Map view to change simulated user's position
 struct LocationView: View {
-  @ObservedObject var controller: SimulatorsController
-  let simulator: Simulator
+    @ObservedObject var controller: SimulatorsController
+    let simulator: Simulator
 
-  @State private var latitudeText = "37.323056"
-  @State private var longitudeText = "-122.031944"
-  /// The location that is being simulated
-  @State private var currentLocation = MKCoordinateRegion(
-    center: CLLocationCoordinate2D(latitude: 37.323056, longitude: -122.031944),
-    span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
-  @State private var pinnedLocation: CLLocationCoordinate2D?
+    @State private var latitudeText = "37.323056"
+    @State private var longitudeText = "-122.031944"
+    /// The location that is being simulated
+    @State private var currentLocation = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 37.323056, longitude: -122.031944),
+        span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
+    @State private var pinnedLocation: CLLocationCoordinate2D?
 
-  /// A randomly generated location offset from the currentLocation.
-  /// Non-nil only when jittering is enabled.
-  @State private var jitteredLocation: CLLocationCoordinate2D?
+    /// A randomly generated location offset from the currentLocation.
+    /// Non-nil only when jittering is enabled.
+    @State private var jitteredLocation: CLLocationCoordinate2D?
 
-  @State private var isJittering: Bool = false
-  private let jitterTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var isJittering: Bool = false
+    private let jitterTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-  var annotations: [CLLocationCoordinate2D] {
-    if let pinnedLocation = pinnedLocation {
-      return [pinnedLocation]
-    } else {
-      return []
-    }
-  }
-
-  /// User-facing text describing `currentLocation`
-  var locationText: String {
-    let location = jitteredLocation ?? currentLocation.center
-    return String(format: "%.5f, %.5f", location.latitude, location.longitude)
-  }
-
-  var body: some View {
-    Form {
-      VStack {
-        Text("Move the map wherever you want, then click Activate to update the simulator to match your centered coordinate.")
-        HStack(spacing: 10.0) {
-          TextField("Latitude", text: $latitudeText)
-            .textFieldStyle(.roundedBorder)
-
-          TextField("Longitude", text: $longitudeText)
-            .textFieldStyle(.roundedBorder)
+    var annotations: [CLLocationCoordinate2D] {
+        if let pinnedLocation = pinnedLocation {
+            return [pinnedLocation]
+        } else {
+            return []
         }
-        Button("Update coordinates") {
-          if let latitude = Double(latitudeText),
-             let longitude = Double(longitudeText) {
-            self.currentLocation = MKCoordinateRegion(
-              center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-              span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
-          }
-        }
-
-        ZStack {
-          Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
-            MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
-          }
-          .cornerRadius(5)
-
-          Circle()
-            .stroke(Color.blue, lineWidth: 4)
-            .frame(width: 20)
-        }
-        .padding(.bottom, 10)
-        .keyboardShortcut(/*@START_MENU_TOKEN@*/.defaultAction/*@END_MENU_TOKEN@*/)
-
-        HStack {
-          Text("Coordinates: \(locationText)")
-            .textSelection(.enabled)
-          Spacer()
-          Toggle("Jitter location", isOn: $isJittering)
-            .toggleStyle(.checkbox)
-          Button("Activate", action: changeLocation)
-        }
-      }
     }
-    .tabItem {
-      Text("Location")
+
+    /// User-facing text describing `currentLocation`
+    var locationText: String {
+        let location = jitteredLocation ?? currentLocation.center
+        return String(format: "%.5f, %.5f", location.latitude, location.longitude)
     }
-    .padding()
-    .onReceive(jitterTimer) { _ in
-      guard isJittering else {
-        jitteredLocation = nil
-        return
-      }
 
-      jitterLocation()
+    var body: some View {
+        Form {
+            VStack {
+                Text("Move the map wherever you want, then click Activate to update the simulator to match your centered coordinate.")
+                HStack(spacing: 10.0) {
+                    TextField("Latitude", text: $latitudeText)
+                        .textFieldStyle(.roundedBorder)
+
+                    TextField("Longitude", text: $longitudeText)
+                        .textFieldStyle(.roundedBorder)
+                }
+                Button("Update coordinates") {
+                    if let latitude = Double(latitudeText),
+                       let longitude = Double(longitudeText) {
+                        self.currentLocation = MKCoordinateRegion(
+                            center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                            span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
+                    }
+                }
+
+                ZStack {
+                    Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
+                        MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                    }
+                    .cornerRadius(5)
+
+                    Circle()
+                        .stroke(Color.blue, lineWidth: 4)
+                        .frame(width: 20)
+                }
+                .padding(.bottom, 10)
+                .keyboardShortcut(/*@START_MENU_TOKEN@*/.defaultAction/*@END_MENU_TOKEN@*/)
+
+                HStack {
+                    Text("Coordinates: \(locationText)")
+                        .textSelection(.enabled)
+                    Spacer()
+                    Toggle("Jitter location", isOn: $isJittering)
+                        .toggleStyle(.checkbox)
+                    Button("Activate", action: changeLocation)
+                }
+            }
+        }
+        .tabItem {
+            Text("Location")
+        }
+        .padding()
+        .onReceive(jitterTimer) { _ in
+            guard isJittering else {
+                jitteredLocation = nil
+                return
+            }
+
+            jitterLocation()
+        }
     }
-  }
 
-  /// Updates the simulated location to the value of `currentLocation`.
-  func changeLocation() {
-    let coordinate = jitteredLocation ?? currentLocation.center
-    pinnedLocation = coordinate
+    /// Updates the simulated location to the value of `currentLocation`.
+    func changeLocation() {
+        let coordinate = jitteredLocation ?? currentLocation.center
+        pinnedLocation = coordinate
 
-    SimCtl.execute(.location(deviceId: simulator.udid, latitude: coordinate.latitude, longitude: coordinate.longitude))
-  }
+        SimCtl.execute(.location(deviceId: simulator.udid, latitude: coordinate.latitude, longitude: coordinate.longitude))
+    }
 
-  /// Randomly generates a new location slightly offset from the currentLocation
-  private func jitterLocation() {
-    let lat = currentLocation.center.latitude + (Double.random(in: -0.0001...0.0001))
-    let long = currentLocation.center.longitude + (Double.random(in: -0.0001...0.0001))
-    jitteredLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
-    changeLocation()
-  }
+    /// Randomly generates a new location slightly offset from the currentLocation
+    private func jitterLocation() {
+        let lat = currentLocation.center.latitude + (Double.random(in: -0.0001...0.0001))
+        let long = currentLocation.center.longitude + (Double.random(in: -0.0001...0.0001))
+        jitteredLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        changeLocation()
+    }
 }
