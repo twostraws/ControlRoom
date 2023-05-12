@@ -96,6 +96,7 @@ class SimulatorsController: ObservableObject {
     /// Fetches all simulators from simctl.
     private func loadSimulators() {
         loadingStatus = .loading
+        SimCtl.Command.group = preferences.deviceGroup
 
         let devices = SimCtl.watchDeviceList()
         let deviceTypes = SimCtl.listDeviceTypes()

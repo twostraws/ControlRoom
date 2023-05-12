@@ -11,11 +11,16 @@ import Foundation
 // swiftlint:disable file_length
 extension SimCtl {
     struct Command: CommandLineCommand {
+        static var group: DeviceGroup = .default
         let arguments: [String]
         let environmentOverrides: [String: String]?
 
         private init(_ subcommand: String, arguments: [String], environmentOverrides: [String: String]? = nil) {
-            self.arguments = ["simctl", subcommand] + arguments
+            var commands = ["simctl"]
+            commands.append(contentsOf: Self.group.commands)
+            commands.append(subcommand)
+            commands.append(contentsOf: arguments)
+            self.arguments = commands
             self.environmentOverrides = environmentOverrides
         }
 
