@@ -83,6 +83,14 @@ class SimulatorsController: ObservableObject {
                 self?.filterSimulators()
             }
             .store(in: &cancellables)
+
+        preferences.objectWillChange
+            .sink { [weak self] in
+                if preferences.deviceGroup != SimCtl.Command.group {
+                    self?.loadSimulators()
+                }
+            }
+            .store(in: &cancellables)
     }
 
     /// Fetches all simulators from simctl.
