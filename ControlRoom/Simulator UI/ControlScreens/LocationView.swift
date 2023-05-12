@@ -14,12 +14,14 @@ import CoreLocation
 struct LocationView: View {
     @ObservedObject var controller: SimulatorsController
     let simulator: Simulator
+    static let DEFAULT_LAT = 37.323056
+    static let DEFAULT_LNG = -122.031944
 
-    @State private var latitudeText = "37.323056"
-    @State private var longitudeText = "-122.031944"
+    @State private var latitudeText = "\(DEFAULT_LAT)"
+    @State private var longitudeText = "\(DEFAULT_LNG)"
     /// The location that is being simulated
     @State private var currentLocation = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.323056, longitude: -122.031944),
+        center: CLLocationCoordinate2D(latitude: DEFAULT_LAT, longitude: DEFAULT_LNG),
         span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
     @State private var pinnedLocation: CLLocationCoordinate2D?
 
