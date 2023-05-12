@@ -79,6 +79,14 @@ struct SidebarView: View {
                 )
             }
         }
+        .toolbar {
+            Picker(self.preferences.deviceGroup.rawValue, selection: self.$preferences.deviceGroup) {
+                ForEach(SimCtl.DeviceGroup.allCases, id: \.displayName) { group in
+                    Text(group.displayName)
+                        .tag(group)
+                }
+            }
+        }
     }
 
     private func section(for family: SimCtl.DeviceFamily) -> some View {

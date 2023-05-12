@@ -23,4 +23,5 @@ final class Preferences: ObservableObject {
     @AppStorage("CRSidebar_ShowOnlyActiveDevices") var shouldShowOnlyActiveDevices = false
 
     @AppStorage("CRTerminalAppPath") var terminalAppPath = "/System/Applications/Utilities/Terminal.app"
+    @AppStorage("CRDeviceGroup") var deviceGroup = SimCtl.DeviceGroup.default
 }
