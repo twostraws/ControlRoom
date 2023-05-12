@@ -31,6 +31,31 @@ extension SimCtl {
         }
     }
 
+    enum DeviceGroup: String, CaseIterable {
+        case `default`
+        case testing
+        case previews
+
+        var displayName: String {
+            switch self {
+            case .default: return "Default"
+            case .testing: return "Testing"
+            case .previews: return "Previews"
+            }
+        }
+
+        var commands: [String] {
+            switch self {
+            case .default:
+                return []
+            case .testing:
+                return ["--set", "testing"]
+            case .previews:
+                return ["--set", "previews"]
+            }
+        }
+    }
+
     struct DeviceTypeList: Decodable {
         let devicetypes: [DeviceType]
     }
