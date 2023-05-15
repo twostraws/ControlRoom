@@ -8,15 +8,20 @@
 
 import MapKit
 import SwiftUI
+import CoreLocation
 
 /// Map view to change simulated user's position
 struct LocationView: View {
     @ObservedObject var controller: SimulatorsController
     let simulator: Simulator
+    static let DEFAULT_LAT = 37.323056
+    static let DEFAULT_LNG = -122.031944
 
+    @State private var latitudeText = "\(DEFAULT_LAT)"
+    @State private var longitudeText = "\(DEFAULT_LNG)"
     /// The location that is being simulated
     @State private var currentLocation = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.323056, longitude: -122.031944),
+        center: CLLocationCoordinate2D(latitude: DEFAULT_LAT, longitude: DEFAULT_LNG),
         span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
     @State private var pinnedLocation: CLLocationCoordinate2D?
 
@@ -43,27 +48,45 @@ struct LocationView: View {
 
     var body: some View {
         Form {
-            Text("Move the map wherever you want, then click Activate to update the simulator to match your centered coordinate.")
+            VStack {
+                Text("Move the map wherever you want, then click Activate to update the simulator to match your centered coordinate.")
+                HStack(spacing: 10.0) {
+                    TextField("Latitude", text: $latitudeText)
+                        .textFieldStyle(.roundedBorder)
 
-            ZStack {
-                Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
-                    MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                    TextField("Longitude", text: $longitudeText)
+                        .textFieldStyle(.roundedBorder)
                 }
-                .cornerRadius(5)
+                Button("Update coordinates") {
+                    if let latitude = Double(latitudeText),
+                       let longitude = Double(longitudeText) {
+                        self.currentLocation = MKCoordinateRegion(
+                            center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                            span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15))
+                    }
+                }
 
-                Circle()
-                    .stroke(Color.blue, lineWidth: 4)
-                    .frame(width: 20)
-            }
-            .padding(.bottom, 10)
+                ZStack {
+                    Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
+                        MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                    }
+                    .cornerRadius(5)
 
-            HStack {
-                Text("Coordinates: \(locationText)")
-                    .textSelection(.enabled)
-                Spacer()
-                Toggle("Jitter location", isOn: $isJittering)
-                    .toggleStyle(.checkbox)
-                Button("Activate", action: changeLocation)
+                    Circle()
+                        .stroke(Color.blue, lineWidth: 4)
+                        .frame(width: 20)
+                }
+                .padding(.bottom, 10)
+                .keyboardShortcut(/*@START_MENU_TOKEN@*/.defaultAction/*@END_MENU_TOKEN@*/)
+
+                HStack {
+                    Text("Coordinates: \(locationText)")
+                        .textSelection(.enabled)
+                    Spacer()
+                    Toggle("Jitter location", isOn: $isJittering)
+                        .toggleStyle(.checkbox)
+                    Button("Activate", action: changeLocation)
+                }
             }
         }
         .tabItem {
