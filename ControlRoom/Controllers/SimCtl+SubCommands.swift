@@ -6,7 +6,7 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 // swiftlint:disable file_length
 extension SimCtl {
@@ -543,6 +543,19 @@ extension SimCtl {
 
             var arguments: [String] {
                 ["--type=\(rawValue)"]
+            }
+
+            var nsFileType: NSBitmapImageRep.FileType {
+                switch self {
+                case .png:
+                    return .png
+                case .jpeg:
+                    return .jpeg
+                case .tiff:
+                    return .tiff
+                case .bmp:
+                    return .bmp
+                }
             }
         }
 

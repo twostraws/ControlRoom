@@ -26,12 +26,12 @@ struct FilterField: NSViewRepresentable {
     }
 
     func makeNSView(context: Context) -> NSSearchField {
-        let tf = NSSearchField(string: text)
-        tf.placeholderString = prompt
-        tf.delegate = context.coordinator
-        tf.bezelStyle = .roundedBezel
-        tf.focusRingType = .none
-        return tf
+        let textField = NSSearchField(string: text)
+        textField.placeholderString = prompt
+        textField.delegate = context.coordinator
+        textField.bezelStyle = .roundedBezel
+        textField.focusRingType = .none
+        return textField
     }
 
     func updateNSView(_ nsView: NSSearchField, context: Context) {

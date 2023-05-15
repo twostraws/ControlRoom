@@ -16,6 +16,8 @@ struct SettingsView: View {
     /// The user's settings for capturing
     @AppStorage("captureSettings") var captureSettings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored)
 
+    @AppStorage("renderChrome") var renderChrome = false
+
     var body: some View {
         TabView {
             Form {
@@ -78,6 +80,15 @@ struct SettingsView: View {
                         Text(mask.rawValue.capitalized).tag(mask)
                     }
                 }
+                .disabled(renderChrome)
+
+                Toggle(isOn: $renderChrome.onChange(updateChromeSettings)) {
+                    VStack(alignment: .leading) {
+                        Text("Add device chrome to screenshots")
+                        Text("This is an experimental feature and may not function properly yet.")
+                            .font(.caption)
+                    }
+                }
             }
             .padding()
             .tabItem {
@@ -96,6 +107,13 @@ struct SettingsView: View {
             .tabItem {
                 Label("Locations", systemImage: "externaldrive")
             }
+        }
+        .frame(minWidth: 550)
+    }
+
+    func updateChromeSettings() {
+        if renderChrome {
+            captureSettings.mask = .alpha
         }
     }
 }

@@ -35,23 +35,46 @@ class CaptureController: ObservableObject {
         settings.videoFormat.name
     }
 
+    @MainActor
     /// Takes a screenshot of the device's current screen and saves it to the desktop.
     func takeScreenshot(of simulator: Simulator, format: SimCtl.IO.ImageFormat? = nil) {
         // If the user asked for a specific format then use it, otherwise
         // use whatever is our default.
         let resolvedFormat = format ?? settings.imageFormat
 
-        SimCtl.saveScreenshot(simulator.id, to: makeScreenshotFilename(format: resolvedFormat), type: resolvedFormat, display: settings.display, with: settings.mask)
+        // The filename where we intend to save this image
+        let filename = makeScreenshotFilename(format: resolvedFormat)
+
+        SimCtl.saveScreenshot(simulator.id, to: filename.path(), type: resolvedFormat, display: settings.display, with: settings.mask) { result in
+
+            if UserDefaults.standard.bool(forKey: "renderChrome") {
+                if let image = NSImage(contentsOf: filename) {
+                    Task { @MainActor in
+                        if let renderer = try? ChromeRenderer(deviceName: simulator.name, screenshot: image) {
+                            let result = renderer.makeImage()
+
+                            if let tiff = result?.tiffRepresentation {
+                                let bitmap = NSBitmapImageRep(data: tiff)
+                                if let compressedBitmap = bitmap?.representation(using: resolvedFormat.nsFileType, properties: [:]) {
+                                    try FileManager.default.removeItem(at: filename)
+                                    try compressedBitmap.write(to: filename)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /// Creates a filename for a screenshot that ought to be unique
-    func makeScreenshotFilename(format: SimCtl.IO.ImageFormat) -> String {
+    func makeScreenshotFilename(format: SimCtl.IO.ImageFormat) -> URL {
         let formatter = DateFormatter()
         formatter.dateFormat = "y-MM-dd-HH-mm-ss"
 
         let dateString = formatter.string(from: Date.now)
 
-        return "~/Desktop/ControlRoom-\(dateString).\(format.rawValue)"
+        return URL.desktopDirectory.appending(path: "ControlRoom-\(dateString).\(format.rawValue)")
     }
 
     /// Starts recording video of the device, saving it to the desktop.

@@ -154,8 +154,8 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.pbsync(source: .host, destination: .deviceId(simulator)))
     }
 
-    static func saveScreenshot(_ simulator: String, to file: String, type: IO.ImageFormat? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil) {
-        execute(.io(deviceId: simulator, operation: .screenshot(type: type, display: display, mask: mask, url: file)))
+    static func saveScreenshot(_ simulator: String, to file: String, type: IO.ImageFormat? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil, completion: @escaping (Result<Data, CommandLineError>) -> Void) {
+        execute(.io(deviceId: simulator, operation: .screenshot(type: type, display: display, mask: mask, url: file)), completion: completion)
     }
 
     static func startVideo(_ simulator: String, to file: String, type: IO.Codec? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil) -> Process {
