@@ -12,12 +12,19 @@ struct DeepLinkEditorView: View {
     @EnvironmentObject var deepLinks: DeepLinksController
     @Environment(\.dismiss) var dismiss
 
+    /// The link name the user is currently adding.
     @State private var newLinkName = ""
+
+    /// The link URL the user is currently adding.
     @State private var newLinkURL = ""
 
+    /// The order we're displaying our links, defaulting to name.
     @State private var sortOrder = [KeyPathComparator(\DeepLink.name)]
+
+    /// The currently selected deep link, or nil if nothing is selected.
     @State private var selection: DeepLink.ID?
 
+    /// Whether we are currently showing the alert to let the user add a new deep link.
     @State private var showingAddAlert = false
 
     var body: some View {
@@ -66,12 +73,14 @@ struct DeepLinkEditorView: View {
         }
     }
 
+    /// Triggered by our alert, when the user wants to save their new deep link.
     func addLink() {
         deepLinks.create(name: newLinkName, url: newLinkURL)
         newLinkName = ""
         newLinkURL = ""
     }
 
+    /// Deletes whatever is the currently selected deep link.
     func deleteSelected() {
         deepLinks.delete(selection)
         selection = nil
