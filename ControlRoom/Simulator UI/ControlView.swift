@@ -26,6 +26,7 @@ struct ControlView: View {
             LocationView(controller: controller, simulator: simulator)
             StatusBarView(simulator: simulator)
             OverridesView(simulator: simulator)
+            ColorsView()
         }
         .disabled(simulator.state != .booted)
         .navigationSubtitle("\(simulator.name) – \(simulator.runtime?.name ?? "Unknown OS")")

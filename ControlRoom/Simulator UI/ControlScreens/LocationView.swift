@@ -50,6 +50,7 @@ struct LocationView: View {
         Form {
             VStack {
                 Text("Move the map wherever you want, then click Activate to update the simulator to match your centered coordinate.")
+
                 HStack(spacing: 10.0) {
                     TextField("Latitude", text: $latitudeText)
                         .textFieldStyle(.roundedBorder)
@@ -57,6 +58,7 @@ struct LocationView: View {
                     TextField("Longitude", text: $longitudeText)
                         .textFieldStyle(.roundedBorder)
                 }
+
                 Button("Update coordinates") {
                     if let latitude = Double(latitudeText),
                        let longitude = Double(longitudeText) {
