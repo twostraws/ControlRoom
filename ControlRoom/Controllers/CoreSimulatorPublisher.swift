@@ -37,8 +37,8 @@ final class CoreSimulatorSubscription<SubscriberType: Subscriber>: Subscription 
     }
 
     func cancel() {
-        if let registrationToken = token {
-            CoreSimulator.unregister(fromSimulatorNotifications: registrationToken)
+        if let token {
+            CoreSimulator.unregister(fromSimulatorNotifications: token)
         }
     }
 }

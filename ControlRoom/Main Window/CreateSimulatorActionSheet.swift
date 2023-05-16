@@ -57,7 +57,7 @@ struct CreateSimulatorActionSheet: View {
                         }
                     }
 
-                    if let warning = warning {
+                    if let warning {
                         HStack(alignment: .top) {
                             Image(nsImage: NSImage(named: NSImage.cautionName)!)
                                 .resizable()

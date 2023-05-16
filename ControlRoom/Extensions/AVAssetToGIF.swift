@@ -36,7 +36,7 @@ extension URL {
         let aspectRatio = videoSize.width / videoSize.height
         let resultingSize: CGSize
 
-        if let cappedResolution = cappedResolution {
+        if let cappedResolution {
             if videoSize.width > videoSize.height {
                 let cappedWidth = round(min(cappedResolution, videoSize.width))
                 resultingSize = CGSize(width: cappedWidth, height: round(cappedWidth / aspectRatio))
@@ -136,7 +136,7 @@ extension URL {
 
                 framesCompleted += 1
 
-                if let cgImage = cgImage {
+                if let cgImage {
                     let frameProperties: [String: Any] = [
                         kCGImagePropertyGIFDictionary as String: [
                             kCGImagePropertyGIFDelayTime: frameDelay

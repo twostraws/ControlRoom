@@ -17,6 +17,7 @@ extension Process {
         let task = Process()
         task.launchPath = command
         task.arguments = arguments
+
         if let environmentOverrides {
             var environment = ProcessInfo.processInfo.environment
             environment.merge(environmentOverrides) { (_, new) in new }

@@ -136,8 +136,8 @@ enum SimCtl: CommandLineCommandExecuter {
         if let script = NSAppleScript(source: source) {
             var error: NSDictionary?
             script.executeAndReturnError(&error)
-            if let err = error {
-                print(err)
+            if let error {
+                print(error)
             }
         }
     }

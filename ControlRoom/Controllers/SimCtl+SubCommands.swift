@@ -141,11 +141,11 @@ extension SimCtl {
         static func list(filter: List.Filter? = nil, search: List.Search? = nil, flags: [List.Flag] = []) -> Command {
             var arguments: [String] = []
 
-            if let filter = filter {
+            if let filter {
                 arguments.append(contentsOf: filter.arguments)
             }
 
-            if let search = search {
+            if let search {
                 arguments.append(contentsOf: search.arguments)
             }
 
@@ -196,7 +196,7 @@ extension SimCtl {
         static func logverbose(deviceId: String?, isEnabled: Bool = false) -> Command {
             var arguments = [String]()
 
-            if let deviceId = deviceId {
+            if let deviceId {
                 arguments.append(deviceId)
             }
 
@@ -217,7 +217,7 @@ extension SimCtl {
         static func push(deviceId: String, appBundleId: String? = nil, json: Push.JSON) -> Command {
             var arguments: [String] = [deviceId]
 
-            if let appBundleId = appBundleId {
+            if let appBundleId {
                 arguments.append(appBundleId)
             }
 
@@ -228,7 +228,7 @@ extension SimCtl {
         static func privacy(deviceId: String, action: Privacy.Action, service: Privacy.Permission, appBundleId: String? = nil) -> Command {
             var arguments: [String] = [deviceId] + action.arguments + service.arguments
 
-            if let appBundleId = appBundleId {
+            if let appBundleId {
                 arguments.append(appBundleId)
             }
 
@@ -317,16 +317,21 @@ extension SimCtl {
                 switch self {
                 case .console:
                     return ["--console"]
+
                 case .consolePTY:
                     return ["--consolePTY"]
+
                 case .std(outPath: let out, errPath: let err):
                     var arguments = [String]()
-                    if let out = out {
+
+                    if let out {
                         arguments.append("--stdout=\"\(out)\"")
                     }
-                    if let err = err {
+
+                    if let err {
                         arguments.append("--stderr=\"\(err)\"")
                     }
+
                     return arguments
                 }
             }
@@ -472,15 +477,15 @@ extension SimCtl {
                 case .recordVideo(let codec, let display, let mask, let force, let url):
                     var arguments = [String]()
 
-                    if let codec = codec {
+                    if let codec {
                         arguments.append(contentsOf: codec.arguments)
                     }
 
-                    if let display = display {
+                    if let display {
                         arguments.append(contentsOf: display.arguments)
                     }
 
-                    if let mask = mask {
+                    if let mask {
                         arguments.append(contentsOf: mask.arguments)
                     }
 
@@ -488,15 +493,15 @@ extension SimCtl {
                 case .screenshot(let type, let display, let mask, let url):
                     var arguments = [String]()
 
-                    if let type = type {
+                    if let type {
                         arguments.append(contentsOf: type.arguments)
                     }
 
-                    if let display = display {
+                    if let display {
                         arguments.append(contentsOf: display.arguments)
                     }
 
-                    if let mask = mask {
+                    if let mask {
                         arguments.append(contentsOf: mask.arguments)
                     }
 

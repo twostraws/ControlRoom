@@ -63,7 +63,7 @@ struct Application: Hashable, Comparable {
     }
 
 	var icon: NSImage? {
-		guard let imageURLs = imageURLs else { return nil }
+		guard let imageURLs else { return nil }
 
 		for iconURL in imageURLs {
 			if let iconImage = NSImage(contentsOf: iconURL) {
@@ -75,7 +75,7 @@ struct Application: Hashable, Comparable {
 	}
 
     private static func fetchIconName(plistDictionary: NSDictionary?) -> [String] {
-		guard let plistDictionary = plistDictionary else { return [] }
+		guard let plistDictionary else { return [] }
 
 		var iconFilesNames = iconsList(plistDictionary: plistDictionary)
 
