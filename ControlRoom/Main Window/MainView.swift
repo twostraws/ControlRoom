@@ -37,6 +37,8 @@ struct MainView: View {
                 SettingsView()
             } else if sheet == .createSimulator {
                 CreateSimulatorActionSheet(controller: controller)
+            } else if sheet == .deepLinkEditor {
+                DeepLinkEditorView()
             } else if sheet == .notificationEditor {
                 NotificationEditorView()
             } else if sheet == .confirmDeleteSelected {

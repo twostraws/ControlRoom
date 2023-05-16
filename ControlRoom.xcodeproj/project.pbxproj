@@ -29,6 +29,9 @@
 		5197324A2A0863B400B1F68C /* OverridesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519732492A0863B400B1F68C /* OverridesView.swift */; };
 		51AB56D92A127F9F002B5A67 /* ChromeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB56D82A127F9F002B5A67 /* ChromeRenderer.swift */; };
 		51AB56DC2A129647002B5A67 /* ChromeRendererTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB56DB2A129647002B5A67 /* ChromeRendererTypes.swift */; };
+		51AB56DE2A13D14A002B5A67 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB56DD2A13D14A002B5A67 /* DeepLink.swift */; };
+		51AB56E02A13D189002B5A67 /* DeepLinksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB56DF2A13D189002B5A67 /* DeepLinksController.swift */; };
+		51AB56E52A13D3F6002B5A67 /* DeepLinkEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB56E42A13D3F6002B5A67 /* DeepLinkEditorView.swift */; };
 		51B0241625C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0241525C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift */; };
 		51B0241D25C3104C0042394E /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0241C25C3104C0042394E /* AppIcon.swift */; };
 		51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B0242225C3106E0042394E /* AppSummaryView.swift */; };
@@ -106,6 +109,9 @@
 		519732492A0863B400B1F68C /* OverridesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverridesView.swift; sourceTree = "<group>"; };
 		51AB56D82A127F9F002B5A67 /* ChromeRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeRenderer.swift; sourceTree = "<group>"; };
 		51AB56DB2A129647002B5A67 /* ChromeRendererTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeRendererTypes.swift; sourceTree = "<group>"; };
+		51AB56DD2A13D14A002B5A67 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
+		51AB56DF2A13D189002B5A67 /* DeepLinksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksController.swift; sourceTree = "<group>"; };
+		51AB56E42A13D3F6002B5A67 /* DeepLinkEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkEditorView.swift; sourceTree = "<group>"; };
 		51B0241525C30EEF0042394E /* CLLocationCoordinate2D-Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D-Identifiable.swift"; sourceTree = "<group>"; };
 		51B0241C25C3104C0042394E /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		51B0242225C3106E0042394E /* AppSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSummaryView.swift; sourceTree = "<group>"; };
@@ -221,11 +227,11 @@
 		511BA5AB23F434B500E3E660 /* ControlScreens */ = {
 			isa = PBXGroup;
 			children = (
+				51AB56E12A13D3D1002B5A67 /* SystemView */,
 				51B0241B25C3103B0042394E /* AppView */,
 				70BE435923F54B7200FD6282 /* LocationView.swift */,
 				511BA59F23F4197200E3E660 /* StatusBarView.swift */,
 				519732492A0863B400B1F68C /* OverridesView.swift */,
-				511BA59B23F4172400E3E660 /* SystemView.swift */,
 			);
 			path = ControlScreens;
 			sourceTree = "<group>";
@@ -258,6 +264,7 @@
 				55DF68BC23F8C76800E717D3 /* Collection.swift */,
 				ACD2064C2431F20000F8659B /* CommandLineExecuter.swift */,
 				55DF68B823F86C0700E717D3 /* ContextMenu.swift */,
+				51AB56DD2A13D14A002B5A67 /* DeepLink.swift */,
 				5534158523FE1AC4005C0A41 /* Flow.swift */,
 				555A145B23F70CCF00313BC5 /* Process.swift */,
 				51203A502A09588A00CBE517 /* Capture.swift */,
@@ -283,6 +290,15 @@
 				51AB56DB2A129647002B5A67 /* ChromeRendererTypes.swift */,
 			);
 			path = ChromeRendering;
+			sourceTree = "<group>";
+		};
+		51AB56E12A13D3D1002B5A67 /* SystemView */ = {
+			isa = PBXGroup;
+			children = (
+				511BA59B23F4172400E3E660 /* SystemView.swift */,
+				51AB56E42A13D3F6002B5A67 /* DeepLinkEditorView.swift */,
+			);
+			path = SystemView;
 			sourceTree = "<group>";
 		};
 		51B0241B25C3103B0042394E /* AppView */ = {
@@ -366,6 +382,7 @@
 				ACDF076723F7E91A00597B3B /* ApplicationType.swift */,
 				51DCEFB32A0BC6B600561C9B /* CaptureController.swift */,
 				555A145D23F70E8600313BC5 /* CoreSimulatorPublisher.swift */,
+				51AB56DF2A13D189002B5A67 /* DeepLinksController.swift */,
 				5179289925C37D2A000F6F3A /* KeyboardShortcuts.swift */,
 				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				ACCD798D240AE82C0004ECE5 /* PushNotification.swift */,
@@ -573,6 +590,7 @@
 				51B0241D25C3104C0042394E /* AppIcon.swift in Sources */,
 				511BA5A823F42EE400E3E660 /* AppView.swift in Sources */,
 				5523A7E123F99D7200F25EEC /* Preferences.swift in Sources */,
+				51AB56E02A13D189002B5A67 /* DeepLinksController.swift in Sources */,
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
@@ -598,6 +616,8 @@
 				55DF68BD23F8C76800E717D3 /* Collection.swift in Sources */,
 				51AB56D92A127F9F002B5A67 /* ChromeRenderer.swift in Sources */,
 				511BA59823F4096800E3E660 /* Simulator.swift in Sources */,
+				51AB56DE2A13D14A002B5A67 /* DeepLink.swift in Sources */,
+				51AB56E52A13D3F6002B5A67 /* DeepLinkEditorView.swift in Sources */,
 				51AB56DC2A129647002B5A67 /* ChromeRendererTypes.swift in Sources */,
 				551F8CF723F4BEAC0006D1BD /* TypeIdentifier.swift in Sources */,
 				551F8CF123F498C30006D1BD /* SimulatorsController.swift in Sources */,

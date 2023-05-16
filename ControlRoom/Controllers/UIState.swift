@@ -12,6 +12,7 @@ class UIState: ObservableObject {
     enum Sheet: Int, Identifiable {
         case preferences
         case createSimulator
+        case deepLinkEditor
         case notificationEditor
         case confirmDeleteSelected
 
