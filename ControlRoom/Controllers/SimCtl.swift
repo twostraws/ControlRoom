@@ -16,22 +16,13 @@ enum SimCtl: CommandLineCommandExecuter {
     static let launchPath = "/usr/bin/xcrun"
 
     static func watchDeviceList() -> AnyPublisher<DeviceList, SimCtl.Error> {
-        if CoreSimulator.canRegisterForSimulatorNotifications {
-            return CoreSimulatorPublisher()
-                .mapError { _ in return SimCtl.Error.missingCommand }
-                .flatMap { _ in return SimCtl.listDevices() }
-                .prepend(SimCtl.listDevices())
-                .removeDuplicates()
-                .eraseToAnyPublisher()
-        } else {
-            return Timer.publish(every: 5, on: .main, in: .common)
-                .autoconnect()
-                .setFailureType(to: SimCtl.Error.self)
-                .flatMap { _ in return SimCtl.listDevices() }
-                .prepend(SimCtl.listDevices())
-                .removeDuplicates()
-                .eraseToAnyPublisher()
-        }
+        Timer.publish(every: 5, on: .main, in: .common)
+            .autoconnect()
+            .setFailureType(to: SimCtl.Error.self)
+            .flatMap { _ in return SimCtl.listDevices() }
+            .prepend(SimCtl.listDevices())
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }
 
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, SimCtl.Error> {
