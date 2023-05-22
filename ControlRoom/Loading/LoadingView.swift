@@ -15,7 +15,7 @@ struct LoadingView: View {
             .padding()
         ProgressView()
             .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-            .scaleEffect(2)
+            .controlSize(.large)
     }
 }
 
