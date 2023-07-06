@@ -84,9 +84,10 @@ class ChromeRenderer {
 
         // We start by loading this device's profile, which describes
         // what type of chrome we have and also the screen scale.
-        var profileURL = URL(filePath: "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/DeviceTypes")
-        profileURL.append(path: "\(deviceName).simdevicetype")
-        profileURL.append(path: "/Contents/Resources/profile.plist")
+        let developerPath = XcodeHelper.getDeveloperPath()
+        let basePath = "\(developerPath)/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles"
+        let profilePath = "\(basePath)/DeviceTypes/\(deviceName).simdevicetype/Contents/Resources/profile.plist"
+        let profileURL = URL(filePath: profilePath)
 
         let profileData = try Data(contentsOf: profileURL)
         device = try PropertyListDecoder().decode(SimulatorDevice.self, from: profileData)
@@ -97,9 +98,10 @@ class ChromeRenderer {
         let mainIdentifier = device.chromeIdentifier.components(separatedBy: ".").last ?? "phone"
 
         // Now use that last part to find the PDFs and placement JSON.
-        baseURL = URL(filePath: "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Chrome/\(mainIdentifier).simdevicechrome/Contents/Resources")
+        let chromePath = "\(basePath)/Chrome/\(mainIdentifier).simdevicechrome/Contents/Resources"
+        baseURL = URL(filePath: chromePath)
 
-        let chromeURL = baseURL.appending(path: "chrome.json")
+        let chromeURL = URL(filePath: "\(chromePath)/chrome.json")
         let chromeData = try Data(contentsOf: chromeURL)
 
         chrome = try JSONDecoder().decode(SimulatorChrome.self, from: chromeData)
