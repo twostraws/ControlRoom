@@ -99,7 +99,10 @@ struct ColorsView: View {
                     TableRow(color)
                         .itemProvider {
                             let provider = NSItemProvider()
-                            provider.register(assetCatalogData(for: color))
+                            Task {
+                                    let catalogData = assetCatalogData(for: color)
+                                    provider.register(catalogData)
+                            }
                             return provider
                         }
                 }
