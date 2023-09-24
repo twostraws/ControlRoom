@@ -1,0 +1,18 @@
+name: Xcode - Build and Test
+    
+on: [pull_request]
+
+jobs:
+  build:
+    name: 'Build and test: Debug'
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Selected Xcode version 
+        run: |
+          xcode-select -p
+      - name: Build and test
+        run: |
+          xcodebuild clean build analyze test -project ControlRoom.xcodeproj -scheme 'Debug - ControlRoom' -destination 'platform=macOS' CONFIGURATION_BUILD_DIR=$(pwd)/build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
