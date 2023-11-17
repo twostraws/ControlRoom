@@ -74,32 +74,35 @@ struct LocationView: View {
                     }
                 }
 
-                HStack {
-                    ZStack {
-                        Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
-                            MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                GeometryReader { proxy in
+                    HStack {
+                        ZStack {
+                            Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
+                                MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                            }
+                            .cornerRadius(5)
+
+                            Circle()
+                                .stroke(Color.blue, lineWidth: 4)
+                                .frame(width: 20)
+                        }
+                        .keyboardShortcut(.defaultAction)
+
+                        Table(of: Location.self, selection: $previouslyPickedLocation.onChange(updatePickedLocation)) {
+                            TableColumn("Saved locations", value: \.name)
+                        } rows: {
+                            ForEach(locationsController.locations) { location in
+                                TableRow(location)
+                                    .contextMenu {
+                                        Button("Delete") {
+                                            locationsController.delete(location.id)
+                                        }
+                                    }
+                            }
                         }
                         .cornerRadius(5)
-
-                        Circle()
-                            .stroke(Color.blue, lineWidth: 4)
-                            .frame(width: 20)
+                        .frame(width: proxy.size.width * 0.3)
                     }
-                    .keyboardShortcut(.defaultAction)
-
-                    Table(of: Location.self, selection: $previouslyPickedLocation.onChange(updatePickedLocation)) {
-                        TableColumn("Saved locations", value: \.name)
-                    } rows: {
-                        ForEach(locationsController.locations) { location in
-                            TableRow(location)
-                                .contextMenu {
-                                    Button("Delete") {
-                                        locationsController.delete(location.id)
-                                    }
-                                }
-                        }
-                    }
-                    .cornerRadius(5)
                 }
                 .padding(.bottom, 10)
 
