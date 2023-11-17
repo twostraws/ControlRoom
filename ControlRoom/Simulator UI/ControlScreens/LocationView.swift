@@ -162,6 +162,9 @@ struct LocationView: View {
     private func updatePickedLocation() {
         guard let location = locationsController.item(with: previouslyPickedLocation) else { return }
 
-        currentLocation.center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        currentLocation = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+            span: MKCoordinateSpan(latitudeDelta: 15, longitudeDelta: 15)
+        )
     }
 }
