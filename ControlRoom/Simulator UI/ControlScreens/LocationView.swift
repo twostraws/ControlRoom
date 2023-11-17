@@ -19,6 +19,10 @@ struct LocationView: View {
 
     @StateObject private var locationsController = LocationsController()
     @State private var previouslyPickedLocation: Location.ID?
+
+    @State private var newLocationName = ""
+    @State private var isShowingNewLocationAlert = false
+
     @State private var latitudeText = "\(DEFAULT_LAT)"
     @State private var longitudeText = "\(DEFAULT_LNG)"
     /// The location that is being simulated
@@ -88,6 +92,11 @@ struct LocationView: View {
                     } rows: {
                         ForEach(locationsController.locations) { location in
                             TableRow(location)
+                                .contextMenu {
+                                    Button("Delete") {
+                                        locationsController.delete(location.id)
+                                    }
+                                }
                         }
                     }
                     .cornerRadius(5)
@@ -101,6 +110,9 @@ struct LocationView: View {
                     Toggle("Jitter location", isOn: $isJittering)
                         .toggleStyle(.checkbox)
                     Button("Activate", action: changeLocation)
+                    Button("Save") {
+                        isShowingNewLocationAlert.toggle()
+                    }
                 }
             }
         }
@@ -115,6 +127,11 @@ struct LocationView: View {
             }
 
             jitterLocation()
+        }
+        .alert("Save location", isPresented: $isShowingNewLocationAlert) {
+            TextField("Name", text: $newLocationName)
+            Button("Save", action: savePickedLocation)
+            Button("Cancel", role: .cancel) { }
         }
     }
 
@@ -132,6 +149,14 @@ struct LocationView: View {
         let long = currentLocation.center.longitude + (Double.random(in: -0.0001...0.0001))
         jitteredLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
         changeLocation()
+    }
+
+    private func savePickedLocation() {
+        let latitude = currentLocation.center.latitude
+        let longitude = currentLocation.center.longitude
+        locationsController.create(name: newLocationName, latitude: latitude, longitude: longitude)
+
+        newLocationName = ""
     }
 
     private func updatePickedLocation() {
