@@ -17,10 +17,14 @@ struct LocationView: View {
     static let DEFAULT_LAT = 37.323056
     static let DEFAULT_LNG = -122.031944
 
+    /// Saved locations controller.
     @StateObject private var locationsController = LocationsController()
+    /// Current table selection binding.
     @State private var previouslyPickedLocation: Location.ID?
 
+    /// Name of the location user is about save.
     @State private var newLocationName = ""
+    /// Indicates whether save location alert is currently presented.
     @State private var isShowingNewLocationAlert = false
 
     @State private var latitudeText = "\(DEFAULT_LAT)"
@@ -154,6 +158,7 @@ struct LocationView: View {
         changeLocation()
     }
 
+    /// Saves currently selected location to user's collection.
     private func savePickedLocation() {
         let latitude = currentLocation.center.latitude
         let longitude = currentLocation.center.longitude
@@ -162,6 +167,7 @@ struct LocationView: View {
         newLocationName = ""
     }
 
+    /// Updates current location on the map when saved location is selected from the table.
     private func updatePickedLocation() {
         guard let location = locationsController.item(with: previouslyPickedLocation) else { return }
 

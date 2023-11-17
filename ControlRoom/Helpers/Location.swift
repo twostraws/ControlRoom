@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The user's saved location.
 struct Location: Identifiable, Codable {
     var id: UUID
     var name: String
