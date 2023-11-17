@@ -17,6 +17,8 @@ struct LocationView: View {
     static let DEFAULT_LAT = 37.323056
     static let DEFAULT_LNG = -122.031944
 
+    @StateObject private var locationsController = LocationsController()
+    @State private var previouslyPickedLocation: Location.ID?
     @State private var latitudeText = "\(DEFAULT_LAT)"
     @State private var longitudeText = "\(DEFAULT_LNG)"
     /// The location that is being simulated
@@ -68,18 +70,29 @@ struct LocationView: View {
                     }
                 }
 
-                ZStack {
-                    Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
-                        MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                HStack {
+                    ZStack {
+                        Map(coordinateRegion: $currentLocation, annotationItems: annotations) { location in
+                            MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), tint: .red)
+                        }
+                        .cornerRadius(5)
+
+                        Circle()
+                            .stroke(Color.blue, lineWidth: 4)
+                            .frame(width: 20)
+                    }
+                    .keyboardShortcut(.defaultAction)
+
+                    Table(of: Location.self, selection: $previouslyPickedLocation.onChange(updatePickedLocation)) {
+                        TableColumn("Saved locations", value: \.name)
+                    } rows: {
+                        ForEach(locationsController.locations) { location in
+                            TableRow(location)
+                        }
                     }
                     .cornerRadius(5)
-
-                    Circle()
-                        .stroke(Color.blue, lineWidth: 4)
-                        .frame(width: 20)
                 }
                 .padding(.bottom, 10)
-                .keyboardShortcut(/*@START_MENU_TOKEN@*/.defaultAction/*@END_MENU_TOKEN@*/)
 
                 HStack {
                     Text("Coordinates: \(locationText)")
@@ -119,5 +132,11 @@ struct LocationView: View {
         let long = currentLocation.center.longitude + (Double.random(in: -0.0001...0.0001))
         jitteredLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
         changeLocation()
+    }
+
+    private func updatePickedLocation() {
+        guard let location = locationsController.item(with: previouslyPickedLocation) else { return }
+
+        currentLocation.center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
     }
 }

@@ -45,6 +45,14 @@ class LocationsController: ObservableObject {
         save()
     }
 
+    func item(with itemID: Location.ID?) -> Location? {
+        guard let itemID else { return nil }
+
+        return locations.first { location in
+            location.id == itemID
+        }
+    }
+
     /// Writes the user's deep links to UserDefaults.
     private func save() {
         if let encoded = try? JSONEncoder().encode(locations) {
