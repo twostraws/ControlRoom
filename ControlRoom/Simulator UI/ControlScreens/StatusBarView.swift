@@ -110,8 +110,16 @@ struct StatusBarView: View {
                     .pickerStyle(.radioGroup)
 
                     VStack(spacing: 0) {
-                        Text("Current battery percentage: \(Int(round(batteryLevel)))%")
-                        Slider(value: $batteryLevel, in: 0...100, onEditingChanged: levelChanged, minimumValueLabel: Text("0%"), maximumValueLabel: Text("100%")) {
+						Text("Current battery percentage: \(Int(round(batteryLevel)))%")
+							.font(.callout.monospacedDigit())
+
+						Slider(
+							value: $batteryLevel,
+							in: 0...100,
+							onEditingChanged: levelChanged,
+							minimumValueLabel: Text("0%"),
+							maximumValueLabel: Text("100%")
+						) {
                             Text("Level:")
                         }
                     }
@@ -125,12 +133,14 @@ struct StatusBarView: View {
         }
     }
 
+    // MARK: Private methods
+
     /// Changes the system clock to a new value.
-    func setTime() {
+    private func setTime() {
         SimCtl.overrideStatusBarTime(simulator.udid, time: time)
     }
 
-    func setAppleTime() {
+	private func setAppleTime() {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day], from: Date.now)
         components.hour = 9
@@ -145,28 +155,42 @@ struct StatusBarView: View {
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually, but
     /// also for whatever reason prefers cellular data sent separately from WiFi.
-    func updateWiFiData() {
-        SimCtl.overrideStatusBarWiFi(simulator.udid, network: dataNetwork,
-                                        wifiMode: wiFiMode, wifiBars: wiFiBar)
+	private func updateWiFiData() {
+		SimCtl.overrideStatusBarWiFi(
+			simulator.udid,
+			network: dataNetwork,
+			wifiMode: wiFiMode,
+			wifiBars: wiFiBar
+		)
     }
 
-    func updateCellularData() {
-        SimCtl.overrideStatusBarCellular(simulator.udid, cellMode: cellularMode,
-                                        cellBars: cellularBar, carrier: carrierName)
+    private func updateCellularData() {
+		SimCtl.overrideStatusBarCellular(
+			simulator.udid,
+			cellMode: cellularMode,
+			cellBars: cellularBar,
+			carrier: carrierName
+		)
     }
 
     /// Sends battery updates all at once; simctl gets unhappy if we send them individually.
-    func updateBattery() {
-        SimCtl.overrideStatusBarBattery(simulator.udid, level: Int(batteryLevel), state: batteryState)
+    private func updateBattery() {
+		SimCtl.overrideStatusBarBattery(
+			simulator.udid,
+			level: Int(batteryLevel),
+			state: batteryState
+		)
     }
 
     /// Triggered when the user adjusts the battery level.
-    func levelChanged(_ isEditing: Bool) {
+    private func levelChanged(_ isEditing: Bool) {
         if isEditing == false {
             updateBattery()
         }
     }
 }
+
+// MARK: Preview
 
 struct StatusBarViewView_Previews: PreviewProvider {
     static var previews: some View {
@@ -174,6 +198,8 @@ struct StatusBarViewView_Previews: PreviewProvider {
             .environmentObject(Preferences())
     }
 }
+
+// MARK: Extensions
 
 extension SimCtl.StatusBar.DataNetwork {
     var displayName: String {
