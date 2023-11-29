@@ -18,11 +18,10 @@ class LocationsController: ObservableObject {
 
     /// Attempts to load saved locations from UserDefaults, or creates an empty array otherwise.
     init() {
-        if let data = UserDefaults.standard.data(forKey: defaultsKey) {
-            if let decoded = try? JSONDecoder().decode([Location].self, from: data) {
-                locations = decoded
-                return
-            }
+        if let data = UserDefaults.standard.data(forKey: defaultsKey),
+           let decoded = try? JSONDecoder().decode([Location].self, from: data) {
+            locations = decoded
+            return
         }
 
         locations = []

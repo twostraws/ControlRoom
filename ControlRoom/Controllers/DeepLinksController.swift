@@ -18,11 +18,10 @@ class DeepLinksController: ObservableObject {
 
     /// Attempts to load saved links from UserDefaults, or creates an empty array otherwise.
     init() {
-        if let data = UserDefaults.standard.data(forKey: defaultsKey) {
-            if let decoded = try? JSONDecoder().decode([DeepLink].self, from: data) {
-                links = decoded
-                return
-            }
+        if let data = UserDefaults.standard.data(forKey: defaultsKey),
+           let decoded = try? JSONDecoder().decode([DeepLink].self, from: data) {
+            links = decoded
+            return
         }
 
         links = []
