@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "(Requires Reboot)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(Requires Reboot)"
-          }
-        }
-      }
-    },
     "**Tip:** You can drag any of the colors from here directly into an Xcode asset catalog ✨" : {
       "localizations" : {
         "en" : {
@@ -51,7 +41,8 @@
         }
       }
     },
-    "Accessibility overrides" : {
+    "accessibility_overrides" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -71,7 +62,8 @@
         }
       }
     },
-    "Alert" : {
+    "alert" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -81,7 +73,8 @@
         }
       }
     },
-    "App" : {
+    "app" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -91,7 +84,8 @@
         }
       }
     },
-    "Aps" : {
+    "aps" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -388,6 +382,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reopen last URL"
+          }
+        }
+      }
+    },
+    "requires_Boot" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Requires Boot)"
           }
         }
       }

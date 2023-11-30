@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C011CCC2B192A90007A3C16 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */; };
+		3C011CCF2B192CCD007A3C16 /* LocalizableKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C011CCE2B192CCD007A3C16 /* LocalizableKeys.swift */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
 		511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		3C011CCE2B192CCD007A3C16 /* LocalizableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableKeys.swift; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +194,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C011CCD2B192C39007A3C16 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */,
+				3C011CCE2B192CCD007A3C16 /* LocalizableKeys.swift */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		511BA57023F3FFEA00E3E660 = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +236,7 @@
 				AC472CCD240D46C2007FF521 /* Extensions */,
 				511BA5CF23F455D500E3E660 /* NSViewWrappers */,
 				511BA5D023F455E100E3E660 /* SystemBits */,
-				3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */,
+				3C011CCD2B192C39007A3C16 /* Localization */,
 			);
 			path = ControlRoom;
 			sourceTree = "<group>";
@@ -628,6 +639,7 @@
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
 				51203A512A09588A00CBE517 /* Capture.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
+				3C011CCF2B192CCD007A3C16 /* LocalizableKeys.swift in Sources */,
 				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */,
 				511BA5A223F41A5900E3E660 /* Binding-OnChange.swift in Sources */,

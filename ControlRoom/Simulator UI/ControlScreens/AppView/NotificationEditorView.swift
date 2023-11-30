@@ -44,7 +44,7 @@ struct NotificationEditorView: View {
                 APSFormView(notificationAps: $notificationAps)
 
                 VStack(alignment: .leading) {
-                    Text("Aps")
+                    Text(LocalizableKeys.aps.localized)
                         .font(.headline)
                         .addingInfoButton(title: "APS", description: "NotificationView.Hints.APS")
 
@@ -129,7 +129,7 @@ private struct APSFormView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 15) {
-                Text("Alert")
+                Text(LocalizableKeys.alert.localized)
                     .font(.headline)
                 TabView(selection: $selectedTabIndex) {
                     Group {
