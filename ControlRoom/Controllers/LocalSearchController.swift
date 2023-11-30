@@ -11,9 +11,13 @@ import MapKit
 
 @MainActor
 class LocalSearchController: NSObject, ObservableObject {
+    /// Prevents duplicate queries from being made
     private var lastQuery: String = ""
+
+    /// Completion handler is called by the `MKLocalSearchCompleter` success callback
     private var callback: (([LocalSearchResult]) -> Void)?
 
+    /// the MKLocalSearchCompleter used to make local search requests
     private lazy var localSearchCompleter: MKLocalSearchCompleter = {
         let completer = MKLocalSearchCompleter()
         completer.resultTypes = [.address, .pointOfInterest]
@@ -21,6 +25,15 @@ class LocalSearchController: NSObject, ObservableObject {
         return completer
     }()
 
+    /**
+     Finds places and POIs using a query string and a geographical point to focus on.
+
+     - Parameter for: The partial (autocomplete) query to search for.
+     - Parameter around: Provides a hint for `MKLocalSearchCompleter` to search around a geographical point.
+     - Parameter completion: Called if valid search results are found.
+
+     - Returns: If a location is found immediately (a coordinate was pasted in, for example), returns a `Location`.
+     */
     func search(for query: String,
                 around location: Location,
                 completion: @escaping ([LocalSearchResult]) -> Void) -> Location? {
@@ -42,6 +55,12 @@ class LocalSearchController: NSObject, ObservableObject {
         return nil
     }
 
+    /**
+     Converts an incomplete `LocalSearchResult` to a `Location` with coordinates and map bounds.
+
+     - Parameter result: The `LocalSearchResult` to convert.
+     - Parameter completion: Called if a valid `Location` is created.
+     */
     func select(_ result: LocalSearchResult, completion: @escaping (Location) -> Void) {
         guard let completer = result.completer else { return }
 
@@ -64,6 +83,7 @@ class LocalSearchController: NSObject, ObservableObject {
         }
     }
 
+    /// Uses a regex to detect if a string is a lat/long coordinate (e.g. `'37.33467, -122.00898'`)
     private func parseCoordinates(_ coordinateString: String) -> Location? {
         do {
             let regexSearch = try Regex("^-?(?:[1-8]?\\d(?:\\.\\d+)?|90(?:\\.0+)?),\\s*-?(?:180(?:\\.0+)?|1[0-7]\\d(?:\\.\\d+)?|\\d{1,2}(?:\\.\\d+)?)$")
@@ -90,7 +110,9 @@ class LocalSearchController: NSObject, ObservableObject {
     }
 }
 
+/// Adds `MKLocalSearchCompleterDelegate` conformance so the controller can use the delegate's callback methods
 extension LocalSearchController: MKLocalSearchCompleterDelegate {
+    /// Called if `MKLocalSearchCompleter` return valid results from a query string
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         guard let callback else { return }
         let results = completer.results.map {
@@ -99,6 +121,7 @@ extension LocalSearchController: MKLocalSearchCompleterDelegate {
         callback(results)
     }
 
+    /// Called if `MKLocalSearchCompleter` encounters an error
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print(error)
     }
