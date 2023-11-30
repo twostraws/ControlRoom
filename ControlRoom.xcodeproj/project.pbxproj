@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C011CCC2B192A90007A3C16 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
 		511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,6 +225,7 @@
 				AC472CCD240D46C2007FF521 /* Extensions */,
 				511BA5CF23F455D500E3E660 /* NSViewWrappers */,
 				511BA5D023F455E100E3E660 /* SystemBits */,
+				3C011CCB2B192A90007A3C16 /* Localizable.xcstrings */,
 			);
 			path = ControlRoom;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				511BA58723F3FFEB00E3E660 /* Main.storyboard in Resources */,
+				3C011CCC2B192A90007A3C16 /* Localizable.xcstrings in Resources */,
 				AC472CFB240D5F22007FF521 /* NotificationEditorView.strings in Resources */,
 				511BA58423F3FFEB00E3E660 /* Preview Assets.xcassets in Resources */,
 				511BA58123F3FFEB00E3E660 /* Assets.xcassets in Resources */,
