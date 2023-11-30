@@ -9,19 +9,12 @@
 import Foundation
 import MapKit
 
+/// A local search result item
 struct LocalSearchResult: Identifiable {
     var id: UUID
     var title: String
     var subtitle: String?
-    var latitude: Double?
-    var longitude: Double?
     var completer: MKLocalSearchCompletion?
-
-    init(title: String, subtitle: String?) {
-        id = UUID()
-        self.title = title
-        self.subtitle = subtitle?.clean()
-    }
 
     init(result: MKLocalSearchCompletion) {
         id = UUID()
@@ -29,16 +22,9 @@ struct LocalSearchResult: Identifiable {
         self.subtitle = result.subtitle.clean()
         self.completer = result
     }
-
-    func toLocation() -> Location? {
-        guard let latitude, let longitude else {
-            return nil
-        }
-
-        return Location(id: id, name: title, latitude: latitude, longitude: longitude)
-    }
 }
 
+/// if a string is empty or whitespace, convert it to `nil`
 extension String {
     func clean() -> String? {
         let cleanString = self.trimmingCharacters(in: .whitespacesAndNewlines)
