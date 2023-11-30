@@ -47,7 +47,7 @@ class LocalSearchController: NSObject, ObservableObject {
 
         localSearchCompleter.queryFragment = query
         localSearchCompleter.region = MKCoordinateRegion(
-            center: location.toCLLocationCoordinate2D(),
+            center: location.center,
             latitudinalMeters: CLLocationDistance(20000),
             longitudinalMeters: CLLocationDistance(20000)
         )

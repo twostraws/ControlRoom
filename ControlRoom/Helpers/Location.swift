@@ -20,7 +20,7 @@ struct Location: Identifiable, Codable {
     var longitudeDelta: Double = 15
 
     var center: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
     var region: MKCoordinateRegion {
@@ -34,10 +34,6 @@ struct Location: Identifiable, Codable {
             latitudeDelta = newValue.span.latitudeDelta
             longitudeDelta = newValue.span.longitudeDelta
         }
-    }
-
-    func toCLLocationCoordinate2D() -> CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
     func toString() -> String {
