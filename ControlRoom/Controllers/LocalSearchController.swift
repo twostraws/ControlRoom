@@ -34,9 +34,11 @@ class LocalSearchController: NSObject, ObservableObject {
 
      - Returns: If a location is found immediately (a coordinate was pasted in, for example), returns a `Location`.
      */
-    func search(for query: String,
-                around location: Location,
-                completion: @escaping ([LocalSearchResult]) -> Void) -> Location? {
+    func search(
+            for query: String,
+            around location: Location,
+            completion: @escaping ([LocalSearchResult]) -> Void
+            ) -> Location? {
         guard query.isNotEmpty, query != lastQuery else { return nil }
         callback = completion
         lastQuery = query
