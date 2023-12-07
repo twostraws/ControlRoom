@@ -14,17 +14,23 @@ struct MainView: View {
     @EnvironmentObject var uiState: UIState
 
     var body: some View {
-        Group {
-            if controller.loadingStatus == .failed {
-                LoadingFailedView(title: "Loading failed", text: "This usually happens because the command /usr/bin/xcrun can't be found.")
-            } else if controller.loadingStatus == .invalidCommandLineTool {
-                LoadingFailedView(title: "Loading failed. You need to use Xcode 11.4+ and install the command line tools.",
-                                  text: "If you already have Xcode 11.4+ installed, go to Xcode's Preferences, choose the Locations tab, then make sure Xcode is selected for Command Line Tools.")
-            } else if controller.loadingStatus == .success {
-                SplitLayoutView(controller: controller)
-            } else {
-                LoadingView()
-            }
+		Group {
+			switch controller.loadingStatus {
+			case .failed:
+				LoadingFailedView(
+					title: "Loading failed",
+					text: "This usually happens because the command /usr/bin/xcrun can't be found."
+				)
+			case .invalidCommandLineTool:
+				LoadingFailedView(
+					title: "Loading failed. You need to use Xcode 11.4+ and install the command line tools.",
+					text: "If you already have Xcode 11.4+ installed, go to Xcode's Preferences, choose the Locations tab, then make sure Xcode is selected for Command Line Tools."
+				)
+			case .success:
+				SplitLayoutView(controller: controller)
+			default:
+				LoadingView()
+			}
         }
         .frame(minWidth: 800, maxWidth: .infinity, minHeight: 550, maxHeight: .infinity)
         .sheet(item: $uiState.currentSheet, content: sheetView)
@@ -33,22 +39,25 @@ struct MainView: View {
 
     private func sheetView(for sheet: UIState.Sheet) -> some View {
         Group {
-            if sheet == .preferences {
-                SettingsView()
-            } else if sheet == .createSimulator {
-                CreateSimulatorActionSheet(controller: controller)
-            } else if sheet == .notificationEditor {
-                NotificationEditorView()
-            } else if sheet == .confirmDeleteSelected {
-                SimulatorActionSheet(
-                    icon: controller.selectedSimulators[0].image,
-                    message: "Delete Simulators?",
-                    informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
-                    confirmationTitle: "Delete",
-                    confirm: deleteSelectedSimulators,
-                    content: EmptyView.init
-                )
-            }
+			switch sheet {
+			case .preferences:
+				SettingsView()
+			case .createSimulator:
+				CreateSimulatorActionSheet(controller: controller)
+			case .deepLinkEditor:
+				DeepLinkEditorView()
+			case .notificationEditor:
+				NotificationEditorView()
+			case .confirmDeleteSelected:
+				SimulatorActionSheet(
+					icon: controller.selectedSimulators[0].image,
+					message: "Delete Simulators?",
+					informativeText: "Are you sure you want to delete the selected simulators? You will not be able to undo this action.",
+					confirmationTitle: "Delete",
+					confirm: deleteSelectedSimulators,
+					content: EmptyView.init
+				)
+			}
         }
     }
     /// Deletes all simulators that are currently selected.

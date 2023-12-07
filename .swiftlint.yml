@@ -5,3 +5,5 @@ identifier_name:
 line_length:
   warning: 220
   error: 250
+identifier_name:
+  allowed_symbols: "_"

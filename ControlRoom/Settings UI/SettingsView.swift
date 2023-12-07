@@ -16,6 +16,16 @@ struct SettingsView: View {
     /// The user's settings for capturing
     @AppStorage("captureSettings") var captureSettings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored)
 
+    /// Whether the user wants us to render device bezels around their screenshots.
+    /// Note: this requires a mask of alpha, so we enforce that when true.
+    @AppStorage("renderChrome") var renderChrome = false
+
+    /// How many decimal places to use for rounding picked colors.
+    @AppStorage("CRColorPickerAccuracy") var colorPickerAccuracy = 2
+
+    /// Whether hex strings should be printed in uppercase or not.
+    @AppStorage("CRColorPickerUppercaseHex") var uppercaseHex = true
+
     var body: some View {
         TabView {
             Form {
@@ -78,10 +88,33 @@ struct SettingsView: View {
                         Text(mask.rawValue.capitalized).tag(mask)
                     }
                 }
+                .disabled(renderChrome)
+
+                Toggle(isOn: $renderChrome.onChange(updateChromeSettings)) {
+                    VStack(alignment: .leading) {
+                        Text("Add device chrome to screenshots")
+                        Text("This is an experimental feature and may not function properly yet.")
+                            .font(.caption)
+                    }
+                }
             }
             .padding()
             .tabItem {
                 Label("Screenshots", systemImage: "camera.on.rectangle")
+            }
+
+            VStack {
+                Toggle("Uppercase Hex Strings", isOn: $uppercaseHex)
+                    .padding(.bottom)
+
+                Text("Set the maximum number of decimal places to use when generating code for picked simulator colors. The default is 2.")
+                Stepper("Decimal Places: \(colorPickerAccuracy)", value: $colorPickerAccuracy, in: 0...5)
+                    .pickerStyle(.segmented)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .tabItem {
+                Label("Colors", systemImage: "paintpalette")
             }
 
             Form {
@@ -96,6 +129,13 @@ struct SettingsView: View {
             .tabItem {
                 Label("Locations", systemImage: "externaldrive")
             }
+        }
+        .frame(minWidth: 550)
+    }
+
+    func updateChromeSettings() {
+        if renderChrome {
+            captureSettings.mask = .alpha
         }
     }
 }

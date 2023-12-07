@@ -206,8 +206,8 @@ struct AppView: View {
     /// Open Finder to select notification template
     func openNotificationTemplate() {
         DocumentPicker.show(withConfig: DocumentPickerConfig(allowedContentTypes: [.json])) { selectedFile in
-            guard let selectedPaload = String(data: selectedFile, encoding: .utf8) else { return }
-            self.pushPayload = selectedPaload
+            guard let selectedPayload = String(data: selectedFile, encoding: .utf8) else { return }
+            self.pushPayload = selectedPayload
         }
     }
 

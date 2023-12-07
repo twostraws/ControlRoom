@@ -28,12 +28,14 @@ struct ControlRoomApp: App {
 
     @StateObject var preferences: Preferences
     @StateObject var controller: SimulatorsController
+    @StateObject var deepLinks = DeepLinksController()
 
     var body: some Scene {
         Window("Control Room", id: "main") {
             MainView(controller: controller)
                 .environmentObject(preferences)
                 .environmentObject(UIState.shared)
+                .environmentObject(deepLinks)
         }
         .commands {
             CommandGroup(replacing: .appInfo) {
@@ -63,6 +65,18 @@ struct ControlRoomApp: App {
         }
 
         MenuBarExtra(isInserted: .constant(preferences.wantsMenuBarIcon)) {
+            if deepLinks.links.isEmpty == false {
+                Menu("Saved deep links") {
+                    ForEach(deepLinks.links) { link in
+                        Button(link.name) {
+                            open(link)
+                        }
+                    }
+                }
+
+                Divider()
+            }
+
             Button("Resend last push notification", action: resendLastPushNotification)
                 .keyboardShortcut("p", modifiers: [.control, .option, .command])
             Button("Restart last selected app", action: restartLastSelectedApp)
@@ -91,5 +105,9 @@ struct ControlRoomApp: App {
 
     func reopenLastURL() {
         SimCtl.openURL(lastSimulatorUDID, URL: lastOpenURL)
+    }
+
+    func open(_ link: DeepLink) {
+        SimCtl.openURL(lastSimulatorUDID, URL: link.url.absoluteString)
     }
 }

@@ -20,6 +20,24 @@ You’ll need Xcode 14.0 or later to build and use Control Room on your Mac.
 To try Control Room yourself, download the code and build it through Xcode. It’s built using SwiftUI, so you’ll need macOS Big Sur in order to run it. You will also need Xcode installed, because it relies on the **simctl** command being present – if you see an error that you’re missing the command line tools, go to Xcode's Preferences, choose the Locations tab, then make sure Xcode is selected for Command Line Tools.
 
 
+## Features
+
+Control Room is packed with features to help you develop apps more effectively, including:
+
+- Taking screenshots and movies, optionally adding the device bezels to your screenshots.
+- Adjusting the system time and date to whatever you want, including Apple’s preferred 9:41.
+- Controlling status of WiFi, cellular service, and battery.
+- Opening the data folder for your app, or editing your `UserDefaults` entries.
+- Overriding dark or light mode, language, accessibility options, and Dynamic Type content size.
+- Picking a custom user location from anywhere in the world.
+- Starting, stopping, installing, and removing apps.
+- Sending test push notifications or triggering deep links.
+- Selecting colors from the simulator, converting them to UIKit or SwiftUI code, or even dragging directly into your asset catalog.
+
+Plus there’s an optional menu bar icon adding quick actions such as re-sending the last push notification or re-opening your last deep link.
+
+
+
 ## Contribution guide
 
 Any help you can offer with this project is most welcome – there are opportunities big and small so that someone with only a small amount of Swift experience can help.

@@ -169,9 +169,9 @@ class SimulatorsController: ObservableObject {
         var filtered = allSimulators
 
         if preferences.showBootedDevicesFirst {
-            let on = filtered.filter { $0.state != .shutdown }
-            let off = filtered.filter { $0.state == .shutdown }
-            filtered = on.sorted() + off.sorted()
+            let booted = filtered.filter { $0.state != .shutdown }
+            let shutdown = filtered.filter { $0.state == .shutdown }
+            filtered = booted.sorted() + shutdown.sorted()
         } else {
             filtered = filtered.sorted()
         }

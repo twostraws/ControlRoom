@@ -14,14 +14,16 @@ struct SystemView: View {
     let simulator: Simulator
 
     @EnvironmentObject var preferences: Preferences
+    @EnvironmentObject var deepLinks: DeepLinksController
 
     @AppStorage("CRApps_LastOpenURL") private var lastOpenURL = ""
-
     @AppStorage("CRApps_LastCertificateFilePath") private var lastCertificateFilePath = ""
 
-    /// The current state of logging
+    /// The current state of logging.
     @State private var isLoggingEnabled = false
-	@State var dropHovering: Bool = false
+
+    /// Whether the user is currently hovering over the area to copy files.
+	@State private var dropHovering: Bool = false
 
     var body: some View {
         ScrollView {
@@ -80,6 +82,20 @@ struct SystemView: View {
                 HStack {
                     TextField("Open URL:", text: $lastOpenURL, prompt: Text("Enter the URL or deep link you want to open"))
                     Button("Open", action: openURL)
+                    Menu("Saved Links") {
+                        ForEach(deepLinks.links) { link in
+                            Button(link.name) { open(link) }
+                        }
+
+                        if deepLinks.links.isEmpty == false {
+                            Divider()
+                        }
+
+                        Button("Customize…") {
+                            UIState.shared.currentSheet = .deepLinkEditor
+                        }
+                    }
+                    .frame(width: 120)
                 }
 
                 HStack {
@@ -206,6 +222,10 @@ struct SystemView: View {
 			LSOpenFromURLSpec(pointer, nil)
 		}
 	}
+
+    func open(_ link: DeepLink) {
+        SimCtl.openURL(simulator.udid, URL: link.url.absoluteString)
+    }
 }
 
 struct SystemView_Previews: PreviewProvider {

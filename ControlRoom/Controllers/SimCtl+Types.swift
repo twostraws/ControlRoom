@@ -18,6 +18,7 @@ extension SimCtl {
     enum DeviceFamily: CaseIterable {
         case iPhone
         case iPad
+        // swiftlint:disable:next identifier_name
         case tv
         case watch
 
@@ -150,13 +151,13 @@ extension SimCtl {
             }
 
             let nsIdentifier = runtimeIdentifier as NSString
-            let os = nsIdentifier.substring(with: match.range(at: 1))
+            let osName = nsIdentifier.substring(with: match.range(at: 1))
             let version = nsIdentifier.substring(with: match.range(at: 2)).replacingOccurrences(of: "_", with: ".")
 
             self.buildversion = ""
             self.identifier = runtimeIdentifier
             self.version = version
-            self.name = "\(os) \(version)"
+            self.name = "\(osName) \(version)"
             self.isAvailable = false
         }
     }

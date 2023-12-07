@@ -65,7 +65,7 @@ struct SidebarView: View {
                 .buttonStyle(.borderless)
                 .padding(.leading, 3)
 
-                FilterField("Filter", text: $filterText.onChange(controller.filterSimulators))
+                SearchField("Filter", text: $filterText.onChange(controller.filterSimulators), onClear: {})
             }
             .padding(2)
             .sheet(isPresented: $shouldShowDeleteAlert) {

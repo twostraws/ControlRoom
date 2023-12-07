@@ -16,22 +16,13 @@ enum SimCtl: CommandLineCommandExecuter {
     static let launchPath = "/usr/bin/xcrun"
 
     static func watchDeviceList() -> AnyPublisher<DeviceList, SimCtl.Error> {
-        if CoreSimulator.canRegisterForSimulatorNotifications {
-            return CoreSimulatorPublisher()
-                .mapError { _ in return SimCtl.Error.missingCommand }
-                .flatMap { _ in return SimCtl.listDevices() }
-                .prepend(SimCtl.listDevices())
-                .removeDuplicates()
-                .eraseToAnyPublisher()
-        } else {
-            return Timer.publish(every: 5, on: .main, in: .common)
-                .autoconnect()
-                .setFailureType(to: SimCtl.Error.self)
-                .flatMap { _ in return SimCtl.listDevices() }
-                .prepend(SimCtl.listDevices())
-                .removeDuplicates()
-                .eraseToAnyPublisher()
-        }
+        Timer.publish(every: 5, on: .main, in: .common)
+            .autoconnect()
+            .setFailureType(to: SimCtl.Error.self)
+            .flatMap { _ in return SimCtl.listDevices() }
+            .prepend(SimCtl.listDevices())
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }
 
     static func listDeviceTypes() -> AnyPublisher<DeviceTypeList, SimCtl.Error> {
@@ -136,8 +127,8 @@ enum SimCtl: CommandLineCommandExecuter {
         if let script = NSAppleScript(source: source) {
             var error: NSDictionary?
             script.executeAndReturnError(&error)
-            if let err = error {
-                print(err)
+            if let error {
+                print(error)
             }
         }
     }
@@ -154,8 +145,8 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.pbsync(source: .host, destination: .deviceId(simulator)))
     }
 
-    static func saveScreenshot(_ simulator: String, to file: String, type: IO.ImageFormat? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil) {
-        execute(.io(deviceId: simulator, operation: .screenshot(type: type, display: display, mask: mask, url: file)))
+    static func saveScreenshot(_ simulator: String, to file: String, type: IO.ImageFormat? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil, completion: @escaping (Result<Data, CommandLineError>) -> Void) {
+        execute(.io(deviceId: simulator, operation: .screenshot(type: type, display: display, mask: mask, url: file)), completion: completion)
     }
 
     static func startVideo(_ simulator: String, to file: String, type: IO.Codec? = nil, display: IO.Display? = nil, with mask: IO.Mask? = nil) -> Process {

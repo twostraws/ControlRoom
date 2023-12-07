@@ -6,7 +6,7 @@
 //  Copyright © 2020 Paul Hudson. All rights reserved.
 //
 
-import Swift
+import Foundation
 
 struct Author: Decodable, Identifiable {
     let login: String
