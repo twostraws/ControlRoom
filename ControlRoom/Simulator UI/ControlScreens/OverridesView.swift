@@ -71,16 +71,16 @@ struct OverridesView: View {
                     }
                     HStack {
                         Button("Set Language/Locale", action: updateLanguage)
-                        Text("(Requires Reboot)").font(.system(size: 11)).foregroundColor(.secondary)
+                        Text(LocalizableKeys.requiresBoot.localized)
+                            .font(.system(size: 11)).foregroundColor(.secondary)
                     }
                 }
 
                 Spacer()
                     .frame(height: 40)
 
-                Section(header:
-                    Text("Accessibility overrides")
-                        .font(.headline)
+                Section(header: Text(LocalizableKeys.accessibilityOverrides.localized)
+                    .font(.headline)
                 ) {
                     Picker("Content size:", selection: $contentSize) {
                         ForEach(SimCtl.UI.ContentSizes.allCases, id: \.self) { size in

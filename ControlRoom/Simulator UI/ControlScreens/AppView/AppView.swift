@@ -143,7 +143,7 @@ struct AppView: View {
             .padding()
         }
         .tabItem {
-            Text("App")
+            Text(LocalizableKeys.app.localized)
         }
         .alert(isPresented: $shouldShowUninstallConfirmationAlert) {
             Alert(title: Text("Are you sure you want to permanently delete \(selectedApplication.displayName)"),
