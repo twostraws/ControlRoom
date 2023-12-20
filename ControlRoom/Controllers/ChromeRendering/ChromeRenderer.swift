@@ -98,7 +98,11 @@ class ChromeRenderer {
         let mainIdentifier = device.chromeIdentifier.components(separatedBy: ".").last ?? "phone"
 
         // Now use that last part to find the PDFs and placement JSON.
-        let chromePath = "\(basePath)/Chrome/\(mainIdentifier).simdevicechrome/Contents/Resources"
+        var chromePath = "\(basePath)/Chrome/\(mainIdentifier).devicechrome/Contents/Resources"
+        if !FileManager.default.fileExists(atPath: chromePath) {
+            // Before Xcode 15, the path used `simdevicechrome`, not `devicechrome`, so fall back to that
+            chromePath = "\(basePath)/Chrome/\(mainIdentifier).simdevicechrome/Contents/Resources"
+        }
         baseURL = URL(filePath: chromePath)
 
         let chromeURL = URL(filePath: "\(chromePath)/chrome.json")
