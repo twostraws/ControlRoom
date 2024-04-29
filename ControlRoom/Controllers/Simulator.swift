@@ -13,7 +13,7 @@ typealias Runtime = SimCtl.Runtime
 typealias DeviceType = SimCtl.DeviceType
 
 /// Stores one simulator and its identifier.
-struct Simulator: Identifiable, Comparable, Hashable {
+struct Simulator: Identifiable, Comparable {
     enum State {
         case unknown
         case creating
@@ -35,6 +35,28 @@ struct Simulator: Identifiable, Comparable, Hashable {
                 self = .shutdown
             } else {
                 self = .unknown
+            }
+        }
+
+        var menuActionName: String {
+            switch self {
+            case .unknown: ""
+            case .creating: "Creating..."
+            case .booting: "Booting..."
+            case .booted: "Shutdown"
+            case .shuttingDown: "Shutting Down..."
+            case .shutdown: "Boot"
+            }
+        }
+
+        var isActionAllowed: Bool {
+            switch self {
+            case .unknown: false
+            case .creating: false
+            case .booting: false
+            case .booted: true
+            case .shuttingDown: false
+            case .shutdown: true
             }
         }
     }
@@ -64,7 +86,7 @@ struct Simulator: Identifiable, Comparable, Hashable {
     let deviceType: DeviceType?
 
     /// The current state of the simulator
-    let state: State
+    private(set) var state: State
 
     /// Wheter this simulator is the `Default` one or not
     var isDefault: Bool {
@@ -100,81 +122,91 @@ struct Simulator: Identifiable, Comparable, Hashable {
         self.image = typeIdentifier.icon
     }
 
-	func urlForFilePath(_ filePath: FilePathKind) -> URL {
+    mutating func update(state: State) {
+        self.state = state
+    }
 
-		if filePath == .root {
-			return URL(fileURLWithPath: dataPath)
-		}
+    func open(_ filePath: FilePathKind) {
+        NSWorkspace.shared.activateFileViewerSelecting([urlForFilePath(filePath)])
+    }
 
-		let containerPath = dataPath + "/Containers/Shared/AppGroup/"
+    func urlForFilePath(_ filePath: FilePathKind) -> URL {
 
-		guard let containerContents = try? FileManager.default.contentsOfDirectory(atPath: containerPath) else {
-			print("could not find any subfolders in '\(containerPath)'")
-			return URL(fileURLWithPath: "")
-		}
+        if filePath == .root {
+            return URL(fileURLWithPath: dataPath)
+        }
 
-		for content in containerContents {
+        let containerPath = dataPath + "/Containers/Shared/AppGroup/"
 
-			if content.hasSuffix("DS_Store") { continue }
+        guard let containerContents = try? FileManager.default.contentsOfDirectory(atPath: containerPath) else {
+            print("could not find any subfolders in '\(containerPath)'")
+            return URL(fileURLWithPath: "")
+        }
 
-			let subDirectoryPath = containerPath + content
-			let plistUrl = URL(fileURLWithPath: subDirectoryPath)
+        for content in containerContents {
 
-			guard let subDirectoryContents = try? FileManager.default.contentsOfDirectory(atPath: subDirectoryPath),
-				  let plistFile = subDirectoryContents.first(where: { $0.hasSuffix("plist")}),
-				  let plistData = try? Data(contentsOf: plistUrl.appendingPathComponent(plistFile)),
-				  let plist = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? NSDictionary else {
-				print("could not find or decode the plist file in '\(subDirectoryPath)'")
-				return URL(fileURLWithPath: "")
-			}
+            if content.hasSuffix("DS_Store") { continue }
 
-			for value in plist.allValues {
-				if let value = value as? String {
-					if value.hasSuffix(filePath.storageType) {
-						return URL(fileURLWithPath: subDirectoryPath).appendingPathComponent("File Provider Storage", isDirectory: true)
-					}
-				}
-			}
-		}
-		print("could not find folder of type '\(filePath)' in '\(containerPath)'")
-		return URL(fileURLWithPath: "")
-	}
+            let subDirectoryPath = containerPath + content
+            let plistUrl = URL(fileURLWithPath: subDirectoryPath)
 
-	func copyFilesFromProviders(_ providers: [NSItemProvider], toFilePath filePath: FilePathKind) -> Bool {
-		for provider in providers {
-			provider.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
-				if let urlData = urlData as? Data {
-					let sourceUrl = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-					do {
-						try FileManager.default.copyItem(at: sourceUrl, to: urlForFilePath(filePath).appendingPathComponent(sourceUrl.lastPathComponent))
-						NSSound(named: "Glass")?.play()
-					} catch {
-						NSSound(named: "Sosumi")?.play()
-						print(error.localizedDescription)
-					}
-				} else {
-					NSSound(named: "Sosumi")?.play()
-				}
-				sleep(1)	// if multiple files are dropped, allow user to distinguish success/error sounds
-			}
-		}
-		return true
-	}
+            guard let subDirectoryContents = try? FileManager.default.contentsOfDirectory(atPath: subDirectoryPath),
+                  let plistFile = subDirectoryContents.first(where: { $0.hasSuffix("plist")}),
+                  let plistData = try? Data(contentsOf: plistUrl.appendingPathComponent(plistFile)),
+                  let plist = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? NSDictionary else {
+                print("could not find or decode the plist file in '\(subDirectoryPath)'")
+                return URL(fileURLWithPath: "")
+            }
 
-	enum FilePathKind {
-		case root, files // photos is complicated, and you can't just drop files there anyway
+            for value in plist.allValues {
+                if let value = value as? String {
+                    if value.hasSuffix(filePath.storageType) {
+                        return URL(fileURLWithPath: subDirectoryPath).appendingPathComponent("File Provider Storage", isDirectory: true)
+                    }
+                }
+            }
+        }
+        print("could not find folder of type '\(filePath)' in '\(containerPath)'")
+        return URL(fileURLWithPath: "")
+    }
 
-		var storageType: String {
-			switch self {
-			case .root:
-				print("Storage type is not applicable to the root path")
-				return ""
-			case .files:
-				return "LocalStorage"
-			}
-		}
-	}
+    func copyFilesFromProviders(_ providers: [NSItemProvider], toFilePath filePath: FilePathKind) -> Bool {
+        for provider in providers {
+            provider.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
+                if let urlData = urlData as? Data {
+                    let sourceUrl = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                    do {
+                        try FileManager.default.copyItem(at: sourceUrl, to: urlForFilePath(filePath).appendingPathComponent(sourceUrl.lastPathComponent))
+                        NSSound(named: "Glass")?.play()
+                    } catch {
+                        NSSound(named: "Sosumi")?.play()
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    NSSound(named: "Sosumi")?.play()
+                }
+                sleep(1)	// if multiple files are dropped, allow user to distinguish success/error sounds
+            }
+        }
+        return true
+    }
 
+    enum FilePathKind {
+        case root, files // photos is complicated, and you can't just drop files there anyway
+
+        var storageType: String {
+            switch self {
+            case .root:
+                print("Storage type is not applicable to the root path")
+                return ""
+            case .files:
+                return "LocalStorage"
+            }
+        }
+    }
+}
+
+extension Simulator: Hashable {
     /// Sort simulators alphabetically, and then by OS version.
     static func < (lhs: Simulator, rhs: Simulator) -> Bool {
         if lhs.name == rhs.name,
@@ -184,7 +216,10 @@ struct Simulator: Identifiable, Comparable, Hashable {
         }
         return lhs.name < rhs.name
     }
+}
 
+/// Preview
+extension Simulator {
     /// An example simulator for Xcode preview purposes
     static let example = Simulator(name: "iPhone 11 Pro max", udid: UUID().uuidString, state: .booted, runtime: .unknown, deviceType: nil, dataPath: "<example data path>")
 

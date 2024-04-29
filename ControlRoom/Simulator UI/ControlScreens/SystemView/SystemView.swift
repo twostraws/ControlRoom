@@ -205,7 +205,7 @@ struct SystemView: View {
 	}
 
 	func openInFinder(_ filePath: Simulator.FilePathKind) {
-		NSWorkspace.shared.activateFileViewerSelecting([simulator.urlForFilePath(filePath)])
+		simulator.open(filePath)
 	}
 
 	func openInTerminal(_ filePath: Simulator.FilePathKind) {
