@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C09AF722BE8B4E800C303C0 /* SettingsView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
 		511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */; };
@@ -95,6 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+Extension.swift"; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -418,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				55AF68B423F9CFD600C5D87A /* SettingsView.swift */,
+				3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */,
 			);
 			path = "Settings UI";
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
 				51203A512A09588A00CBE517 /* Capture.swift in Sources */,
+				3C09AF722BE8B4E800C303C0 /* SettingsView+Extension.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */,
@@ -857,8 +861,11 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoom;
 				PRODUCT_NAME = "Control Room";
+				SUPPORTED_PLATFORMS = "macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Debug;
 		};
@@ -890,7 +897,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackingwithswift.ControlRoom;
 				PRODUCT_NAME = "Control Room";
+				SUPPORTED_PLATFORMS = "macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Release;
 		};
