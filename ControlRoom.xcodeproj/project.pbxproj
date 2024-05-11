@@ -10,6 +10,7 @@
 		3C13FF952BEF499400060A5C /* NotificationsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF942BEF499400060A5C /* NotificationsFormView.swift */; };
 		3C13FF972BEF4AAE00060A5C /* PickersFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */; };
 		3C13FF992BEF4C9200060A5C /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF982BEF4C9200060A5C /* ColorPickerView.swift */; };
+		3C13FF9B2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF9A2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift */; };
 		3CF07C312BEF48D200770363 /* TogglesFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF07C302BEF48D200770363 /* TogglesFormView.swift */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
@@ -102,6 +103,7 @@
 		3C13FF942BEF499400060A5C /* NotificationsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFormView.swift; sourceTree = "<group>"; };
 		3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickersFormView.swift; sourceTree = "<group>"; };
 		3C13FF982BEF4C9200060A5C /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		3C13FF9A2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToTerminalTextFieldView.swift; sourceTree = "<group>"; };
 		3CF07C302BEF48D200770363 /* TogglesFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglesFormView.swift; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				3C13FF942BEF499400060A5C /* NotificationsFormView.swift */,
 				3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */,
 				3C13FF982BEF4C9200060A5C /* ColorPickerView.swift */,
+				3C13FF9A2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift */,
 			);
 			path = "Settings UI";
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				5534158223FE0539005C0A41 /* Contributors.swift in Sources */,
+				3C13FF9B2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift in Sources */,
 				511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */,
 				551F8D0023F5CB3A0006D1BD /* SimCtl+Types.swift in Sources */,
 				511BA5A023F4197200E3E660 /* StatusBarView.swift in Sources */,

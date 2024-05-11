@@ -40,18 +40,12 @@ struct SettingsView: View {
                     Label("Colors", systemImage: "paintpalette")
                 }
 
-            Form {
-                TextField(
-                    "Path to Terminal",
-                    text: $preferences.terminalAppPath
-                )
-                .textFieldStyle(.roundedBorder)
-            }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .tabItem {
-                Label("Locations", systemImage: "externaldrive")
-            }
+            PathToTerminalTextFieldView()
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .tabItem {
+                    Label("Locations", systemImage: "externaldrive")
+                }
         }
         .frame(minWidth: 550)
     }
