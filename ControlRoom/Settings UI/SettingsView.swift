@@ -16,12 +16,14 @@ struct SettingsView: View {
     var body: some View {
         TabView {
             TogglesFormView()
+                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tabItem {
                     Label("Window", systemImage: "macwindow")
                 }
 
             NotificationsFormView()
+                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tabItem {
                     Label("Shortcuts", systemImage: "keyboard")
@@ -29,6 +31,7 @@ struct SettingsView: View {
 
             PickersFormView()
                 .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tabItem {
                     Label("Screenshots", systemImage: "camera.on.rectangle")
                 }
@@ -51,9 +54,7 @@ struct SettingsView: View {
     }
 }
 
-struct PreferencesView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-            .environmentObject(Preferences())
-    }
+#Preview {
+    SettingsView()
+        .environmentObject(Preferences())
 }
