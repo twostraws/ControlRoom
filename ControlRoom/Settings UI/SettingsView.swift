@@ -28,13 +28,13 @@ struct SettingsView: View {
 
     var body: some View {
         TabView {
-            makeTogglesForm()
+            TogglesFormView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tabItem {
                     Label("Window", systemImage: "macwindow")
                 }
 
-            makeNotificationsForm()
+            NotificationsFormView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tabItem {
                     Label("Shortcuts", systemImage: "keyboard")

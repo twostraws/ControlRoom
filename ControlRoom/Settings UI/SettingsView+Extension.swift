@@ -12,34 +12,6 @@ import KeyboardShortcuts
 // MARK: - Extracted Views
 
 extension SettingsView {
-    func makeTogglesForm() -> some View {
-        Form {
-            Toggle("Keep window on top", isOn: $preferences.wantsFloatingWindow)
-            Toggle("Show Default simulator", isOn: $preferences.showDefaultSimulator)
-            Toggle("Show booted devices first", isOn: $preferences.showBootedDevicesFirst)
-            Toggle("Show icon in menu bar", isOn: $preferences.wantsMenuBarIcon)
-        }
-    }
-
-    func makeNotificationsForm() -> some View {
-        Form {
-            HStack {
-                Text("Resend last push notification")
-                KeyboardShortcuts.Recorder(for: .resendLastPushNotification)
-            }
-
-            HStack {
-                Text("Restart last selected app")
-                KeyboardShortcuts.Recorder(for: .restartLastSelectedApp)
-            }
-
-            HStack {
-                Text("Reopen last URL")
-                KeyboardShortcuts.Recorder(for: .reopenLastURL)
-            }
-        }
-    }
-
     func makePickersForm() -> some View {
         Form {
             Picker("Screenshot Format:", selection: $captureSettings.imageFormat) {
