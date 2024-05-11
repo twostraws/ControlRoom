@@ -10,9 +10,6 @@ import KeyboardShortcuts
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var preferences: Preferences
-    @Environment(\.presentationMode) var presentationMode
-
     var body: some View {
         TabView {
             TogglesFormView()
