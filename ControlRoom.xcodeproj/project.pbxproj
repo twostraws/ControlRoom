@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C09AF722BE8B4E800C303C0 /* SettingsView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */; };
 		3C13FF952BEF499400060A5C /* NotificationsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF942BEF499400060A5C /* NotificationsFormView.swift */; };
 		3C13FF972BEF4AAE00060A5C /* PickersFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */; };
+		3C13FF992BEF4C9200060A5C /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF982BEF4C9200060A5C /* ColorPickerView.swift */; };
 		3CF07C312BEF48D200770363 /* TogglesFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF07C302BEF48D200770363 /* TogglesFormView.swift */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
@@ -99,9 +99,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+Extension.swift"; sourceTree = "<group>"; };
 		3C13FF942BEF499400060A5C /* NotificationsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFormView.swift; sourceTree = "<group>"; };
 		3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickersFormView.swift; sourceTree = "<group>"; };
+		3C13FF982BEF4C9200060A5C /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		3CF07C302BEF48D200770363 /* TogglesFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglesFormView.swift; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
@@ -426,10 +426,10 @@
 			isa = PBXGroup;
 			children = (
 				55AF68B423F9CFD600C5D87A /* SettingsView.swift */,
-				3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */,
 				3CF07C302BEF48D200770363 /* TogglesFormView.swift */,
 				3C13FF942BEF499400060A5C /* NotificationsFormView.swift */,
 				3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */,
+				3C13FF982BEF4C9200060A5C /* ColorPickerView.swift */,
 			);
 			path = "Settings UI";
 			sourceTree = "<group>";
@@ -649,13 +649,13 @@
 				3C13FF952BEF499400060A5C /* NotificationsFormView.swift in Sources */,
 				51AB56E92A141055002B5A67 /* ColorsView.swift in Sources */,
 				51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */,
+				3C13FF992BEF4C9200060A5C /* ColorPickerView.swift in Sources */,
 				51AB56ED2A143B90002B5A67 /* Double-Rounding.swift in Sources */,
 				55DF68BB23F8BE8D00E717D3 /* CreateSimulatorActionSheet.swift in Sources */,
 				515E56DF2A14499B003B4F5A /* XcodeColorSet.swift in Sources */,
 				551F8CF923F4C45A0006D1BD /* SimulatorSidebarView.swift in Sources */,
 				54C2092827DBDB6F00E47016 /* DocumentPicker.swift in Sources */,
 				51203A512A09588A00CBE517 /* Capture.swift in Sources */,
-				3C09AF722BE8B4E800C303C0 /* SettingsView+Extension.swift in Sources */,
 				511BA59C23F4172400E3E660 /* SystemView.swift in Sources */,
 				54C2092D27DBDE7500E47016 /* UTType+Extension.swift in Sources */,
 				511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */,

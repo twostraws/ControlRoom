@@ -13,12 +13,6 @@ struct SettingsView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.presentationMode) var presentationMode
 
-    /// How many decimal places to use for rounding picked colors.
-    @AppStorage("CRColorPickerAccuracy") var colorPickerAccuracy = 2
-
-    /// Whether hex strings should be printed in uppercase or not.
-    @AppStorage("CRColorPickerUppercaseHex") var uppercaseHex = true
-
     var body: some View {
         TabView {
             TogglesFormView()
@@ -39,7 +33,7 @@ struct SettingsView: View {
                     Label("Screenshots", systemImage: "camera.on.rectangle")
                 }
 
-            makeColorPicker()
+            ColorPickerView()
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tabItem {
