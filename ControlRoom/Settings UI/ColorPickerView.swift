@@ -14,7 +14,7 @@ struct ColorPickerView: View {
 
     /// How many decimal places to use for rounding picked colors.
     @AppStorage("CRColorPickerAccuracy") var colorPickerAccuracy = 2
-    
+
     var body: some View {
         VStack {
             Toggle("Uppercase Hex Strings", isOn: $uppercaseHex)
