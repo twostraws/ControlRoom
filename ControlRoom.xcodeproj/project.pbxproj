@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C09AF722BE8B4E800C303C0 /* SettingsView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */; };
 		3C13FF952BEF499400060A5C /* NotificationsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF942BEF499400060A5C /* NotificationsFormView.swift */; };
+		3C13FF972BEF4AAE00060A5C /* PickersFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */; };
 		3CF07C312BEF48D200770363 /* TogglesFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF07C302BEF48D200770363 /* TogglesFormView.swift */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
@@ -100,6 +101,7 @@
 /* Begin PBXFileReference section */
 		3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+Extension.swift"; sourceTree = "<group>"; };
 		3C13FF942BEF499400060A5C /* NotificationsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFormView.swift; sourceTree = "<group>"; };
+		3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickersFormView.swift; sourceTree = "<group>"; };
 		3CF07C302BEF48D200770363 /* TogglesFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglesFormView.swift; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				3C09AF712BE8B4E800C303C0 /* SettingsView+Extension.swift */,
 				3CF07C302BEF48D200770363 /* TogglesFormView.swift */,
 				3C13FF942BEF499400060A5C /* NotificationsFormView.swift */,
+				3C13FF962BEF4AAE00060A5C /* PickersFormView.swift */,
 			);
 			path = "Settings UI";
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 				551F8CF523F4AF7B0006D1BD /* SearchField.swift in Sources */,
 				AC472CCF240D46D7007FF521 /* KeyedEncodingContainer-NotEmpty.swift in Sources */,
 				51AB56E72A140D53002B5A67 /* NSColor-Conversions.swift in Sources */,
+				3C13FF972BEF4AAE00060A5C /* PickersFormView.swift in Sources */,
 				5FA79DA92A5752A9006F5477 /* XcodeHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

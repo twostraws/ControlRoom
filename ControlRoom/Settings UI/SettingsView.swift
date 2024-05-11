@@ -13,13 +13,6 @@ struct SettingsView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.presentationMode) var presentationMode
 
-    /// The user's settings for capturing
-    @AppStorage("captureSettings") var captureSettings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored)
-
-    /// Whether the user wants us to render device bezels around their screenshots.
-    /// Note: this requires a mask of alpha, so we enforce that when true.
-    @AppStorage("renderChrome") var renderChrome = false
-
     /// How many decimal places to use for rounding picked colors.
     @AppStorage("CRColorPickerAccuracy") var colorPickerAccuracy = 2
 
@@ -40,7 +33,7 @@ struct SettingsView: View {
                     Label("Shortcuts", systemImage: "keyboard")
                 }
 
-            makePickersForm()
+            PickersFormView()
                 .padding()
                 .tabItem {
                     Label("Screenshots", systemImage: "camera.on.rectangle")
@@ -67,12 +60,6 @@ struct SettingsView: View {
             }
         }
         .frame(minWidth: 550)
-    }
-
-    func updateChromeSettings() {
-        if renderChrome {
-            captureSettings.mask = .alpha
-        }
     }
 }
 
