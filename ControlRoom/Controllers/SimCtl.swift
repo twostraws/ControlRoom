@@ -105,7 +105,12 @@ enum SimCtl: CommandLineCommandExecuter {
     }
 
     static func overrideStatusBarTime(_ simulator: String, time: Date) {
-        let timeString = ISO8601DateFormatter().string(from: time)
+        // Use only time for now since ISO8601 parsing is broken since Xcode 15.3
+        // https://stackoverflow.com/a/59071895
+        // let timeString = ISO8601DateFormatter().string(from: time)
+        let timeOnlyFormatter = DateFormatter()
+        timeOnlyFormatter.dateFormat = "hh:mm"
+        let timeString = timeOnlyFormatter.string(from: time)
         execute(.statusBar(deviceId: simulator, operation: .override([.time(timeString)])))
     }
     static func setAppearance(_ simulator: String, appearance: UI.Appearance) {
