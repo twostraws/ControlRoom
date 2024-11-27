@@ -123,12 +123,14 @@ private extension DeepLinkEditorView {
                     Button("Cancel", role: .cancel) {
                         dismiss()
                     }
+                    .focusable()
                     .keyboardShortcut(.escape)
                     
                     Button("Save") {
                         deepLinks.edit(deepLink, name: name, url: url)
                         dismiss()
                     }
+                    .focusable()
                     .keyboardShortcut(.return)
                 }
             }
