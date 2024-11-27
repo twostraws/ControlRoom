@@ -46,6 +46,11 @@ struct DeepLinkEditorView: View {
                     TableColumn("Name", value: \.name)
                     TableColumn("URL", value: \.url.absoluteString)
                 }
+                .contextMenu(forSelectionType: DeepLink.ID.self) { _ in
+                    
+                } primaryAction: { _ in
+                    showingEditSheet.toggle()
+                }
             }
 
             HStack {
