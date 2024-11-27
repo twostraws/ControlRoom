@@ -58,6 +58,11 @@ struct DeepLinkEditorView: View {
                 }
                 .disabled(selection == nil)
                 
+                Button("Duplicate") {
+                    duplicateSelected()
+                }
+                .disabled(selection == nil)
+                
                 Button("Delete") {
                     deleteSelected()
                 }
@@ -97,6 +102,12 @@ struct DeepLinkEditorView: View {
     func deleteSelected() {
         deepLinks.delete(selection)
         selection = nil
+    }
+    
+    func duplicateSelected() {
+        if let link = deepLinks.link(selection) {
+            deepLinks.create(name: link.name + " (copy)", url: link.url.absoluteString)
+        }
     }
 }
 
