@@ -46,6 +46,29 @@ class DeepLinksController: ObservableObject {
             save()
         }
     }
+    
+    /// Updates an existing DeepLink with the new name and URL. No changes are made if the `itemID` is `nil`, a matching
+    /// DeepLink cannot be found or if the new stringified URL fails construction as a `URL`.
+    /// - Parameters:
+    ///   - itemID: The identifier of the link that needs to be updated.
+    ///   - name: The updated name for this link.
+    ///   - url: The updated stringified URL for the deep link.
+    func edit(_ itemID: DeepLink.ID?, name: String, url: String) {
+        guard
+            let itemID,
+            let index = links.firstIndex(where: { $0.id == itemID }),
+            let verifiedURL = URL(string: url)
+        else {
+            return
+        }
+        
+        var link = links[index]
+        link.name = name
+        link.url = verifiedURL
+        links[index] = link
+        
+        save()
+    }
 
     /// Deletes a DeepLink instance based on its ID.
     /// - Parameter itemID: The identifier of the link we want to delete.
@@ -65,5 +88,15 @@ class DeepLinksController: ObservableObject {
     func sort(using comparator: [KeyPathComparator<DeepLink>]) {
         links.sort(using: comparator)
         save()
+    }
+    
+    /// Finds the first deep link matching the desired DeepLink.ID
+    /// - Parameter itemID: The identifier to search for.
+    /// - Returns: The first matching DeepLink if one is found. Returns `nil` if no matching link is found or if
+    /// `itemID` parameter is `nil`.
+    func link(_ itemID: DeepLink.ID?) -> DeepLink? {
+        guard let itemID else { return nil }
+        
+        return links.first(where: { $0.id == itemID })
     }
 }
