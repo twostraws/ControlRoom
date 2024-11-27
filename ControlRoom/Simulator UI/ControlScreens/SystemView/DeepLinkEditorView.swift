@@ -26,6 +26,9 @@ struct DeepLinkEditorView: View {
 
     /// Whether we are currently showing the alert to let the user add a new deep link.
     @State private var showingAddAlert = false
+    
+    /// Whether we are currently showing the sheet to let the user edit an existing deep link.
+    @State private var showingEditSheet = false
 
     var body: some View {
         VStack {
@@ -49,10 +52,17 @@ struct DeepLinkEditorView: View {
                 Button("Add New") {
                     showingAddAlert.toggle()
                 }
+                
+                Button("Edit") {
+                    showingEditSheet.toggle()
+                }
+                .disabled(selection == nil)
+                
                 Button("Delete") {
                     deleteSelected()
                 }
                 .disabled(selection == nil)
+                
                 Spacer()
                 Button("Done") { dismiss() }
             }
@@ -68,6 +78,9 @@ struct DeepLinkEditorView: View {
         } message: {
             Text("Make sure you include a schema, e.g. https:// or yourapp://")
         }
+        .sheet(isPresented: $showingEditSheet, content: {
+            EditDeepLinkView(deepLink: $selection)
+        })
         .onChange(of: sortOrder) { newOrder in
             deepLinks.sort(using: newOrder)
         }
@@ -84,6 +97,47 @@ struct DeepLinkEditorView: View {
     func deleteSelected() {
         deepLinks.delete(selection)
         selection = nil
+    }
+}
+
+private extension DeepLinkEditorView {
+    struct EditDeepLinkView: View {
+        @EnvironmentObject private var deepLinks: DeepLinksController
+        @Environment(\.dismiss) private var dismiss
+
+        @Binding var deepLink: DeepLink.ID?
+        @State private var name: String = ""
+        @State private var url: String = ""
+        
+        var body: some View {
+            VStack {
+                Text("Edit Deep Link")
+                    .font(.title)
+                
+                TextField("Name", text: $name)
+                TextField("URL", text: $url)
+                
+                HStack {
+                    Spacer()
+                    
+                    Button("Cancel", role: .cancel) {
+                        dismiss()
+                    }
+                    
+                    Button("Save") {
+                        deepLinks.edit(deepLink, name: name, url: url)
+                        dismiss()
+                    }
+                }
+            }
+            .onAppear {
+                if let link = deepLinks.link(deepLink) {
+                    self.name = link.name
+                    self.url = link.url.absoluteString
+                }
+            }
+            .padding()
+        }
     }
 }
 
