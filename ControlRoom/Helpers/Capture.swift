@@ -14,17 +14,19 @@ struct CaptureSettings {
     var videoFormat: SimCtl.IO.VideoFormat
     var display: SimCtl.IO.Display
     var mask: SimCtl.IO.Mask
+    var saveURL: SimCtl.IO.SaveLocation
 }
 
 extension CaptureSettings: RawRepresentable {
     public init(rawValue: String) {
         let components = rawValue.components(separatedBy: "~")
 
-        guard components.count == 4 else {
+        guard components.count == 5 else {
             imageFormat = .png
             videoFormat = .h264
             display = .internal
             mask = .ignored
+            saveURL = .desktop
             return
         }
 
@@ -32,10 +34,11 @@ extension CaptureSettings: RawRepresentable {
         videoFormat = SimCtl.IO.VideoFormat(rawValue: components[1]) ?? .h264
         display = SimCtl.IO.Display(rawValue: components[2]) ?? .internal
         mask = SimCtl.IO.Mask(rawValue: components[3]) ?? .ignored
+        saveURL = SimCtl.IO.SaveLocation(rawValue: components[4])
     }
 
     public var rawValue: String {
-        let result = "\(imageFormat.rawValue)~\(videoFormat.rawValue)~\(display.rawValue)~\(mask.rawValue)"
+        let result = "\(imageFormat.rawValue)~\(videoFormat.rawValue)~\(display.rawValue)~\(mask.rawValue)~\(saveURL.rawValue)"
         return result
     }
 }
