@@ -10,11 +10,12 @@ import SwiftUI
 
 struct PickersFormView: View {
     /// The user's settings for capturing
-    @AppStorage("captureSettings") var captureSettings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored)
+    @AppStorage("captureSettings") var captureSettings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored, saveURL: .desktop)
 
     /// Whether the user wants us to render device bezels around their screenshots.
     /// Note: this requires a mask of alpha, so we enforce that when true.
     @AppStorage("renderChrome") var renderChrome = false
+    @State private var showFileImporter = false
 
     var body: some View {
         Form {
@@ -47,6 +48,10 @@ struct PickersFormView: View {
             }
             .disabled(renderChrome)
 
+          Button("Save to: \(captureSettings.saveURL.rawValue)") {
+            showFileImporter = true
+          }
+
             Toggle(isOn: $renderChrome.onChange(updateChromeSettings)) {
                 VStack(alignment: .leading) {
                     Text("Add device chrome to screenshots")
@@ -54,6 +59,14 @@ struct PickersFormView: View {
                         .font(.caption)
                 }
             }
+        }
+        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.directory]) { result in
+          switch result {
+          case .success(let success):
+            captureSettings.saveURL = .other(success)
+          case .failure:
+            captureSettings.saveURL = .desktop
+          }
         }
     }
     

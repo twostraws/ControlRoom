@@ -11,7 +11,7 @@ import SwiftUI
 /// Handles all screenshotting and video creation.
 class CaptureController: ObservableObject {
     /// The user's settings for capturing
-    @AppStorage("captureSettings") var settings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored)
+  @AppStorage("captureSettings") var settings = CaptureSettings(imageFormat: .png, videoFormat: .h264, display: .internal, mask: .ignored, saveURL: .desktop)
 
     /// The currently active recording process, if it exists. We don't need to monitor this, just keep it alive.
     @Published var recordingProcess: Process?
@@ -74,7 +74,7 @@ class CaptureController: ObservableObject {
 
         let dateString = formatter.string(from: Date.now)
 
-        return URL.desktopDirectory.appending(path: "ControlRoom-\(dateString).\(format.rawValue)")
+      return settings.saveURL.url.appending(path: "ControlRoom-\(dateString).\(format.rawValue)")
     }
 
     /// Starts recording video of the device, saving it to the desktop.
@@ -97,8 +97,7 @@ class CaptureController: ObservableObject {
 
         let sourceURL = FileManager.default.temporaryDirectory.appendingPathComponent(recordingFilename)
 
-        let paths = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
-        let savePath = paths[0].appendingPathComponent(recordingFilename).path
+        let savePath = settings.saveURL.url.appendingPathComponent(recordingFilename).path
 
         let format = videoFormat.name
 
