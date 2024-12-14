@@ -232,7 +232,7 @@ struct SystemView_Previews: PreviewProvider {
     static var previews: some View {
 		let preferences = Preferences()
 
-		SystemView(simulator: .example, controller: SimulatorsController(preferences: preferences))
+		SystemView(simulator: .example)
 			.environmentObject(preferences)
     }
 }

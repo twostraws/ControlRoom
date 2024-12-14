@@ -21,7 +21,7 @@ struct ControlView: View {
 
     var body: some View {
         TabView {
-            SystemView(simulator: simulator, controller: controller)
+            SystemView(simulator: simulator)
                 .disabled(simulator.state != .booted)
             SnapshotsView(simulator: simulator, controller: controller)
             Group {
