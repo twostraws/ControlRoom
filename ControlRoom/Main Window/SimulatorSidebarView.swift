@@ -66,6 +66,7 @@ struct SimulatorSidebarView: View {
                 Button("Rename...") { action = .rename }
                 Button("Clone...") { action = .clone }
                     .disabled(simulator.state == .booted)
+                Button("Create snapshot...") { performAction(.createSnapshot) }
                 Button("Delete...") { action = .delete }
                 Divider()
                 Button("Open in Finder") { performAction(.openRoot) }
@@ -73,7 +74,7 @@ struct SimulatorSidebarView: View {
         )
         .sheet(item: $action) { action in
             switch action {
-            case .power, .openRoot:
+            case .power, .openRoot, .createSnapshot:
                 EmptyView()
             case .rename, .clone:
                 SimulatorActionSheet(
@@ -104,6 +105,7 @@ struct SimulatorSidebarView: View {
         switch action {
         case .rename: SimCtl.rename(simulator.udid, name: newName)
         case .clone: SimCtl.clone(simulator.udid, name: newName)
+        case .createSnapshot: SnapshotCtl.createSnapshot(deviceId: simulator.udid, snapshotName: UUID().uuidString)
         case .delete: SimCtl.delete([simulator.udid])
         case .power:
             if simulator.state == .booted {
