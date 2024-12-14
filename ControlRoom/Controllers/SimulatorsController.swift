@@ -35,12 +35,16 @@ class SimulatorsController: ObservableObject {
 
     /// An array of all the applications installed on the selected simulator.
     @Published var applications = [Application]()
+    
+    /// An array of all the snapshots of the selected simulator.
+    @Published var snapshots = [Snapshot]()
 
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
 
     private(set) var deviceTypes = [DeviceType]()
     private(set) var runtimes = [Runtime]()
+    private var timer: Timer?
 
     @AppStorage("CRSidebar_FilterText") private var filterText = ""
 
@@ -49,7 +53,10 @@ class SimulatorsController: ObservableObject {
     /// to delete several at a time.
     var selectedSimulatorIDs = Set<String>() {
         willSet { objectWillChange.send() }
-        didSet { loadApplications() }
+        didSet {
+            loadApplications()
+            loadSnapshots()
+        }
     }
 
     var selectedSimulators: [Simulator] {
@@ -131,6 +138,10 @@ class SimulatorsController: ObservableObject {
                                     dataPath: device.dataPath ?? "")
                 final.append(sim)
             }
+            
+            if let device = devices.first {
+                SnapshotCtl.configureDevicesPath(dataPath: device.dataPath)
+            }
         }
 
         objectWillChange.send()
@@ -200,4 +211,32 @@ class SimulatorsController: ObservableObject {
             .assign(to: \.applications, on: self)
             .store(in: &cancellables)
     }
+    
+    private func loadSnapshots() {
+        guard
+            let selectedDeviceUDID = selectedSimulatorIDs.first
+            else { return }
+        
+        DispatchQueue.main.async {
+            self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
+        }
+
+        timer?.invalidate()
+        
+        timer = .init(timeInterval: 5, repeats: true) { _ in
+            DispatchQueue.main.async {
+                self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
+            }
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let timer = self?.timer else { return }
+            
+            let runLoop = RunLoop.current
+            runLoop.add(timer, forMode: .default)
+            runLoop.run()
+        }
+
+    }
+    
 }

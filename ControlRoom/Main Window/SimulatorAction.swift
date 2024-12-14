@@ -12,6 +12,7 @@ enum Action: Int, Identifiable {
     case power
     case rename
     case clone
+    case createSnapshot
     case delete
     case openRoot
 
@@ -22,6 +23,7 @@ enum Action: Int, Identifiable {
         case .power: ""
         case .rename: "Rename Simulator"
         case .clone: "Clone Simulator"
+        case .createSnapshot: "Create Snapshot"
         case .delete: "Delete Simulator"
         case .openRoot: ""
         }
@@ -32,6 +34,7 @@ enum Action: Int, Identifiable {
         case .power: ""
         case .rename: "Enter a new name for this simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify."
         case .clone: "Enter a name for the new simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify."
+        case .createSnapshot: ""
         case .delete: "Are you sure you want to delete this simulator? You will not be able to undo this action."
         case .openRoot: ""
         }
@@ -42,6 +45,7 @@ enum Action: Int, Identifiable {
         case .power: "Power"
         case .rename: "Rename"
         case .clone: "Clone"
+        case .createSnapshot: "Create"
         case .delete: "Delete"
         case .openRoot: ""
         }
