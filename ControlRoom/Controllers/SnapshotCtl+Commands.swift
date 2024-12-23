@@ -27,6 +27,10 @@ extension SnapshotCtl {
             Command("/bin/mkdir", arguments:["-p", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)"])
         }
         
+        /// Open app
+        static func open(app: String) -> Command {
+            Command("/usr/bin/open", arguments: ["-a", app])
+        }
     }
     
 }

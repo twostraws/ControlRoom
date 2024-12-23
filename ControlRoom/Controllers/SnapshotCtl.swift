@@ -93,10 +93,16 @@ enum SnapshotCtl: CommandLineCommandExecuter {
         }
     }
     
+    static func startSimulatorApp(completion: @escaping (() -> Void)) {
+        execute(.open(app: "Simulator.app")) { _ in
+            return completion()
+        }
+    }
+
     private static func getSnapshotAttributes(_ snapshotPath: String) -> URLFileAttribute {
         let snapshotURL: URL = URL(fileURLWithPath: snapshotPath)
         let snapshotAttributes = URLFileAttribute(url: snapshotURL)
         return snapshotAttributes
     }
-        
+    
 }
