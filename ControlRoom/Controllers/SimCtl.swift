@@ -42,7 +42,13 @@ enum SimCtl: CommandLineCommandExecuter {
     }
 
     static func boot(_ simulator: Simulator) {
-        execute(.boot(simulator: simulator))
+        /// No need to check if Simulator app is already running since no second SImulator app will be spawned
+        SnapshotCtl.startSimulatorApp {
+            /// Wait for a little while Simulator app starts running, then proceed to boot simulator
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                execute(.boot(simulator: simulator))
+            }
+        }
     }
 
     static func shutdown(_ simulator: String, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
