@@ -157,6 +157,13 @@ struct StatusBarView: View {
 
     private func clearOverrides() {
         SimCtl.clearStatusBarOverrides(simulator.udid)
+        dataNetwork = .wifi
+        wiFiBar = .three
+        cellularMode = .active
+        cellularBar = .four
+        batteryLevel = 100.0
+        batteryState = .charged
+        carrierName = "Carrier"
     }
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually, but
