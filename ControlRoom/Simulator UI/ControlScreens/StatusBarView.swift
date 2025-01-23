@@ -37,7 +37,7 @@ struct StatusBarView: View {
 
     /// The current battery state of the device; must be "Charging", "Charged", or "Discharging"
     /// Note: "Charged" looks the same as "Discharging", so it's not included in this screen.
-    @State private var batteryState: SimCtl.StatusBar.BatteryState = .charging
+    @State private var batteryState: SimCtl.StatusBar.BatteryState = .charged
 
     var body: some View {
         ScrollView {
