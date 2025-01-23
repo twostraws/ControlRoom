@@ -47,6 +47,8 @@ struct StatusBarView: View {
                         DatePicker("Time:", selection: $time)
                         Button("Set", action: setTime)
                         Button("Set to 9:41", action: setAppleTime)
+                        Spacer()
+                        Button("Clear overrides", action: clearOverrides)
                     }
                 }
 
@@ -151,6 +153,10 @@ struct StatusBarView: View {
         SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
 
         time = appleTime
+    }
+
+    private func clearOverrides() {
+        SimCtl.clearStatusBarOverrides(simulator.udid)
     }
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually, but

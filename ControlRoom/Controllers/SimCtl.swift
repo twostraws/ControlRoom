@@ -113,6 +113,10 @@ enum SimCtl: CommandLineCommandExecuter {
         ])))
     }
 
+    static func clearStatusBarOverrides(_ simulator: String) {
+        execute(.statusBar(deviceId: simulator, operation: .clear))
+    }
+
     static func overrideStatusBarTime(_ simulator: String, time: Date) {
         // Use only time for now since ISO8601 parsing is broken since Xcode 15.3
         // https://stackoverflow.com/a/59071895
