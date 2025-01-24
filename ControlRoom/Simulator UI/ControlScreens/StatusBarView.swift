@@ -37,7 +37,7 @@ struct StatusBarView: View {
 
     /// The current battery state of the device; must be "Charging", "Charged", or "Discharging"
     /// Note: "Charged" looks the same as "Discharging", so it's not included in this screen.
-    @State private var batteryState: SimCtl.StatusBar.BatteryState = .charging
+    @State private var batteryState: SimCtl.StatusBar.BatteryState = .charged
 
     var body: some View {
         ScrollView {
@@ -47,6 +47,8 @@ struct StatusBarView: View {
                         DatePicker("Time:", selection: $time)
                         Button("Set", action: setTime)
                         Button("Set to 9:41", action: setAppleTime)
+                        Spacer()
+                        Button("Clear overrides", action: clearOverrides)
                     }
                 }
 
@@ -151,6 +153,17 @@ struct StatusBarView: View {
         SimCtl.overrideStatusBarTime(simulator.udid, time: appleTime)
 
         time = appleTime
+    }
+
+    private func clearOverrides() {
+        SimCtl.clearStatusBarOverrides(simulator.udid)
+        dataNetwork = .wifi
+        wiFiBar = .three
+        cellularMode = .active
+        cellularBar = .four
+        batteryLevel = 100.0
+        batteryState = .charged
+        carrierName = "Carrier"
     }
 
     /// Sends status bar updates all at once; simctl gets unhappy if we send them individually, but
