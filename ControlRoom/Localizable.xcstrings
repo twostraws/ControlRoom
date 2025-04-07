@@ -1,0 +1,2137 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
+    },
+    "(Requires Reboot)" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(يتطلب إعادة تشغيل)"
+          }
+        }
+      }
+    },
+    "@%@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@%@"
+          }
+        }
+      }
+    },
+    "**Tip:** You can drag any of the colors from here directly into an Xcode asset catalog ✨" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**نصيحة:** يمكنك سحب أي من الألوان من هنا مباشرة إلى Xcode ✨"
+          }
+        }
+      }
+    },
+    "%@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "%@ – %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ - %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ – %2$@"
+          }
+        }
+      }
+    },
+    "0%" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0%"
+          }
+        }
+      }
+    },
+    "100%" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100%"
+          }
+        }
+      }
+    },
+    "About Control Room" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عن كنترول روم"
+          }
+        }
+      }
+    },
+    "Accessibility overrides" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجاوزات إمكانية الوصول"
+          }
+        }
+      }
+    },
+    "Activate" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفعيل"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أضف"
+          }
+        }
+      }
+    },
+    "Add device chrome to screenshots" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أظهر حدود الجهاز في لقطات الشاشة"
+          }
+        }
+      }
+    },
+    "Add New" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة جديدة"
+          }
+        }
+      }
+    },
+    "Add new deep link" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أضف رابطًا عميقًا جديدًا"
+          }
+        }
+      }
+    },
+    "Alert" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيه"
+          }
+        }
+      }
+    },
+    "App" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التطبيق"
+          }
+        }
+      }
+    },
+    "App Data" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بيانات التطبيق"
+          }
+        }
+      }
+    },
+    "Appearance:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المظهر:"
+          }
+        }
+      }
+    },
+    "Application:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التطبيق:"
+          }
+        }
+      }
+    },
+    "Aps" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إشعارات أبل"
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete all unavailable simulators?" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل أنت متأكد أنك تريد حذف كل المحاكيات الغير متوفرة؟"
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete the selected simulators? You will not be able to undo this action." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل أنت متأكد من أنك تريد حذف أجهزة المحاكاة المحددة؟ لن تتمكن من التراجع عن هذا الإجراء."
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete this simulator? You will not be able to undo this action." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل أنت متأكد من أنك تريد حذف جهاز المحاكاة هذا؟ لن تتمكن من التراجع عن هذا الإجراء."
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete this snapshot? You will not be able to undo this action." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل أنت متأكد من أنك تريد حذف هذه اللقطة؟ لن تتمكن من التراجع عن هذا الإجراء."
+          }
+        }
+      }
+    },
+    "Are you sure you want to discard the changes?" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل انت متأكد أنك تريد تجاهل التغييرات؟"
+          }
+        }
+      }
+    },
+    "Are you sure you want to permanently delete %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل أنت متأكد انك تريد حذف %@ نهائيًا ؟"
+          }
+        }
+      }
+    },
+    "Are you sure you want to restore this snapshot? You will not be able to undo this action." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل أنت متأكد من أنك تريد استعادة هذه اللقطة؟ لن تتمكن من التراجع عن هذا الإجراء."
+          }
+        }
+      }
+    },
+    "Battery state:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حالة البطارية:"
+          }
+        }
+      }
+    },
+    "Bold Text" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خط عريض"
+          }
+        }
+      }
+    },
+    "Boot" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تشغيل"
+          }
+        }
+      }
+    },
+    "Build %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بناء %@"
+          }
+        }
+      }
+    },
+    "Built thanks to the contributions of:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم بناؤه بمساعدة كلٍ من :"
+          }
+        }
+      }
+    },
+    "Button Shapes" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أشكال الأزرار"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء"
+          }
+        }
+      }
+    },
+    "Cellular bars:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أشرطة الخلوي:"
+          }
+        }
+      }
+    },
+    "Cellular mode:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الوضع الخلوي:"
+          }
+        }
+      }
+    },
+    "Choose the device type and operating system for the new simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر نوع الجهاز ونظام التشغيل لجهاز المحاكاة الجديد"
+          }
+        }
+      }
+    },
+    "Clear overrides" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح التجاوزات"
+          }
+        }
+      }
+    },
+    "Clear Restoration State" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح حالة استعادة"
+          }
+        }
+      }
+    },
+    "Clone" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استنساخ"
+          }
+        }
+      }
+    },
+    "Clone Simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استنساخ المحاكي"
+          }
+        }
+      }
+    },
+    "Clone..." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استنساخ..."
+          }
+        }
+      }
+    },
+    "Color" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لون"
+          }
+        }
+      }
+    },
+    "Colors" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الألوان"
+          }
+        }
+      }
+    },
+    "Confirm" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأكيد"
+          }
+        }
+      }
+    },
+    "Content size:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حجم المحتوى:"
+          }
+        }
+      }
+    },
+    "Control Room" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كنترول روم"
+          }
+        }
+      }
+    },
+    "Coordinates: %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إحداثيات: %@"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ"
+          }
+        }
+      }
+    },
+    "Copy pasteboard:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ لوحة اللصق:"
+          }
+        }
+      }
+    },
+    "Create" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء"
+          }
+        }
+      }
+    },
+    "Create named deep links or other URLs to make them easier to open repeatedly inside Control Room. **Tip:** Adjusting the sort order adjusts the order here, in the System tab, and in the menu bar list." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قم بإنشاء روابط عميقة مسماة أو عناوين URL أخرى لتسهيل فتحها بشكل متكرر داخل غرفة التحكم. **نصيحة:** يقوم ضبط ترتيب الفرز بضبط الترتيب هنا، وفي علامة التبويب النظام، وفي قائمة شريط القوائم."
+          }
+        }
+      }
+    },
+    "Create Simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء محاكي"
+          }
+        }
+      }
+    },
+    "Create Snapshot" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء لقطة"
+          }
+        }
+      }
+    },
+    "Create snapshot..." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء لقطة…"
+          }
+        }
+      }
+    },
+    "Current battery percentage: %@%%" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النسبة الحالية للبطارية %@%%"
+          }
+        }
+      }
+    },
+    "Current battery percentage: %lld%%" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النسبة الحالية للبطارية %lld%%"
+          }
+        }
+      }
+    },
+    "Customize…" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تخصيص..."
+          }
+        }
+      }
+    },
+    "Data:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البيانات:"
+          }
+        }
+      }
+    },
+    "Decimal Places: %lld" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأماكن العشرية: %lld"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف"
+          }
+        }
+      }
+    },
+    "Delete Simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف المحاكي"
+          }
+        }
+      }
+    },
+    "Delete Simulators?" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف كل أجهزة المحاكاة؟"
+          }
+        }
+      }
+    },
+    "Delete Snapshot" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف اللقطة"
+          }
+        }
+      }
+    },
+    "Delete the app" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف التطبيق"
+          }
+        }
+      }
+    },
+    "Delete..." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف…"
+          }
+        }
+      }
+    },
+    "Device" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جهاز"
+          }
+        }
+      }
+    },
+    "Device ID:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معرف الجهاز:"
+          }
+        }
+      }
+    },
+    "Device:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الجهاز:"
+          }
+        }
+      }
+    },
+    "Differentiate Without Color" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التفريق بدون لون"
+          }
+        }
+      }
+    },
+    "Disable Logging" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعطيل التسجيل"
+          }
+        }
+      }
+    },
+    "Discard" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجاهل"
+          }
+        }
+      }
+    },
+    "Discard changes" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجاهل التغييرات"
+          }
+        }
+      }
+    },
+    "Display:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الشاشة:"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم"
+          }
+        }
+      }
+    },
+    "Drag file(s) here to copy them to each simulator's Files directory.\n(booted simulators only)" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسحب الملف (الملفات) هنا لنسخها إلى دليل ملفات كل جهاز محاكاة.\n\n(المحاكاة التي تم تشغيلها فقط)"
+          }
+        }
+      }
+    },
+    "Drag files here to copy" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسحب الملفات هنا لنسخها"
+          }
+        }
+      }
+    },
+    "Drop to copy" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسحب للنسخ"
+          }
+        }
+      }
+    },
+    "Duplicate" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحرير"
+          }
+        }
+      }
+    },
+    "Edit Deep Link" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحرير الرابط العميق"
+          }
+        }
+      }
+    },
+    "Edit UserDefaults" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحرير الـ UserDefaults"
+          }
+        }
+      }
+    },
+    "Enable Logging" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفعيل التسجيل"
+          }
+        }
+      }
+    },
+    "Enter a name for the new simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل اسما لجهاز المحاكاة الجديد. قد يكون هو نفس اسم جهاز محاكاة موجود، ولكن الاسم الفريد سيجعل من السهل التعرف عليه."
+          }
+        }
+      }
+    },
+    "Enter a new name for this simulator. It may be the same as the name of an existing simulator, but a unique name will make it easier to identify." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل اسما جديدا لهذا المحاكي. قد يكون هو نفس اسم جهاز محاكاة موجود، ولكن الاسم الفريد سيجعل من السهل التعرف عليه."
+          }
+        }
+      }
+    },
+    "Enter a new name for this snapshot. It must be unique." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل اسما جديدا لهذه اللقطة. يجب أن يكون فريدا."
+          }
+        }
+      }
+    },
+    "Enter the full path to a trusted root certificate" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل المسار الكامل إلى شهادة جذر موثوقة"
+          }
+        }
+      }
+    },
+    "Enter the URL or deep link you want to open" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل الرابط أو الرابط العميق الذي تريد فتحه"
+          }
+        }
+      }
+    },
+    "Erase" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح"
+          }
+        }
+      }
+    },
+    "Fetching simulator list…" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جار الحصول على قائمة المحاكيات"
+          }
+        }
+      }
+    },
+    "Files path:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسار الملفات:"
+          }
+        }
+      }
+    },
+    "Get Logs" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "احصل على السجلات"
+          }
+        }
+      }
+    },
+    "Grant" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "السماح"
+          }
+        }
+      }
+    },
+    "Hex" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمز سداسي"
+          }
+        }
+      }
+    },
+    "Hex String" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النص السداسي"
+          }
+        }
+      }
+    },
+    "Increase Contrast" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زيادة التباين"
+          }
+        }
+      }
+    },
+    "Jitter location" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "موقع الارتعاش"
+          }
+        }
+      }
+    },
+    "Keep window on top" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أبق النافذة في الأعلى"
+          }
+        }
+      }
+    },
+    "Language:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللغة:"
+          }
+        }
+      }
+    },
+    "Launch" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تشغيل"
+          }
+        }
+      }
+    },
+    "Level:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المستوى:"
+          }
+        }
+      }
+    },
+    "Locale:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللغة:"
+          }
+        }
+      }
+    },
+    "Localized" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مترجم"
+          }
+        }
+      }
+    },
+    "Localized arguments" : {
+
+    },
+    "Localized key" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مفتاح مترجم"
+          }
+        }
+      }
+    },
+    "Location" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الموقع"
+          }
+        }
+      }
+    },
+    "Locations" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المواقع"
+          }
+        }
+      }
+    },
+    "Logging:" : {
+
+    },
+    "Mac → Simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ماك ← محاكي"
+          }
+        }
+      }
+    },
+    "Make sure you include a schema, e.g. https:// or yourapp://" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأكد من تضمين مخطط، على سبيل المثال https:// أو yourapp://"
+          }
+        }
+      }
+    },
+    "Mask:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الحدود:"
+          }
+        }
+      }
+    },
+    "Misc" : {
+
+    },
+    "Move the map, paste in coordinates or search for a location, then click Activate to update the simulator to match your centered coordinate." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حرك الخريطة, ألصق إحداثيات أو ابحث عن موقع, ثم اضغط تفعيل لتحديث المحاكي ليوافق إحداثياتك"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاسم"
+          }
+        }
+      }
+    },
+    "Network type:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نوع الشبكة:"
+          }
+        }
+      }
+    },
+    "No saved deep links created yet." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد أي روابط عميقة محفوظة حتى الآن"
+          }
+        }
+      }
+    },
+    "No simulators" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد أي محاكي"
+          }
+        }
+      }
+    },
+    "No snapshots yet" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد لقطات حتى الآن"
+          }
+        }
+      }
+    },
+    "No suggestions found" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم بتم العثور على أي إقتراحات"
+          }
+        }
+      }
+    },
+    "On/Off Labels" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوانين التشغيل و الإيقاف "
+          }
+        }
+      }
+    },
+    "Open" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فتح"
+          }
+        }
+      }
+    },
+    "Open app bundle" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افتح حزمة التطبيق"
+          }
+        }
+      }
+    },
+    "Open data folder" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افتح مجلد البيانات"
+          }
+        }
+      }
+    },
+    "Open Editor" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فتح المحرر"
+          }
+        }
+      }
+    },
+    "Open first app group folder" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افتح مجلد مجموعة التطبيق الأول"
+          }
+        }
+      }
+    },
+    "Open in Finder" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فتح في Finder"
+          }
+        }
+      }
+    },
+    "Open in Terminal" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فتح في Terminal"
+          }
+        }
+      }
+    },
+    "Open URL:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فتح الرابط:"
+          }
+        }
+      }
+    },
+    "Operator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المشغل"
+          }
+        }
+      }
+    },
+    "Overrides" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التعدي"
+          }
+        }
+      }
+    },
+    "Path to Terminal" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المسار في Terminal"
+          }
+        }
+      }
+    },
+    "Permissions:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأذونات:"
+          }
+        }
+      }
+    },
+    "Power" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الطاقة"
+          }
+        }
+      }
+    },
+    "Prefer Cross-Fade Transitions" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفضل التحولات المتقاطعة"
+          }
+        }
+      }
+    },
+    "Previous Colors" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللون السابق"
+          }
+        }
+      }
+    },
+    "Record %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تسجيل %@"
+          }
+        }
+      }
+    },
+    "Reduce Motion" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تقليل الحركة"
+          }
+        }
+      }
+    },
+    "Reduce Transparency" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تقليل الشفافية"
+          }
+        }
+      }
+    },
+    "Regular" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عادي"
+          }
+        }
+      }
+    },
+    "Removes any saved state restoration data, such as @SceneStorage properties used by the app." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يزيل أي بيانات استعادة حالة محفوظة، مثل خصائص @SceneStorage التي يستخدمها التطبيق."
+          }
+        }
+      }
+    },
+    "Rename" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة تسمية"
+          }
+        }
+      }
+    },
+    "Rename Simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة تسمية المحاكي"
+          }
+        }
+      }
+    },
+    "Rename Snapshot" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة تسمية اللقطة"
+          }
+        }
+      }
+    },
+    "Rename..." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة تسمية…"
+          }
+        }
+      }
+    },
+    "Reopen last URL" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فتح آخر رابط"
+          }
+        }
+      }
+    },
+    "Resend last push notification" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة إرسال آخر إشعار"
+          }
+        }
+      }
+    },
+    "Reset" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة ضبط"
+          }
+        }
+      }
+    },
+    "Reset Keychain" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة تعيين سلسلة المفاتيح"
+          }
+        }
+      }
+    },
+    "Restart" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة التشغيل"
+          }
+        }
+      }
+    },
+    "Restart last selected app" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة فتح آخر تطبيق تم اختياره"
+          }
+        }
+      }
+    },
+    "Restore" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إستعادة"
+          }
+        }
+      }
+    },
+    "Restore Snapshot" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استعادة اللقطة"
+          }
+        }
+      }
+    },
+    "Revoke" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء الصلاحية"
+          }
+        }
+      }
+    },
+    "Root certificate:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الشهادة الجذرية:"
+          }
+        }
+      }
+    },
+    "Root path:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المسار الجذري:"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ"
+          }
+        }
+      }
+    },
+    "Save %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ %@"
+          }
+        }
+      }
+    },
+    "Save as %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ كـ %@"
+          }
+        }
+      }
+    },
+    "Save as BMP" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ كـ BMP"
+          }
+        }
+      }
+    },
+    "Save as JPEG" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ كـ JPEG"
+          }
+        }
+      }
+    },
+    "Save as PNG" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ كـ PNG"
+          }
+        }
+      }
+    },
+    "Save as TIFF" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ كـ TIFF"
+          }
+        }
+      }
+    },
+    "Save location" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ الموقع"
+          }
+        }
+      }
+    },
+    "Save to: %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ في: %@"
+          }
+        }
+      }
+    },
+    "Saved deep links" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ الراوبط العميقة"
+          }
+        }
+      }
+    },
+    "Saved Deep Links" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الروابط العميقة المحفوظة"
+          }
+        }
+      }
+    },
+    "Saved Links" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الروابط العميقة المحفوظة"
+          }
+        }
+      }
+    },
+    "Saved locations" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المواقع المحفوظة"
+          }
+        }
+      }
+    },
+    "Screenshot Format:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صيغة لفطات الشاشة"
+          }
+        }
+      }
+    },
+    "Screenshots" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لقطات الشاشة"
+          }
+        }
+      }
+    },
+    "Select a simulator from the list." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر أي محاكي من القائمة."
+          }
+        }
+      }
+    },
+    "Select Color" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر لون"
+          }
+        }
+      }
+    },
+    "Select Templates" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر القوالب"
+          }
+        }
+      }
+    },
+    "Send Push" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أرسل الإشعار"
+          }
+        }
+      }
+    },
+    "Set" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعيين"
+          }
+        }
+      }
+    },
+    "Set Language/Locale" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعيين اللغة"
+          }
+        }
+      }
+    },
+    "Set the maximum number of decimal places to use when generating code for picked simulator colors. The default is 2." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حدد الحد الأقصى لعدد المنازل العشرية لاستخدامها عند إنشاء رمز لألوان المحاكاة المختارة. الافتراضي هو 2."
+          }
+        }
+      }
+    },
+    "Set to 9:41" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعيين على 9:41"
+          }
+        }
+      }
+    },
+    "Shortcuts" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإختصارات"
+          }
+        }
+      }
+    },
+    "Show %@ devices" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أظهر %@ الأجهزة"
+          }
+        }
+      }
+    },
+    "Show booted devices first" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أظهر الأجهزة المفعلة أولًا"
+          }
+        }
+      }
+    },
+    "Show Default simulator" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أظهر المحاكي الغفتراضي"
+          }
+        }
+      }
+    },
+    "Show icon in menu bar" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إظهار الرمز في شريط القوائم"
+          }
+        }
+      }
+    },
+    "Show system apps" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أظهر تطبيقات النظام"
+          }
+        }
+      }
+    },
+    "Shutdown" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إغلاق"
+          }
+        }
+      }
+    },
+    "Simulator → Mac" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محاكي ← ماك"
+          }
+        }
+      }
+    },
+    "Smart Invert" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "العكس الذكي"
+          }
+        }
+      }
+    },
+    "Snapshots" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللقطات"
+          }
+        }
+      }
+    },
+    "Snapshots:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللقطات:"
+          }
+        }
+      }
+    },
+    "Sound" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصوت"
+          }
+        }
+      }
+    },
+    "Status Bar" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شريط الحالة"
+          }
+        }
+      }
+    },
+    "Stop Recording" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إيقاف التسجيل"
+          }
+        }
+      }
+    },
+    "SwiftUI Code" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كود SwiftUI"
+          }
+        }
+      }
+    },
+    "SwiftUI code:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كود SwiftUI:"
+          }
+        }
+      }
+    },
+    "System" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النظام"
+          }
+        }
+      }
+    },
+    "Terminate" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إغلاق بالكامل"
+          }
+        }
+      }
+    },
+    "This is an experimental feature and may not function properly yet." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هذه ميزة تجريبية وقد لا تعمل بشكل صحيح حتى الآن."
+          }
+        }
+      }
+    },
+    "Time:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الوقت:"
+          }
+        }
+      }
+    },
+    "Trigger iCloud Sync" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تشغيل مزامنة iCloud"
+          }
+        }
+      }
+    },
+    "UIKit Code" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كود UIKit"
+          }
+        }
+      }
+    },
+    "UIKit code:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كود UIKit:"
+          }
+        }
+      }
+    },
+    "Uninstall" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء التثبيت"
+          }
+        }
+      }
+    },
+    "Unknown Alert" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيه غير معروف"
+          }
+        }
+      }
+    },
+    "Uppercase Hex Strings" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تكبير الأحرف للرموز السداسية"
+          }
+        }
+      }
+    },
+    "URL" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رابط"
+          }
+        }
+      }
+    },
+    "User info" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معلومات المستخدم"
+          }
+        }
+      }
+    },
+    "Version %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخة %@"
+          }
+        }
+      }
+    },
+    "Version %@ (%@)" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخة %1$@ (%2$@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %1$@ (%2$@)"
+          }
+        }
+      }
+    },
+    "Video Format:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صيغة الفيديو"
+          }
+        }
+      }
+    },
+    "Wi-Fi bars:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أشرطة واي فاي:"
+          }
+        }
+      }
+    },
+    "Wi-Fi mode:" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نوع الوايفاي:"
+          }
+        }
+      }
+    },
+    "Window" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نافذة"
+          }
+        }
+      }
+    },
+    "You can’t undo this action." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يمكنك التراجع عن هذا الإجراء"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
