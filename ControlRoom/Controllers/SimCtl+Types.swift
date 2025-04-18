@@ -51,20 +51,17 @@ extension SimCtl {
 
         var displayName: String {
             switch self {
-            case .default: return "Default"
-            case .testing: return "Testing"
-            case .previews: return "Previews"
+            case .default: "Default"
+            case .testing: "Testing"
+            case .previews: "Previews"
             }
         }
 
         var commands: [String] {
             switch self {
-            case .default:
-                return []
-            case .testing:
-                return ["--set", "testing"]
-            case .previews:
-                return ["--set", "previews"]
+            case .default: []
+            case .testing: ["--set", "testing"]
+            case .previews: ["--set", "previews"]
             }
         }
     }
