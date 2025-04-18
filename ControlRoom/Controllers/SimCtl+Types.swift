@@ -44,10 +44,12 @@ extension SimCtl {
         }
     }
 
-    enum DeviceGroup: String, CaseIterable {
+    enum DeviceGroup: String, CaseIterable, Identifiable {
         case `default`
         case testing
         case previews
+        
+        var id: Self { self }
 
         var displayName: String {
             switch self {

@@ -82,7 +82,7 @@ struct SidebarView: View {
         }
         .toolbar {
             Picker(self.preferences.deviceGroup.rawValue, selection: self.$preferences.deviceGroup) {
-                ForEach(SimCtl.DeviceGroup.allCases, id: \.displayName) { group in
+                ForEach(SimCtl.DeviceGroup.allCases) { group in
                     Text(group.displayName)
                         .tag(group)
                 }
