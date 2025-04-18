@@ -545,6 +545,41 @@ extension SimCtl {
             }
         }
 
+      enum SaveLocation: RawRepresentable {
+        case desktop
+        case other(URL)
+
+        private var desktopURL: URL {
+          FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)[0]
+        }
+
+        init(rawValue: String) {
+          if let url = URL(string: rawValue) {
+            self = .other(url)
+          } else {
+            self = .desktop
+          }
+        }
+
+        var rawValue: String {
+          switch self {
+            case .desktop:
+              return "Desktop"
+          case .other(let url):
+              return url.absoluteString
+          }
+        }
+
+        var url: URL {
+          switch self {
+          case .desktop:
+            return desktopURL
+          case .other(let url):
+            return url
+          }
+        }
+      }
+
         enum ImageFormat: String, CaseIterable {
             case png
             case jpeg

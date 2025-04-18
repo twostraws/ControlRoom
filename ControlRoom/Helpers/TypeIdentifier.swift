@@ -15,6 +15,7 @@ struct TypeIdentifier: Hashable {
     static let phone = TypeIdentifier("com.apple.iphone")
     static let pad = TypeIdentifier("com.apple.ipad")
     static let watch = TypeIdentifier("com.apple.watch")
+    static let vision = TypeIdentifier("com.apple.vision-pro")
 
     // swiftlint:disable:next identifier_name
     static let tv = TypeIdentifier("com.apple.apple-tv")
@@ -24,6 +25,7 @@ struct TypeIdentifier: Hashable {
     static let defaultiPad = TypeIdentifier("com.apple.ipad-pro-12point9-2")
     static let defaultWatch = TypeIdentifier("com.apple.watch-series5-1")
     static let defaultTV = TypeIdentifier("com.apple.apple-tv-4k")
+    static let defaultVision = TypeIdentifier("com.apple.vision-pro")
 
     static func == (lhs: TypeIdentifier, rhs: TypeIdentifier) -> Bool {
         lhs.rawValue == rhs.rawValue

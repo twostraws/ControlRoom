@@ -42,12 +42,21 @@ enum SimCtl: CommandLineCommandExecuter {
     }
 
     static func boot(_ simulator: Simulator) {
-        execute(.boot(simulator: simulator))
+        /// No need to check if Simulator app is already running since no second SImulator app will be spawned
+        SnapshotCtl.startSimulatorApp {
+            /// Wait for a little while Simulator app starts running, then proceed to boot simulator
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                execute(.boot(simulator: simulator))
+            }
+        }
     }
 
-    static func shutdown(_ simulator: String) {
-        execute(.shutdown(.devices([simulator])))
+    static func shutdown(_ simulator: String, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
+        execute(.shutdown(.devices([simulator]))) { result in
+            completion?(result)
+        }
     }
+    
     static func setContentSize(_ simulator: String, contentSize: UI.ContentSizes) {
         execute(.ui(deviceId: simulator, option: .contentSize(contentSize)))
     }
@@ -104,8 +113,17 @@ enum SimCtl: CommandLineCommandExecuter {
         ])))
     }
 
+    static func clearStatusBarOverrides(_ simulator: String) {
+        execute(.statusBar(deviceId: simulator, operation: .clear))
+    }
+
     static func overrideStatusBarTime(_ simulator: String, time: Date) {
-        let timeString = ISO8601DateFormatter().string(from: time)
+        // Use only time for now since ISO8601 parsing is broken since Xcode 15.3
+        // https://stackoverflow.com/a/59071895
+        // let timeString = ISO8601DateFormatter().string(from: time)
+        let timeOnlyFormatter = DateFormatter()
+        timeOnlyFormatter.dateFormat = "hh:mm"
+        let timeString = timeOnlyFormatter.string(from: time)
         execute(.statusBar(deviceId: simulator, operation: .override([.time(timeString)])))
     }
     static func setAppearance(_ simulator: String, appearance: UI.Appearance) {
@@ -155,6 +173,10 @@ enum SimCtl: CommandLineCommandExecuter {
 
     static func delete(_ simulators: Set<String>) {
         execute(.delete(.devices(Array(simulators))))
+        
+        if let simulator = simulators.first {
+            SnapshotCtl.deleteAllSnapshots(deviceId: simulator)
+        }
     }
 
     static func uninstall(_ simulator: String, appID: String) {

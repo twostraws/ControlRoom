@@ -11,7 +11,7 @@ import KeyboardShortcuts
 
 /// Shows one simulator in the sidebar.
 struct SimulatorSidebarView: View {
-    let simulator: Simulator
+    var simulator: Simulator
     let canShowContextualMenu: Bool
 
     @State private var action: Action?
@@ -56,26 +56,27 @@ struct SimulatorSidebarView: View {
                 .padding(.top, 2)
                 .shadow(color: .primary, radius: 1)
             Text(simulatorSummary)
-            Spacer()
         }
+        .frame(alignment: .leading)
         .contextMenu(
             ContextMenu(shouldDisplay: canShowContextualMenu) {
+                Button("\(simulator.state.menuActionName)") { performAction(.power) }
+                    .disabled(!simulator.state.isActionAllowed)
+                Divider()
                 Button("Rename...") { action = .rename }
                 Button("Clone...") { action = .clone }
                     .disabled(simulator.state == .booted)
+                Button("Create snapshot...") { performAction(.createSnapshot) }
                 Button("Delete...") { action = .delete }
+                Divider()
+                Button("Open in Finder") { performAction(.openRoot) }
             }
         )
         .sheet(item: $action) { action in
-            if action == .delete {
-                SimulatorActionSheet(
-                    icon: simulator.image,
-                    message: action.sheetTitle,
-                    informativeText: action.sheetMessage,
-                    confirmationTitle: action.saveActionTitle,
-                    confirm: { performAction(action) }
-                )
-            } else {
+            switch action {
+            case .power, .openRoot, .createSnapshot:
+                EmptyView()
+            case .rename, .clone:
                 SimulatorActionSheet(
                     icon: simulator.image,
                     message: action.sheetTitle,
@@ -87,6 +88,13 @@ struct SimulatorSidebarView: View {
                         TextField("Name", text: $newName)
                     }
                 )
+            case .delete:
+                SimulatorActionSheet(
+                    icon: simulator.image,
+                    message: action.sheetTitle,
+                    informativeText: action.sheetMessage,
+                    confirmationTitle: action.saveActionTitle,
+                    confirm: { performAction(action) })
             }
         }
     }
@@ -97,7 +105,16 @@ struct SimulatorSidebarView: View {
         switch action {
         case .rename: SimCtl.rename(simulator.udid, name: newName)
         case .clone: SimCtl.clone(simulator.udid, name: newName)
+        case .createSnapshot: SnapshotCtl.createSnapshot(deviceId: simulator.udid, snapshotName: UUID().uuidString)
         case .delete: SimCtl.delete([simulator.udid])
+        case .power:
+            if simulator.state == .booted {
+                SimCtl.shutdown(simulator.udid)
+            } else if simulator.state == .shutdown {
+                SimCtl.boot(simulator)
+            }
+        case .openRoot:
+            simulator.open(.root)
         }
     }
 }

@@ -205,7 +205,7 @@ struct SystemView: View {
 	}
 
 	func openInFinder(_ filePath: Simulator.FilePathKind) {
-		NSWorkspace.shared.activateFileViewerSelecting([simulator.urlForFilePath(filePath)])
+		simulator.open(filePath)
 	}
 
 	func openInTerminal(_ filePath: Simulator.FilePathKind) {
@@ -230,8 +230,10 @@ struct SystemView: View {
 
 struct SystemView_Previews: PreviewProvider {
     static var previews: some View {
-        SystemView(simulator: .example)
-            .environmentObject(Preferences())
+		let preferences = Preferences()
+
+		SystemView(simulator: .example)
+			.environmentObject(preferences)
     }
 }
 

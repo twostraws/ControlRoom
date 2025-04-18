@@ -42,6 +42,7 @@ enum CommandLineError: Error {
 }
 
 protocol CommandLineCommand {
+    var command: String? { get }
     var arguments: [String] { get }
     var environmentOverrides: [String: String]? { get }
 }
@@ -51,11 +52,17 @@ protocol CommandLineCommandExecuter {
     static var launchPath: String { get }
 }
 
+extension CommandLineCommand {
+    var command: String? { nil }
+}
+
 extension CommandLineCommandExecuter {
 
     private static func execute(_ command: Command, completion: @escaping (Result<Data, CommandLineError>) -> Void) {
+        let commandToExecute: String = command.command ?? launchPath
+        
         DispatchQueue.global(qos: .userInitiated).async {
-            if let data = Process.execute(launchPath, arguments: command.arguments, environmentOverrides: command.environmentOverrides) {
+            if let data = Process.execute(commandToExecute, arguments: command.arguments, environmentOverrides: command.environmentOverrides) {
                 completion(.success(data))
             } else {
                 completion(.failure(.missingCommand))
@@ -90,6 +97,7 @@ extension CommandLineCommandExecuter {
 
         return publisher
     }
+    
     static func execute(_ command: Command, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
         execute(command, completion: completion ?? { _ in })
     }

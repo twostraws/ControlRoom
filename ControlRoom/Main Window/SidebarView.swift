@@ -64,6 +64,7 @@ struct SidebarView: View {
                 }
                 .buttonStyle(.borderless)
                 .padding(.leading, 3)
+                .help("Show \(preferences.shouldShowOnlyActiveDevices ? "all" : "only active") devices")
 
                 SearchField("Filter", text: $filterText.onChange(controller.filterSimulators), onClear: {})
             }

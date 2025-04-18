@@ -43,32 +43,36 @@ struct NotificationEditorView: View {
             HStack(spacing: 30) {
                 APSFormView(notificationAps: $notificationAps)
 
-                VStack(alignment: .leading) {
-                    Text("Aps")
-                        .font(.headline)
-                        .addingInfoButton(title: "APS", description: "NotificationView.Hints.APS")
+                VStack(spacing: 16) {
+                    VStack(alignment: .leading) {
+                        Text("Aps")
+                            .font(.headline)
 
-                    TextEditor(text: .constant(notificationAps.json))
-                        .font(.system(.body, design: .monospaced))
-                        .disableAutocorrection(true)
-                        .frame(height: 200)
-                        .scrollContentBackground(.hidden)
-                        .padding(5)
-                        .background(.quaternary)
-                        .border(.tertiary, width: 1)
+                        TextEditor(text: .constant(notificationAps.json))
+                            .font(.system(.body, design: .monospaced))
+                            .disableAutocorrection(true)
+                            .frame(height: 200)
+                            .scrollContentBackground(.hidden)
+                            .padding(5)
+                            .background(.quaternary)
+                            .border(.tertiary, width: 1)
+                    }
+                    .help("NotificationView.Hints.APS".localizedHint)
 
-                    Text("User info")
-                        .font(.headline)
-                        .addingInfoButton(title: "User info", description: "NotificationView.Hints.UserInfo")
+                    VStack(alignment: .leading) {
+                        Text("User info")
+                            .font(.headline)
 
-                    TextEditor(text: $userInfo)
-                        .font(.system(.body, design: .monospaced))
-                        .disableAutocorrection(true)
-                        .frame(height: 200)
-                        .scrollContentBackground(.hidden)
-                        .padding(5)
-                        .background(.quaternary)
-                        .border(.tertiary, width: 1)
+                        TextEditor(text: $userInfo)
+                            .font(.system(.body, design: .monospaced))
+                            .disableAutocorrection(true)
+                            .frame(height: 200)
+                            .scrollContentBackground(.hidden)
+                            .padding(5)
+                            .background(.quaternary)
+                            .border(.tertiary, width: 1)
+                    }
+                    .help("NotificationView.Hints.UserInfo".localizedHint)
 
                     Spacer()
                 }
@@ -255,10 +259,10 @@ private struct LocalizedFieldView: View {
 
             HStack(spacing: 10) {
                 TextField("Localized key", text: $value)
-                    .addingInfoButton(title: "Localized key", description: valueDescription)
+                    .help(valueDescription.localizedHint)
 
                 TextField("Localized arguments", text: $arguments)
-                    .addingInfoButton(title: "Localized key", description: argumentsDescription)
+                    .help(argumentsDescription.localizedHint)
             }
         }
     }
@@ -274,8 +278,8 @@ private struct FieldView: View {
             Text(title)
 
             TextField(title, text: $value)
-                .addingInfoButton(title: title, description: description)
         }
+        .help(description.localizedHint)
     }
 }
 
@@ -285,10 +289,8 @@ private struct ToggleFieldView: View {
     @Binding var value: Bool
 
     var body: some View {
-        HStack {
-            Toggle(isOn: $value, label: { Text(title) })
-        }
-        .addingInfoButton(title: title, description: description)
+        Toggle(isOn: $value, label: { Text(title) })
+            .help(description.localizedHint)
     }
 }
 
@@ -313,39 +315,12 @@ private struct SliderFieldView: View {
             Slider(value: $value, label: { Text(title) })
             Text(sliderDisplayValue)
         }
+        .help(description.localizedHint)
         .disabled(!isEnabled)
-        .addingInfoButton(title: title, description: description)
     }
 
     var sliderDisplayValue: String {
         Self.numberFormatter.string(for: value) ?? ""
-    }
-}
-
-private extension View {
-    func addingInfoButton(title: String, description: String) -> some View {
-        modifier(InfoButtonModifier(title: title,
-                                    description: description.localizedHint))
-    }
-}
-
-private struct InfoButtonModifier: ViewModifier {
-    let title: String
-    let description: String
-
-    @State private var shouldShowDescription = false
-
-    func body(content: Content) -> some View {
-        HStack {
-            content
-
-            Button("?") {
-                shouldShowDescription = true
-            }
-        }
-        .alert(isPresented: $shouldShowDescription) {
-            Alert(title: Text(title), message: Text(description))
-        }
     }
 }
 
