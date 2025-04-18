@@ -85,17 +85,16 @@ class SimulatorsController: ObservableObject {
             }
             .store(in: &cancellables)
 
-        preferences.objectDidChange
+        preferences.objectWillChange
+            .filter { preferences.deviceGroup != SimCtl.Command.group }
             .sink { [weak self] in
-                self?.filterSimulators()
+                self?.loadSimulators()
             }
             .store(in: &cancellables)
 
-        preferences.objectWillChange
+        preferences.objectDidChange
             .sink { [weak self] in
-                if preferences.deviceGroup != SimCtl.Command.group {
-                    self?.loadSimulators()
-                }
+                self?.filterSimulators()
             }
             .store(in: &cancellables)
     }
