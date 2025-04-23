@@ -9,9 +9,9 @@
 import Foundation
 
 struct URLFileAttribute {
-    private(set) var folderSize: Int? = nil
-    private(set) var creationDate: Date? = nil
-    private(set) var modificationDate: Date? = nil
+    private(set) var folderSize: Int?
+    private(set) var creationDate: Date?
+    private(set) var modificationDate: Date?
 
     init(url: URL) {
         let path = url.path
