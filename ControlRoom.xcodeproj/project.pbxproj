@@ -181,7 +181,8 @@
 		55DF68BC23F8C76800E717D3 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		5FA79DA82A5752A9006F5477 /* XcodeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeHelper.swift; sourceTree = "<group>"; };
 		70BE435923F54B7200FD6282 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
-		7C40DEFB2DBA7581004C24BB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		7C2F128A2DC3B586004E4912 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		7C40DEF22DB93D9F004C24BB /* .editorconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
 		AC472CCE240D46D7007FF521 /* KeyedEncodingContainer-NotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedEncodingContainer-NotEmpty.swift"; sourceTree = "<group>"; };
 		AC472CFA240D5F22007FF521 /* NotificationEditorView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = NotificationEditorView.strings; sourceTree = "<group>"; };
 		ACCD798B240ADEE20004ECE5 /* NotificationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEditorView.swift; sourceTree = "<group>"; };
@@ -229,7 +230,8 @@
 				B07F584F23F9F83800256D5D /* ControlRoomTests */,
 				511BA57A23F3FFEA00E3E660 /* Products */,
 				555A145823F70A5100313BC5 /* Frameworks */,
-				7C40DEFB2DBA7581004C24BB /* .swiftlint.yml */,
+				7C40DEF22DB93D9F004C24BB /* .editorconfig */,
+				7C2F128A2DC3B586004E4912 /* .swiftlint.yml */,
 			);
 			sourceTree = "<group>";
 		};

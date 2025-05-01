@@ -558,7 +558,7 @@ extension SimCtl {
 
         var rawValue: String {
           switch self {
-            case .desktop:
+          case .desktop:
               return "Desktop"
           case .other(let url):
               return url.absoluteString

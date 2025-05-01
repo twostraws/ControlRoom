@@ -56,7 +56,7 @@ enum SimCtl: CommandLineCommandExecuter {
             completion?(result)
         }
     }
-    
+
     static func setContentSize(_ simulator: String, contentSize: UI.ContentSizes) {
         execute(.ui(deviceId: simulator, option: .contentSize(contentSize)))
     }
@@ -173,7 +173,7 @@ enum SimCtl: CommandLineCommandExecuter {
 
     static func delete(_ simulators: Set<String>) {
         execute(.delete(.devices(Array(simulators))))
-        
+
         if let simulator = simulators.first {
             SnapshotCtl.deleteAllSnapshots(deviceId: simulator)
         }
