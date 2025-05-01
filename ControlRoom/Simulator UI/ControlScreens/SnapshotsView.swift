@@ -6,17 +6,16 @@
 //  Copyright © 2024 Paul Hudson. All rights reserved.
 //
 
-
 import SwiftUI
 
 struct SnapshotsView: View {
 	let simulator: Simulator
 	@ObservedObject var controller: SimulatorsController
-    
+
     @State private var snapshotAction: SnapshotAction?
     @State private var newName: String
     @State private var selectedSnapshotName: String
-    
+
     init(simulator: Simulator, controller: SimulatorsController) {
         self.simulator = simulator
         self.controller = controller
@@ -34,9 +33,9 @@ struct SnapshotsView: View {
 						LabeledContent("Snapshots:") {
 							VStack(alignment: .leading, spacing: 5) {
                                 ForEach(controller.snapshots.sorted(by: { $0.creationDate > $1.creationDate }), id: \.id) { snapshot in
-                                    
+
                                     let folderSize = Measurement(value: Double(snapshot.size), unit: UnitInformationStorage.bytes)
-                                                                        
+
 									HStack {
                                         Button {
                                             restore(snapshot: snapshot.id)
@@ -52,7 +51,7 @@ struct SnapshotsView: View {
 
                                         Text(snapshot.id)
                                             .fontWeight(.semibold)
-                                        
+
                                         Group {
                                             Text(snapshot.creationDate.formatted(date: .numeric, time: .standard))
                                             Text(formatter.string(from: folderSize.converted(to: .gigabytes)))
@@ -65,7 +64,7 @@ struct SnapshotsView: View {
                                         } label: {
                                             Label("Delete", systemImage: "trash")
                                         }
-                                        
+
                                         Spacer()
 									}
 								}
@@ -117,7 +116,7 @@ struct SnapshotsView: View {
         newName = snapshot
         snapshotAction = .rename
     }
-    
+
     private func delete(snapshot: String) {
         selectedSnapshotName = snapshot
         snapshotAction = .delete
@@ -135,7 +134,7 @@ struct SnapshotsView: View {
         case .restore: SnapshotCtl.restoreSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName)
         }
     }
-        
+
 	func placeholder() {}
 
 }

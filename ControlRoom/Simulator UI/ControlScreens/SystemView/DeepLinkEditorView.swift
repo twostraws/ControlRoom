@@ -26,7 +26,7 @@ struct DeepLinkEditorView: View {
 
     /// Whether we are currently showing the alert to let the user add a new deep link.
     @State private var showingAddAlert = false
-    
+
     /// Whether we are currently showing the sheet to let the user edit an existing deep link.
     @State private var showingEditSheet = false
 
@@ -47,7 +47,7 @@ struct DeepLinkEditorView: View {
                     TableColumn("URL", value: \.url.absoluteString)
                 }
                 .contextMenu(forSelectionType: DeepLink.ID.self) { _ in
-                    
+
                 } primaryAction: { _ in
                     showingEditSheet.toggle()
                 }
@@ -57,22 +57,22 @@ struct DeepLinkEditorView: View {
                 Button("Add New") {
                     showingAddAlert.toggle()
                 }
-                
+
                 Button("Edit") {
                     showingEditSheet.toggle()
                 }
                 .disabled(selection == nil)
-                
+
                 Button("Duplicate") {
                     duplicateSelected()
                 }
                 .disabled(selection == nil)
-                
+
                 Button("Delete") {
                     deleteSelected()
                 }
                 .disabled(selection == nil)
-                
+
                 Spacer()
                 Button("Done") { dismiss() }
             }
@@ -108,7 +108,7 @@ struct DeepLinkEditorView: View {
         deepLinks.delete(selection)
         selection = nil
     }
-    
+
     func duplicateSelected() {
         if let link = deepLinks.link(selection) {
             deepLinks.create(name: link.name + " (copy)", url: link.url.absoluteString)
@@ -124,24 +124,24 @@ private extension DeepLinkEditorView {
         @Binding var deepLink: DeepLink.ID?
         @State private var name: String = ""
         @State private var url: String = ""
-        
+
         var body: some View {
             VStack {
                 Text("Edit Deep Link")
                     .font(.title)
-                
+
                 TextField("Name", text: $name)
                 TextField("URL", text: $url)
-                
+
                 HStack {
                     Spacer()
-                    
+
                     Button("Cancel", role: .cancel) {
                         dismiss()
                     }
                     .focusable()
                     .keyboardShortcut(.escape)
-                    
+
                     Button("Save") {
                         deepLinks.edit(deepLink, name: name, url: url)
                         dismiss()

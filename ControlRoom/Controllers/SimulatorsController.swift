@@ -35,7 +35,7 @@ class SimulatorsController: ObservableObject {
 
     /// An array of all the applications installed on the selected simulator.
     @Published var applications = [Application]()
-    
+
     /// An array of all the snapshots of the selected simulator.
     @Published var snapshots = [Snapshot]()
 
@@ -138,7 +138,7 @@ class SimulatorsController: ObservableObject {
                                     dataPath: device.dataPath ?? "")
                 final.append(sim)
             }
-            
+
             if let device = devices.first {
                 SnapshotCtl.configureDevicesPath(dataPath: device.dataPath)
             }
@@ -211,18 +211,18 @@ class SimulatorsController: ObservableObject {
             .assign(to: \.applications, on: self)
             .store(in: &cancellables)
     }
-    
+
     private func loadSnapshots() {
         guard
             let selectedDeviceUDID = selectedSimulatorIDs.first
             else { return }
-        
+
         DispatchQueue.main.async {
             self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
         }
 
         timer?.invalidate()
-        
+
         timer = .init(timeInterval: 5, repeats: true) { _ in
             DispatchQueue.main.async {
                 self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
@@ -231,12 +231,12 @@ class SimulatorsController: ObservableObject {
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let timer = self?.timer else { return }
-            
+
             let runLoop = RunLoop.current
             runLoop.add(timer, forMode: .default)
             runLoop.run()
         }
 
     }
-    
+
 }

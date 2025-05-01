@@ -29,10 +29,10 @@ struct URLFileAttribute {
             let value = dictionary[FileAttributeKey.modificationDate] as? Date {
             self.modificationDate = value
         }
-        
+
         folderSize = getFolderSize(url: url)
     }
-    
+
     private func getFolderSize(url: URL) -> Int {
         guard let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.fileSizeKey]) else { return 0 }
         var size: Int = 0
@@ -46,4 +46,3 @@ struct URLFileAttribute {
     }
 
 }
-
