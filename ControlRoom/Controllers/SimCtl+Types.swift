@@ -33,7 +33,7 @@ extension SimCtl {
             case .visionPro: return "Apple Vision Pro"
             }
         }
-        
+
         var snapshotUnavailableIcon: String {
             switch self {
             case .iPad, .iPhone: return "iphone.slash"

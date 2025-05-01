@@ -69,7 +69,7 @@ struct PickersFormView: View {
           }
         }
     }
-    
+
     private func updateChromeSettings() {
         if renderChrome {
             captureSettings.mask = .alpha
