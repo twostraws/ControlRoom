@@ -15,10 +15,4 @@ struct Snapshot: Equatable, Hashable, Identifiable {
     static func == (lhs: Snapshot, rhs: Snapshot) -> Bool {
         lhs.id == rhs.id
     }
-
-    init(id: String, creationDate: Date, size: Int) {
-        self.id = id
-        self.creationDate = creationDate
-        self.size = size
-    }
 }
