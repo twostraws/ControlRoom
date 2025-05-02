@@ -7,3 +7,7 @@ line_length:
   error: 250
 identifier_name:
   allowed_symbols: "_"
+
+disabled_rules:
+  - non_optional_string_data_conversion
+  - optional_data_string_conversion
