@@ -218,7 +218,7 @@ struct SystemView: View {
 
 		let launchSpec = LSLaunchURLSpec(appURL: unmanagedTerminalUrl, itemURLs: unmanagedFolderUrl, passThruParams: nil, launchFlags: [], asyncRefCon: nil)
 
-		withUnsafePointer(to: launchSpec) { (pointer: UnsafePointer<LSLaunchURLSpec>) -> Void in
+		_ = withUnsafePointer(to: launchSpec) { (pointer: UnsafePointer<LSLaunchURLSpec>) in
 			LSOpenFromURLSpec(pointer, nil)
 		}
 	}
