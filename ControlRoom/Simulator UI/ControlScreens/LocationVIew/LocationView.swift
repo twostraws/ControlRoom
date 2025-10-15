@@ -14,8 +14,8 @@ import CoreLocation
 struct LocationView: View {
     @ObservedObject var controller: SimulatorsController
     let simulator: Simulator
-    static let DEFAULT_LAT = 37.323056
-    static let DEFAULT_LNG = -122.031944
+    static let defaultLat = 37.323056
+    static let defaultLong = -122.031944
 
     /// Saved locations controller.
     @StateObject private var locationsController = LocationsController()
@@ -40,10 +40,10 @@ struct LocationView: View {
     /// Keeps track of which search item is being currently hovered over
     @State private var lastHoverId: UUID?
 
-    @State private var latitudeText = "\(DEFAULT_LAT)"
-    @State private var longitudeText = "\(DEFAULT_LNG)"
+    @State private var latitudeText = "\(defaultLat)"
+    @State private var longitudeText = "\(defaultLong)"
     /// The location that is being simulated
-    @State private var currentLocation = Location(id: UUID(), name: "", latitude: DEFAULT_LAT, longitude: DEFAULT_LNG)
+    @State private var currentLocation = Location(id: UUID(), name: "", latitude: defaultLat, longitude: defaultLong)
     @State private var pinnedLocation: CLLocationCoordinate2D?
 
     /// A randomly generated location offset from the currentLocation.
