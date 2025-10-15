@@ -19,7 +19,6 @@ extension SimCtl {
     enum DeviceFamily: CaseIterable {
         case iPhone
         case iPad
-        // swiftlint:disable:next identifier_name
         case tv
         case watch
         case visionPro
