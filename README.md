@@ -31,6 +31,8 @@ Control Room is packed with features to help you develop apps more effectively, 
 - Overriding dark or light mode, language, accessibility options, and Dynamic Type content size.
 - Picking a custom user location from anywhere in the world.
 - Starting, stopping, installing, and removing apps.
+- Resetting iOS simulator PosterBoard state to recover from wallpaper crashes.
+- Replacing Stripes and other Collections wallpaper artwork with an image, with a template picker and Restore Original.
 - Sending test push notifications or triggering deep links.
 - Selecting colors from the simulator, converting them to UIKit or SwiftUI code, or even dragging directly into your asset catalog.
 

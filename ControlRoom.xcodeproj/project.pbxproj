@@ -94,6 +94,10 @@
 		C9C203ED2B17FEA80081E1EF /* LocalSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C203EC2B17FEA80081E1EF /* LocalSearchRowView.swift */; };
 		E04B47322B07B66F00DAE338 /* LocationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B47312B07B66F00DAE338 /* LocationsController.swift */; };
 		E04B47342B07B72C00DAE338 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B47332B07B72C00DAE338 /* Location.swift */; };
+		CE01920261019000000000010 /* PosterBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01920261019000000000000 /* PosterBoardController.swift */; };
+		CE01920261019000000000011 /* PosterBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01920261019000000000001 /* PosterBoardView.swift */; };
+		9AABE0F726EF43318916684D /* PosterBoardArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E532BC1C9BDC44BD94D254DF /* PosterBoardArtwork.swift */; };
+		4B86C454B2DE496D8C080990 /* PosterBoardSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F4016BC0FC499691C339A1 /* PosterBoardSelection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +206,10 @@
 		C9C203EC2B17FEA80081E1EF /* LocalSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchRowView.swift; sourceTree = "<group>"; };
 		E04B47312B07B66F00DAE338 /* LocationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsController.swift; sourceTree = "<group>"; };
 		E04B47332B07B72C00DAE338 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		CE01920261019000000000000 /* PosterBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterBoardController.swift; sourceTree = "<group>"; };
+		CE01920261019000000000001 /* PosterBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterBoardView.swift; sourceTree = "<group>"; };
+		E532BC1C9BDC44BD94D254DF /* PosterBoardArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterBoardArtwork.swift; sourceTree = "<group>"; };
+		A0F4016BC0FC499691C339A1 /* PosterBoardSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterBoardSelection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				511BA59B23F4172400E3E660 /* SystemView.swift */,
+				CE01920261019000000000001 /* PosterBoardView.swift */,
 				51AB56E42A13D3F6002B5A67 /* DeepLinkEditorView.swift */,
 			);
 			path = SystemView;
@@ -440,6 +449,9 @@
 				5523A7E023F99D7200F25EEC /* Preferences.swift */,
 				ACCD798D240AE82C0004ECE5 /* PushNotification.swift */,
 				551F8CFD23F5C9EF0006D1BD /* SimCtl.swift */,
+				A0F4016BC0FC499691C339A1 /* PosterBoardSelection.swift */,
+				E532BC1C9BDC44BD94D254DF /* PosterBoardArtwork.swift */,
+				CE01920261019000000000000 /* PosterBoardController.swift */,
 				B07F584823F99A1700256D5D /* SimCtl+SubCommands.swift */,
 				551F8CFF23F5CB3A0006D1BD /* SimCtl+Types.swift */,
 				511BA59723F4096800E3E660 /* Simulator.swift */,
@@ -664,6 +676,10 @@
 				551F8CED23F489A50006D1BD /* SidebarView.swift in Sources */,
 				551F8CEF23F48B030006D1BD /* SplitLayoutView.swift in Sources */,
 				551F8CFE23F5C9EF0006D1BD /* SimCtl.swift in Sources */,
+				4B86C454B2DE496D8C080990 /* PosterBoardSelection.swift in Sources */,
+				9AABE0F726EF43318916684D /* PosterBoardArtwork.swift in Sources */,
+				CE01920261019000000000011 /* PosterBoardView.swift in Sources */,
+				CE01920261019000000000010 /* PosterBoardController.swift in Sources */,
 				E04B47322B07B66F00DAE338 /* LocationsController.swift in Sources */,
 				54C2092B27DBDE2200E47016 /* DocumentPickerConfig.swift in Sources */,
 				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
