@@ -1826,6 +1826,16 @@
         }
       }
     },
+    "Show Slow Animations" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أظهر رسوم متحركة بطيئة"
+          }
+        }
+      }
+    },
     "Show system apps" : {
       "localizations" : {
         "ar" : {

@@ -25,6 +25,7 @@ struct OverridesView: View {
 
     @State private var enhanceTextLegibility = false
     @State private var showButtonShapes = false
+    @State private var showSlowAnimations = false
     @State private var showOnOffLabels = false
     @State private var reduceTransparency = false
     @State private var increaseContrast = false
@@ -95,6 +96,7 @@ struct OverridesView: View {
 
                     Toggle("Bold Text", isOn: $enhanceTextLegibility.onChange(setEnhanceTextLegibility))
                     Toggle("Button Shapes", isOn: $showButtonShapes.onChange(setShowButtonShapes))
+                    Toggle("Show Slow Animations", isOn: $showSlowAnimations.onChange(setSlowAnimations))
                     Toggle("On/Off Labels", isOn: $showOnOffLabels.onChange(setShowOnOffLabels))
                     Toggle("Reduce Transparency", isOn: $reduceTransparency.onChange(setReduceTransparency))
                     Toggle("Increase Contrast", isOn: $increaseContrast.onChange(setIncreaseContrast))
@@ -139,6 +141,18 @@ struct OverridesView: View {
     /// Update Content Size.
     func updateContentSize() {
         SimCtl.setContentSize(simulator.udid, contentSize: contentSize)
+    }
+
+    func sendDarvinNotification(key: String, value: Bool) {
+        // Slow animations are toggled via a Darwin notification state inside the simulator:
+        // set the state with `notifyutil -s`, then post it with `-p` so running apps pick it up.
+        let name = "com.apple.UIKit." + key
+        _ = Process.execute("/usr/bin/xcrun", arguments: ["simctl", "spawn", simulator.id, "notifyutil", "-s", name, value ? "1" : "0"])
+        _ = Process.execute("/usr/bin/xcrun", arguments: ["simctl", "spawn", simulator.id, "notifyutil", "-p", name])
+    }
+
+    func setSlowAnimations() {
+        sendDarvinNotification(key: "SimulatorSlowMotionAnimationState", value: showSlowAnimations)
     }
 
     // Updates the simulator's accessibility setting for a particular key.
