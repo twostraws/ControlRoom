@@ -207,6 +207,15 @@
         }
       }
     },
+    "Apply Image" : {
+
+    },
+    "Apply Image…" : {
+
+    },
+    "Apply Wallpaper Image?" : {
+
+    },
     "Aps" : {
       "localizations" : {
         "ar" : {
@@ -377,6 +386,9 @@
         }
       }
     },
+    "Choose a wallpaper template and replace its artwork with an image, bypassing the photo wallpaper editor." : {
+
+    },
     "Choose the device type and operating system for the new simulator" : {
       "localizations" : {
         "ar" : {
@@ -446,6 +458,9 @@
           }
         }
       }
+    },
+    "Color templates are not supported. Choose Stripes or another Collections template instead." : {
+
     },
     "Colors" : {
       "localizations" : {
@@ -927,6 +942,9 @@
         }
       }
     },
+    "Gallery templates create a separate image wallpaper. Saved wallpapers keep their clock settings. The simulator restarts. Editing in iOS can restore Apple’s artwork; apply the image again if needed." : {
+
+    },
     "Get Logs" : {
       "localizations" : {
         "ar" : {
@@ -1113,6 +1131,9 @@
         }
       }
     },
+    "Method:" : {
+
+    },
     "Misc" : {
 
     },
@@ -1185,6 +1206,9 @@
           }
         }
       }
+    },
+    "OK" : {
+
     },
     "On/Off Labels" : {
       "localizations" : {
@@ -1316,6 +1340,12 @@
         }
       }
     },
+    "PosterBoard" : {
+
+    },
+    "PosterBoard:" : {
+
+    },
     "Power" : {
       "localizations" : {
         "ar" : {
@@ -1375,6 +1405,9 @@
           }
         }
       }
+    },
+    "Refresh" : {
+
     },
     "Regular" : {
       "localizations" : {
@@ -1476,6 +1509,15 @@
         }
       }
     },
+    "Reset PosterBoard" : {
+
+    },
+    "Reset PosterBoard?" : {
+
+    },
+    "Reset PosterBoard…" : {
+
+    },
     "Restart" : {
       "localizations" : {
         "ar" : {
@@ -1505,6 +1547,9 @@
           }
         }
       }
+    },
+    "Restore Original" : {
+
     },
     "Restore Snapshot" : {
       "localizations" : {
@@ -1966,6 +2011,9 @@
         }
       }
     },
+    "This applies the image on %@. Gallery templates create a separate wallpaper; saved wallpapers are modified and support Restore Original. A running simulator restarts." : {
+
+    },
     "This is an experimental feature and may not function properly yet." : {
       "localizations" : {
         "ar" : {
@@ -1975,6 +2023,9 @@
           }
         }
       }
+    },
+    "This removes every saved Lock Screen and StandBy layout on %@. The simulator will restart if it is running. App data and Photos are kept. No backup is retained." : {
+
     },
     "Time:" : {
       "localizations" : {
@@ -2101,6 +2152,9 @@
           }
         }
       }
+    },
+    "Wallpaper:" : {
+
     },
     "Wi-Fi bars:" : {
       "localizations" : {

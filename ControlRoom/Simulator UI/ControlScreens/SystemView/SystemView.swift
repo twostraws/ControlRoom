@@ -106,6 +106,9 @@ struct SystemView: View {
                 Spacer()
                     .frame(height: 40)
 
+                PosterBoardView(simulator: simulator)
+                    .id(simulator.udid)
+
                 LabeledContent("Data:") {
                     HStack {
                         Button("Trigger iCloud Sync", action: triggerSync)
