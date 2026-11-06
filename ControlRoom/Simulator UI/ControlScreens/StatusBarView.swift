@@ -38,6 +38,8 @@ struct StatusBarView: View {
     /// The current battery state of the device; must be "Charging", "Charged", or "Discharging"
     /// Note: "Charged" looks the same as "Discharging", so it's not included in this screen.
     @State private var batteryState: SimCtl.StatusBar.BatteryState = .charged
+    
+    @State private var carrierSelection: SimCtl.StatusBar.Carrier = .jio
 
     var body: some View {
         ScrollView {
@@ -56,7 +58,14 @@ struct StatusBarView: View {
                     .frame(height: 40)
 
                 Section {
-                    TextField("Operator", text: $carrierName, onCommit: updateCellularData)
+                    
+                    Picker("Carrier", selection: $carrierSelection.onChange(updateCellularData)) {
+                        ForEach(SimCtl.StatusBar.Carrier.allCases, id:\.self) { carreir in
+                            Text(carreir.rawValue)
+                            .tag(carreir)
+                            }
+                        }
+                    .pickerStyle(.menu)
 
                     Picker("Network type:", selection: $dataNetwork.onChange(updateWiFiData)) {
                         ForEach(SimCtl.StatusBar.DataNetwork.allCases, id: \.self) { network in
@@ -182,7 +191,7 @@ struct StatusBarView: View {
 			simulator.udid,
 			cellMode: cellularMode,
 			cellBars: cellularBar,
-			carrier: carrierName
+            carrier: carrierSelection
 		)
     }
 
