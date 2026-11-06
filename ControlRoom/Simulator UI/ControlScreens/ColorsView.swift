@@ -134,7 +134,7 @@ struct ColorsView: View {
         }
         .padding()
         .tabItem {
-            Text("Colors")
+            Label("Colors", systemImage: "paintpalette")
         }
     }
 

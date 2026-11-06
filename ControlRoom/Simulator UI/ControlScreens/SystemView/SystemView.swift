@@ -139,7 +139,7 @@ struct SystemView: View {
             .padding()
         }
         .tabItem {
-            Text("System")
+            Label("System", systemImage: "gear")
         }
         .onAppear {
             isLoggingEnabled = UserDefaults.standard.bool(forKey: "\(simulator.udid).logging")
