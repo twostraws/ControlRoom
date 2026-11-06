@@ -131,7 +131,7 @@ struct StatusBarView: View {
             .padding()
         }
         .tabItem {
-            Text("Status Bar")
+            Label("Status Bar", systemImage: "bolt.badge.clock")
         }
     }
 
