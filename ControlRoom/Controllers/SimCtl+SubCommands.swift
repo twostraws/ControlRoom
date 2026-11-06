@@ -730,6 +730,34 @@ extension SimCtl {
             case ltePlus = "lte+"
         }
 
+        enum Carrier: String, CaseIterable {
+            case airtel = "Airtel"
+            case att = "AT&T"
+            case au = "au"
+            case bell = "Bell"
+            case bsnl = "BSNL"
+            case bouygues = "Bouygues"
+            case ee = "EE"
+            case free = "Free"
+            case jio = "Jio"
+            case ntt = "NTT Docomo"
+            case o2 = "O2"
+            case optus = "Optus"
+            case orange = "Orange"
+            case rakuten = "Rakuten"
+            case rogers = "Rogers"
+            case sfr = "SFR"
+            case softbank = "SoftBank"
+            case telstra = "Telstra"
+            case telus = "Telus"
+            case telekom = "Telekom"
+            case three = "Three"
+            case tmobile = "T-Mobile"
+            case verizon = "Verizon"
+            case vodafone = "Vodafone"
+            case vodafoneIdea = "Vodafone Idea"
+        }
+
         enum WifiMode: String, CaseIterable {
             case searching
             case failed

@@ -104,12 +104,12 @@ enum SimCtl: CommandLineCommandExecuter {
         _ simulator: String,
         cellMode: StatusBar.CellularMode,
         cellBars: StatusBar.CellularBars,
-        carrier: String
+        carrier: StatusBar.Carrier
     ) {
         execute(.statusBar(deviceId: simulator, operation: .override([
             .cellularMode(cellMode),
             .cellularBars(cellBars),
-            .operatorName(carrier)
+            .operatorName(carrier.rawValue)
         ])))
     }
 
