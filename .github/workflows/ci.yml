@@ -5,11 +5,11 @@ on: [pull_request]
 jobs:
   build:
     name: 'Build and test: Debug'
-    runs-on: macos-13
+    runs-on: macos-15
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: Selected Xcode version 
         run: |
           xcode-select -p
