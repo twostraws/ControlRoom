@@ -83,7 +83,7 @@ struct SnapshotsView: View {
 			}
 		}
         .tabItem {
-            Text("Snapshots")
+            Label("Snapshots", systemImage: "camera")
         }
         .sheet(item: $snapshotAction) { action in
             switch action {

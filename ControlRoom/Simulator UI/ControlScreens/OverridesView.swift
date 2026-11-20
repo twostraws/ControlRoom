@@ -112,7 +112,7 @@ struct OverridesView: View {
             .padding()
         }
         .tabItem {
-            Text("Overrides")
+            Label("Overrides", systemImage: "switch.2")
         }
     }
 

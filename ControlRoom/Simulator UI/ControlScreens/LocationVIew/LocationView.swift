@@ -158,7 +158,7 @@ struct LocationView: View {
             }
         }
         .tabItem {
-            Text("Location")
+            Label("Location", systemImage: "location.fill")
         }
         .padding()
         .onReceive(jitterTimer) { _ in

@@ -101,5 +101,6 @@ struct ControlView_Previews: PreviewProvider {
                     simulator: .example,
                     applications: [])
             .environmentObject(Preferences())
+            .environmentObject(DeepLinksController())
     }
 }
