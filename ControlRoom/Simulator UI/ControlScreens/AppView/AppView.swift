@@ -143,7 +143,7 @@ struct AppView: View {
             .padding()
         }
         .tabItem {
-            Label("App", systemImage: "plus.app")
+            Label("App", systemImage: "app")
         }
         .alert(isPresented: $shouldShowUninstallConfirmationAlert) {
             Alert(title: Text("Are you sure you want to permanently delete \(selectedApplication.displayName)"),
